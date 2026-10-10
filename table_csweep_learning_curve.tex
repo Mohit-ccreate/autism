@@ -1,0 +1,20 @@
+\begin{table}[h]
+\centering
+\caption{Regularization C-Sweep and Sample Size Learning Curve on Deduplicated Adult Cohort ($N = 667$).}
+\label{tab:csweep_learning_curve}
+\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{lc|lc}
+\toprule
+\multicolumn{2}{c|}{\textbf{Logistic Regression C-Sweep}} & \multicolumn{2}{c}{\textbf{Sample Size Learning Curve}} \\
+\textbf{Inverse Reg. $C$} & \textbf{Accuracy (\%)} & \textbf{Training $N$ (Frac)} & \textbf{Accuracy (\%)} \\
+\midrule
+$C = 0.001$ & 73.73 $\pm$ 0.12 & $N = 53$ (10\,\%) & 94.00 $\pm$ 3.07 \\
+$C = 0.01$ & 80.66 $\pm$ 2.39 & $N = 106$ (20\,\%) & 95.01 $\pm$ 2.50 \\
+$C = 0.1$ & 95.97 $\pm$ 2.08 & $N = 213$ (40\,\%) & 96.96 $\pm$ 1.70 \\
+$C = 1.0$ & 99.96 $\pm$ 0.18 & $N = 319$ (60\,\%) & 98.86 $\pm$ 1.13 \\
+$C = 10.0$ & 100.00 $\pm$ 0.00 & $N = 426$ (80\,\%) & 99.70 $\pm$ 0.71 \\
+$C = 100.0$ & 100.00 $\pm$ 0.00 & $N = 533$ (100\,\%) & 99.96 $\pm$ 0.18 \\
+\bottomrule
+\end{tabular}
+\end{table}

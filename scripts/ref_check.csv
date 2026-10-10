@@ -1,0 +1,37 @@
+Key,Source_URL,Status
+maenner2023,https://doi.org/10.15585/mmwr.ss7202a1,CONFIRMED (MMWR 72(2):1-14)
+allison2012,https://doi.org/10.1016/j.jaac.2011.11.003,CONFIRMED (JAACAP 51(2):202-212)
+thabtah2018ijmi,https://doi.org/10.1016/j.ijmedinf.2018.06.009,"CONFIRMED (IJMI 117:112-124; authors Fadi Thabtah, Firuz Kamalov, Khairan Rajab)"
+uci_adult,https://doi.org/10.24432/C5F019,CONFIRMED (UCI ML Repository #426)
+uci_adolescent,https://doi.org/10.24432/C5V89T,CONFIRMED (UCI ML Repository #420)
+uci_child,https://doi.org/10.24432/C5659W,CONFIRMED (UCI ML Repository #419)
+thabtah2018toddler,https://www.kaggle.com/datasets/fabdelja/autism-screening-for-toddlers,CONFIRMED (Kaggle Q-CHAT-10)
+raj2020,https://doi.org/10.1016/j.procs.2020.03.399,CONFIRMED (Procedia CS 167:994-1004; authors Suman Raj and Sarfaraz Masood)
+di2014,https://doi.org/10.1038/mp.2013.78,"CONFIRMED (Mol Psychiatry 19(6):659-667; author {Di Martino}, Adriana)"
+craddock2012,https://doi.org/10.1002/hbm.21333,CONFIRMED (Hum Brain Mapp 33(8):1914-1928)
+craddock2013pcp,http://preprocessed-connectomes-project.org/abide/,CONFIRMED (PCP ABIDE I release)
+heinsfeld2018,https://doi.org/10.1016/j.nicl.2017.08.017,CONFIRMED (NeuroImage: Clinical 17:16-23)
+parisot2018,https://doi.org/10.1016/j.media.2018.06.001,CONFIRMED (Med Image Anal 48:117-130)
+kan2022bnt,https://proceedings.neurips.cc/paper_files/paper/2022/hash/a481c97a5a8f793b8d6fc3a7bfad3d9c-Abstract-Conference.html,"CONFIRMED (NeurIPS 35:25586-25599; authors Xuan Kan, Daiqing Qi, Hejie Cui, Ying Guo, Carl Yang)"
+eslami2019,https://doi.org/10.3389/fninf.2019.00070,CONFIRMED (Front Neuroinform 13:70)
+abraham2017,https://doi.org/10.1016/j.neuroimage.2016.10.045,CONFIRMED (NeuroImage 147:736-745)
+johnson2007combat,https://doi.org/10.1093/biostatistics/kxj037,CONFIRMED (Biostatistics 8(1):118-127)
+angelopoulos2023,https://doi.org/10.1561/2200000101,CONFIRMED (Found Trends ML 16(4):494-591)
+vovk2005,https://doi.org/10.1007/b106715,CONFIRMED (Springer 2005)
+guo2017,https://proceedings.mlr.press/v70/guo17a.html,"CONFIRMED (ICML 2017, pp. 1321-1330)"
+brier1950,https://doi.org/10.1175/1520-0493(1950)078<0001:VOFEIT>2.0.CO;2,CONFIRMED (Mon Weather Rev 78(1):1-3)
+hinton2015,https://arxiv.org/abs/1503.02531,CONFIRMED (NIPS 2015 Workshop)
+chen2016xgboost,https://doi.org/10.1145/2939672.2939785,"CONFIRMED (KDD 2016, pp. 785-794)"
+ke2017lightgbm,https://proceedings.neurips.cc/paper/2017/hash/6449f44a102fde848669bdd9eb6b76fa-Abstract.html,CONFIRMED (NeurIPS 30:3146-3154)
+prokhorenkova2018catboost,https://proceedings.neurips.cc/paper/2018/hash/14491b756b3a51daac41c24863285549-Abstract.html,CONFIRMED (NeurIPS 31:6638-6648)
+wolpert1992,https://doi.org/10.1016/S0893-6080(05)80023-1,CONFIRMED (Neural Netw 5(2):241-259)
+lord2012ados,https://www.wpspublish.com/ados-2-autism-diagnostic-observation-schedule-second-edition,CONFIRMED (WPS 2012)
+power2014methods,https://doi.org/10.1016/j.neuroimage.2013.08.048,CONFIRMED (NeuroImage 84:320-341)
+thabtah2019,"N/A (DOI was 10.1016/j.ijmedinf.2019.04.020, which belongs to Tandan et al. UTI study)",DELETED (Unconfirmed/Fabricated DOI)
+zablotsky2020,N/A (No paper with title 'Examination of Age at Diagnosis' in MCHJ 2020),DELETED (Unconfirmed/Fabricated)
+addm2025,https://www.cdc.gov/mmwr/volumes/74/ss/ss7402a1.htm,DELETED (Retained confirmed official maenner2023)
+thomas2020,N/A,DELETED (Uncited)
+sun2016coral,N/A,DELETED (Uncited)
+rieke2020,N/A,DELETED (Uncited)
+lai2014,N/A,DELETED (Uncited)
+onnxruntime2023,https://onnxruntime.ai,DELETED (Edge benchmark claims removed per E1)

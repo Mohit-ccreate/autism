@@ -1,0 +1,681 @@
+Case_No,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,Age_Mons,leakage_score,sex,Ethnicity,jaundice,family_asd,Who completed the test,target,age,age_group
+924,1,0,0,1,0,1,1,1,1,0,36,6,1,White European,1,0,family member,1,3.0,toddler
+1022,0,1,1,1,1,1,1,1,0,0,12,7,1,White European,0,0,family member,1,1.0,toddler
+264,1,0,1,1,0,1,0,0,0,0,30,4,1,middle eastern,0,0,family member,1,2.5,toddler
+212,1,1,0,0,1,1,1,1,1,0,36,7,1,asian,0,0,family member,1,3.0,toddler
+804,1,0,1,1,1,1,1,1,1,1,13,9,1,black,1,1,family member,1,1.0833333333333333,toddler
+261,1,1,1,0,0,1,1,0,1,1,33,7,0,mixed,0,0,family member,1,2.75,toddler
+182,0,0,0,1,0,0,0,0,0,0,30,1,1,south asian,1,0,family member,0,2.5,toddler
+557,1,1,0,1,0,0,1,0,1,1,22,6,1,White European,0,1,family member,1,1.8333333333333333,toddler
+97,1,0,1,1,1,1,1,0,1,1,24,8,0,asian,0,0,family member,1,2.0,toddler
+392,1,1,0,0,0,0,1,1,0,1,36,5,1,asian,0,0,family member,1,3.0,toddler
+312,1,0,0,0,1,1,1,0,1,0,32,5,0,asian,1,0,family member,1,2.6666666666666665,toddler
+373,0,0,1,1,1,0,1,0,1,0,35,5,1,middle eastern,1,0,family member,1,2.9166666666666665,toddler
+744,0,1,1,1,1,1,1,1,0,1,36,8,0,White European,0,0,Self,1,3.0,toddler
+12,1,1,1,1,0,1,1,1,0,1,17,8,1,middle eastern,1,0,family member,1,1.4166666666666667,toddler
+770,0,0,1,1,1,0,1,0,0,0,31,4,1,White European,1,0,family member,1,2.5833333333333335,toddler
+449,1,1,0,0,1,1,1,0,0,1,36,6,1,White European,1,0,family member,1,3.0,toddler
+25,1,1,1,1,1,1,1,1,1,0,22,9,1,White European,0,0,family member,1,1.8333333333333333,toddler
+954,1,0,0,0,1,1,0,1,0,1,35,5,0,asian,0,0,family member,1,2.9166666666666665,toddler
+710,0,0,1,1,1,0,1,1,1,0,15,6,1,White European,1,0,family member,1,1.25,toddler
+189,0,1,0,0,0,0,0,0,0,1,31,2,1,White European,1,0,family member,0,2.5833333333333335,toddler
+577,1,0,1,0,1,1,0,0,1,0,24,5,1,White European,0,0,family member,1,2.0,toddler
+560,1,1,1,1,1,1,1,1,1,1,31,10,1,White European,1,1,family member,1,2.5833333333333335,toddler
+115,1,1,0,0,1,1,1,0,1,1,30,7,1,White European,1,1,family member,1,2.5,toddler
+729,1,1,0,1,1,1,1,1,1,0,25,8,1,White European,0,0,family member,1,2.0833333333333335,toddler
+1016,0,0,1,1,0,0,1,0,1,0,24,4,1,Latino,0,0,family member,1,2.0,toddler
+311,0,0,0,0,1,1,1,1,1,1,36,6,1,White European,0,0,family member,1,3.0,toddler
+1043,1,1,1,1,0,0,1,1,1,1,30,8,1,Hispanic,1,0,family member,1,2.5,toddler
+906,0,0,0,1,0,1,1,1,1,1,26,6,1,black,0,0,family member,1,2.1666666666666665,toddler
+424,0,0,0,1,1,0,0,1,0,0,36,3,1,asian,0,0,family member,0,3.0,toddler
+716,0,0,0,0,0,0,0,0,0,1,15,1,1,asian,0,0,family member,0,1.25,toddler
+861,1,1,1,1,1,1,1,1,1,1,16,10,1,White European,0,0,family member,1,1.3333333333333333,toddler
+63,1,1,0,0,1,1,1,1,1,1,36,8,1,White European,1,0,family member,1,3.0,toddler
+724,1,1,0,0,0,1,1,1,0,1,23,6,1,White European,1,1,family member,1,1.9166666666666667,toddler
+127,0,0,0,0,0,0,0,0,0,1,25,1,0,White European,0,0,family member,0,2.0833333333333335,toddler
+361,0,0,0,1,1,1,1,0,0,0,34,4,1,black,1,0,family member,1,2.8333333333333335,toddler
+684,1,0,0,0,1,1,1,1,1,1,36,7,1,White European,0,0,Health Care Professional,1,3.0,toddler
+313,1,1,1,1,1,1,1,1,1,1,26,10,1,asian,0,0,family member,1,2.1666666666666665,toddler
+572,1,0,0,0,0,0,1,0,0,1,16,3,1,White European,0,0,family member,0,1.3333333333333333,toddler
+875,0,0,1,1,0,0,0,1,1,0,31,4,1,south asian,0,0,family member,1,2.5833333333333335,toddler
+794,1,1,1,1,1,1,1,0,1,1,15,9,1,mixed,0,0,family member,1,1.25,toddler
+940,1,0,1,0,0,0,0,0,0,1,20,3,1,middle eastern,0,0,family member,0,1.6666666666666667,toddler
+397,0,1,1,0,0,1,0,0,1,1,20,5,1,black,0,1,family member,1,1.6666666666666667,toddler
+436,1,0,0,0,0,0,1,0,0,1,36,3,1,asian,0,0,family member,0,3.0,toddler
+209,0,1,0,1,0,1,0,0,0,0,15,3,1,middle eastern,1,0,family member,0,1.25,toddler
+467,0,0,0,0,0,0,1,0,0,1,25,2,1,asian,0,0,family member,0,2.0833333333333335,toddler
+413,1,1,1,0,0,1,1,0,0,1,36,6,1,White European,0,0,family member,1,3.0,toddler
+404,1,1,1,1,1,1,0,1,1,1,24,9,0,south asian,0,0,family member,1,2.0,toddler
+284,1,1,1,1,1,1,1,0,1,1,36,9,0,White European,1,0,family member,1,3.0,toddler
+363,1,0,1,1,1,0,0,0,1,0,32,5,0,Hispanic,0,1,family member,1,2.6666666666666665,toddler
+430,0,0,0,0,0,0,1,0,0,1,12,2,1,south asian,1,0,family member,0,1.0,toddler
+668,1,1,1,1,1,0,1,1,0,0,24,7,1,Others,0,0,family member,1,2.0,toddler
+281,1,1,1,1,1,1,1,1,1,1,28,10,1,White European,0,0,family member,1,2.3333333333333335,toddler
+1017,0,1,0,0,1,0,1,1,0,1,36,5,1,Hispanic,0,0,family member,1,3.0,toddler
+73,1,1,1,1,1,1,1,1,1,1,21,10,0,White European,0,0,family member,1,1.75,toddler
+814,1,1,1,1,1,1,1,1,1,0,29,9,1,asian,0,0,family member,1,2.4166666666666665,toddler
+174,0,1,0,0,0,0,0,0,0,1,36,2,0,White European,1,1,family member,0,3.0,toddler
+604,1,1,1,1,1,1,1,1,1,1,27,10,1,White European,1,0,family member,1,2.25,toddler
+622,1,1,1,1,0,1,1,0,1,1,36,8,1,White European,1,0,family member,1,3.0,toddler
+325,1,1,0,0,1,0,1,0,0,0,31,4,1,White European,1,0,family member,1,2.5833333333333335,toddler
+745,1,1,1,1,1,1,1,0,1,1,31,9,1,White European,0,0,family member,1,2.5833333333333335,toddler
+210,0,0,0,0,1,0,0,0,0,1,36,2,1,south asian,0,0,family member,0,3.0,toddler
+177,0,0,1,0,1,0,0,0,0,1,33,3,1,asian,0,1,family member,0,2.75,toddler
+824,1,1,0,0,0,0,1,0,1,1,36,5,0,White European,0,1,family member,1,3.0,toddler
+498,1,1,1,1,1,0,1,1,1,0,32,8,1,black,0,0,family member,1,2.6666666666666665,toddler
+671,1,1,0,0,0,0,1,0,0,1,26,4,0,middle eastern,0,0,family member,1,2.1666666666666665,toddler
+328,0,1,1,1,1,1,0,1,1,0,12,7,1,black,1,0,family member,1,1.0,toddler
+151,0,0,0,0,0,0,0,1,0,1,36,2,0,asian,0,0,Health care professional,0,3.0,toddler
+476,0,0,1,1,0,0,0,0,0,0,17,2,1,asian,0,0,family member,0,1.4166666666666667,toddler
+895,0,0,0,0,1,1,1,1,0,1,30,5,1,Latino,1,0,family member,1,2.5,toddler
+607,0,0,0,1,0,0,1,0,1,0,36,3,1,asian,0,0,family member,0,3.0,toddler
+130,1,1,0,1,1,1,1,0,0,1,36,7,1,middle eastern,0,0,family member,1,3.0,toddler
+344,1,1,1,1,1,0,1,1,1,1,12,9,1,asian,0,0,family member,1,1.0,toddler
+563,0,0,0,1,1,1,1,0,1,1,36,6,1,asian,0,0,family member,1,3.0,toddler
+128,0,0,0,0,0,0,0,0,0,1,36,1,1,middle eastern,0,0,family member,0,3.0,toddler
+942,1,0,0,0,0,0,0,0,0,1,12,2,1,White European,0,0,family member,0,1.0,toddler
+889,0,1,1,0,1,0,0,0,0,0,34,3,0,black,1,0,family member,0,2.8333333333333335,toddler
+381,1,0,0,0,0,1,1,0,0,1,30,4,1,Hispanic,0,0,family member,1,2.5,toddler
+514,1,0,0,0,1,1,1,0,0,0,36,4,1,asian,0,0,family member,1,3.0,toddler
+315,0,0,1,0,1,1,1,1,1,0,26,6,1,asian,0,0,family member,1,2.1666666666666665,toddler
+376,0,0,0,1,1,0,1,0,0,1,30,4,1,asian,0,0,Health Care Professional,1,2.5,toddler
+734,1,1,0,1,1,0,1,1,1,0,36,7,1,middle eastern,0,0,family member,1,3.0,toddler
+387,1,1,0,0,1,1,0,1,1,1,26,7,1,White European,1,1,family member,1,2.1666666666666665,toddler
+422,0,0,0,1,0,1,1,1,1,0,30,5,1,asian,0,0,family member,1,2.5,toddler
+91,0,0,0,0,0,0,0,0,0,1,34,1,1,asian,0,0,family member,0,2.8333333333333335,toddler
+279,0,0,0,0,0,0,0,0,0,1,25,1,1,White European,1,0,family member,0,2.0833333333333335,toddler
+409,0,0,0,1,0,0,1,1,0,1,33,4,1,White European,1,0,family member,1,2.75,toddler
+774,1,0,0,0,0,1,1,0,0,1,26,4,0,Others,0,0,family member,1,2.1666666666666665,toddler
+327,1,0,0,1,0,1,0,0,0,0,29,3,0,middle eastern,0,0,family member,0,2.4166666666666665,toddler
+94,0,0,0,0,0,0,0,1,0,0,36,1,0,Others,1,1,family member,0,3.0,toddler
+191,1,0,0,0,1,1,1,0,0,1,24,5,1,White European,0,1,family member,1,2.0,toddler
+988,1,1,1,1,1,1,1,0,1,1,30,9,0,middle eastern,0,0,family member,1,2.5,toddler
+733,1,1,0,1,0,1,1,0,0,1,28,6,1,White European,0,0,family member,1,2.3333333333333335,toddler
+118,1,1,1,1,1,1,1,1,1,1,29,10,1,White European,0,0,family member,1,2.4166666666666665,toddler
+853,1,1,0,1,1,0,1,1,1,0,18,7,1,black,1,1,family member,1,1.5,toddler
+307,0,0,0,0,1,1,1,0,1,1,33,5,1,White European,1,0,family member,1,2.75,toddler
+869,1,1,1,1,0,0,1,1,0,1,36,7,0,mixed,1,0,family member,1,3.0,toddler
+831,0,0,1,1,1,0,0,1,0,0,35,4,1,asian,0,0,family member,1,2.9166666666666665,toddler
+651,0,0,1,1,0,1,0,0,0,1,24,4,1,asian,0,0,family member,1,2.0,toddler
+618,1,0,0,1,1,1,1,1,1,1,28,8,1,asian,0,0,family member,1,2.3333333333333335,toddler
+489,1,0,0,0,1,1,1,1,1,0,36,6,1,Hispanic,0,0,family member,1,3.0,toddler
+471,1,1,1,1,0,1,1,1,1,1,36,9,0,White European,1,0,family member,1,3.0,toddler
+451,0,0,1,1,1,1,1,1,1,1,24,8,0,White European,0,0,family member,1,2.0,toddler
+695,0,0,1,1,1,1,1,1,1,1,33,8,1,White European,0,0,family member,1,2.75,toddler
+542,1,1,0,0,1,0,1,0,0,1,25,5,1,middle eastern,1,0,family member,1,2.0833333333333335,toddler
+629,0,0,0,0,0,0,1,1,0,1,36,3,0,asian,0,0,family member,0,3.0,toddler
+288,0,0,1,1,1,1,1,0,1,1,23,7,1,south asian,0,1,family member,1,1.9166666666666667,toddler
+318,0,1,0,1,0,1,1,1,1,1,16,7,1,middle eastern,1,1,family member,1,1.3333333333333333,toddler
+159,0,1,1,1,0,1,0,1,0,1,36,6,1,asian,0,0,family member,1,3.0,toddler
+455,0,0,0,0,0,0,0,0,0,0,35,0,1,asian,0,0,family member,0,2.9166666666666665,toddler
+81,0,1,0,0,0,0,0,0,0,1,30,2,1,middle eastern,0,0,family member,0,2.5,toddler
+273,1,0,1,0,0,1,0,0,0,0,36,3,1,asian,0,1,family member,0,3.0,toddler
+1034,0,0,0,0,0,1,0,0,0,1,16,2,1,south asian,1,1,Health Care Professional,0,1.3333333333333333,toddler
+815,0,0,0,0,0,0,0,0,0,0,25,0,1,asian,0,0,family member,0,2.0833333333333335,toddler
+142,1,1,0,1,1,0,1,0,1,1,24,7,1,middle eastern,0,0,family member,1,2.0,toddler
+1000,0,1,1,1,0,1,0,0,0,0,23,4,0,Pacifica,1,0,family member,1,1.9166666666666667,toddler
+224,1,1,1,1,1,1,1,1,1,0,21,9,1,middle eastern,1,0,family member,1,1.75,toddler
+145,0,0,0,0,1,1,1,0,0,0,26,3,0,middle eastern,1,0,family member,0,2.1666666666666665,toddler
+429,0,0,1,1,0,0,1,0,1,0,26,4,1,south asian,1,0,family member,1,2.1666666666666665,toddler
+386,0,0,0,1,0,1,1,0,0,1,28,4,0,middle eastern,0,0,family member,1,2.3333333333333335,toddler
+553,1,0,0,0,1,1,1,0,1,1,36,6,1,asian,0,0,family member,1,3.0,toddler
+702,0,0,0,0,0,0,0,0,1,1,26,2,0,White European,1,0,family member,0,2.1666666666666665,toddler
+984,1,1,1,1,1,1,1,1,1,1,34,10,0,White European,0,0,family member,1,2.8333333333333335,toddler
+74,0,0,0,0,0,0,0,1,0,0,30,1,1,middle eastern,0,0,family member,0,2.5,toddler
+250,0,0,0,0,1,1,0,0,0,0,26,2,1,asian,0,0,family member,0,2.1666666666666665,toddler
+56,0,0,1,1,0,1,1,0,1,1,36,6,0,White European,0,0,family member,1,3.0,toddler
+415,1,1,0,0,0,0,0,1,0,1,33,4,1,asian,0,0,Health Care Professional,1,2.75,toddler
+603,0,0,0,1,0,0,1,1,0,0,36,3,1,Hispanic,0,0,family member,0,3.0,toddler
+506,0,1,1,0,0,0,0,1,0,1,36,4,1,south asian,0,0,family member,1,3.0,toddler
+247,1,0,0,1,1,1,0,0,1,1,36,6,1,asian,0,0,family member,1,3.0,toddler
+458,1,0,0,0,0,1,0,0,0,0,36,2,1,asian,0,1,family member,0,3.0,toddler
+641,0,0,0,0,1,0,0,1,1,1,36,4,1,middle eastern,0,0,family member,1,3.0,toddler
+22,1,0,1,1,1,1,1,0,1,0,36,7,1,middle eastern,0,0,family member,1,3.0,toddler
+156,1,1,0,1,1,1,1,1,1,1,36,9,1,middle eastern,0,0,family member,1,3.0,toddler
+100,0,0,0,0,0,0,0,0,0,1,31,1,0,Others,0,0,family member,0,2.5833333333333335,toddler
+359,1,1,1,1,1,1,1,1,1,1,36,10,1,White European,0,0,Health Care Professional,1,3.0,toddler
+941,1,0,0,0,0,0,0,0,0,0,12,1,1,White European,0,0,family member,0,1.0,toddler
+661,1,1,1,1,1,1,1,0,1,1,22,9,1,asian,0,0,family member,1,1.8333333333333333,toddler
+632,0,0,0,1,1,1,1,0,0,0,36,4,1,asian,0,0,family member,1,3.0,toddler
+594,0,0,0,0,0,0,1,0,0,1,36,2,0,Latino,0,0,family member,0,3.0,toddler
+791,1,0,0,0,0,1,1,0,0,1,31,4,0,White European,0,1,family member,1,2.5833333333333335,toddler
+64,0,0,1,1,1,1,1,0,0,0,30,5,1,White European,0,0,family member,1,2.5,toddler
+460,0,0,0,1,0,0,1,0,1,1,15,4,0,middle eastern,1,0,family member,1,1.25,toddler
+543,1,1,0,0,0,0,1,0,0,1,25,4,1,middle eastern,0,0,family member,1,2.0833333333333335,toddler
+529,1,1,1,0,1,1,1,1,0,0,31,7,0,asian,0,0,family member,1,2.5833333333333335,toddler
+358,1,1,0,1,1,1,1,0,1,0,14,7,1,asian,0,0,family member,1,1.1666666666666667,toddler
+877,1,1,1,1,1,1,1,1,1,1,30,10,0,Others,0,0,family member,1,2.5,toddler
+925,1,0,0,1,0,1,1,0,1,0,36,5,1,Others,1,0,family member,1,3.0,toddler
+541,1,1,0,0,0,0,1,0,0,1,36,4,1,Hispanic,0,0,family member,1,3.0,toddler
+31,0,0,0,0,0,0,0,0,0,0,18,0,0,middle eastern,0,0,family member,0,1.5,toddler
+205,1,1,1,1,0,1,1,1,0,0,36,7,1,Latino,1,0,family member,1,3.0,toddler
+955,1,0,0,0,1,0,0,0,0,0,18,2,1,black,0,0,family member,0,1.5,toddler
+762,1,1,0,0,1,0,1,1,1,1,36,7,1,White European,0,0,family member,1,3.0,toddler
+797,1,1,1,1,1,1,1,1,1,1,36,10,0,middle eastern,1,0,family member,1,3.0,toddler
+133,0,0,0,0,0,0,0,0,0,0,33,0,0,south asian,1,0,family member,0,2.75,toddler
+38,0,0,0,0,0,0,0,0,0,0,15,0,0,middle eastern,0,0,family member,0,1.25,toddler
+827,1,0,0,0,0,0,1,0,0,0,25,2,0,asian,0,0,family member,0,2.0833333333333335,toddler
+30,0,0,0,0,0,0,0,0,0,0,32,0,1,middle eastern,1,0,family member,0,2.6666666666666665,toddler
+347,1,1,0,0,1,0,1,1,0,0,36,5,1,black,1,0,family member,1,3.0,toddler
+520,1,1,1,0,1,1,1,1,0,1,22,8,1,asian,0,0,family member,1,1.8333333333333333,toddler
+67,0,0,0,0,1,0,1,1,0,1,36,4,0,middle eastern,1,0,family member,1,3.0,toddler
+865,1,0,0,0,1,0,0,0,0,1,12,3,1,middle eastern,1,0,family member,0,1.0,toddler
+782,0,0,1,1,0,0,1,0,0,1,36,4,0,asian,1,0,family member,1,3.0,toddler
+143,1,1,0,0,0,1,0,1,0,1,36,5,0,White European,0,0,family member,1,3.0,toddler
+222,0,0,0,0,0,0,0,0,0,1,28,1,1,middle eastern,0,0,family member,0,2.3333333333333335,toddler
+181,0,1,0,1,0,1,1,1,0,0,12,5,0,White European,0,0,family member,1,1.0,toddler
+227,1,1,0,1,0,0,1,1,1,1,13,7,1,black,1,1,family member,1,1.0833333333333333,toddler
+634,1,0,0,1,1,0,0,0,0,1,24,4,1,asian,1,0,family member,1,2.0,toddler
+229,1,1,0,1,1,1,1,1,1,1,22,9,0,asian,0,0,family member,1,1.8333333333333333,toddler
+244,0,0,0,0,0,0,0,0,0,1,19,1,0,middle eastern,0,0,family member,0,1.5833333333333333,toddler
+321,0,0,0,0,0,0,0,0,0,0,21,0,1,asian,0,1,family member,0,1.75,toddler
+66,1,1,1,1,1,1,1,0,1,1,12,9,0,White European,0,1,family member,1,1.0,toddler
+51,0,0,0,0,0,0,0,0,0,1,12,1,1,middle eastern,0,0,family member,0,1.0,toddler
+470,1,1,0,1,0,0,1,0,0,0,36,4,1,White European,0,0,family member,1,3.0,toddler
+464,0,0,1,0,0,1,1,1,1,1,24,6,1,Hispanic,0,1,family member,1,2.0,toddler
+141,1,1,1,1,1,1,1,1,1,0,23,9,1,south asian,0,0,family member,1,1.9166666666666667,toddler
+219,0,1,0,1,1,1,1,1,0,1,22,7,1,black,0,0,family member,1,1.8333333333333333,toddler
+253,0,0,0,1,1,1,1,1,1,1,36,7,1,White European,0,0,family member,1,3.0,toddler
+195,1,0,0,1,0,1,0,0,0,0,36,3,1,middle eastern,0,0,Health Care Professional,0,3.0,toddler
+17,0,0,0,0,0,0,0,0,0,0,36,0,1,middle eastern,0,1,family member,0,3.0,toddler
+345,0,1,0,0,1,1,1,1,1,0,36,6,1,asian,0,0,family member,1,3.0,toddler
+930,0,0,1,1,1,0,0,0,1,0,12,4,1,White European,0,0,family member,1,1.0,toddler
+602,0,0,0,0,1,0,1,1,0,0,36,3,1,Hispanic,0,0,family member,0,3.0,toddler
+484,1,0,0,0,0,1,1,1,1,1,30,6,0,asian,0,0,family member,1,2.5,toddler
+213,0,1,0,0,1,1,1,1,1,1,36,7,0,middle eastern,0,0,family member,1,3.0,toddler
+551,1,1,0,0,0,1,0,1,0,1,36,5,1,White European,0,1,family member,1,3.0,toddler
+400,1,0,0,1,1,1,1,0,1,1,24,7,0,south asian,0,0,family member,1,2.0,toddler
+342,1,1,0,0,1,1,0,1,1,1,36,7,0,White European,0,0,family member,1,3.0,toddler
+472,1,0,0,0,0,0,0,0,0,0,36,1,1,asian,0,1,family member,0,3.0,toddler
+185,1,0,1,1,1,1,1,1,1,1,35,9,1,asian,0,0,family member,1,2.9166666666666665,toddler
+86,0,0,0,1,1,1,0,0,1,1,23,5,1,White European,1,1,family member,1,1.9166666666666667,toddler
+193,1,1,0,0,0,0,1,0,0,1,27,4,0,south asian,0,0,family member,1,2.25,toddler
+689,1,0,1,0,1,0,1,1,0,1,24,6,1,White European,0,0,family member,1,2.0,toddler
+766,1,0,1,0,0,0,1,1,1,0,27,5,1,asian,0,0,family member,1,2.25,toddler
+544,1,1,1,1,1,1,1,1,1,1,24,10,0,black,0,0,family member,1,2.0,toddler
+84,1,0,1,1,0,1,1,1,1,0,30,7,1,asian,0,0,family member,1,2.5,toddler
+593,1,0,0,0,0,1,0,1,1,1,36,5,1,asian,0,0,family member,1,3.0,toddler
+16,1,1,1,0,1,0,1,1,0,1,12,7,1,black,0,0,family member,1,1.0,toddler
+21,1,0,0,1,1,1,1,1,1,0,36,7,1,middle eastern,0,0,family member,1,3.0,toddler
+155,1,1,0,1,0,0,1,0,0,1,33,5,1,asian,0,0,family member,1,2.75,toddler
+719,1,1,0,0,0,0,0,0,0,0,17,2,1,asian,0,0,family member,0,1.4166666666666667,toddler
+748,1,0,1,1,1,1,1,0,1,1,36,8,1,middle eastern,0,0,family member,1,3.0,toddler
+619,1,1,0,1,1,1,1,1,1,0,28,8,1,asian,0,0,family member,1,2.3333333333333335,toddler
+295,0,1,0,0,1,1,1,0,0,1,12,5,0,Hispanic,1,1,family member,1,1.0,toddler
+1047,0,1,0,1,1,1,1,1,1,0,24,7,0,middle eastern,0,0,family member,1,2.0,toddler
+578,1,0,1,1,1,1,0,0,1,0,24,6,1,White European,0,0,family member,1,2.0,toddler
+275,1,1,0,1,1,1,1,0,1,1,32,8,1,asian,1,0,family member,1,2.6666666666666665,toddler
+548,0,0,0,0,1,1,1,0,1,1,35,5,1,asian,1,0,family member,1,2.9166666666666665,toddler
+135,1,1,0,0,1,0,0,1,0,0,33,4,0,south asian,1,1,family member,1,2.75,toddler
+217,0,0,0,0,0,1,0,0,1,1,13,3,0,middle eastern,0,0,family member,0,1.0833333333333333,toddler
+7,1,0,0,1,1,1,0,0,1,0,33,5,1,asian,1,0,family member,1,2.75,toddler
+979,1,0,1,1,1,1,0,1,1,0,30,7,1,White European,1,0,family member,1,2.5,toddler
+725,0,0,0,0,0,0,1,0,0,1,23,2,1,White European,1,1,family member,0,1.9166666666666667,toddler
+132,1,0,1,1,1,0,0,1,1,1,20,7,1,asian,0,0,family member,1,1.6666666666666667,toddler
+647,0,1,0,0,1,1,1,1,0,1,29,6,1,White European,1,0,family member,1,2.4166666666666665,toddler
+33,0,0,0,0,0,0,0,0,0,1,15,1,0,middle eastern,0,0,Health care professional,0,1.25,toddler
+446,1,0,0,0,1,0,1,0,0,0,36,3,1,White European,0,0,family member,0,3.0,toddler
+819,1,1,1,1,1,1,1,1,1,0,19,9,1,middle eastern,0,0,Health Care Professional,1,1.5833333333333333,toddler
+354,1,0,1,1,1,1,0,1,0,0,34,6,1,asian,0,0,family member,1,2.8333333333333335,toddler
+519,1,1,1,1,1,1,1,1,1,1,26,10,0,Latino,0,0,family member,1,2.1666666666666665,toddler
+486,1,1,0,1,0,1,1,1,1,0,26,7,1,Hispanic,0,1,family member,1,2.1666666666666665,toddler
+403,1,1,0,1,1,1,1,0,1,0,24,7,0,south asian,0,0,family member,1,2.0,toddler
+655,0,0,1,1,1,1,1,0,0,1,22,6,0,White European,0,1,family member,1,1.8333333333333333,toddler
+784,0,0,0,0,0,0,1,1,0,1,36,3,1,White European,0,0,family member,0,3.0,toddler
+334,1,0,0,0,0,1,1,1,0,1,36,5,0,White European,1,0,family member,1,3.0,toddler
+616,0,0,0,0,1,1,1,1,1,0,20,5,0,asian,0,0,Health care professional,1,1.6666666666666667,toddler
+65,0,0,1,1,0,0,0,0,1,0,36,3,1,middle eastern,1,1,family member,0,3.0,toddler
+418,1,0,0,0,1,1,1,1,0,0,30,5,0,asian,0,0,family member,1,2.5,toddler
+530,1,1,0,1,1,1,1,1,1,0,17,8,1,asian,0,0,family member,1,1.4166666666666667,toddler
+228,1,0,0,1,1,0,1,1,1,1,20,7,0,middle eastern,0,0,family member,1,1.6666666666666667,toddler
+370,1,1,0,1,0,1,1,0,0,1,27,6,0,south asian,0,0,family member,1,2.25,toddler
+914,0,0,0,0,0,0,0,0,1,0,24,1,1,asian,0,0,family member,0,2.0,toddler
+973,0,0,0,1,0,0,0,0,0,0,24,1,1,White European,0,0,family member,0,2.0,toddler
+644,0,0,0,1,0,1,1,0,0,0,25,3,0,asian,0,0,family member,0,2.0833333333333335,toddler
+28,1,1,1,1,1,1,1,1,1,1,35,10,1,Others,1,0,family member,1,2.9166666666666665,toddler
+1036,1,0,0,1,0,1,1,1,0,0,18,5,1,Others,1,0,family member,1,1.5,toddler
+408,1,0,1,0,1,1,0,1,1,0,36,6,1,asian,0,0,family member,1,3.0,toddler
+750,1,0,0,0,1,1,1,0,1,0,26,5,1,asian,0,0,family member,1,2.1666666666666665,toddler
+105,1,1,0,0,0,1,0,0,0,1,31,4,0,middle eastern,1,0,family member,1,2.5833333333333335,toddler
+627,1,0,0,0,0,0,1,0,0,1,22,3,0,White European,1,0,family member,0,1.8333333333333333,toddler
+798,1,0,0,0,0,0,1,0,0,1,27,3,1,White European,0,0,family member,0,2.25,toddler
+539,1,1,0,1,1,1,1,0,0,1,34,7,1,Others,0,0,family member,1,2.8333333333333335,toddler
+134,1,0,0,0,1,0,0,0,0,0,33,2,0,south asian,1,0,family member,0,2.75,toddler
+158,0,0,1,1,1,1,0,1,1,0,28,6,1,middle eastern,0,0,family member,1,2.3333333333333335,toddler
+255,1,1,1,1,1,1,1,1,0,1,31,9,1,White European,0,0,family member,1,2.5833333333333335,toddler
+600,1,0,1,0,1,1,1,0,0,1,26,6,1,asian,0,0,family member,1,2.1666666666666665,toddler
+157,1,1,1,1,1,1,1,0,1,1,24,9,0,White European,0,1,family member,1,2.0,toddler
+337,0,0,0,1,0,0,0,1,0,0,36,2,1,asian,0,0,family member,0,3.0,toddler
+1,0,0,0,0,0,0,1,1,0,1,28,3,0,middle eastern,1,0,family member,0,2.3333333333333335,toddler
+292,1,0,0,1,1,0,1,0,1,1,20,6,1,middle eastern,0,0,family member,1,1.6666666666666667,toddler
+208,0,0,0,1,1,1,1,1,0,0,36,5,1,White European,0,0,family member,1,3.0,toddler
+728,1,1,1,1,1,1,1,1,1,1,15,10,1,south asian,0,0,family member,1,1.25,toddler
+512,1,1,1,1,0,1,1,0,1,1,31,8,0,White European,0,0,family member,1,2.5833333333333335,toddler
+19,1,0,0,0,1,0,0,0,0,1,29,3,0,middle eastern,0,0,family member,0,2.4166666666666665,toddler
+878,0,0,0,1,1,1,0,0,1,1,33,5,1,White European,0,0,family member,1,2.75,toddler
+703,0,1,1,0,0,0,0,0,0,1,35,3,0,black,1,0,family member,0,2.9166666666666665,toddler
+116,0,0,1,1,1,1,1,1,1,1,32,8,1,asian,0,0,family member,1,2.6666666666666665,toddler
+757,1,0,0,0,0,0,1,1,0,0,36,3,1,White European,0,0,family member,0,3.0,toddler
+841,1,1,0,0,0,0,1,1,0,0,28,4,1,middle eastern,0,0,family member,1,2.3333333333333335,toddler
+796,0,0,1,0,0,1,1,1,1,1,36,6,0,middle eastern,0,1,family member,1,3.0,toddler
+730,0,0,0,1,1,1,1,1,1,1,33,7,0,asian,0,0,family member,1,2.75,toddler
+317,0,0,1,1,1,1,1,0,1,1,14,7,1,White European,1,0,family member,1,1.1666666666666667,toddler
+1033,1,0,1,1,1,0,1,0,0,0,32,5,1,White European,1,0,family member,1,2.6666666666666665,toddler
+54,1,1,1,1,1,1,1,1,1,1,12,10,0,middle eastern,0,0,family member,1,1.0,toddler
+249,1,1,1,1,1,1,1,1,1,1,18,10,1,White European,1,0,family member,1,1.5,toddler
+675,1,0,1,0,1,1,1,1,1,1,33,8,0,asian,0,0,family member,1,2.75,toddler
+231,1,0,0,0,0,1,1,0,1,1,33,5,1,asian,0,0,family member,1,2.75,toddler
+693,0,0,0,0,0,0,1,0,1,1,36,3,1,south asian,0,0,family member,0,3.0,toddler
+787,1,0,0,0,0,0,0,0,0,0,34,1,1,White European,1,1,family member,0,2.8333333333333335,toddler
+558,1,1,0,1,0,1,1,1,1,1,22,8,1,White European,0,0,family member,1,1.8333333333333333,toddler
+752,1,0,1,1,1,1,1,1,1,0,36,8,1,asian,1,0,family member,1,3.0,toddler
+958,1,1,0,1,1,1,1,1,1,1,29,9,1,south asian,1,0,family member,1,2.4166666666666665,toddler
+367,1,1,1,1,1,1,0,1,1,1,36,9,1,asian,0,0,family member,1,3.0,toddler
+93,1,1,0,0,1,1,1,1,1,0,32,7,1,asian,0,0,family member,1,2.6666666666666665,toddler
+10,1,1,1,0,1,1,0,1,1,1,22,8,1,south asian,0,0,Health Care Professional,1,1.8333333333333333,toddler
+123,0,0,0,0,0,0,0,1,0,0,26,1,0,White European,1,0,family member,0,2.1666666666666665,toddler
+580,1,1,1,1,0,1,1,0,1,1,30,8,0,White European,0,0,family member,1,2.5,toddler
+394,0,0,0,0,0,1,1,1,0,1,36,4,1,Latino,0,0,family member,1,3.0,toddler
+120,1,1,0,1,1,1,0,0,0,1,18,6,1,Hispanic,1,1,family member,1,1.5,toddler
+111,0,0,0,0,1,0,1,0,0,0,12,2,1,middle eastern,0,0,family member,0,1.0,toddler
+401,1,1,1,1,1,1,1,1,0,1,35,9,1,White European,0,1,family member,1,2.9166666666666665,toddler
+505,1,0,1,0,1,0,0,0,0,0,36,3,1,White European,0,0,family member,0,3.0,toddler
+939,1,0,1,0,0,0,1,0,0,1,20,4,1,middle eastern,0,0,family member,1,1.6666666666666667,toddler
+4,1,1,1,1,1,1,1,1,1,1,24,10,1,Hispanic,0,0,family member,1,2.0,toddler
+206,1,1,0,0,0,0,1,0,0,1,15,4,1,middle eastern,1,0,family member,1,1.25,toddler
+372,1,1,1,1,0,1,1,0,1,0,17,7,0,White European,0,0,family member,1,1.4166666666666667,toddler
+825,0,0,0,0,0,0,0,1,0,0,30,1,0,middle eastern,0,0,family member,0,2.5,toddler
+107,0,0,0,0,0,0,0,0,0,1,23,1,0,middle eastern,1,0,family member,0,1.9166666666666667,toddler
+948,0,0,0,0,1,1,0,0,1,1,36,4,1,Native Indian,0,0,family member,1,3.0,toddler
+163,1,1,1,1,1,1,1,0,1,1,29,9,1,White European,1,0,family member,1,2.4166666666666665,toddler
+487,1,1,1,1,1,1,0,0,1,1,28,8,1,Pacifica,0,0,family member,1,2.3333333333333335,toddler
+985,1,0,1,1,0,1,1,0,1,0,24,6,1,White European,0,0,family member,1,2.0,toddler
+194,0,0,0,1,0,0,0,0,0,0,36,1,1,middle eastern,0,0,Health Care Professional,0,3.0,toddler
+92,1,0,0,0,0,0,1,0,0,1,34,3,1,asian,0,0,family member,0,2.8333333333333335,toddler
+1029,0,0,1,1,1,1,0,0,1,0,22,5,0,Latino,0,0,family member,1,1.8333333333333333,toddler
+1040,0,0,0,0,1,1,1,0,1,0,26,4,1,asian,0,1,family member,1,2.1666666666666665,toddler
+516,1,0,1,0,0,0,0,0,0,0,36,2,1,asian,0,1,family member,0,3.0,toddler
+384,0,0,0,0,0,1,0,0,0,0,36,1,1,White European,0,0,family member,0,3.0,toddler
+265,0,0,0,0,0,0,0,0,0,0,24,0,1,middle eastern,0,0,family member,0,2.0,toddler
+461,0,0,0,0,0,0,0,0,1,0,15,1,0,middle eastern,1,0,family member,0,1.25,toddler
+355,0,0,1,1,0,0,0,0,0,0,36,2,1,asian,0,0,family member,0,3.0,toddler
+677,1,1,0,1,0,1,1,1,0,1,32,7,0,White European,0,0,family member,1,2.6666666666666665,toddler
+776,0,1,1,1,0,1,1,1,1,0,12,7,1,Hispanic,0,0,family member,1,1.0,toddler
+122,0,1,0,0,0,1,1,1,0,1,27,5,0,White European,0,1,family member,1,2.25,toddler
+172,0,1,1,1,1,0,1,0,1,1,23,7,1,middle eastern,0,0,family member,1,1.9166666666666667,toddler
+589,0,0,1,1,0,1,0,1,1,1,36,6,1,Hispanic,0,0,family member,1,3.0,toddler
+963,1,1,0,1,0,1,1,1,1,1,26,8,1,middle eastern,1,0,family member,1,2.1666666666666665,toddler
+962,0,0,1,1,1,0,1,1,1,0,26,6,0,White European,0,0,family member,1,2.1666666666666665,toddler
+35,0,0,0,0,0,0,0,0,0,1,12,1,0,middle eastern,0,0,family member,0,1.0,toddler
+242,0,1,1,1,1,1,0,1,1,0,19,7,0,middle eastern,0,0,family member,1,1.5833333333333333,toddler
+289,1,1,0,0,0,0,1,0,1,0,36,4,1,White European,1,0,family member,1,3.0,toddler
+559,0,0,0,0,0,1,1,0,0,0,36,2,0,White European,0,0,family member,0,3.0,toddler
+88,0,0,0,1,0,0,1,0,0,1,20,3,1,middle eastern,0,0,family member,0,1.6666666666666667,toddler
+335,0,1,1,1,0,0,0,1,0,0,36,4,1,asian,0,0,family member,1,3.0,toddler
+623,1,1,1,1,1,1,1,1,1,0,29,9,0,Latino,0,0,family member,1,2.4166666666666665,toddler
+523,1,1,1,1,0,0,1,1,1,1,24,8,1,black,1,0,family member,1,2.0,toddler
+659,0,0,1,1,0,1,1,1,1,1,34,7,1,White European,1,0,family member,1,2.8333333333333335,toddler
+239,1,0,0,0,1,1,1,1,0,0,31,5,1,White European,1,0,family member,1,2.5833333333333335,toddler
+568,1,1,0,0,1,0,0,1,0,1,36,5,1,White European,1,0,family member,1,3.0,toddler
+98,1,0,0,0,1,0,1,1,1,1,34,6,1,asian,0,0,family member,1,2.8333333333333335,toddler
+569,1,1,1,1,1,1,1,1,1,1,28,10,0,White European,1,0,family member,1,2.3333333333333335,toddler
+643,1,0,1,1,0,1,1,0,1,0,24,6,0,asian,0,0,family member,1,2.0,toddler
+258,0,1,0,0,0,0,0,1,0,0,36,2,1,middle eastern,0,0,family member,0,3.0,toddler
+434,1,1,1,1,0,1,0,1,1,1,36,8,1,White European,0,0,family member,1,3.0,toddler
+937,0,0,0,0,1,1,0,1,0,1,35,4,0,asian,0,0,family member,1,2.9166666666666665,toddler
+437,1,1,0,0,0,1,0,0,1,0,30,4,1,south asian,1,0,family member,1,2.5,toddler
+691,1,1,0,0,1,1,1,0,1,0,32,6,1,White European,0,0,family member,1,2.6666666666666665,toddler
+633,0,0,0,0,1,1,1,0,1,1,34,5,1,Others,1,0,family member,1,2.8333333333333335,toddler
+254,1,1,1,1,1,1,1,1,0,0,36,8,1,asian,0,0,family member,1,3.0,toddler
+552,0,0,1,0,0,1,0,0,0,1,12,3,0,south asian,0,0,family member,0,1.0,toddler
+427,1,0,0,0,0,1,1,1,0,1,36,5,1,asian,0,0,family member,1,3.0,toddler
+800,1,1,0,1,1,1,1,1,1,1,24,9,0,south asian,0,0,family member,1,2.0,toddler
+164,0,0,0,0,1,1,1,0,0,0,22,3,1,White European,0,1,family member,0,1.8333333333333333,toddler
+1013,0,0,0,0,0,0,1,0,0,1,32,2,1,south asian,0,0,family member,0,2.6666666666666665,toddler
+125,1,1,0,1,1,1,1,0,1,1,19,8,1,White European,0,0,family member,1,1.5833333333333333,toddler
+139,1,1,1,1,1,1,1,1,1,0,35,9,1,south asian,0,0,family member,1,2.9166666666666665,toddler
+101,0,0,1,1,0,0,0,0,0,0,24,2,1,middle eastern,0,0,family member,0,2.0,toddler
+975,1,0,0,0,0,0,1,1,1,1,36,5,1,White European,0,1,family member,1,3.0,toddler
+812,1,1,1,1,0,1,0,0,0,1,20,6,1,White European,1,1,family member,1,1.6666666666666667,toddler
+126,1,0,0,0,1,0,1,1,1,1,36,6,1,asian,0,0,family member,1,3.0,toddler
+495,0,1,1,1,1,1,0,1,1,0,24,7,0,asian,1,0,family member,1,2.0,toddler
+110,0,0,0,0,0,0,0,0,0,1,36,1,0,middle eastern,0,0,family member,0,3.0,toddler
+879,1,1,0,0,1,1,1,1,1,0,26,7,1,White European,0,1,family member,1,2.1666666666666665,toddler
+816,0,0,0,0,0,0,1,0,1,0,24,2,0,middle eastern,0,0,family member,0,2.0,toddler
+953,1,1,0,0,1,0,0,1,1,0,36,5,1,south asian,0,0,family member,1,3.0,toddler
+845,0,0,1,1,1,1,1,1,1,1,18,8,1,Hispanic,0,0,family member,1,1.5,toddler
+46,0,0,0,0,0,0,1,0,0,1,19,2,1,asian,0,0,family member,0,1.5833333333333333,toddler
+444,1,1,0,1,1,0,1,0,0,0,28,5,1,middle eastern,0,1,family member,1,2.3333333333333335,toddler
+525,1,1,1,1,1,1,1,1,1,1,20,10,0,White European,0,0,family member,1,1.6666666666666667,toddler
+96,0,1,0,0,0,0,0,0,0,1,12,2,0,middle eastern,0,0,family member,0,1.0,toddler
+1035,0,0,0,0,0,0,0,1,0,0,28,1,1,White European,0,0,family member,0,2.3333333333333335,toddler
+80,1,0,0,0,0,0,0,1,0,1,30,3,1,middle eastern,0,0,Health Care Professional,0,2.5,toddler
+961,1,1,0,1,1,1,1,0,0,0,27,6,1,White European,0,1,family member,1,2.25,toddler
+909,1,1,0,0,0,0,1,0,1,1,25,5,1,White European,1,0,family member,1,2.0833333333333335,toddler
+612,0,1,0,0,0,0,1,1,0,1,26,4,1,mixed,0,0,family member,1,2.1666666666666665,toddler
+169,0,0,0,0,0,0,0,0,0,0,30,0,0,Latino,0,1,family member,0,2.5,toddler
+183,1,0,0,0,0,1,0,0,1,0,33,3,1,asian,0,1,family member,0,2.75,toddler
+365,1,1,1,1,1,1,1,1,0,1,36,9,1,Latino,1,0,family member,1,3.0,toddler
+765,0,0,1,1,1,1,1,1,1,0,14,7,1,White European,1,0,family member,1,1.1666666666666667,toddler
+709,1,0,1,1,1,0,1,1,1,1,15,8,1,White European,1,0,family member,1,1.25,toddler
+8,0,1,0,0,1,0,1,1,1,1,33,6,1,asian,1,0,family member,1,2.75,toddler
+196,1,1,1,1,0,1,1,0,1,1,36,8,0,asian,1,0,family member,1,3.0,toddler
+309,1,1,0,0,1,1,1,0,0,0,36,5,1,White European,0,0,family member,1,3.0,toddler
+844,0,1,0,0,1,1,0,0,1,0,36,4,1,White European,0,0,family member,1,3.0,toddler
+20,1,1,1,0,1,0,1,1,0,1,12,7,0,black,0,0,family member,1,1.0,toddler
+585,0,0,1,1,1,1,1,1,1,1,36,8,1,White European,0,0,family member,1,3.0,toddler
+226,0,0,0,0,1,0,1,1,0,1,30,4,0,asian,0,1,family member,1,2.5,toddler
+887,0,0,1,1,1,0,0,1,0,1,36,5,1,Others,0,0,family member,1,3.0,toddler
+348,1,1,0,0,1,0,1,1,1,0,36,6,1,south asian,0,0,family member,1,3.0,toddler
+694,1,1,1,1,1,1,1,1,0,1,27,9,1,Others,1,1,family member,1,2.25,toddler
+626,1,1,1,1,1,1,1,1,1,1,22,10,0,White European,0,0,family member,1,1.8333333333333333,toddler
+534,1,1,1,1,1,1,1,1,1,0,13,9,1,Hispanic,1,0,family member,1,1.0833333333333333,toddler
+277,0,1,0,1,1,1,1,1,1,0,36,7,1,middle eastern,0,0,family member,1,3.0,toddler
+1042,0,0,0,1,0,0,1,0,0,0,25,2,1,White European,1,0,family member,0,2.0833333333333335,toddler
+357,1,1,0,0,1,1,1,0,1,1,14,7,1,asian,0,0,family member,1,1.1666666666666667,toddler
+1050,0,0,0,0,0,0,0,0,0,1,24,1,0,White European,0,1,family member,0,2.0,toddler
+760,1,1,1,1,1,0,1,1,0,1,22,8,1,south asian,0,0,family member,1,1.8333333333333333,toddler
+15,0,0,0,0,0,0,0,0,0,0,18,0,1,middle eastern,0,0,family member,0,1.5,toddler
+510,0,0,0,0,1,1,1,1,0,1,30,5,0,asian,0,0,family member,1,2.5,toddler
+149,0,0,0,0,0,0,1,0,0,0,30,1,0,Latino,0,1,family member,0,2.5,toddler
+1002,1,0,0,0,1,1,0,1,0,1,34,5,0,asian,0,0,family member,1,2.8333333333333335,toddler
+967,1,0,1,1,1,1,0,1,1,0,18,7,1,White European,0,0,family member,1,1.5,toddler
+907,0,0,0,0,0,0,0,0,0,0,28,0,0,black,0,0,family member,0,2.3333333333333335,toddler
+785,0,0,0,0,0,0,1,0,0,1,22,2,1,White European,1,1,family member,0,1.8333333333333333,toddler
+901,1,0,1,1,0,1,1,1,1,1,23,8,1,Latino,0,0,Health Care Professional,1,1.9166666666666667,toddler
+202,1,1,1,1,0,1,1,1,1,1,30,9,0,black,0,0,family member,1,2.5,toddler
+726,0,0,0,0,0,0,0,1,0,1,23,2,1,White European,1,0,family member,0,1.9166666666666667,toddler
+207,1,1,1,1,1,1,1,0,1,1,36,9,1,White European,0,1,family member,1,3.0,toddler
+842,0,1,0,0,1,0,0,0,0,0,32,2,1,middle eastern,0,0,family member,0,2.6666666666666665,toddler
+624,1,1,1,1,1,1,1,1,1,1,30,10,1,Latino,0,0,Others,1,2.5,toddler
+588,0,0,1,1,1,1,1,1,1,1,34,8,0,White European,0,1,family member,1,2.8333333333333335,toddler
+293,0,0,0,1,0,1,1,0,1,0,20,4,1,middle eastern,0,0,family member,1,1.6666666666666667,toddler
+598,1,1,0,1,1,1,1,0,1,1,36,8,1,White European,0,0,family member,1,3.0,toddler
+697,0,1,0,0,1,0,0,0,0,1,29,3,1,White European,0,0,family member,0,2.4166666666666665,toddler
+639,0,0,0,0,1,0,0,1,0,1,32,3,1,black,1,0,family member,0,2.6666666666666665,toddler
+356,1,1,1,1,1,1,1,1,0,0,24,8,1,black,1,1,Health Care Professional,1,2.0,toddler
+574,0,0,1,1,0,1,0,1,0,0,32,4,0,White European,1,0,family member,1,2.6666666666666665,toddler
+186,0,0,0,0,1,0,1,0,1,1,12,4,0,White European,1,0,family member,1,1.0,toddler
+556,1,0,1,1,1,1,0,1,1,1,33,8,1,White European,1,0,family member,1,2.75,toddler
+570,1,1,0,1,0,1,1,1,1,1,35,8,0,asian,0,0,family member,1,2.9166666666666665,toddler
+450,1,0,1,1,1,1,0,1,1,0,19,7,1,asian,0,0,family member,1,1.5833333333333333,toddler
+911,1,1,1,0,0,0,1,0,1,0,13,5,0,Latino,0,0,family member,1,1.0833333333333333,toddler
+438,0,0,1,1,0,0,1,1,0,1,25,5,1,asian,0,0,family member,1,2.0833333333333335,toddler
+301,1,1,0,1,1,0,1,1,1,1,18,8,0,White European,0,0,family member,1,1.5,toddler
+921,0,0,0,0,0,0,0,1,0,1,27,2,1,asian,0,1,family member,0,2.25,toddler
+977,1,1,0,1,0,0,0,0,0,1,16,4,0,Latino,0,0,family member,1,1.3333333333333333,toddler
+638,0,0,0,0,0,1,0,1,0,0,36,2,0,asian,0,0,family member,0,3.0,toddler
+950,0,0,0,0,1,0,1,0,0,1,36,3,0,White European,0,0,family member,0,3.0,toddler
+966,1,0,1,1,0,1,1,1,0,0,28,6,1,asian,0,0,family member,1,2.3333333333333335,toddler
+332,1,1,1,1,1,0,0,0,0,1,36,6,0,White European,1,0,family member,1,3.0,toddler
+1048,1,1,0,0,1,1,1,0,0,0,30,5,0,White European,0,0,family member,1,2.5,toddler
+821,0,0,0,1,0,1,1,1,1,0,18,5,1,asian,0,1,family member,1,1.5,toddler
+855,0,1,0,0,0,1,0,0,0,0,36,2,0,White European,1,0,family member,0,3.0,toddler
+215,0,0,0,0,0,0,1,1,1,1,25,4,1,Hispanic,0,0,family member,1,2.0833333333333335,toddler
+1003,0,0,0,0,1,1,1,1,0,0,36,4,1,black,1,0,Self,1,3.0,toddler
+291,0,0,0,0,0,0,1,0,0,0,36,1,0,asian,0,0,family member,0,3.0,toddler
+991,1,0,1,1,1,1,1,0,1,1,35,8,0,middle eastern,0,0,family member,1,2.9166666666666665,toddler
+555,0,1,0,1,1,0,1,0,0,1,36,5,1,White European,1,1,family member,1,3.0,toddler
+617,1,1,0,1,1,1,1,1,1,1,28,9,1,asian,0,0,family member,1,2.3333333333333335,toddler
+998,0,0,0,1,0,0,0,0,1,1,36,3,1,asian,0,0,family member,0,3.0,toddler
+106,1,1,1,1,1,1,1,1,1,0,25,9,1,middle eastern,0,0,family member,1,2.0833333333333335,toddler
+711,1,0,0,1,0,0,1,0,0,0,27,3,1,south asian,0,0,family member,0,2.25,toddler
+496,1,1,1,1,1,1,1,1,1,1,34,10,1,Native Indian,1,0,family member,1,2.8333333333333335,toddler
+990,1,0,1,1,1,1,1,1,1,1,35,9,0,middle eastern,0,0,family member,1,2.9166666666666665,toddler
+13,0,0,0,0,0,0,0,0,0,0,25,0,0,middle eastern,1,0,family member,0,2.0833333333333335,toddler
+1009,1,1,1,1,1,1,1,1,1,0,32,9,1,south asian,1,1,family member,1,2.6666666666666665,toddler
+652,1,0,1,1,1,0,1,0,1,0,16,6,0,asian,0,0,family member,1,1.3333333333333333,toddler
+547,0,0,0,1,1,1,1,1,1,1,35,7,1,asian,0,1,family member,1,2.9166666666666665,toddler
+957,1,1,1,1,0,0,0,1,0,0,22,5,0,Hispanic,0,0,family member,1,1.8333333333333333,toddler
+717,0,1,0,1,0,1,1,0,0,0,30,4,1,asian,1,0,family member,1,2.5,toddler
+147,1,1,0,1,1,1,0,1,1,0,23,7,1,asian,0,0,family member,1,1.9166666666666667,toddler
+90,1,1,1,1,1,1,1,1,1,0,34,9,1,asian,0,0,family member,1,2.8333333333333335,toddler
+414,0,1,0,0,0,0,0,0,0,1,33,2,1,asian,0,0,family member,0,2.75,toddler
+735,0,0,0,0,0,1,0,0,0,1,31,2,1,asian,0,1,family member,0,2.5833333333333335,toddler
+243,1,0,1,1,1,1,0,1,1,0,19,7,0,middle eastern,0,0,family member,1,1.5833333333333333,toddler
+452,1,0,0,0,1,1,1,0,0,0,30,4,0,asian,1,0,family member,1,2.5,toddler
+391,1,1,1,1,1,0,1,1,1,1,32,9,1,asian,0,0,family member,1,2.6666666666666665,toddler
+380,1,0,0,0,0,0,1,0,0,1,30,3,0,south asian,0,0,family member,0,2.5,toddler
+597,0,0,0,0,0,1,0,0,0,1,36,2,1,White European,1,1,family member,0,3.0,toddler
+1025,0,0,0,0,0,0,0,0,0,1,35,1,1,asian,1,0,family member,0,2.9166666666666665,toddler
+160,0,1,1,1,0,1,1,1,1,1,30,8,1,asian,0,0,family member,1,2.5,toddler
+918,1,0,1,1,1,1,1,1,1,0,29,8,1,White European,1,0,family member,1,2.4166666666666665,toddler
+5,1,1,0,1,1,1,1,1,1,1,20,9,0,White European,0,1,family member,1,1.6666666666666667,toddler
+188,1,1,0,0,0,0,0,0,0,1,32,3,1,White European,0,1,family member,0,2.6666666666666665,toddler
+614,1,1,0,1,1,1,0,1,1,0,20,7,0,south asian,0,0,family member,1,1.6666666666666667,toddler
+545,1,1,0,1,0,1,1,1,0,1,36,7,1,White European,0,0,family member,1,3.0,toddler
+933,0,0,0,0,0,1,1,0,0,1,36,3,0,asian,0,0,family member,0,3.0,toddler
+562,1,0,0,0,0,0,1,0,1,1,36,4,1,asian,0,0,family member,1,3.0,toddler
+300,1,1,1,1,0,1,1,1,0,1,24,8,0,Hispanic,0,1,family member,1,2.0,toddler
+1028,0,0,1,1,1,0,0,1,1,0,29,5,1,White European,0,0,family member,1,2.4166666666666665,toddler
+331,0,0,1,1,1,1,1,1,1,0,36,7,1,asian,0,0,family member,1,3.0,toddler
+707,1,0,0,1,0,0,1,0,1,1,24,5,1,White European,1,1,family member,1,2.0,toddler
+549,1,1,1,1,1,1,1,1,1,1,19,10,1,White European,1,0,family member,1,1.5833333333333333,toddler
+649,0,0,1,1,0,0,0,0,0,1,24,3,1,asian,0,0,family member,0,2.0,toddler
+870,0,1,0,1,0,1,1,1,1,1,36,7,0,mixed,1,0,family member,1,3.0,toddler
+876,0,0,1,1,1,1,1,0,1,1,30,7,0,Others,1,0,family member,1,2.5,toddler
+266,0,0,1,1,1,1,1,1,1,0,16,7,0,asian,0,0,family member,1,1.3333333333333333,toddler
+140,1,1,0,0,0,0,0,1,1,0,26,4,0,asian,1,0,family member,1,2.1666666666666665,toddler
+278,0,1,0,1,1,1,0,1,1,1,36,7,1,middle eastern,0,0,family member,1,3.0,toddler
+121,0,1,0,1,1,0,1,0,0,1,27,5,1,asian,0,0,family member,1,2.25,toddler
+187,1,0,1,1,1,1,1,1,1,1,30,9,1,asian,1,0,family member,1,2.5,toddler
+592,1,1,0,0,0,1,0,0,1,1,36,5,1,asian,0,0,family member,1,3.0,toddler
+533,0,0,0,0,0,1,0,1,0,1,13,3,0,middle eastern,1,0,family member,0,1.0833333333333333,toddler
+474,1,0,1,1,0,0,0,0,0,0,36,3,1,asian,0,1,family member,0,3.0,toddler
+324,1,1,1,1,1,1,1,1,1,1,32,10,1,White European,1,0,family member,1,2.6666666666666665,toddler
+204,1,0,0,0,0,0,1,1,0,1,34,4,1,White European,1,1,family member,1,2.8333333333333335,toddler
+672,1,0,0,1,1,0,1,0,1,0,36,5,1,south asian,0,0,family member,1,3.0,toddler
+978,0,0,0,0,0,1,1,0,0,1,24,3,1,White European,0,0,family member,0,2.0,toddler
+124,0,0,0,0,0,1,0,0,0,0,25,1,0,asian,0,0,family member,0,2.0833333333333335,toddler
+238,0,0,0,0,0,0,0,0,0,0,31,0,1,White European,1,0,family member,0,2.5833333333333335,toddler
+872,1,1,1,1,1,1,1,1,1,1,21,10,1,White European,1,0,family member,1,1.75,toddler
+788,0,0,0,1,1,0,1,1,1,0,36,5,1,asian,0,0,family member,1,3.0,toddler
+453,1,1,0,0,1,1,1,0,1,1,32,7,1,asian,1,1,family member,1,2.6666666666666665,toddler
+70,1,0,1,1,1,1,1,0,1,1,18,8,0,asian,1,1,family member,1,1.5,toddler
+645,0,0,1,1,1,1,0,0,1,0,24,5,0,asian,0,0,family member,1,2.0,toddler
+479,1,1,0,0,0,1,0,0,0,1,36,4,1,White European,1,0,Health Care Professional,1,3.0,toddler
+184,1,0,1,1,0,0,0,0,0,0,30,3,1,south asian,1,0,family member,0,2.5,toddler
+714,1,0,0,0,0,1,1,0,1,0,36,4,1,Others,0,1,family member,1,3.0,toddler
+303,1,1,0,1,1,0,1,1,1,0,23,7,1,asian,0,0,family member,1,1.9166666666666667,toddler
+494,0,0,0,0,0,0,1,0,0,0,28,1,1,White European,1,0,family member,0,2.3333333333333335,toddler
+161,0,1,0,1,1,1,1,1,1,1,23,8,1,White European,0,0,family member,1,1.9166666666666667,toddler
+581,0,0,1,1,0,1,1,0,1,1,26,6,1,White European,0,0,family member,1,2.1666666666666665,toddler
+117,0,0,1,1,0,0,1,0,0,1,32,4,1,asian,0,0,family member,1,2.6666666666666665,toddler
+676,0,0,0,0,0,0,0,1,0,0,24,1,1,asian,1,0,family member,0,2.0,toddler
+1006,1,0,1,1,1,0,1,0,0,1,24,6,1,asian,0,0,family member,1,2.0,toddler
+417,0,1,1,1,1,1,1,0,1,1,12,8,1,asian,0,1,family member,1,1.0,toddler
+761,0,0,0,1,0,0,1,0,0,1,36,3,1,south asian,0,0,family member,0,3.0,toddler
+927,1,0,1,1,0,0,0,0,1,0,12,4,1,White European,0,0,family member,1,1.0,toddler
+746,1,1,1,1,0,1,1,0,0,1,36,7,0,White European,0,0,family member,1,3.0,toddler
+1031,0,0,0,0,1,0,0,1,0,1,36,3,1,south asian,1,0,family member,0,3.0,toddler
+138,0,0,1,1,1,0,0,0,1,0,36,4,1,asian,1,0,family member,1,3.0,toddler
+732,0,0,1,1,1,1,1,0,1,1,12,7,0,middle eastern,0,0,family member,1,1.0,toddler
+104,1,1,0,0,0,0,0,1,1,0,36,4,1,middle eastern,0,0,family member,1,3.0,toddler
+507,0,1,0,1,0,1,0,0,1,0,36,4,1,asian,0,0,family member,1,3.0,toddler
+773,1,1,0,1,1,1,1,1,1,0,36,8,0,asian,0,0,family member,1,3.0,toddler
+565,1,0,0,0,0,0,0,1,0,0,36,2,0,black,0,0,family member,0,3.0,toddler
+112,0,1,0,0,0,0,1,1,0,1,36,4,1,south asian,0,0,family member,1,3.0,toddler
+1030,1,1,0,1,0,1,1,1,1,1,36,8,1,White European,0,1,family member,1,3.0,toddler
+972,1,1,0,0,0,1,0,1,0,1,33,5,1,middle eastern,0,0,family member,1,2.75,toddler
+803,1,0,0,0,1,1,1,1,1,0,34,6,0,asian,0,0,family member,1,2.8333333333333335,toddler
+630,0,0,0,1,0,0,1,1,0,1,36,4,0,asian,0,0,family member,1,3.0,toddler
+26,0,0,0,0,0,0,0,0,0,0,24,0,0,middle eastern,0,0,family member,0,2.0,toddler
+305,1,0,1,1,0,1,1,1,1,0,36,7,1,White European,0,0,family member,1,3.0,toddler
+36,1,1,1,1,1,1,1,1,1,1,15,10,0,middle eastern,0,0,family member,1,1.25,toddler
+900,1,0,1,1,1,1,1,1,1,1,23,9,1,Latino,0,0,family member,1,1.9166666666666667,toddler
+810,1,1,1,1,0,1,1,0,1,1,24,8,0,White European,0,0,family member,1,2.0,toddler
+777,0,1,0,0,0,0,1,1,0,1,16,4,1,White European,1,0,family member,1,1.3333333333333333,toddler
+1054,1,1,0,0,1,1,0,1,1,0,24,6,1,asian,1,1,family member,1,2.0,toddler
+982,0,0,0,1,1,0,1,1,0,1,36,5,1,south asian,1,0,family member,1,3.0,toddler
+965,1,0,1,1,1,1,1,0,1,0,16,7,1,White European,0,1,family member,1,1.3333333333333333,toddler
+699,1,0,1,1,1,1,1,0,0,1,34,7,1,White European,1,0,family member,1,2.8333333333333335,toddler
+532,1,1,1,1,1,0,1,1,1,1,12,9,0,middle eastern,0,0,family member,1,1.0,toddler
+881,1,1,0,0,0,1,1,0,0,1,36,5,1,White European,1,0,family member,1,3.0,toddler
+968,1,0,0,0,0,0,1,0,1,0,36,3,1,south asian,0,0,family member,0,3.0,toddler
+888,0,1,1,0,1,0,1,0,1,0,34,5,0,black,0,0,family member,1,2.8333333333333335,toddler
+416,0,0,0,0,0,0,0,0,0,1,27,1,1,White European,0,0,family member,0,2.25,toddler
+511,0,0,0,0,1,1,1,1,1,1,35,6,1,asian,0,0,family member,1,2.9166666666666665,toddler
+200,0,1,1,0,1,0,1,0,0,1,35,5,1,middle eastern,0,1,family member,1,2.9166666666666665,toddler
+736,1,1,1,1,1,1,0,1,1,1,30,9,1,asian,0,0,family member,1,2.5,toddler
+221,1,1,1,1,0,0,1,0,1,0,36,6,0,White European,0,0,family member,1,3.0,toddler
+502,1,1,0,0,1,0,0,0,0,1,36,4,1,White European,1,0,family member,1,3.0,toddler
+310,1,1,1,0,1,0,0,0,1,0,36,5,1,south asian,1,1,Health Care Professional,1,3.0,toddler
+595,0,1,1,1,1,1,1,1,1,0,36,8,1,black,0,0,family member,1,3.0,toddler
+59,0,0,0,0,0,0,0,1,0,1,15,2,0,White European,0,0,family member,0,1.25,toddler
+741,1,1,1,0,1,1,1,0,0,1,29,7,1,Pacifica,0,1,family member,1,2.4166666666666665,toddler
+538,1,1,0,1,1,1,0,0,0,0,34,5,1,Others,0,0,family member,1,2.8333333333333335,toddler
+995,1,1,0,0,0,0,0,0,1,1,36,4,1,White European,1,0,family member,1,3.0,toddler
+389,0,0,0,0,1,0,1,0,0,1,36,3,1,asian,1,0,family member,0,3.0,toddler
+993,1,0,0,1,0,0,1,0,0,1,34,4,1,asian,1,0,family member,1,2.8333333333333335,toddler
+232,1,0,1,1,1,1,1,1,1,1,36,9,1,asian,0,0,family member,1,3.0,toddler
+6,1,1,0,0,1,1,1,1,1,1,21,8,1,black,0,0,family member,1,1.75,toddler
+497,0,0,0,1,0,1,1,0,0,0,12,3,0,White European,0,0,family member,0,1.0,toddler
+938,0,0,1,0,0,0,0,0,0,1,19,2,1,middle eastern,0,0,family member,0,1.5833333333333333,toddler
+820,1,0,0,0,1,1,1,1,1,1,34,7,0,asian,0,0,family member,1,2.8333333333333335,toddler
+980,1,1,1,1,1,1,1,0,0,0,36,7,1,asian,0,0,family member,1,3.0,toddler
+790,1,0,0,0,0,0,1,1,0,1,35,4,0,White European,1,0,family member,1,2.9166666666666665,toddler
+433,1,1,1,1,0,1,1,1,1,1,36,9,1,middle eastern,0,0,family member,1,3.0,toddler
+708,1,1,0,1,0,1,1,1,1,0,35,7,1,middle eastern,0,0,family member,1,2.9166666666666665,toddler
+818,1,1,0,0,0,1,0,0,0,0,36,3,1,middle eastern,0,0,family member,0,3.0,toddler
+882,1,1,0,0,0,0,1,0,0,0,36,3,1,Hispanic,0,0,family member,0,3.0,toddler
+720,1,1,0,1,0,0,0,0,0,0,17,3,1,middle eastern,0,0,family member,0,1.4166666666666667,toddler
+904,1,1,0,1,0,1,1,0,1,1,36,7,0,White European,0,0,family member,1,3.0,toddler
+362,1,1,1,0,1,1,1,1,1,0,36,8,1,asian,0,0,family member,1,3.0,toddler
+806,1,1,0,0,1,1,1,0,1,1,36,7,1,White European,0,0,family member,1,3.0,toddler
+49,0,0,0,0,0,0,0,0,0,1,14,1,0,White European,0,0,family member,0,1.1666666666666667,toddler
+260,1,0,0,0,0,1,1,0,0,0,27,3,1,White European,1,1,family member,0,2.25,toddler
+72,0,0,1,1,1,1,1,0,1,1,34,7,1,asian,0,0,family member,1,2.8333333333333335,toddler
+129,0,0,1,1,1,1,1,0,0,1,17,6,0,White European,1,0,family member,1,1.4166666666666667,toddler
+223,1,1,0,0,0,0,0,1,0,1,36,4,1,White European,0,0,family member,1,3.0,toddler
+864,0,0,1,0,1,1,1,0,1,1,30,6,0,Others,1,0,family member,1,2.5,toddler
+199,1,0,1,1,1,1,1,0,1,1,20,8,1,asian,0,0,family member,1,1.6666666666666667,toddler
+758,0,0,1,1,1,1,1,0,0,0,31,5,1,White European,0,0,family member,1,2.5833333333333335,toddler
+287,0,0,0,0,1,1,1,0,0,1,31,4,1,Hispanic,1,0,family member,1,2.5833333333333335,toddler
+304,1,1,1,1,1,1,1,0,1,0,21,8,1,asian,0,0,family member,1,1.75,toddler
+2,1,1,0,0,0,1,1,0,0,0,36,4,1,White European,1,0,family member,1,3.0,toddler
+682,1,1,1,1,1,1,1,1,1,0,19,9,0,White European,1,0,family member,1,1.5833333333333333,toddler
+915,0,0,1,1,0,0,0,0,1,1,24,4,1,asian,0,0,family member,1,2.0,toddler
+435,1,0,0,0,0,0,1,1,1,1,36,5,0,asian,0,0,family member,1,3.0,toddler
+316,0,0,1,0,1,0,1,1,1,1,26,6,1,asian,0,0,family member,1,2.1666666666666665,toddler
+109,1,1,0,0,1,1,1,1,0,1,36,7,0,middle eastern,0,0,family member,1,3.0,toddler
+583,0,0,0,1,0,0,1,0,0,1,28,3,1,middle eastern,1,0,family member,0,2.3333333333333335,toddler
+679,0,0,1,1,1,1,1,0,1,0,31,6,0,White European,0,0,family member,1,2.5833333333333335,toddler
+457,1,0,1,0,0,1,0,1,0,0,36,4,1,asian,0,1,family member,1,3.0,toddler
+14,1,1,1,1,0,0,1,0,1,1,15,7,0,middle eastern,1,0,family member,1,1.25,toddler
+686,1,0,1,1,1,0,1,1,1,1,16,8,1,black,0,0,family member,1,1.3333333333333333,toddler
+454,1,0,0,1,1,1,1,1,1,1,35,8,1,asian,0,0,family member,1,2.9166666666666665,toddler
+432,0,1,0,0,0,0,1,0,0,0,35,2,0,asian,1,0,family member,0,2.9166666666666665,toddler
+375,0,0,0,0,0,1,0,0,0,1,33,2,1,asian,0,0,family member,0,2.75,toddler
+1019,0,0,1,1,0,0,0,0,1,0,21,3,1,asian,0,0,family member,0,1.75,toddler
+252,0,0,0,0,1,0,1,1,1,0,23,4,0,asian,0,0,family member,1,1.9166666666666667,toddler
+513,1,0,0,0,0,0,0,0,0,1,12,2,0,south asian,0,0,family member,0,1.0,toddler
+162,1,0,1,1,1,1,0,0,1,0,12,6,1,White European,1,0,family member,1,1.0,toddler
+986,1,1,1,0,1,1,0,0,1,1,23,7,1,White European,0,0,family member,1,1.9166666666666667,toddler
+190,1,1,0,0,0,0,0,0,0,1,31,3,1,White European,1,0,family member,0,2.5833333333333335,toddler
+1010,1,0,1,1,0,0,1,0,0,1,24,5,1,asian,0,0,family member,1,2.0,toddler
+799,0,0,0,0,1,0,1,0,1,1,36,4,1,Others,1,0,family member,1,3.0,toddler
+240,0,0,0,0,0,1,1,1,0,0,31,3,1,White European,1,0,family member,0,2.5833333333333335,toddler
+1008,0,0,0,1,0,0,1,0,0,1,34,3,0,White European,0,1,family member,0,2.8333333333333335,toddler
+680,1,0,1,1,0,1,0,1,0,0,17,5,1,asian,1,0,family member,1,1.4166666666666667,toddler
+136,0,0,0,0,1,0,0,0,0,0,34,1,0,south asian,1,0,family member,0,2.8333333333333335,toddler
+113,0,0,0,0,0,0,1,1,0,0,32,2,1,asian,0,0,family member,0,2.6666666666666665,toddler
+884,0,0,0,1,1,1,1,1,0,0,24,5,0,White European,0,0,family member,1,2.0,toddler
+481,1,1,1,1,1,1,1,1,1,0,36,9,0,south asian,1,0,family member,1,3.0,toddler
+903,1,1,1,1,0,1,1,0,1,1,22,8,0,Pacifica,1,0,family member,1,1.8333333333333333,toddler
+333,0,1,1,1,1,0,1,0,1,0,26,6,1,asian,0,0,family member,1,2.1666666666666665,toddler
+1051,0,0,1,1,1,0,1,0,1,0,12,5,1,black,1,0,family member,1,1.0,toddler
+466,0,0,1,1,1,0,1,1,1,1,13,7,1,White European,1,1,family member,1,1.0833333333333333,toddler
+314,0,0,0,0,0,0,0,0,0,0,36,0,0,asian,0,0,family member,0,3.0,toddler
+840,1,0,1,1,0,1,1,0,0,0,26,5,1,White European,0,0,family member,1,2.1666666666666665,toddler
+809,1,1,1,1,1,1,1,0,1,1,16,9,1,middle eastern,0,0,family member,1,1.3333333333333333,toddler
+899,1,1,1,1,0,1,1,1,1,1,27,9,0,White European,0,0,family member,1,2.25,toddler
+443,1,0,0,0,1,0,1,1,1,1,35,6,0,asian,0,1,family member,1,2.9166666666666665,toddler
+660,0,0,1,1,1,1,1,0,1,1,24,7,0,asian,0,0,family member,1,2.0,toddler
+478,0,0,1,1,1,0,1,1,0,0,20,5,1,White European,1,0,family member,1,1.6666666666666667,toddler
+778,1,0,1,1,1,1,1,1,1,1,28,9,1,White European,0,0,family member,1,2.3333333333333335,toddler
+823,0,0,0,0,0,1,1,0,1,0,24,3,0,middle eastern,0,0,family member,0,2.0,toddler
+742,0,0,0,0,0,0,0,0,0,1,22,1,0,middle eastern,0,0,family member,0,1.8333333333333333,toddler
+192,0,0,0,0,0,0,1,1,0,1,27,3,0,south asian,0,0,family member,0,2.25,toddler
+781,1,1,1,1,0,1,1,0,0,1,22,7,1,middle eastern,1,1,family member,1,1.8333333333333333,toddler
+197,1,1,0,1,0,1,1,0,1,0,36,6,0,asian,1,0,family member,1,3.0,toddler
+923,0,0,0,0,0,1,1,1,0,0,12,3,1,Latino,0,0,family member,0,1.0,toddler
+722,1,1,0,0,1,1,0,1,1,1,29,7,1,White European,0,0,family member,1,2.4166666666666665,toddler
+999,1,0,1,1,1,0,1,0,1,1,33,7,0,middle eastern,0,0,family member,1,2.75,toddler
+673,1,1,1,1,1,1,1,0,0,0,24,7,1,Others,0,0,family member,1,2.0,toddler
+637,1,0,0,0,0,0,0,0,0,1,30,2,0,middle eastern,0,0,family member,0,2.5,toddler
+755,1,1,1,1,1,1,0,1,0,1,36,8,0,White European,0,0,family member,1,3.0,toddler
+971,1,0,0,0,0,0,1,1,0,1,30,4,1,middle eastern,0,0,family member,1,2.5,toddler
+211,0,1,1,1,0,0,0,0,0,0,30,3,1,asian,0,0,family member,0,2.5,toddler
+399,0,0,0,0,1,1,1,0,0,1,32,4,1,White European,1,0,family member,1,2.6666666666666665,toddler
+234,0,1,0,1,1,0,0,0,1,0,36,4,1,asian,1,0,family member,1,3.0,toddler
+749,1,1,0,1,1,1,1,1,1,1,12,9,1,Latino,1,0,family member,1,1.0,toddler
+85,1,1,0,1,0,1,1,0,0,1,30,6,1,middle eastern,0,0,family member,1,2.5,toddler
+364,1,1,0,0,1,1,1,1,0,1,36,7,1,asian,0,0,Health Care Professional,1,3.0,toddler
+374,0,0,1,1,1,1,0,0,1,0,30,5,1,asian,0,0,family member,1,2.5,toddler
+737,1,0,0,0,1,1,0,0,1,1,30,5,1,asian,0,0,family member,1,2.5,toddler
+475,0,0,1,1,0,1,0,0,1,0,17,4,1,asian,0,0,family member,1,1.4166666666666667,toddler
+713,1,1,1,1,1,1,1,1,1,1,22,10,1,White European,1,0,family member,1,1.8333333333333333,toddler
+235,0,0,0,1,1,1,1,1,0,1,36,6,1,asian,1,0,family member,1,3.0,toddler
+522,0,0,1,1,1,0,0,1,1,0,19,5,1,middle eastern,0,0,family member,1,1.5833333333333333,toddler
+500,1,0,0,0,1,1,1,1,1,0,27,6,1,White European,1,1,family member,1,2.25,toddler
+246,0,1,1,1,1,0,1,1,1,1,28,8,1,south asian,1,0,family member,1,2.3333333333333335,toddler
+483,1,0,0,0,1,1,1,1,1,1,30,7,0,asian,1,0,family member,1,2.5,toddler
+103,1,0,0,1,0,1,1,0,0,1,31,5,0,middle eastern,1,0,family member,1,2.5833333333333335,toddler
+218,1,1,1,1,1,1,1,0,1,1,25,9,0,White European,0,1,family member,1,2.0833333333333335,toddler
+854,0,0,0,1,1,1,0,1,0,0,24,4,1,asian,0,0,family member,1,2.0,toddler
+290,1,1,0,0,0,1,1,0,0,1,26,5,1,White European,1,0,family member,1,2.1666666666666665,toddler
+893,0,0,0,1,1,1,0,1,0,1,29,5,1,asian,0,0,family member,1,2.4166666666666665,toddler
+913,1,1,0,0,0,1,1,0,0,1,23,5,1,White European,0,0,family member,1,1.9166666666666667,toddler
+330,1,0,1,1,1,0,1,0,0,0,23,5,1,asian,0,0,family member,1,1.9166666666666667,toddler
+230,1,0,0,0,1,1,1,0,1,0,33,5,1,asian,0,0,Health Care Professional,1,2.75,toddler
+144,0,1,0,0,0,0,1,0,0,1,36,3,0,asian,0,0,family member,0,3.0,toddler
+883,1,1,1,1,1,0,1,0,1,0,36,7,1,asian,0,0,family member,1,3.0,toddler
+685,1,1,0,1,1,1,1,1,1,1,14,9,1,White European,1,0,family member,1,1.1666666666666667,toddler
+131,1,1,1,0,1,1,1,0,0,1,36,7,0,asian,0,0,family member,1,3.0,toddler
+688,0,0,0,0,0,0,1,0,0,0,30,1,1,White European,0,0,family member,0,2.5,toddler
+731,0,0,0,0,1,0,0,0,1,1,12,3,0,White European,0,0,family member,0,1.0,toddler
+286,1,1,0,0,0,0,0,0,0,1,24,3,0,Hispanic,0,0,family member,0,2.0,toddler
+586,1,0,0,0,1,1,1,0,0,1,23,5,1,asian,1,0,family member,1,1.9166666666666667,toddler
+692,0,0,0,0,0,1,1,0,0,0,21,2,0,White European,0,0,family member,0,1.75,toddler
+698,1,0,0,1,0,1,1,1,0,1,23,6,1,White European,1,0,family member,1,1.9166666666666667,toddler
+398,1,0,0,0,1,1,0,1,0,1,26,5,1,White European,0,0,family member,1,2.1666666666666665,toddler
+509,0,0,0,0,1,0,0,0,0,1,35,2,1,asian,0,0,family member,0,2.9166666666666665,toddler
+248,1,1,1,0,0,1,1,1,1,1,28,8,1,middle eastern,0,1,family member,1,2.3333333333333335,toddler
+753,1,1,0,0,1,1,1,1,1,0,28,7,1,south asian,0,0,family member,1,2.3333333333333335,toddler
+747,0,0,0,0,0,0,0,0,0,1,22,1,1,middle eastern,0,0,Health Care Professional,0,1.8333333333333333,toddler
+89,1,0,0,0,1,0,1,0,1,0,34,4,1,asian,0,0,family member,1,2.8333333333333335,toddler
+1021,0,0,0,0,1,0,0,0,1,0,19,2,0,White European,1,1,family member,0,1.5833333333333333,toddler
+527,0,0,0,0,1,1,1,0,1,1,13,5,0,asian,0,0,family member,1,1.0833333333333333,toddler
+696,0,1,0,0,0,0,0,0,0,1,36,2,1,White European,0,0,family member,0,3.0,toddler
+442,1,1,0,0,1,1,1,1,1,1,36,8,0,Others,1,0,family member,1,3.0,toddler
+154,1,1,1,1,1,1,1,1,1,0,26,9,1,White European,0,0,family member,1,2.1666666666666665,toddler
+267,0,0,0,0,1,1,1,0,0,0,36,3,1,asian,1,0,family member,0,3.0,toddler
+866,1,1,0,1,1,1,1,0,1,0,26,7,0,White European,0,0,family member,1,2.1666666666666665,toddler
+441,1,1,0,1,0,1,1,0,1,1,26,7,0,White European,0,0,family member,1,2.1666666666666665,toddler
+445,1,1,0,1,1,1,1,0,0,0,28,6,1,middle eastern,0,1,family member,1,2.3333333333333335,toddler
+960,0,1,0,0,1,1,1,0,0,0,36,4,1,asian,0,0,family member,1,3.0,toddler
+771,0,0,0,0,0,0,0,0,0,0,17,0,0,asian,0,1,family member,0,1.4166666666666667,toddler
+587,1,0,0,0,1,1,1,0,1,0,36,5,1,asian,1,0,family member,1,3.0,toddler
+379,0,0,0,1,0,0,1,0,1,1,30,4,1,asian,0,0,family member,1,2.5,toddler
+817,1,0,0,0,1,0,1,1,1,0,24,5,1,White European,0,0,family member,1,2.0,toddler
+201,1,1,1,1,1,1,1,1,0,1,36,9,0,asian,0,0,family member,1,3.0,toddler
+524,1,0,1,1,1,1,1,0,1,1,21,8,1,White European,1,1,family member,1,1.75,toddler
+32,0,0,0,0,0,0,0,0,0,0,12,0,0,middle eastern,0,0,family member,0,1.0,toddler
+87,0,0,0,0,0,0,0,0,0,0,22,0,1,middle eastern,1,1,family member,0,1.8333333333333333,toddler
+625,1,1,0,0,1,1,1,0,1,1,27,7,1,White European,0,0,family member,1,2.25,toddler
+575,0,1,1,1,1,0,1,1,0,1,36,7,0,White European,1,1,family member,1,3.0,toddler
+448,1,1,1,1,1,1,1,1,1,1,12,10,1,Pacifica,0,0,family member,1,1.0,toddler
+687,1,1,1,1,1,1,1,1,1,1,14,10,1,White European,0,0,family member,1,1.1666666666666667,toddler
+700,1,1,0,0,0,1,1,1,1,1,16,7,0,White European,1,0,family member,1,1.3333333333333333,toddler
+584,0,0,0,0,0,0,0,0,0,1,31,1,1,Pacifica,0,0,family member,0,2.5833333333333335,toddler
+390,1,0,0,0,0,1,0,1,0,0,25,3,1,White European,0,0,family member,0,2.0833333333333335,toddler
+485,1,1,1,1,1,1,1,0,1,1,28,9,1,middle eastern,0,0,family member,1,2.3333333333333335,toddler
+176,1,0,0,0,1,1,0,1,0,1,33,5,1,asian,0,1,family member,1,2.75,toddler
+360,0,0,0,0,0,0,0,0,0,0,19,0,0,asian,0,1,family member,0,1.5833333333333333,toddler
+608,0,1,0,1,0,0,0,0,1,1,36,4,1,black,1,1,family member,1,3.0,toddler
+152,0,1,0,1,0,0,1,0,0,1,33,4,1,asian,0,0,family member,1,2.75,toddler
+852,1,1,1,0,1,0,1,0,1,1,27,7,1,asian,1,0,family member,1,2.25,toddler
+259,1,1,0,0,1,1,1,0,1,1,23,7,1,White European,1,0,family member,1,1.9166666666666667,toddler
+896,0,0,0,0,0,0,0,0,0,0,26,0,0,south asian,0,0,family member,0,2.1666666666666665,toddler
+669,1,1,1,1,1,1,1,0,1,0,14,8,1,White European,0,0,family member,1,1.1666666666666667,toddler
+60,0,0,0,0,0,0,0,0,0,1,13,1,0,middle eastern,0,0,family member,0,1.0833333333333333,toddler

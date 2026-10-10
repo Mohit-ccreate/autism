@@ -1,0 +1,28 @@
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Kaggle and credentials
+.kaggle/
+kaggle.json
+*.key
+*.pem
+.env
+
+# Large raw caches
+data/cache/
+nilearn_data/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+catboost_info/

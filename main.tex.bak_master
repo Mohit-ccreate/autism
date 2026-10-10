@@ -1,0 +1,421 @@
+\documentclass[conference]{IEEEtran}
+
+% -----------------------------------------------------------------------
+% Required Packages
+% -----------------------------------------------------------------------
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{cite}
+\usepackage{microtype}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+
+% Safe graphic inclusion macro (compiles cleanly in Overleaf)
+\newcommand{\safeinclude}[2][width=\linewidth]{%
+  \IfFileExists{#2}{\includegraphics[#1]{#2}}{%
+    \IfFileExists{#2.pdf}{\includegraphics[#1]{#2.pdf}}{%
+      \IfFileExists{#2.png}{\includegraphics[#1]{#2.png}}{%
+        \begin{center}\fbox{\parbox{0.88\linewidth}{\centering \vspace{0.3cm}\small\textbf{[Figure: #2]}\\\scriptsize Vector plot available in workspace \texttt{figures/} folder\vspace{0.3cm}}}\end{center}%
+      }%
+    }%
+  }%
+}
+
+\begin{document}
+
+% -----------------------------------------------------------------------
+% Title
+% -----------------------------------------------------------------------
+\title{A Methodological Audit and Reproducible Benchmark of Machine Learning for Autism Screening: Behavioral Tautologies, Scanner Heterogeneity, and Trustworthy Deployment}
+
+% -----------------------------------------------------------------------
+% Authors
+% -----------------------------------------------------------------------
+\author{
+\IEEEauthorblockN{Ratna Patil \\ Mohit Agrawal \\ Tanay Agrawal}
+\IEEEauthorblockA{\textit{Dept. of Artificial Intelligence \& Data Science}\\
+\textit{Vishwakarma Institute of Technology}\\
+Pune, India\\
+\{ratna.patil, mohit.agrawal24, tanay.agrawal24\}@vit.edu}
+\and
+\IEEEauthorblockN{Ayush Bagde \\ Shreyash Bhandare \\ Vibhav Bagade}
+\IEEEauthorblockA{\textit{Dept. of Artificial Intelligence \& Data Science}\\
+\textit{Vishwakarma Institute of Technology}\\
+Pune, India\\
+\{ayush.bagde24, shreyash.bhandare24, vibhav.bagade24\}@vit.edu}
+}
+
+\maketitle
+
+% -----------------------------------------------------------------------
+% Abstract (Strictly <= 200 words)
+% -----------------------------------------------------------------------
+\begin{abstract}
+Diagnostic latency in Autism Spectrum Disorder (ASD) often exceeds three years, motivating substantial research into automated machine learning triage using brief questionnaires and resting-state fMRI. However, published literature exhibits pervasive methodological vulnerabilities. This investigation presents an adversarial methodological audit and reproducible benchmark across four public questionnaire cohorts (Adult, Adolescent, Child, Toddler; $N = 1,876$) and a multi-site resting-state fMRI cohort from ABIDE-I ($N = 120$ subjects across four imaging centers). First, we establish that widely reported 98--100\,\% questionnaire accuracies represent an arithmetic tautology: target labels in public UCI datasets are deterministic functions of item sums ($\sum A_i \ge \tau$, 100.0\,\% concordance), rendering machine learning non-incremental over standard scoring rules. Second, under Leave-One-Site-Out (LOSO) cross-validation with fold-internal ComBat harmonization, functional connectivity models achieve 55.0\,\% accuracy (95\,\% CI: [46.7\,\%, 64.2\,\%]). Exact binomial tests ($p = 0.315$) and 1,000 within-site label permutations ($p = 0.215$) indicate performance is indistinguishable from chance under statistical power constraints. Third, we formulate an engineering feasibility prototype for client-side decision support: split conformal prediction bounds diagnostic uncertainty (95.5\,\% coverage) by isolating borderline presentations, while client-side edge compilation enables zero-upload inference in 0.45~ms. We release all deduplicated datasets, scripts, and audited baselines.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Autism Spectrum Disorder, Methodological Audit, Label Leakage, ABIDE-I, Leave-One-Site-Out Cross-Validation, ComBat Harmonization, Conformal Prediction, Model Calibration, Edge Computing.
+\end{IEEEkeywords}
+
+% -----------------------------------------------------------------------
+% Section I: Introduction
+% -----------------------------------------------------------------------
+\section{Introduction}
+
+Autism Spectrum Disorder (ASD) is a neurodevelopmental condition characterized by persistent atypicalities in reciprocal social interaction, sensory processing, and restricted, repetitive patterns of behavior. Recent epidemiological monitoring by the Centers for Disease Control and Prevention (CDC) Autism and Developmental Disabilities Monitoring (ADDM) Network estimates ASD prevalence between 1 in 36 (2.7\,\%) and 1 in 31 (3.2\,\%) children in the United States \cite{maenner2023}. While early evidence-based behavioral therapies substantially improve longitudinal functional independence, clinical diagnostic latency from initial caregiver concern to formal specialist diagnosis regularly spans 36 to 60 months. This diagnostic bottleneck stems from severe shortages of licensed specialists certified to administer gold-standard observational evaluations, including the Autism Diagnostic Observation Schedule, Second Edition (ADOS-2) \cite{lord2012ados}.
+
+To address specialist scarcity, extensive machine learning research has evaluated automated screening algorithms. Two primary computational paradigms dominate the literature: (i) supervised tabular classifiers applied to brief behavioral screening questionnaires (such as the 10-item Autism Spectrum Quotient, AQ-10 \cite{allison2012}, and Quantitative Checklist for Autism in Toddlers, Q-CHAT-10), and (ii) deep neural architectures trained on resting-state functional magnetic resonance imaging (rs-fMRI) connectomes from multi-center repositories such as the Autism Brain Imaging Data Exchange (ABIDE-I) \cite{di2014}. Tabular questionnaire studies regularly report held-out test accuracies between 98.0\,\% and 100.0\,\% \cite{thabtah2019, raj2020}, while neuroimaging studies report cross-sectional diagnostic accuracies exceeding 70.0\,\% to 75.0\,\% using autoencoders, graph convolutional networks, and transformers \cite{heinsfeld2018, parisot2018, kan2022bnt}.
+
+However, clinical translation of these computational models remains nonexistent. In this work, we demonstrate that published performance metrics are driven by pervasive methodological vulnerabilities:
+\begin{enumerate}
+    \item \textbf{Circular Label Construction:} In public behavioral questionnaire benchmarks, diagnostic target classes are generated directly from deterministic cutoffs on item response sums. Consequently, trained classifiers fit an artificial step function rather than latent clinical phenotype signals.
+    \item \textbf{Validation Leakage and Scanner Overfitting:} Multi-site rs-fMRI benchmarks commonly utilize random in-sample cross-validation splits. Because acquisition hardware signatures strongly separate scanning centers, models memorize site-specific artifact baselines rather than invariant neuropathological signatures.
+    \item \textbf{Uncalibrated Point Estimates in Deployment:} Deployed screening applications force binary classifications without coverage guarantees, producing uncalibrated predictions precisely on clinically ambiguous presentations.
+\end{enumerate}
+
+To address these vulnerabilities, we execute an empirical audit and formulate an engineering feasibility prototype for client-side decision support. We summarize our contributions as follows:
+\begin{itemize}
+    \item \textbf{Formal Behavioral Tautology Audit:} Across four public developmental cohorts ($N = 1,876$ total instances), we prove that public UCI benchmark labels match deterministic integer summation rules with 100.0\,\% concordance. Through repeated $5 \times 10$ cross-validation, we demonstrate that machine learning models provide zero incremental value over standard arithmetic scoring keys.
+    \item \textbf{Controlled Multi-Site Neuroimaging Benchmark:} We evaluate functional connectomes across four ABIDE-I acquisition centers ($N = 120$) under strict Leave-One-Site-Out (LOSO) cross-validation with fold-internal ComBat harmonization. Statistical power analysis (minimum detectable accuracy 62.7\,\% at 80\,\% power), exact binomial tests, and 1,000 within-site label permutations indicate performance is indistinguishable from chance under statistical power constraints (55.0\,\% accuracy, $p = 0.215$).
+    \item \textbf{Client-Side Decision Support Prototype:} We formulate an inductive split conformal prediction layer that bounds marginal test coverage (95.5\,\%) while systematically flagging borderline cases ($\sum A_i \in \{6, 7\}$) as uncertain. We compile the model into an ultra-compact 2.4~kB ONNX graph executing in 0.45~ms client-side with zero data egress under strict Content Security Policies.
+\end{itemize}
+
+% -----------------------------------------------------------------------
+% Section II: Related Work
+% -----------------------------------------------------------------------
+\section{Related Work}
+
+\subsection{Behavioral Questionnaire Screening}
+The AQ-10 was developed by Allison et al. \cite{allison2012} as a clinical triage instrument derived through psychometric item reduction from the full 50-item Autism Spectrum Quotient. In clinical validation, an integer threshold of $\sum A_i \ge 6$ yielded 0.88 sensitivity and 0.91 specificity. Subsequent computational works published on the UCI Machine Learning Repository \cite{uci_adult, uci_adolescent, uci_child} applied machine learning classifiers, reporting near-perfect diagnostic classification \cite{thabtah2019, raj2020}. However, these evaluations failed to analyze the target column generation mechanism or address identical duplicate rows.
+
+\subsection{Resting-State fMRI Connectomics on ABIDE-I}
+The ABIDE-I consortium \cite{di2014} aggregated resting-state fMRI scans across 17 independent international acquisition sites. Early deep learning investigations pooled subjects across sites under standard random 10-fold cross-validation, reporting 70.0\,\% accuracy with stacked autoencoders \cite{heinsfeld2018} and 69.5\,\% with graph convolutional networks \cite{parisot2018}. However, Abraham et al. \cite{abraham2017} demonstrated that random splits cause substantial validation leakage because scanner-specific acquisition parameters (repetition time, head coils, gradient fields) confound in-sample partitions. Under Leave-Center-Out validation, linear estimators achieved 64.0\,\%--67.0\,\%, demonstrating that inter-site variance severely degrades out-of-scanner generalization. Modern graph transformer models such as Brain Network Transformer \cite{kan2022bnt} achieved 73.2\,\% on in-sample splits, but remain susceptible to domain shifts under strict site holdouts.
+
+\begin{table*}[t]
+\caption{Systematic Methodological Comparison of Prior Machine Learning Literature on ASD Screening}
+\label{tab:literature_comparison}
+\centering
+\renewcommand{\arraystretch}{1.18}
+\begin{tabular}{lp{3.2cm}p{2.3cm}ccp{4.8cm}}
+\toprule
+\textbf{Study} & \textbf{Modality / Instrument} & \textbf{Cohort Size ($N$)} & \textbf{Validation} & \textbf{Accuracy} & \textbf{Methodological \& Leakage Audit} \\
+\midrule
+Allison et al. (2012) \cite{allison2012} & Behavioral (AQ-10 Development) & 4,000 (1k ASD / 3k Ctrl) & Cohort Threshold & Sens: 0.88 & Clinical psychometric derivation; established scoring cutoff $\ge 6$. \\
+Thabtah (2019) \cite{thabtah2019} & Questionnaire (UCI ASD) & 704 Adult, 1054 Toddler & 10-Fold CV & 97.0--100.0\,\% & Target column is deterministic function of item sum; duplicate rows unaddressed. \\
+Raj \& Masood (2020) \cite{raj2020} & Questionnaire (UCI Adult) & 704 Adult & 80/20 Split & 98.6--100.0\,\% & Evaluates circular label dependency; duplicate instances leak across partitions. \\
+Heinsfeld et al. (2018) \cite{heinsfeld2018} & rs-fMRI (CC200 Autoencoder) & 1,035 (17 Centers) & 10-Fold Random & 70.0\,\% & In-sample site pooling allows network to memorize scanner noise profiles. \\
+Parisot et al. (2018) \cite{parisot2018} & rs-fMRI + Phenotypic GCN & 871 Subjects & 10-Fold CV & 69.5\,\% & Transductive graph construction includes test subject adjacency during training. \\
+Kan et al. (2022) \cite{kan2022bnt} & rs-fMRI (Brain Net. Trans.) & 1,035 Subjects & 5-Fold Stratified & 73.2\,\% & In-sample cross-validation without scanner domain isolation; overfits under LOSO. \\
+Eslami et al. (2019) \cite{eslami2019} & rs-fMRI (Auto-ASD-Network) & 1,035 Subjects & 10-Fold CV & 70.1\,\% & Scanner boundaries ignored in random partitioning. \\
+Abraham et al. (2017) \cite{abraham2017} & rs-fMRI (Multi-Atlas Linear) & 871 Subjects & Leave-Center-Out & 64.0--67.0\,\% & Rigorous benchmark showing that out-of-scanner generalization rarely exceeds 65\,\%. \\
+\midrule
+\textbf{Ours (This Work)} & \textbf{AQ-10 / Q-CHAT-10 + rs-fMRI} & \textbf{1,876 (Tabular) + 120 (fMRI)} & \textbf{LOSO + 1k Perm.} & \textbf{55.0\,\% (fMRI)} & \textbf{Proves questionnaire tautology; exact binomial ($p=0.315$) and permutation tests ($p=0.215$) demonstrate performance indistinguishable from chance under statistical power constraints; client-side decision support prototype.} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+% -----------------------------------------------------------------------
+% Section III: Methodology
+% -----------------------------------------------------------------------
+\section{Methodological Framework}
+
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw=blue!80, fill=blue!5, rounded corners=4pt, thick,
+              minimum width=3.2cm, minimum height=1.1cm, align=center, font=\footnotesize},
+  audit/.style={draw=red!80, fill=red!5, rounded corners=4pt, thick,
+              minimum width=3.2cm, minimum height=1.1cm, align=center, font=\footnotesize},
+  deploy/.style={draw=green!70!black, fill=green!5, rounded corners=4pt, thick,
+              minimum width=3.2cm, minimum height=1.1cm, align=center, font=\footnotesize},
+  arrow/.style={-{Latex[scale=1.1]}, thick, draw=gray!80}
+]
+  % Top row: Questionnaire pipeline
+  \node (q_in) [box] {\textbf{Questionnaire Data}\\4 Cohorts ($N = 1,876$)\\AQ-10 \& Q-CHAT-10};
+  \node (q_audit) [audit, right=1.6cm of q_in] {\textbf{Tautology Audit}\\\textbf{Label:} $\sum A_i \ge \tau$ (100\,\%)\\Rule Baseline vs. ML};
+  \node (q_conf) [deploy, right=1.6cm of q_audit] {\textbf{Conformal Guard}\\Split Conformal ($\alpha=0.10$)\\Borderline Uncertainty Sets};
+
+  % Bottom row: fMRI pipeline
+  \node (fmri_in) [box, below=1.2cm of q_in] {\textbf{ABIDE-I Neuroimaging}\\120 Subjects, 4 Centers\\CC200 Atlas (19,900 Edges)};
+  \node (fmri_audit) [audit, right=1.6cm of fmri_in] {\textbf{Generalization Audit}\\Fold-Internal ComBat\\LOSO-CV \& 1,000-Perm. Test};
+  \node (edge_out) [deploy, right=1.6cm of fmri_audit] {\textbf{Client-Side Edge}\\2.4~kB ONNX Graph\\0.45~ms Zero-Upload Infer.};
+
+  % Connections
+  \draw[arrow] (q_in) -- node[above, font=\tiny]{Deduplicated} (q_audit);
+  \draw[arrow] (q_audit) -- node[above, font=\tiny]{Nonconformity} (q_conf);
+  \draw[arrow] (fmri_in) -- node[above, font=\tiny]{ANOVA Top 250} (fmri_audit);
+  \draw[arrow] (fmri_audit) -- node[above, font=\tiny]{Linear Edge} (edge_out);
+
+  % Dashed cross-linking
+  \draw[dashed, draw=gray!60, thick] (q_conf) -- (edge_out);
+\end{tikzpicture}
+\caption{System architecture of the methodological audit and deployment framework. Behavioral questionnaire benchmarks undergo systematic deduplication and label-tautology cross-tabulation, followed by split conformal uncertainty flagging. Neuroimaging functional connectivity undergoes fold-internal ComBat harmonization and Leave-One-Site-Out evaluation paired with 1,000-iteration permutation tests and client-side ONNX compilation.}
+\label{fig:audit_arch}
+\end{figure*}
+
+\subsection{Questionnaire Benchmark Datasets and Deduplication}
+We evaluated four public developmental screening cohorts ($N = 1,876$ total unique subjects):
+\begin{itemize}
+    \item \textbf{Adult ASD Cohort ($N = 667$):} Hosted on the UCI repository \cite{uci_adult} with 704 raw entries. Superficial full-row deduplication across all 21 raw columns yields 699 distinct rows (removing 5 exact duplicates). However, clinical deduplication across the 10 questionnaire items and core demographic identifiers ($A_1$--$A_{10}$, age, sex, diagnosis) identifies 37 duplicate patient submissions, retaining $N = 667$ unique clinical subjects.
+    \item \textbf{Adolescent ASD Cohort ($N = 97$):} Covering ages 12--16 on UCI \cite{uci_adolescent} with 104 raw entries (103 distinct full rows). Feature-level deduplication removes 7 duplicate patient records, retaining $N = 97$ unique subjects.
+    \item \textbf{Child ASD Cohort ($N = 262$):} Covering ages 4--11 on UCI \cite{uci_child} with 292 raw entries (290 distinct full rows). Feature-level deduplication removes 30 duplicate records, retaining $N = 262$ unique subjects.
+    \item \textbf{Toddler Q-CHAT-10 Cohort ($N = 850$):} Hosted on Kaggle \cite{thabtah2018toddler} with 1,054 raw entries evaluating toddlers aged 12--36 months. Deduplication across item responses and demographics removes 204 duplicate submissions, retaining $N = 850$ unique subjects.
+\end{itemize}
+
+\subsection{Behavioral Tautology and Decision Rule Formulation}
+In the AQ-10 instrument, each response is scored as a binary value $A_i \in \{0, 1\}$. We formulated the deterministic Benchmark Scoring Rule baseline:
+\begin{equation}
+    \hat{y}_{\text{rule}} = \mathbb{I}\left(\sum_{i=1}^{10} A_i \ge \tau\right)
+    \label{eq:rule_cutoff}
+\end{equation}
+where $\tau \in \mathbb{N}$ denotes the screening threshold. We emphasize that $\tau = 7$ is the dataset's label-defining threshold for AQ-10 (and $\tau = 4$ for Q-CHAT-10), which is distinct from the clinical referral cutoff of $\tau = 6$ psychometrically validated by Allison et al. \cite{allison2012}. Our audit explicitly evaluates this dataset label-defining cutoff ($\tau = 7$) to test whether published ML claims extract genuine diagnostic phenotypes or simply fit the repository's programmatic summation rule.
+
+To test whether statistical learners extract nonlinear interactions beyond this summation, we trained four base classifiers: Logistic Regression (L2 regularized), LightGBM \cite{ke2017lightgbm}, XGBoost \cite{chen2016xgboost}, and CatBoost \cite{prokhorenkova2018catboost}. A logistic meta-classifier aggregates out-of-fold base probability estimates $\hat{p}_k(\mathbf{x})$:
+\begin{equation}
+    P(y = 1 \mid \mathbf{x}) = \sigma\left(w_0 + \sum_{k=1}^K w_k \hat{p}_k(\mathbf{x})\right)
+    \label{eq:stacking_meta}
+\end{equation}
+where $\sigma(z) = (1 + e^{-z})^{-1}$ and $K = 4$.
+
+\subsection{Controlled Multi-Site Neuroimaging Benchmark}
+Resting-state fMRI scans were obtained from the ABIDE-I repository \cite{di2014}, preprocessed through the Configurable Pipeline for the Analysis of Connectomes (CPAC) under the Preprocessed Connectomes Project \cite{craddock2013pcp}. To establish a controlled multi-site pilot benchmark, we curated 120 subjects across four clinical imaging centers: Oregon Health \& Science University (OHSU, $N=25$), Olin Neuropsychiatry Research Center (OLIN, $N=28$), University of Pittsburgh (PITT, $N=50$), and San Diego State University (SDSU, $N=17$). Scans were parcellated using the Craddock 200 (CC200) functional clustering atlas ($P = 200$ regions of interest) \cite{craddock2012}.
+
+Pairwise Pearson correlation matrices $\mathbf{R} \in \mathbb{R}^{200 \times 200}$ were transformed via Fisher's $z$-transformation:
+\begin{equation}
+    z_{uv} = \frac{1}{2} \ln\left(\frac{1 + r_{uv}}{1 - r_{uv}}\right)
+    \label{eq:fisher_z}
+\end{equation}
+Extracting the upper triangle yields an undirected connectome vector $\mathbf{x}_i \in \mathbb{R}^M$ where $M = \frac{P(P - 1)}{2} = 19,900$ unique functional connectivity edges per subject.
+
+Under Leave-One-Site-Out cross-validation across $S = 4$ sites, for each held-out site $s \in \{1, \dots, S\}$, models are trained strictly on data from the remaining $S - 1$ centers:
+\begin{equation}
+    \mathcal{D}_{\text{train}}^{(s)} = \bigcup_{j \neq s} \mathcal{D}_j, \quad \mathcal{D}_{\text{test}}^{(s)} = \mathcal{D}_s
+    \label{eq:loso_split}
+\end{equation}
+
+\subsection{Fold-Internal ComBat Empirical Bayes Harmonization}
+To mitigate scanner batch effects without test leakage, we implemented parametric Empirical Bayes ComBat \cite{johnson2007combat} strictly inside training folds. Let $y_{ijg}$ represent connectivity edge $g$ for subject $j$ at site $i$:
+\begin{equation}
+    y_{ijg} = \alpha_g + \mathbf{X}_{ij}\boldsymbol{\beta}_g + \gamma_{ig} + \delta_{ig}\epsilon_{ijg}
+    \label{eq:combat_formulation}
+\end{equation}
+where $\alpha_g$ represents the overall reference mean of edge $g$, $\mathbf{X}_{ij}$ denotes biological covariates with coefficients $\boldsymbol{\beta}_g$, $\gamma_{ig}$ is the site-specific additive shift, $\delta_{ig}$ is the multiplicative scaling factor, and $\epsilon_{ijg} \sim \mathcal{N}(0, \sigma_g^2)$. 
+
+Parameters $\hat{\alpha}_g$, $\hat{\gamma}_{ig}$, and $\hat{\delta}_{ig}$ are estimated exclusively on $\mathcal{D}_{\text{train}}^{(s)}$. For unseen test subjects in $\mathcal{D}_{\text{test}}^{(s)}$, applying the training reference parameters ($\hat{\alpha}_g, \hat{\delta}_{g, \text{ref}}$) represents a zero-calibration standardization protocol:
+\begin{equation}
+    \mathbf{x}_{\text{test}, g}^* = \frac{\mathbf{x}_{\text{test}, g} - \hat{\alpha}_g}{\hat{\delta}_{g, \text{ref}}} + \hat{\alpha}_g
+    \label{eq:combat_unseen}
+\end{equation}
+where $\hat{\delta}_{g, \text{ref}}$ represents the pooled training dispersion. We emphasize that site-specific batch shifts ($\gamma_{\text{test}, g}, \delta_{\text{test}, g}$) cannot be estimated for previously unobserved scanners without test calibration data. This zero-calibration standardization protocol projects unseen test scans onto the training reference distribution label-free, preventing test data leakage while standardizing baseline dispersion. Following harmonization, univariate ANOVA $F$-test feature selection extracts the top $k = 250$ edges exclusively on training subjects, avoiding feature-selection leakage.
+
+\subsection{Split Conformal Prediction Framework}
+To replace uncalibrated point estimates with distribution-free coverage guarantees, we implemented inductive split conformal prediction \cite{angelopoulos2023, vovk2005}. The training data is split into proper training ($n_{\text{train}} = 373$) and calibration sets ($n_{\text{cal}} = 160$). For binary classification $y \in \{0, 1\}$, nonconformity scores are computed on calibration samples:
+\begin{equation}
+    s_i = 1 - \hat{p}(y_i \mid \mathbf{x}_i)
+    \label{eq:nonconformity}
+\end{equation}
+Given significance level $\alpha \in (0, 1)$, acceptance threshold $\hat{q}$ is the empirical quantile:
+\begin{equation}
+    \hat{q} = \text{Quantile}\left(\{s_i\}_{i=1}^{n_{\text{cal}}}; \frac{\lceil(n_{\text{cal}} + 1)(1 - \alpha)\rceil}{n_{\text{cal}}}\right)
+    \label{eq:qhat}
+\end{equation}
+At test time, the conformal prediction set $C(\mathbf{x})$ is constructed without access to true labels:
+\begin{equation}
+    C(\mathbf{x}) = \left\{ y \in \{0, 1\} : 1 - \hat{p}(y \mid \mathbf{x}) \le \hat{q} \right\}
+    \label{eq:pred_set}
+\end{equation}
+When $\hat{q} < 0.5$, singleton sets dominate. Any instance where the set is empty ($|C(\mathbf{x})| = 0$) or ambiguous ($|C(\mathbf{x})| = 2$) violates single-class certainty and is flagged as \emph{Clinically Borderline / Uncertain}.
+
+\subsection{Knowledge Distillation and Browser Edge Compilation}
+To evaluate client-side edge feasibility, we compressed the linear connectome estimator into an ultra-compact student model via knowledge distillation \cite{hinton2015}. The student model optimizes a convex combination of cross-entropy and temperature-scaled Kullback-Leibler divergence against teacher logit $z_t$:
+\begin{equation}
+    \mathcal{L}_{\text{distill}} = (1 - \lambda)\mathcal{L}_{\text{CE}}(y, \sigma(z_s)) + \lambda T^2 \mathcal{L}_{\text{KL}}\left(\sigma\left(\frac{z_s}{T}\right), \sigma\left(\frac{z_t}{T}\right)\right)
+    \label{eq:distill_loss}
+\end{equation}
+with temperature $T = 2.0$ and weighting parameter $\lambda = 0.5$. The distilled student retains only 50 functional edges and is compiled into an Open Neural Network Exchange (ONNX) graph \cite{onnxruntime2023}. Client-side execution in browser memory is isolated under strict Content Security Policies (`connect-src 'none'`) preventing remote network egress.
+
+% -----------------------------------------------------------------------
+% Section IV: Empirical Evaluation & Results
+% -----------------------------------------------------------------------
+\section{Empirical Evaluation and Results}
+
+\subsection{Questionnaire Benchmark Audit & Tautology Sweep}
+Table~\ref{tab:threshold_sweep} reports the threshold sweep concordance audit across all four cohorts. For Adult, Adolescent, and Child benchmarks, setting threshold $\tau = 7$ yields exactly 100.0\,\% concordance with the dataset target column across every single instance ($0$ discordant cases). For the Toddler Q-CHAT-10 dataset, setting $\tau = 4$ yields 100.0\,\% concordance ($0$ discordant cases).
+
+\begin{table}[htbp]
+\caption{Concordance Audit Between Benchmark Scoring Rule and Public Benchmark Target Labels Across $\tau$}
+\label{tab:threshold_sweep}
+\centering
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Cohort ($N$)} & \textbf{Threshold $\tau$} & \textbf{Concordance} & \textbf{Discordant} & \textbf{Sens.} & \textbf{Spec.} \\
+\midrule
+Adult ($N=667$) & $\tau = 5$ & 77.36\,\% & 151 & 1.000 & 0.693 \\
+Adult ($N=667$) & $\tau = 6$ & 89.66\,\% & 69 & 1.000 & 0.860 \\
+Adult ($N=667$) & \textbf{$\tau = 7$} & \textbf{100.00\,\%} & \textbf{0} & \textbf{1.000} & \textbf{1.000} \\
+Adult ($N=667$) & $\tau = 8$ & 91.45\,\% & 57 & 0.674 & 1.000 \\
+\midrule
+Adolescent ($N=97$) & \textbf{$\tau = 7$} & \textbf{100.00\,\%} & \textbf{0} & \textbf{1.000} & \textbf{1.000} \\
+Child ($N=262$) & \textbf{$\tau = 7$} & \textbf{100.00\,\%} & \textbf{0} & \textbf{1.000} & \textbf{1.000} \\
+Toddler ($N=850$) & \textbf{$\tau = 4$} & \textbf{100.00\,\%} & \textbf{0} & \textbf{1.000} & \textbf{1.000} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:cv_questionnaire} presents repeated $5 \times 10$ Stratified Cross-Validation results across all cohorts. The simple Benchmark Scoring Rule achieves 100.0\,\% $\pm$ 0.0\,\% across all 50 folds on every cohort. In contrast, complex Machine Learning stacking ensembles achieve 99.10\,\% on Adult, 95.37\,\% on Adolescent, and 97.71\,\% on Child cohorts. Complex statistical learners underperform the integer baseline due to finite-sample boundary estimation error on small cohorts. On these benchmarks, machine learning adds zero incremental predictive value over basic addition.
+
+\begin{table*}[t]
+\caption{Repeated $5 \times 10$ Stratified Cross-Validation Benchmark on Behavioral Questionnaires}
+\label{tab:cv_questionnaire}
+\centering
+\renewcommand{\arraystretch}{1.18}
+\begin{tabular}{llcccccc}
+\toprule
+\textbf{Cohort} & \textbf{Evaluator} & \textbf{Accuracy (Mean $\pm$ SD)} & \textbf{Sensitivity} & \textbf{Specificity} & \textbf{ROC-AUC} & \textbf{Brier Score} & \textbf{ECE} \\
+\midrule
+\textbf{Adult} ($N=667$) & \textbf{Benchmark Scoring Rule ($\tau=7$)} & \textbf{1.0000 $\pm$ 0.0000} & \textbf{1.0000 $\pm$ 0.0000} & \textbf{1.0000 $\pm$ 0.0000} & \textbf{1.0000 $\pm$ 0.0000} & \textbf{0.0000} & \textbf{0.0000} \\
+& Logistic Regression (Var A) & 0.9996 $\pm$ 0.0018 & 0.9983 $\pm$ 0.0068 & 1.0000 $\pm$ 0.0000 & 1.0000 $\pm$ 0.0000 & 0.0146 & 0.0594 \\
+& Stacking Ensemble (Var A) & 0.9910 $\pm$ 0.0100 & 0.9714 $\pm$ 0.0338 & 0.9980 $\pm$ 0.0041 & 0.9999 $\pm$ 0.0003 & 0.0094 & 0.0412 \\
+\midrule
+\textbf{Adolescent} ($N=97$) & \textbf{Benchmark Scoring Rule ($\tau=7$)} & \textbf{1.0000 $\pm$ 0.0000} & \textbf{1.0000 $\pm$ 0.0000} & \textbf{1.0000 $\pm$ 0.0000} & \textbf{1.0000 $\pm$ 0.0000} & \textbf{0.0000} & \textbf{0.0000} \\
+& Logistic Regression (Var A) & 0.9555 $\pm$ 0.0547 & 0.9911 $\pm$ 0.0268 & 0.9067 $\pm$ 0.1214 & 0.9974 $\pm$ 0.0071 & 0.0551 & 0.1595 \\
+& Stacking Ensemble (Var A) & 0.9537 $\pm$ 0.0430 & 0.9818 $\pm$ 0.0364 & 0.9125 $\pm$ 0.0976 & 0.9893 $\pm$ 0.0133 & 0.0620 & 0.1729 \\
+\midrule
+\textbf{Child} ($N=262$) & \textbf{Benchmark Scoring Rule ($\tau=7$)} & \textbf{1.0000 $\pm$ 0.0000} & \textbf{1.0000 $\pm$ 0.0000} & \textbf{1.0000 $\pm$ 0.0000} & \textbf{1.0000 $\pm$ 0.0000} & \textbf{0.0000} & \textbf{0.0000} \\
+& Logistic Regression (Var A) & 0.9943 $\pm$ 0.0122 & 1.0000 $\pm$ 0.0000 & 0.9895 $\pm$ 0.0226 & 1.0000 $\pm$ 0.0000 & 0.0296 & 0.1111 \\
+& Stacking Ensemble (Var A) & 0.9771 $\pm$ 0.0167 & 0.9792 $\pm$ 0.0280 & 0.9755 $\pm$ 0.0226 & 0.9976 $\pm$ 0.0033 & 0.0269 & 0.0874 \\
+\midrule
+\textbf{Toddler} ($N=850$) & \textbf{Benchmark Scoring Rule ($\tau=4$)} & \textbf{1.0000 $\pm$ 0.0000} & \textbf{1.0000 $\pm$ 0.0000} & \textbf{1.0000 $\pm$ 0.0000} & \textbf{1.0000 $\pm$ 0.0000} & \textbf{0.0000} & \textbf{0.0000} \\
+& Logistic Regression (Var A) & 1.0000 $\pm$ 0.0000 & 1.0000 $\pm$ 0.0000 & 1.0000 $\pm$ 0.0000 & 1.0000 $\pm$ 0.0000 & 0.0132 & 0.0589 \\
+& Stacking Ensemble (Var A) & 0.9982 $\pm$ 0.0038 & 1.0000 $\pm$ 0.0000 & 0.9935 $\pm$ 0.0139 & 1.0000 $\pm$ 0.0000 & 0.0057 & 0.0339 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\textbf{Subgroup Fairness Audit:} Disaggregating the held-out adult test set by sex yields 100.0\,\% accuracy for males ($N = 75$, 95\,\% Clopper-Pearson CI: [95.2\,\%, 100.0\,\%]) and 100.0\,\% for females ($N = 59$, 95\,\% CI: [93.9\,\%, 100.0\,\%]). While equitable performance is clinically vital given diagnostic sex disparities \cite{lai2014}, equal performance here is an inevitable mathematical consequence of target column derivation from the scoring sum, and must not be misinterpreted as evidence of algorithmic demographic fairness.
+
+\begin{figure}[t]
+\centering
+\safeinclude[width=0.92\linewidth]{figures/fig_rule_vs_ml_ablation.pdf}
+\caption{Empirical comparison of the Benchmark Scoring Rule baseline against Logistic Regression and Stacking Ensemble across repeated cross-validation ($5 \times 10$ CV). The simple scoring rule matches or outperforms complex ML across all cohorts.}
+\label{fig:rule_vs_ml}
+\end{figure}
+
+\subsection{Conformal Uncertainty Quantification}
+On the adult test set ($n_{\text{test}} = 134$) with calibration set $n_{\text{cal}} = 160$, split conformal prediction at $\alpha = 0.10$ produced quantile threshold $\hat{q} = 0.2574$. Marginal empirical test coverage reached 95.52\,\% ($128/134$, 95\,\% Wilson score CI: [90.58\,\%, 97.93\,\%]), satisfying the nominal 90.0\,\% guarantee. Class-conditional coverage was 98.94\,\% ($93/94$ controls) and 87.50\,\% ($35/40$ ASD cases), where all 6 uncovered instances corresponded to empty prediction sets.
+
+Prediction set sizes comprised 95.52\,\% singleton sets ($128/134$, $|C(\mathbf{x})| = 1$), 0.0\,\% pair sets ($0/134$, $|C(\mathbf{x})| = 2$), and 4.48\,\% empty sets ($6/134$, $|C(\mathbf{x})| = 0$). Exactly 6 cases (4.48\,\%) were flagged as clinically uncertain ($|C(\mathbf{x})| \neq 1$). Inspection confirmed that all six flagged instances had integer sums $\sum A_i \in \{6, 7\}$, coinciding with the borderline threshold of the screening instrument.
+
+\begin{figure}[t]
+\centering
+\safeinclude[width=\linewidth]{figures/fig_conformal_calibration.pdf}
+\caption{Split conformal prediction evaluation on the held-out adult cohort. (Left) Empirical test coverage meets nominal $1 - \alpha$ bounds. (Right) Rate of clinically uncertain cases ($|C(\mathbf{x})| \neq 1$) systematically isolates borderline cases.}
+\label{fig:conformal_cal}
+\end{figure}
+
+\subsection{Multi-Site rs-fMRI LOSO Evaluation and Site Heterogeneity}
+Table~\ref{tab:fmri_loso} summarizes per-site and aggregate performance on ABIDE-I under Leave-One-Site-Out cross-validation. Aggregate LOSO accuracy was 55.00\,\% ($66/120$ correct), with Balanced Accuracy of 54.67\,\%, ROC-AUC of 0.6098, and F1 of 0.4906. The 95\,\% bootstrap confidence interval was $[46.67\,\%, 64.17\,\%]$, which encompasses the 50.0\,\% chance baseline.
+
+\begin{table}[htbp]
+\caption{Per-Site Held-Out fMRI LOSO Results on ABIDE-I ($N=120$)}
+\label{tab:fmri_loso}
+\centering
+\renewcommand{\arraystretch}{1.18}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Site} & \textbf{$N$} & \textbf{Acc. (95\,\% Wilson CI)} & \textbf{Two-sided $p$} & \textbf{Holm $p_{\text{adj}}$} & \textbf{ROC-AUC} \\
+\midrule
+OHSU & 25 & 48.0\,\% [30.0\,\%, 66.5\,\%] & $p = 1.000$ & $p = 1.000$ & 0.5449 \\
+OLIN & 28 & 60.7\,\% [42.4\,\%, 76.4\,\%] & $p = 0.345$ & $p = 1.000$ & 0.5663 \\
+PITT & 50 & 46.0\,\% [33.0\,\%, 59.6\,\%] & $p = 0.672$ & $p = 1.000$ & 0.6026 \\
+SDSU & 17 & 82.4\,\% [59.0\,\%, 93.8\,\%] & $p = 0.013$ & $p = 0.051$ & 0.8611 \\
+\midrule
+\textbf{Total} & \textbf{120} & \textbf{55.0\,\% [46.7\,\%, 64.2\,\%]} & \textbf{$p = 0.315$} & --- & \textbf{0.6098} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Disaggregating performance across scanning centers demonstrates substantial acquisition heterogeneity. Site SDSU achieved 82.4\,\% accuracy ($14/17$ correct), whereas PITT achieved 46.0\,\% ($23/50$) and OHSU achieved 48.0\,\% ($12/25$). Due to small sample size ($N=17$), SDSU's confidence interval spans $[59.0\,\%, 93.8\,\%]$. After controlling the family-wise error rate across the four tested centers via the Holm-Bonferroni step-down procedure, SDSU's adjusted significance is $p_{\text{adj}} = 0.0509 > 0.05$. Consequently, no individual scanning center demonstrates statistically significant above-chance accuracy after multiplicity correction.
+
+\begin{figure}[t]
+\centering
+\safeinclude[width=0.92\linewidth]{figures/fig_persite_loso.pdf}
+\caption{Per-site held-out LOSO accuracy with Wilson 95\,\% confidence intervals. Performance fluctuates across centers (46.0\,\% at PITT vs. 82.4\,\% at SDSU), reflecting substantial domain shifts.}
+\label{fig:persite_loso}
+\end{figure}
+
+\subsection{Hypothesis Testing, Permutation Protocols, and Statistical Power}
+To test whether the observed 55.0\,\% LOSO accuracy reflects genuine discriminative signal:
+\begin{itemize}
+    \item \textbf{Statistical Power Analysis:} For a two-sided one-sample proportion test against chance ($p_0 = 0.50$) at $\alpha = 0.05$ with $N = 120$, the minimum detectable effect size at 80\,\% statistical power is \textbf{62.7\,\%} accuracy. The observed accuracy of 55.0\,\% falls substantially below this statistical sensitivity threshold.
+    \item \textbf{Exact Binomial Test:} Evaluating $k = 66$ successes out of $N = 120$ trials under null hypothesis $p_0 = 0.50$ yields two-sided $p = 0.3153$ (one-sided $p = 0.1577$).
+    \item \textbf{Within-Site Label Permutation Test ($B = 1,000$):} Permuting diagnostic labels exclusively within each acquisition center preserves center-specific class prevalences while refitting the full pipeline (ComBat harmonization, ANOVA selection, L2 classifier). The resulting empirical null distribution exhibited mean accuracy $50.18\,\% \pm 5.51\,\%$, yielding empirical $p = \frac{1 + 214}{1001} = \mathbf{0.2148}$.
+    \item \textbf{Global Label Permutation Baseline ($B = 1,000$):} Permuting labels across the entire cohort yielded empirical null mean $48.87\,\% \pm 5.45\,\%$, with empirical $p = \frac{1 + 142}{1001} = \mathbf{0.1429}$.
+\end{itemize}
+
+Because both permutation tests and exact binomial tests exceed $\alpha = 0.05$, no evidence of above-chance generalization was observed. Deep architectures evaluated under identical LOSO splits overfitted severely: Brain Network Transformer \cite{kan2022bnt} achieved 45.83\,\% accuracy.
+
+\begin{figure}[t]
+\centering
+\safeinclude[width=0.92\linewidth]{figures/fig_loso_permutation.pdf}
+\caption{Empirical null distribution from 1,000 within-site label permutations versus observed LOSO accuracy (55.0\,\%, $p = 0.215$). The null distribution confirms that performance is indistinguishable from chance under statistical power constraints.}
+\label{fig:loso_perm}
+\end{figure}
+
+\subsection{Scanner Fingerprint and Confound Audits}
+To quantify residual hardware signatures, we trained a multi-class logistic classifier to predict acquisition site from connectome edges under 5-fold cross-validation. The majority-class baseline (PITT, $N=50$) is $50 / 120 = \mathbf{41.67\,\%}$, while balanced-accuracy chance is $1/4 = \mathbf{25.00\,\%}$. On unharmonized connectomes, site prediction achieved 73.33\,\% $\pm$ 5.00\,\% accuracy (balanced accuracy 67.17\,\%), confirming strong scanner fingerprints. Fold-internal ComBat standardization successfully attenuated these hardware artifacts.
+
+Correlating out-of-fold predicted probabilities against subject phenotypic characteristics revealed:
+\begin{itemize}
+    \item Participant Age: $r = -0.1839$, raw $p = 0.0444$, Holm-adjusted $p = \mathbf{0.1332}$.
+    \item Head Motion (mean Framewise Displacement): $r = -0.1399$, raw $p = 0.1276$, Holm-adjusted $p = \mathbf{0.2552}$.
+    \item Biological Sex: point-biserial $r = 0.0196$, raw $p = 0.8315$, Holm-adjusted $p = \mathbf{0.8315}$.
+\end{itemize}
+When regressing out age, sex, and head motion from connectivity features inside training folds via ordinary least squares, out-of-site LOSO accuracy was 58.33\,\%, which remains statistically indistinguishable from baseline ($p > 0.05$).
+
+\subsection{Knowledge Distillation and Browser Inference Efficiency}
+The 50-edge linear student model distilled from the teacher connectome representation achieved 59.17\,\% LOSO accuracy ($71/120$ correct). To evaluate whether the student differed significantly from the teacher (55.00\,\%, $66/120$), we conducted a subject-level paired McNemar test. The $2 \times 2$ contingency table comprised: both correct ($n_{11} = 61$), teacher correct / student wrong ($n_{10} = 5$), teacher wrong / student correct ($n_{01} = 10$), and both wrong ($n_{00} = 44$). The Edwards continuity-corrected McNemar test statistic was $\chi^2 = 1.0667$ with exact two-sided binomial $p = \mathbf{0.3018}$. This establishes that the minor 5-subject shift is statistically marginal, confirming representation preservation.
+
+The distilled model compiles into a 2.4~kB ONNX graph. In browser memory under ONNX Runtime Web \cite{onnxruntime2023} (WebAssembly backend), single-instance inference latency averaged 0.45~ms (IQR: [0.41, 0.52]~ms across 1,000 runs following 100 warm-up runs). Sandboxed client-side execution ensures complete patient data isolation with zero remote transmission.
+
+% -----------------------------------------------------------------------
+% Section V: Threats to Validity & Limitations
+% -----------------------------------------------------------------------
+\section{Threats to Validity and Limitations}
+
+\begin{enumerate}
+    \item \textbf{Controlled Pilot Benchmark Sample Size:} While 120 subjects across four acquisition centers provide rigorous controlled validation, larger cohorts ($N > 1,000$) are necessary to detect subtle effect sizes below our 62.7\,\% power threshold.
+    \item \textbf{Questionnaire Instrument Constraints:} The AQ-10 is an abbreviated community screening instrument, not a diagnostic confirmation. Because public benchmark labels are generated from item sums, they cannot validate real-world clinical discrimination between neurodevelopmental conditions.
+    \item \textbf{Preprocessing Latency Disparity:} Although client-side inference of the 50-edge linear graph requires 0.45~ms, spatial normalization and 4D BOLD motion correction currently require offline server pipelines.
+\end{enumerate}
+
+% -----------------------------------------------------------------------
+% Section VI: Ethical Considerations & Data Availability
+% -----------------------------------------------------------------------
+\section{Ethical Considerations and Data Availability}
+
+Automated neurodevelopmental screening tools must never be deployed as autonomous diagnostic arbiters. Algorithmic outputs should serve strictly as triage decision-support layers to prioritize clinical evaluations. All public datasets analyzed in this work are fully de-identified and open-access under Creative Commons licenses. Full reproduction scripts, deduplicated datasets, and metrics are available at: \url{https://anonymous.4open.science/r/asd-screening-audit}.
+
+% -----------------------------------------------------------------------
+% Section VII: Conclusion
+% -----------------------------------------------------------------------
+\section{Conclusion}
+
+We presented an adversarial methodological audit and reproducible benchmark for machine learning in Autism Spectrum Disorder screening. We demonstrated that widely cited 98--100\,\% questionnaire accuracies represent an arithmetic tautology wherein machine learning provides zero incremental value over simple integer addition. Furthermore, under Leave-One-Site-Out cross-validation on ABIDE-I, functional connectivity estimators achieved 55.0\,\% accuracy, which exact binomial tests ($p = 0.315$) and 1,000 within-site label permutations ($p = 0.215$) indicate performance is indistinguishable from chance under statistical power constraints. Finally, we demonstrated that split conformal prediction and client-side ONNX compilation establish an engineering feasibility prototype for client-side decision support.
+
+% -----------------------------------------------------------------------
+% References
+% -----------------------------------------------------------------------
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

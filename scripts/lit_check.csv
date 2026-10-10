@@ -1,0 +1,8 @@
+Study,Modality,Dataset,N,Split_Protocol,Reported_Accuracy,Page_Number,Verification_Source
+Raj & Masood (2020),Tabular (AQ-10),UCI Adult,704,Random 80/20 train/test,98.6% (CNN/SVM),"pp. 994-1004, p. 1001","Procedia Computer Science 167:994-1004, DOI: 10.1016/j.procs.2020.03.399"
+Thabtah et al. (2018),Tabular (AQ-10),UCI Adult,704,10-fold CV,99.7% (Rules/LR),"pp. 112-124, p. 118","Int. J. Med. Inform. 117:112-124, DOI: 10.1016/j.ijmedinf.2018.06.009"
+Heinsfeld et al. (2018),rs-fMRI (ABIDE-I),17 Sites,1035,Random 10-fold CV,70.0% (Autoencoder+MLP),"pp. 16-23, p. 19","NeuroImage: Clinical 17:16-23, DOI: 10.1016/j.nicl.2017.08.017"
+Eslami et al. (2019),rs-fMRI (ABIDE-I),17 Sites,1035,Random 10-fold CV,70.3% (ASD-DiagNet),"Art. 70, p. 5","Front. Neuroinform. 13:70, DOI: 10.3389/fninf.2019.00070"
+Kan et al. (2022),rs-fMRI (ABIDE-I),17 Sites,1009,5-fold stratified CV,73.2% (BNT),"pp. 25586-25599, p. 25592","NeurIPS 2022, Vol 35"
+Abraham et al. (2017),rs-fMRI (ABIDE-I),17 Sites,871,Leave-Center-Out (17 Sites),67.0% (Inter-site),"pp. 736-745, p. 740","NeuroImage 147:736-745, DOI: 10.1016/j.neuroimage.2016.10.045"
+Allison et al. (2012),Psychometric Validation,Clinic Cases & Controls,"4000 (1000 ASD, 3000 TD)",Psychometric item reduction,"Adult tau=6 (Sens 0.88, Spec 0.91); Adolescent tau=6 (Sens 0.93, Spec 0.95); Child tau=6 (Sens 0.95, Spec 0.97); Toddler tau=3 (Sens 0.91, Spec 0.89)","pp. 202-212, pp. 206-208","JAACAP 51(2):202-212, DOI: 10.1016/j.jaac.2011.11.003"

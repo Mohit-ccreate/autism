@@ -1,0 +1,171 @@
+{
+  "honest_loso_evaluation": {
+    "per_site": {
+      "OHSU": {
+        "n_test": 25,
+        "asd_count": 12,
+        "control_count": 13,
+        "lr_accuracy": 0.48,
+        "lr_auc": 0.5512820512820513,
+        "svm_accuracy": 0.48,
+        "rf_accuracy": 0.48,
+        "lgb_accuracy": 0.72
+      },
+      "OLIN": {
+        "n_test": 28,
+        "asd_count": 14,
+        "control_count": 14,
+        "lr_accuracy": 0.6071428571428571,
+        "lr_auc": 0.5816326530612246,
+        "svm_accuracy": 0.6428571428571429,
+        "rf_accuracy": 0.6428571428571429,
+        "lgb_accuracy": 0.5
+      },
+      "PITT": {
+        "n_test": 50,
+        "asd_count": 24,
+        "control_count": 26,
+        "lr_accuracy": 0.5,
+        "lr_auc": 0.5833333333333334,
+        "svm_accuracy": 0.48,
+        "rf_accuracy": 0.48,
+        "lgb_accuracy": 0.42
+      },
+      "SDSU": {
+        "n_test": 17,
+        "asd_count": 8,
+        "control_count": 9,
+        "lr_accuracy": 0.7647058823529411,
+        "lr_auc": 0.8472222222222223,
+        "svm_accuracy": 0.7647058823529411,
+        "rf_accuracy": 0.8235294117647058,
+        "lgb_accuracy": 0.6470588235294118
+      }
+    },
+    "overall": {
+      "logistic_regression": {
+        "accuracy": 0.5583333333333333,
+        "roc_auc": 0.60734149054505
+      },
+      "svm": {
+        "accuracy": 0.5583333333333333,
+        "roc_auc": 0.5978865406006675
+      },
+      "random_forest": {
+        "accuracy": 0.5666666666666667,
+        "roc_auc": 0.5945494994438265
+      },
+      "lightgbm": {
+        "accuracy": 0.5333333333333333,
+        "roc_auc": 0.5745272525027809
+      }
+    }
+  },
+  "inflated_random_evaluation": {
+    "evaluation_type": "5-Fold Random Split CV (INFLATED - Leaks site-specific scanner variance)",
+    "logistic_regression": {
+      "accuracy": 0.5833333333333334,
+      "roc_auc": 0.6423804226918799
+    },
+    "svm": {
+      "accuracy": 0.6,
+      "roc_auc": 0.631813125695217
+    }
+  },
+  "top_predictive_connections": [
+    {
+      "rank": 1,
+      "roi_a": 8,
+      "roi_b": 109,
+      "network_a": "Somatomotor Network",
+      "network_b": "Limbic Network",
+      "connection_label": "ROI_8 (Somatomotor Network) <-> ROI_109 (Limbic Network)",
+      "importance_weight": 0.3679326090104976
+    },
+    {
+      "rank": 2,
+      "roi_a": 70,
+      "roi_b": 126,
+      "network_a": "Visual Network",
+      "network_b": "Visual Network",
+      "connection_label": "ROI_70 (Visual Network) <-> ROI_126 (Visual Network)",
+      "importance_weight": 0.3580547892041591
+    },
+    {
+      "rank": 3,
+      "roi_a": 41,
+      "roi_b": 62,
+      "network_a": "Default Mode Network (DMN)",
+      "network_b": "Default Mode Network (DMN)",
+      "connection_label": "ROI_41 (Default Mode Network (DMN)) <-> ROI_62 (Default Mode Network (DMN))",
+      "importance_weight": 0.3350624424836259
+    },
+    {
+      "rank": 4,
+      "roi_a": 18,
+      "roi_b": 31,
+      "network_a": "Limbic Network",
+      "network_b": "Ventral Attention / Salience Network",
+      "connection_label": "ROI_18 (Limbic Network) <-> ROI_31 (Ventral Attention / Salience Network)",
+      "importance_weight": 0.3226101316256103
+    },
+    {
+      "rank": 5,
+      "roi_a": 131,
+      "roi_b": 196,
+      "network_a": "Frontoparietal Control Network",
+      "network_b": "Visual Network",
+      "connection_label": "ROI_131 (Frontoparietal Control Network) <-> ROI_196 (Visual Network)",
+      "importance_weight": 0.3173600111643699
+    },
+    {
+      "rank": 6,
+      "roi_a": 64,
+      "roi_b": 123,
+      "network_a": "Somatomotor Network",
+      "network_b": "Limbic Network",
+      "connection_label": "ROI_64 (Somatomotor Network) <-> ROI_123 (Limbic Network)",
+      "importance_weight": 0.2849990556917605
+    },
+    {
+      "rank": 7,
+      "roi_a": 75,
+      "roi_b": 153,
+      "network_a": "Frontoparietal Control Network",
+      "network_b": "Default Mode Network (DMN)",
+      "connection_label": "ROI_75 (Frontoparietal Control Network) <-> ROI_153 (Default Mode Network (DMN))",
+      "importance_weight": 0.28150391063246893
+    },
+    {
+      "rank": 8,
+      "roi_a": 80,
+      "roi_b": 185,
+      "network_a": "Ventral Attention / Salience Network",
+      "network_b": "Ventral Attention / Salience Network",
+      "connection_label": "ROI_80 (Ventral Attention / Salience Network) <-> ROI_185 (Ventral Attention / Salience Network)",
+      "importance_weight": 0.2810154793464734
+    },
+    {
+      "rank": 9,
+      "roi_a": 152,
+      "roi_b": 189,
+      "network_a": "Frontoparietal Control Network",
+      "network_b": "Visual Network",
+      "connection_label": "ROI_152 (Frontoparietal Control Network) <-> ROI_189 (Visual Network)",
+      "importance_weight": 0.28041466842128043
+    },
+    {
+      "rank": 10,
+      "roi_a": 4,
+      "roi_b": 138,
+      "network_a": "Limbic Network",
+      "network_b": "Frontoparietal Control Network",
+      "connection_label": "ROI_4 (Limbic Network) <-> ROI_138 (Frontoparietal Control Network)",
+      "importance_weight": 0.272841466689668
+    }
+  ],
+  "n_subjects": 120,
+  "n_sites": 4,
+  "atlas": "Craddock 200 (CC200) Functional Clustering Atlas",
+  "pipeline": "CPAC (filt_global: band-pass filtered 0.01-0.1Hz, global signal regression)"
+}

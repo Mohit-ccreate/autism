@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASD Clinical Screening & Research Platform | Honest Multi-Modal AI</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a0f1d">
+  <link rel="stylesheet" href="style.css">
+  <!-- Vendor libraries (stored locally for 100% offline security) -->
+  <script src="vendor/three.min.js"></script>
+  <script src="vendor/gsap.min.js"></script>
+  <script src="vendor/chart.umd.min.js"></script>
+  <script src="vendor/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to Main Content</a>
+  <div class="ambient-glow"></div>
+
+  <!-- First-Run Informed Consent Modal (Phase 3 Item 12) -->
+  <div id="consent-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+        <span style="font-size: 1.8rem;">🔒</span>
+        <h2 style="font-size: 1.25rem; font-weight: 700; color: #fff;">Informed Clinical Screening & Privacy Notice</h2>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+        Welcome to <strong>NEURO-SCREEN AI</strong>. Before using this tool, please review our core clinical and privacy commitments:
+      </p>
+      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1.25rem; font-size: 0.8rem; line-height: 1.5; color: var(--text-primary);">
+        <p style="margin-bottom: 0.5rem;">
+          ✓ <strong>100% On-Device Execution:</strong> All questionnaire scoring runs entirely inside your browser memory. Zero answers or personal details are transmitted over the internet.
+        </p>
+        <p style="margin-bottom: 0.5rem;">
+          ✓ <strong>Screening, Not a Diagnosis:</strong> This tool evaluates statistical patterns commonly seen in screening. It cannot replace a comprehensive evaluation by a licensed specialist (e.g., developmental pediatrician or clinical psychologist).
+        </p>
+        <p>
+          ✓ <strong>Guidance for Parents of Minors:</strong> If completing on behalf of a child or toddler, use this report as an objective discussion guide during routine developmental checkups.
+        </p>
+      </div>
+      <button id="btn-accept-consent" class="btn-control active" style="width: 100%; justify-content: center; padding: 0.75rem; font-size: 0.95rem;">
+        I Understand & Agree to Proceed
+      </button>
+    </div>
+  </div>
+
+  <!-- Accessibility Toolbar (Phase 3 Item 11) -->
+  <aside class="accessibility-bar" aria-label="Accessibility Options">
+    <span style="color: var(--text-muted);">♿ Accessibility:</span>
+    <button id="btn-dyslexia-font" class="btn-control" style="padding: 0.2rem 0.5rem; font-size: 0.7rem;">Dyslexia Font</button>
+    <button id="btn-high-contrast" class="btn-control" style="padding: 0.2rem 0.5rem; font-size: 0.7rem;">High Contrast</button>
+    <button id="btn-text-size" class="btn-control" style="padding: 0.2rem 0.5rem; font-size: 0.7rem;">Text Size: Normal</button>
+    <button id="btn-read-aloud" class="btn-control" style="padding: 0.2rem 0.5rem; font-size: 0.7rem;">🔊 Read Aloud</button>
+  </aside>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo-section">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0V7a1.5 1.5 0 0 1 3 0z"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>NEURO-SCREEN AI</h1>
+          <span id="txt-sub-header">ASD Honest Clinical Screening Research Platform</span>
+        </div>
+      </div>
+
+      <div class="header-badges">
+        <span id="badge-model-status" class="badge badge-trained">
+          <span class="status-dot">●</span> <span id="txt-model-badge">TRAINED MODEL (2026-09-30)</span>
+        </span>
+        <span class="badge badge-privacy">
+          🔒 <span id="txt-privacy-badge">100% Local Browser Privacy</span>
+        </span>
+      </div>
+
+      <div class="header-controls">
+        <button id="btn-sensory-mode" class="btn-control" title="Toggle Calm / Sensory-Friendly Mode">
+          🕊️ <span id="txt-sensory-mode">Sensory Mode</span>
+        </button>
+        <div style="display: flex; flex-direction: column; align-items: flex-end;">
+          <select id="select-lang" class="select-control" aria-label="Select Language">
+            <option value="en">English (EN)</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="mr">मराठी (Marathi)</option>
+            <option value="es">Español (ES)</option>
+            <option value="ar">العربية (Arabic - RTL)</option>
+          </select>
+          <span id="translation-disclaimer-note" style="font-size: 0.62rem; color: var(--text-muted); display: none;">*Needs native clinical review</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mandatory Safety Banner -->
+  <div class="clinical-disclaimer-banner">
+    ⚠️ <strong id="txt-disclaimer-bold">SCREENING & RESEARCH ONLY:</strong>
+    <span id="txt-disclaimer-text">This tool assesses behavioral trait patterns and brain connectivity. It does NOT diagnose autism or replace clinical evaluation by a licensed specialist (e.g. ADOS-2/ADI-R).</span>
+  </div>
+
+  <main class="main-wrapper" id="main-content">
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs-container" role="tablist">
+      <button class="tab-btn active" data-tab="tab-screening" role="tab">
+        📋 <span id="nav-screening">Screening Questionnaire</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-results" role="tab">
+        📊 <span id="nav-results">Results & Explainability</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-profile" role="tab">
+        🧩 <span id="nav-profile">Strengths & Support Profile</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-help" role="tab">
+        🏥 <span id="nav-help">Find Help (India & World)</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-history" role="tab">
+        🕒 <span id="nav-history">Local History</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-learning" role="tab">
+        📚 <span id="nav-learning">Learning Hub</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-clinician" role="tab">
+        🩺 <span id="nav-clinician">Clinician Mode</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-brain-explorer" role="tab">
+        🔬 <span id="nav-brain-explorer">Brain Explorer</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-arena" role="tab">
+        ⚔️ <span id="nav-arena">Experiment Arena</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-disagreement" role="tab">
+        🔀 <span id="nav-disagreement">Model vs Model</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-efficiency" role="tab">
+        📈 <span id="nav-efficiency">Data Efficiency</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-robustness" role="tab">
+        🛡️ <span id="nav-robustness">Robustness & Controls</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-negative" role="tab">
+        💡 <span id="nav-negative">What Didn't Work</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-detector" role="tab">
+        🛡️ <span id="nav-detector">Leakage Detector</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-leaderboard" role="tab">
+        🏆 <span id="nav-leaderboard">Honest Leaderboard</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-monitoring" role="tab">
+        📡 <span id="nav-monitoring">Model Monitoring & Drift</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-transparency" role="tab">
+        ⚖️ <span id="nav-transparency">Transparency</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-batch" role="tab">
+        📁 <span id="nav-batch">Batch CSV</span>
+      </button>
+    </nav>
+
+    <!-- Tab 1: Screening Questionnaire -->
+    <section id="tab-screening" class="tab-panel active">
+      <div class="grid-2col">
+        <!-- Left: Interactive Questionnaire Workflow -->
+        <div class="glass-card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span>🩺</span> <span id="lbl-select-cohort">Select Screening Age Cohort</span>
+            </h3>
+            <span class="badge" style="background: rgba(255,255,255,0.05);" id="cohort-indicator">ADULT (16+ y)</span>
+          </div>
+
+          <div class="age-cohort-selector">
+            <div class="cohort-card" data-cohort="toddler">
+              <h4>Toddler</h4>
+              <p>18 – 36 Months (Q-CHAT)</p>
+            </div>
+            <div class="cohort-card" data-cohort="child">
+              <h4>Child</h4>
+              <p>4 – 11 Years (AQ-10)</p>
+            </div>
+            <div class="cohort-card" data-cohort="adolescent">
+              <h4>Adolescent</h4>
+              <p>12 – 16 Years (AQ-10)</p>
+            </div>
+            <div class="cohort-card active" data-cohort="adult">
+              <h4>Adult</h4>
+              <p>16+ Years (AQ-10)</p>
+            </div>
+          </div>
+
+          <!-- Step Card Container -->
+          <div id="questionnaire-step-container">
+            <div class="progress-bar-container">
+              <div id="step-progress-bar" class="progress-bar-fill"></div>
+            </div>
+
+            <div class="question-card">
+              <div id="picture-cue-container" class="picture-cue-badge" aria-hidden="true">🔊</div>
+              <span id="question-step-counter" class="question-counter">QUESTION 1 OF 10</span>
+              <p id="question-active-text" class="question-text">
+                I often notice small sounds when others do not.
+              </p>
+              <div class="answer-options">
+                <button class="btn-answer" data-answer="1" id="btn-ans-agree" title="Shortcut: Press 1">Definitely / Slightly Agree (1)</button>
+                <button class="btn-answer" data-answer="0" id="btn-ans-disagree" title="Shortcut: Press 0">Slightly / Definitely Disagree (0)</button>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 1rem;">
+              <button id="btn-prev-q" class="btn-control" style="visibility: hidden;">← Previous Question</button>
+              <button id="btn-reset-q" class="btn-control">↺ Reset Answers</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: 3D Animated Brain View -->
+        <div class="glass-card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span>🧠</span> <span id="lbl-3d-brain">Neural Functional Connectivity (ABIDE I)</span>
+            </h3>
+            <span class="badge" style="background: rgba(6, 182, 212, 0.15); color: #06b6d4;">CC200 Atlas</span>
+          </div>
+
+          <div id="brain-container" class="brain-canvas-container">
+            <div class="brain-overlay-hud">
+              <div class="hud-tag">
+                <span>Active Model: </span><strong id="hud-model-name">Leave-One-Site-Out Baseline</strong>
+              </div>
+              <div class="hud-tag">
+                <span>Scanner Sites: </span><strong>4 Clinical Centers</strong>
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.75rem; text-align: center;">
+            3D interactive visualization of 200 functional brain regions. Hover and rotate to inspect multi-site connectivity networks.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 2: Results & Explainability -->
+    <section id="tab-results" class="tab-panel">
+      <!-- Answer Quality Warning Banner -->
+      <div id="data-quality-banner" style="display: none; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: var(--radius-md); padding: 0.85rem 1.25rem; margin-bottom: 1.5rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <span style="font-size: 1.4rem;">⚠️</span>
+          <div>
+            <strong style="color: #fde68a; font-size: 0.9rem;" id="data-quality-title">Data Quality Notice</strong>
+            <p style="font-size: 0.8rem; color: #fef3c7; margin-top: 0.2rem;" id="data-quality-desc">
+              Rapid completion or uniform answers detected. Confidence interval has been widened to account for response uncertainty.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Audience Perspective Switcher -->
+      <div class="glass-card" style="margin-bottom: 1.5rem; padding: 1rem 1.5rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="font-weight: 700; font-size: 0.9rem; color: #fff;">👁️ Report Perspective:</span>
+            <div style="display: flex; gap: 0.4rem;">
+              <button class="btn-control active perspective-btn" data-perspective="adult">Adult Self-Report</button>
+              <button class="btn-control perspective-btn" data-perspective="caregiver">Parent / Caregiver</button>
+              <button class="btn-control perspective-btn" data-perspective="clinician">Clinician / Specialist</button>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="font-size: 0.8rem; color: var(--text-secondary);">Response Integrity:</span>
+            <span id="badge-data-quality" class="badge badge-trained">✓ High Integrity (38s)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <!-- Left: Calibrated Risk Gauge & Perspective Content -->
+        <div class="glass-card gauge-card">
+          <div class="card-header" style="width: 100%;">
+            <h3 class="card-title">
+              <span>📊</span> <span id="lbl-calibrated-gauge">Calibrated Screening Likelihood</span>
+            </h3>
+            <span class="badge badge-privacy">Conformal 90% Bound</span>
+          </div>
+
+          <div id="risk-gauge-circle" class="gauge-circle" style="--gauge-pct: 42;">
+            <div class="gauge-inner">
+              <span id="risk-gauge-value" class="gauge-value">42%</span>
+              <span id="risk-gauge-subtext" class="gauge-label">Screening Risk</span>
+            </div>
+          </div>
+
+          <div id="conformal-status-banner" class="conformal-banner conformal-certain">
+            <strong>Screening Assessment:</strong> <span id="txt-conformal-desc">Your answers indicate a trait pattern typical for preliminary screening.</span>
+          </div>
+
+          <div id="perspective-narrative-box" style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-secondary); text-align: left; width: 100%; line-height: 1.6; background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem;">
+          </div>
+
+          <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-secondary); text-align: left; width: 100%;">
+            <p><strong>95% Bootstrap Confidence Interval:</strong> <span id="txt-ci-range">[38.2% – 46.1%]</span></p>
+          </div>
+
+          <div style="margin-top: 1.25rem; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: var(--radius-md); padding: 1rem; text-align: left; width: 100%;">
+            <strong style="color: #c7d2fe; font-size: 0.85rem; display: flex; align-items: center; gap: 0.4rem;">
+              <span>ℹ️</span> What This Result Does NOT Mean:
+            </strong>
+            <ul style="font-size: 0.78rem; color: #e0e7ff; margin-top: 0.5rem; padding-left: 1.2rem; line-height: 1.5;">
+              <li>Does <strong>NOT</strong> confirm or rule out an autism diagnosis.</li>
+              <li>Does <strong>NOT</strong> indicate severity level (e.g. "Level 1/2/3") or cognitive ability.</li>
+              <li>Does <strong>NOT</strong> replace clinical developmental observation (ADOS-2, ADI-R).</li>
+              <li>Traits can overlap with ADHD, sensory sensitivity, giftedness, or social anxiety.</li>
+            </ul>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; width: 100%; margin-top: 1.5rem;">
+            <button id="btn-export-pdf" class="btn-control active" style="flex: 2; justify-content: center; padding: 0.75rem;">
+              📄 Doctor Summary (PDF)
+            </button>
+            <button id="btn-save-to-history" class="btn-control" style="flex: 1; justify-content: center; padding: 0.75rem;">
+              💾 Save
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Explainability, Counterfactual & What-If -->
+        <div class="glass-card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span>🔬</span> <span id="lbl-shap-importance">Explainability & Counterfactual Analysis</span>
+            </h3>
+            <span class="badge" style="background: rgba(99, 102, 241, 0.2); color: #a5b4fc;">SHAP + Perturbations</span>
+          </div>
+
+          <div id="counterfactual-box" style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: var(--radius-md); padding: 0.9rem; margin-bottom: 1.25rem;">
+            <strong style="color: #67e8f9; font-size: 0.85rem;">🔄 Counterfactual Insight ("What Would Change This Result"):</strong>
+            <p id="counterfactual-text" style="font-size: 0.8rem; color: #cffafe; margin-top: 0.3rem;">
+              Analyzing minimum question flips required to change the screening classification...
+            </p>
+          </div>
+
+          <div style="background: rgba(30, 41, 59, 0.5); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 0.9rem; margin-bottom: 1.25rem;">
+            <strong style="color: #fff; font-size: 0.85rem;">🎯 How Confident Is The Model and Why?</strong>
+            <div id="confidence-why-text" style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.4rem; line-height: 1.5;">
+              Loading model certainty profile...
+            </div>
+          </div>
+
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+            Interactive What-If Editor: Toggle answers below in real-time to observe counterfactual changes:
+          </p>
+
+          <div id="what-if-controls-container" class="shap-bar-container">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 3: Strengths, Sensory & Support Profile -->
+    <section id="tab-profile" class="tab-panel">
+      <div class="glass-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>🧩</span> <span>Strengths, Sensory and Support Reflection Profile</span>
+          </h3>
+          <span class="badge" style="background: rgba(139, 92, 246, 0.2); color: #c4b5fd;">Non-Diagnostic Reflection</span>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+          Autistic and neurodivergent individuals possess diverse sensory profiles, unique cognitive strengths, and specific accommodation preferences. This reflection tool creates a shareable <strong>"About Me" Card</strong> to support communication with teachers, employers, therapists, or clinicians.
+        </p>
+
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem;">
+          <button class="btn-control active profile-audience-btn" data-paudience="adult">Adult Self-Reflection</button>
+          <button class="btn-control profile-audience-btn" data-paudience="teen">Teen / Student</button>
+          <button class="btn-control profile-audience-btn" data-paudience="child">Caregiver-Filled (Child)</button>
+        </div>
+
+        <div class="grid-2col">
+          <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+            <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+              <h4 style="font-size: 0.9rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.75rem;">
+                🔊 Sensory Sensitivities
+              </h4>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.82rem;">
+                <label><input type="checkbox" id="chk-sound" checked> Sensitive to sudden loud sounds or background chatter</label>
+                <label><input type="checkbox" id="chk-light" checked> Sensitive to fluorescent / bright lighting</label>
+                <label><input type="checkbox" id="chk-texture"> Discomfort with specific fabrics, seams, or food textures</label>
+                <label><input type="checkbox" id="chk-crowds" checked> Easily overwhelmed in crowded or busy environments</label>
+              </div>
+            </div>
+
+            <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+              <h4 style="font-size: 0.9rem; font-weight: 700; color: #a78bfa; margin-bottom: 0.75rem;">
+                💬 Communication & Environment Preferences
+              </h4>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.82rem;">
+                <label><input type="checkbox" id="chk-written" checked> Prefers written instructions over verbal multi-step requests</label>
+                <label><input type="checkbox" id="chk-direct" checked> Appreciates direct, unambiguous communication</label>
+                <label><input type="checkbox" id="chk-delay" checked> Needs extra processing time before answering complex questions</label>
+                <label><input type="checkbox" id="chk-routine" checked> Benefits from advance notice before schedule or routine changes</label>
+              </div>
+            </div>
+
+            <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+              <h4 style="font-size: 0.9rem; font-weight: 700; color: #34d399; margin-bottom: 0.75rem;">
+                ⭐ Key Strengths & Passions
+              </h4>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.82rem;">
+                <label><input type="checkbox" id="chk-detail" checked> Exceptional attention to fine detail and pattern recognition</label>
+                <label><input type="checkbox" id="chk-focus" checked> Deep focus and tenacity on areas of intense interest</label>
+                <label><input type="checkbox" id="chk-honesty" checked> High honesty, fairness, and commitment to truth</label>
+                <label><input type="checkbox" id="chk-creative" checked> Original, unconventional problem-solving approach</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card" style="background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9)); border: 1px solid rgba(139, 92, 246, 0.4);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <h4 style="font-size: 1rem; font-weight: 700; color: #fff;">
+                🪪 "About Me" Profile Card Preview
+              </h4>
+              <span class="badge" style="background: rgba(139, 92, 246, 0.2); color: #ddd6fe;">Shareable</span>
+            </div>
+
+            <div id="about-me-card-content" style="background: #0f172a; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; font-size: 0.82rem; line-height: 1.6; color: var(--text-primary);">
+            </div>
+
+            <div style="display: flex; gap: 0.75rem; margin-top: 1.25rem;">
+              <button id="btn-download-profile-pdf" class="btn-control active" style="flex: 1; justify-content: center;">
+                📄 Download Profile Card (PDF)
+              </button>
+              <button id="btn-copy-profile-text" class="btn-control" style="flex: 1; justify-content: center;">
+                📋 Copy Text for Email / Form
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 4: Find Help Directory -->
+    <section id="tab-help" class="tab-panel">
+      <div class="glass-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>🏥</span> <span>Verified Clinical & Community Support Directory</span>
+          </h3>
+          <span class="badge badge-privacy">Verified September 2026</span>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+          All resources listed below are official government institutes, apex health centers, or recognized non-profit autism advocacy bodies. Every organization has been verified with an active link and audit date. No sponsored links or unverified clinics.
+        </p>
+
+        <!-- India Section -->
+        <h4 style="font-size: 1rem; font-weight: 700; color: #fbbf24; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+          🇮🇳 India: Government Apex Institutes, Helplines & Advocacy
+        </h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h5 style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem;">NIMHANS (Bengaluru)</h5>
+            <p style="font-size: 0.75rem; color: var(--accent-cyan); margin-bottom: 0.5rem;">Apex Neuropsychiatry Hospital</p>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Child & adolescent developmental clinic, multidisciplinary diagnostics, and family rehabilitation.</p>
+            <div style="margin-top: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+              <a href="https://nimhans.ac.in" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan); font-size: 0.8rem; text-decoration: none;">Visit nimhans.ac.in →</a>
+              <span style="font-size: 0.7rem; color: var(--text-muted);">Verified Sep 2026</span>
+            </div>
+          </div>
+
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h5 style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem;">AIIMS Child Development Clinic</h5>
+            <p style="font-size: 0.75rem; color: var(--accent-cyan); margin-bottom: 0.5rem;">New Delhi & Regional Centers</p>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Apex clinical center for pediatric evaluation, speech therapy, and clinical psychology.</p>
+            <div style="margin-top: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+              <a href="https://www.aiims.edu" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan); font-size: 0.8rem; text-decoration: none;">Visit aiims.edu →</a>
+              <span style="font-size: 0.7rem; color: var(--text-muted);">Verified Sep 2026</span>
+            </div>
+          </div>
+
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h5 style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem;">NIEPID (Secunderabad)</h5>
+            <p style="font-size: 0.75rem; color: var(--accent-cyan); margin-bottom: 0.5rem;">MSJE, Govt. of India</p>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">UDID disability certification guidance, specialized assessment, and early intervention programs.</p>
+            <div style="margin-top: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+              <a href="https://niepid.nic.in" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan); font-size: 0.8rem; text-decoration: none;">Visit niepid.nic.in →</a>
+              <span style="font-size: 0.7rem; color: var(--text-muted);">Verified Sep 2026</span>
+            </div>
+          </div>
+
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h5 style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem;">The National Trust (Govt of India)</h5>
+            <p style="font-size: 0.75rem; color: var(--accent-cyan); margin-bottom: 0.5rem;">MSJE, Statutory Body</p>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Statutory body for the welfare of persons with Autism, Cerebral Palsy, and Multiple Disabilities (Niramaya health insurance, legal guardianship).</p>
+            <div style="margin-top: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+              <a href="https://thenationaltrust.gov.in" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan); font-size: 0.8rem; text-decoration: none;">Visit thenationaltrust.gov.in →</a>
+              <span style="font-size: 0.7rem; color: var(--text-muted);">Verified Sep 2026</span>
+            </div>
+          </div>
+
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h5 style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem;">KIRAN Helpline (Govt of India)</h5>
+            <p style="font-size: 0.75rem; color: var(--accent-cyan); margin-bottom: 0.5rem;">Toll-Free 1800-599-0019 (24/7, 13 Languages)</p>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">24/7 mental health first-aid, psychological support, and triage referral to local institutions.</p>
+            <div style="margin-top: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+              <span style="color: #34d399; font-weight: 700; font-size: 0.8rem;">Call 1800-599-0019</span>
+              <span style="font-size: 0.7rem; color: var(--text-muted);">Verified Sep 2026</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- International Section -->
+        <h4 style="font-size: 1rem; font-weight: 700; color: #60a5fa; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+          🌐 International: Public Health Agencies & Autistic-Led Organizations
+        </h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1rem;">
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h5 style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem;">CDC Autism Guidance (USA)</h5>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Evidence-based developmental milestones, screening guidelines, and clinical criteria.</p>
+            <div style="margin-top: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+              <a href="https://www.cdc.gov/autism/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan); font-size: 0.8rem; text-decoration: none;">Visit cdc.gov/autism →</a>
+              <span style="font-size: 0.7rem; color: var(--text-muted);">Verified Sep 2026</span>
+            </div>
+          </div>
+
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h5 style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem;">NHS Autism Pathway (UK)</h5>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">Guidance on NHS diagnostic pathways and NICE clinical guidelines (CG142).</p>
+            <div style="margin-top: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+              <a href="https://www.nhs.uk/conditions/autism/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan); font-size: 0.8rem; text-decoration: none;">Visit nhs.uk/autism →</a>
+              <span style="font-size: 0.7rem; color: var(--text-muted);">Verified Sep 2026</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 5: Local History (Phase 3 Item 7) -->
+    <section id="tab-history" class="tab-panel">
+      <div class="glass-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>🕒</span> <span>Private Local Screening History (IndexedDB)</span>
+          </h3>
+          <span class="badge badge-privacy">100% Client-Side Storage</span>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+          Your past screening assessments are preserved strictly inside your browser's private local database. You can track trait patterns over time, export records, or delete all data in one click.
+        </p>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem;">
+          <div style="display: flex; gap: 0.5rem;">
+            <button id="btn-export-history-json" class="btn-control">📥 Export History (JSON)</button>
+            <button id="btn-export-history-csv" class="btn-control">📊 Export History (CSV)</button>
+          </div>
+          <button id="btn-clear-history" class="btn-control" style="color: #f43f5e; border-color: rgba(244,63,94,0.3);">
+            🗑️ Delete All Local Records
+          </button>
+        </div>
+
+        <div class="data-table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date & Time</th>
+                <th>Age Cohort</th>
+                <th>Likelihood</th>
+                <th>Conformal State</th>
+                <th>Integrity</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-history">
+              <tr><td colspan="6" style="text-align: center; color: var(--text-muted);">No saved assessments yet. Complete a screening to record history.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 6: Learning Hub (Phase 3 Item 9) -->
+    <section id="tab-learning" class="tab-panel">
+      <div class="glass-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>📚</span> <span>Evidence-Based Autism Learning Hub</span>
+          </h3>
+          <span class="badge badge-privacy">Verified Peer-Reviewed Sources</span>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+          Short, accurate, plain-language guides on neurodiversity, clinical pathways, and accommodations, citing public health guidelines and peer-reviewed reviews.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.25rem;">
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.4rem;">
+              1. What Is Autism Spectrum Disorder?
+            </h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+              Autism is a lifelong neurodevelopmental difference characterized by unique ways of social communication, sensory processing, and focused interests. It is not an illness to cure, but a different neurological operating system requiring understanding and tailored accommodations.
+            </p>
+            <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.5rem;">
+              Source: WHO ICD-11 6A02; Lord et al. (2020) Nature Reviews Disease Primers.
+            </p>
+          </div>
+
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: #a78bfa; margin-bottom: 0.4rem;">
+              2. Myths vs. Evidence-Based Facts
+            </h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+              <strong>Myth:</strong> Autistic people lack empathy. <strong>Fact:</strong> Autistic individuals often experience intense affective empathy, but may communicate it differently (the "Double Empathy Problem").<br>
+              <strong>Myth:</strong> Vaccines cause autism. <strong>Fact:</strong> Decades of global studies involving millions of children definitively prove vaccines do not cause autism.
+            </p>
+            <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.5rem;">
+              Source: Milton (2012) Disability & Society; CDC Vaccine Safety Studies.
+            </p>
+          </div>
+
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: #34d399; margin-bottom: 0.4rem;">
+              3. How Clinical Assessments Work
+            </h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+              A formal diagnostic evaluation is a multidisciplinary process led by developmental pediatricians, child psychiatrists, or clinical psychologists. It utilizes standardized observational assessments (ADOS-2), comprehensive developmental history interviews (ADI-R), and speech-language assessments.
+            </p>
+            <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.5rem;">
+              Source: NICE Guidelines CG142 (Adults) & CG170 (Children).
+            </p>
+          </div>
+
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: #fbbf24; margin-bottom: 0.4rem;">
+              4. Talking to a Child About Neurodiversity
+            </h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+              Use neurodiversity-affirming language that normalizes brain differences. Focus on their authentic strengths (passion, honesty, problem-solving) alongside strategies for sensory challenges. Emphasize that being autistic is part of who they are, not something wrong with them.
+            </p>
+            <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.5rem;">
+              Source: Autistic Self Advocacy Network (ASAN) Family Guide.
+            </p>
+          </div>
+
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: #f43f5e; margin-bottom: 0.4rem;">
+              5. School and Workplace Accommodations
+            </h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+              Effective accommodations are often simple and cost-free: noise-cancelling headphones, advance agendas for meetings, written instructions, quiet sensory retreat spaces, and flexible working hours. In India, statutory accommodations are protected under the RPwD Act 2016.
+            </p>
+            <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.5rem;">
+              Source: Rights of Persons with Disabilities Act 2016; UK Equality Act 2010.
+            </p>
+          </div>
+
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.4rem;">
+              6. Screening vs. Clinical Diagnosis
+            </h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+              A <strong>screener</strong> (like AQ-10 or Q-CHAT) is a brief filter to identify individuals who may benefit from specialist consultation. A <strong>diagnosis</strong> requires a clinician to evaluate developmental history, differential diagnoses, and real-world adaptive functioning.
+            </p>
+            <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.5rem;">
+              Source: American Academy of Pediatrics (AAP) Identification Guidelines.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 7: Clinician / Researcher Mode (Phase 3 Item 8) -->
+    <section id="tab-clinician" class="tab-panel">
+      <div class="glass-card">
+        <div style="background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); border-radius: var(--radius-md); padding: 0.75rem 1.25rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+          <div>
+            <strong style="color: #93c5fd; font-size: 0.9rem;">🩺 CLINICIAN & RESEARCH AUDIT MODE ACTIVE</strong>
+            <span style="font-size: 0.75rem; color: var(--text-secondary); margin-left: 0.5rem;">Research Use Only — Strictly Not for Diagnostic Billing</span>
+          </div>
+          <span class="badge badge-trained">Model v1.0.0-phase3 | Calibrated</span>
+        </div>
+
+        <div class="grid-2col" style="margin-bottom: 1.5rem;">
+          <!-- Cohort Risk Distribution Histogram -->
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h4 style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.75rem;">
+              📊 Cohort Triage Distribution (Simulated Clinical Batch N=100)
+            </h4>
+            <div style="height: 220px; position: relative;">
+              <canvas id="chart-clinician-dist"></canvas>
+            </div>
+          </div>
+
+          <!-- Audit Log and Model Version Metadata -->
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h4 style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.75rem;">
+              📜 Model Provenance & Audit Log
+            </h4>
+            <div style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6;">
+              <p><strong>Pipeline Version:</strong> <code>1.0.0-phase3</code></p>
+              <p><strong>Training Date:</strong> 2026-09-30 (Clean Checkout)</p>
+              <p><strong>Calibration Method:</strong> Platt Sigmoid (CalibratedClassifierCV)</p>
+              <p><strong>Conformal Guarantee:</strong> 90% Empirical Coverage Bound ($\alpha=0.10$)</p>
+              <p><strong>fMRI Atlas:</strong> Craddock CC200 (CPAC filt_global, 19,900 edges)</p>
+              <p><strong>Harmonization:</strong> Parametric ComBat strictly fitted inside training folds</p>
+            </div>
+            <button id="btn-export-clinician-report" class="btn-control active" style="margin-top: 1rem; width: 100%; justify-content: center;">
+              📄 Generate Clinician Batch Summary (PDF)
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Phase 5 Tab: Brain Explorer (3D Attention Maps) -->
+    <section id="tab-brain-explorer" class="tab-panel">
+      <div class="glass-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>🔬</span> <span>3D Neural Attention Explorer (Brain Network Transformer)</span>
+          </h3>
+          <span class="badge badge-privacy">Craddock CC200 Atlas</span>
+        </div>
+
+        <div style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: var(--radius-md); padding: 0.85rem 1.25rem; margin-bottom: 1.5rem;">
+          <strong style="color: #fde68a; font-size: 0.85rem;">⚠️ ETHICAL AI NOTICE: WHAT THE MODEL USED, NOT WHERE AUTISM IS</strong>
+          <p style="font-size: 0.8rem; color: #fef3c7; margin-top: 0.3rem; line-height: 1.5;">
+            Attention weights highlight functional connections the Transformer utilized to separate statistical distributions in high-dimensional fMRI space. They do <strong>NOT</strong> indicate localized brain pathology, deficits, or an "autism center". Autism is a distributed whole-brain developmental profile.
+          </p>
+        </div>
+
+        <div class="grid-2col">
+          <div>
+            <div id="explorer-brain-container" class="brain-canvas-container" style="height: 380px;">
+              <div class="brain-overlay-hud">
+                <div class="hud-tag">
+                  <span>Selected Node: </span><strong id="hud-explorer-node">Hover over an ROI card</strong>
+                </div>
+                <div class="hud-tag">
+                  <span>Network: </span><strong id="hud-explorer-net">All Networks</strong>
+                </div>
+              </div>
+            </div>
+            <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 0.5rem;">
+              Click or hover on regions on the right to focus attention in the 3D space.
+            </p>
+          </div>
+
+          <div>
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 0.75rem;">
+              Top Attended ROIs (Averaged Attention Weights)
+            </h4>
+            <div class="data-table-container" style="max-height: 380px;">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>ROI</th>
+                    <th>Anatomical Region</th>
+                    <th>Yeo Functional Network</th>
+                    <th>Weight</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-roi-attention">
+                  <tr class="roi-hover-row" data-roi="42"><td>#42</td><td><strong>Posterior Cingulate (PCC)</strong></td><td>Default Mode</td><td><span class="badge badge-trained">0.88</span></td></tr>
+                  <tr class="roi-hover-row" data-roi="108"><td>#108</td><td><strong>Medial Prefrontal (mPFC)</strong></td><td>Default Mode</td><td><span class="badge badge-trained">0.82</span></td></tr>
+                  <tr class="roi-hover-row" data-roi="15"><td>#15</td><td><strong>Superior Temporal (STG)</strong></td><td>Auditory / Language</td><td><span class="badge badge-trained">0.79</span></td></tr>
+                  <tr class="roi-hover-row" data-roi="74"><td>#74</td><td><strong>Anterior Insula</strong></td><td>Salience / Attention</td><td><span class="badge badge-trained">0.75</span></td></tr>
+                  <tr class="roi-hover-row" data-roi="136"><td>#136</td><td><strong>dlPFC</strong></td><td>Frontoparietal Control</td><td><span class="badge badge-trained">0.71</span></td></tr>
+                  <tr class="roi-hover-row" data-roi="182"><td>#182</td><td><strong>Fusiform Gyrus</strong></td><td>Visual / Face</td><td><span class="badge badge-trained">0.68</span></td></tr>
+                  <tr class="roi-hover-row" data-roi="89"><td>#89</td><td><strong>Precuneus</strong></td><td>Default Mode</td><td><span class="badge badge-trained">0.65</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Phase 5 Tab: Experiment Arena -->
+    <section id="tab-arena" class="tab-panel">
+      <div class="glass-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>⚔️</span> <span>Experiment Arena: Classical vs Deep Architectures (ABIDE I)</span>
+          </h3>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn-control active arena-toggle-btn" data-mode="honest">Honest (LOSO CV)</button>
+            <button class="btn-control arena-toggle-btn" data-mode="inflated">Inflated (Random CV)</button>
+          </div>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;" id="arena-protocol-desc">
+          Showing <strong>Honest Leave-One-Site-Out (LOSO) Cross-Validation</strong>: Models are tested on completely unseen MRI scanner hardware with fold-internal ComBat harmonization.
+        </p>
+
+        <div class="data-table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Model Architecture</th>
+                <th>Paradigm</th>
+                <th>Accuracy [95% CI]</th>
+                <th>ROC-AUC</th>
+                <th>Balanced Acc</th>
+                <th>Clinical Takeaway</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-arena-models">
+              <tr><td><strong>Logistic Regression (L2)</strong></td><td>Classical Linear + ComBat</td><td><strong>55.0%</strong> [47.0% – 63.0%]</td><td><strong>0.6098</strong></td><td>54.7%</td><td>Strongest cross-site generalization baseline.</td></tr>
+              <tr><td><strong>Brain Network Transformer</strong></td><td>Deep Attention (200 ROIs)</td><td><strong>45.8%</strong> [38.0% – 54.0%]</td><td>0.4883</td><td>46.2%</td><td>Overfits sample noise on small fMRI cohorts.</td></tr>
+              <tr><td><strong>Connectivity ViT</strong></td><td>Vision Transformer (Patches)</td><td><strong>51.7%</strong> [43.0% – 60.0%]</td><td>0.5181</td><td>51.4%</td><td>Non-local 14x14 matrix patch attention.</td></tr>
+              <tr><td><strong>Small 2D CNN</strong></td><td>2D Convolutional Net</td><td><strong>51.7%</strong> [43.0% – 60.0%]</td><td>0.5375</td><td>51.8%</td><td>Spatial grid assumption violates atlas permutation invariance.</td></tr>
+              <tr><td><strong>BrainGAT</strong></td><td>Graph Attention Network</td><td><strong>51.7%</strong> [43.0% – 60.0%]</td><td>0.5584</td><td>51.6%</td><td>Graph attention on top positive correlation edges.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Phase 5 Tab: Model vs Model Disagreement -->
+    <section id="tab-disagreement" class="tab-panel">
+      <div class="glass-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>🔀</span> <span>Model vs. Model Disagreement Inspector</span>
+          </h3>
+          <span class="badge badge-privacy">Pairwise Analysis</span>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+          Compare prediction concordance between two modeling paradigms across the ABIDE I clinical cohort to identify where architectures disagree.
+        </p>
+
+        <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Model A:</label>
+            <select id="select-model-a" class="select-control">
+              <option value="lr">Logistic Regression (L2 Baseline)</option>
+              <option value="bnt">Brain Network Transformer (BNT)</option>
+              <option value="gat">BrainGAT Graph Network</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Model B:</label>
+            <select id="select-model-b" class="select-control">
+              <option value="bnt">Brain Network Transformer (BNT)</option>
+              <option value="lr">Logistic Regression (L2 Baseline)</option>
+              <option value="vit">Connectivity ViT</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-2col" style="margin-bottom: 1.5rem;">
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5); text-align: center;">
+            <h4 style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Overall Decision Agreement</h4>
+            <div style="font-size: 2.2rem; font-weight: 700; color: #34d399;" id="txt-agreement-pct">78.3%</div>
+            <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.3rem;">94 concordant cases / 26 discordant cases</p>
+          </div>
+
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5); text-align: center;">
+            <h4 style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Discordant Cases Breakdown</h4>
+            <div style="font-size: 1.5rem; font-weight: 700; color: #f59e0b;" id="txt-discordant-summary">26 / 120 Cases</div>
+            <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.3rem;">Primarily concentrated near decision boundary (0.45 – 0.55)</p>
+          </div>
+        </div>
+
+        <h4 style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.75rem;">
+          Sample Discrepant Subjects (Where Predictions Conflict)
+        </h4>
+        <div class="data-table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Subject ID</th>
+                <th>Clinical Site</th>
+                <th>Ground Truth</th>
+                <th>Model A Decision</th>
+                <th>Model B Decision</th>
+                <th>Discrepancy Note</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-disagreement-cases">
+              <tr><td>SUB_50002</td><td>PITT</td><td>ASD</td><td><span class="badge badge-trained">ASD (p=0.58)</span></td><td><span class="badge badge-demo">Control (p=0.44)</span></td><td>Linear model picked up subcortical edge; BNT attended to DMN.</td></tr>
+              <tr><td>SUB_50014</td><td>PITT</td><td>Control</td><td><span class="badge badge-demo">ASD (p=0.52)</span></td><td><span class="badge badge-trained">Control (p=0.38)</span></td><td>Boundary case near conformal uncertainty envelope.</td></tr>
+              <tr><td>SUB_50143</td><td>OLIN</td><td>ASD</td><td><span class="badge badge-trained">ASD (p=0.64)</span></td><td><span class="badge badge-demo">Control (p=0.48)</span></td><td>Hardware shift between OLIN and training sites.</td></tr>
+              <tr><td>SUB_50275</td><td>OHSU</td><td>Control</td><td><span class="badge badge-demo">ASD (p=0.51)</span></td><td><span class="badge badge-trained">Control (p=0.41)</span></td><td>High motion artifact (FD=0.18) perturbed linear edge weights.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Phase 5 Tab: Data-Efficiency Curve -->
+    <section id="tab-efficiency" class="tab-panel">
+      <div class="glass-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>📈</span> <span>Self-Supervised Pretraining & Data-Efficiency Curve</span>
+          </h3>
+          <span class="badge badge-privacy">Masked Region Modeling</span>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+          Demonstrates how unsupervised masked region pretraining on unlabeled functional connectomes compares to training strictly from scratch across sample fractions (N=30 to N=120).
+        </p>
+
+        <div class="grid-2col">
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <div style="height: 280px; position: relative;">
+              <canvas id="chart-data-efficiency"></canvas>
+            </div>
+          </div>
+
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h4 style="font-size: 0.9rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.5rem;">
+              Key Data-Efficiency Findings
+            </h4>
+            <div style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
+              <p>• <strong>Low-Data Regime (25% Labels, N=30):</strong> Pre-trained representations provide structural regularization, mitigating severe overfitting on tiny sample sizes.</p>
+              <p style="margin-top: 0.4rem;">• <strong>Convergence at Scale (100% Labels, N=120):</strong> As sample count reaches N=120, supervised representations stabilize, narrowing the pretraining gap.</p>
+              <p style="margin-top: 0.4rem;">• <strong>Clinical Application:</strong> Self-supervised pretraining is valuable when adapting to rare sub-populations or specialized scanners where labeled cohorts are constrained.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Phase 5 Tab: Robustness & Scientific Safeguards -->
+    <section id="tab-robustness" class="tab-panel">
+      <div class="glass-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>🛡️</span> <span>Robustness Testing & Scientific Safeguards</span>
+          </h3>
+          <span class="badge badge-trained">All 4 Safeguards Passed</span>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+          Rigorous stress-testing verifying missing-modality resilience, label shuffle permutation, scanner hardware neutralization, and motion artifact decorrelation.
+        </p>
+
+        <div class="grid-2col" style="margin-bottom: 1.5rem;">
+          <!-- Missing Modality Card -->
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h4 style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">
+              Multimodal Modality Dropout Stress Test
+            </h4>
+            <div style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
+              <p>• <strong>Full Multimodal (Both Present):</strong> <strong style="color: #34d399;">99.2% Accuracy</strong></p>
+              <p>• <strong>Brain Modality Only (Q Dropped):</strong> <strong style="color: #38bdf8;">99.2% Accuracy</strong></p>
+              <p>• <strong>Questionnaire Only (Brain Dropped):</strong> <strong style="color: #fbbf24;">71.7% Accuracy</strong></p>
+              <div style="margin-top: 0.75rem; padding: 0.5rem; background: rgba(16, 185, 129, 0.1); border-radius: var(--radius-sm); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399;">
+                ✓ PASS: Graceful degradation without crash or catastrophic error.
+              </div>
+            </div>
+          </div>
+
+          <!-- Distillation Card -->
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h4 style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">
+              Client-Side Browser Distillation Audit
+            </h4>
+            <div style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
+              <p>• <strong>Teacher Model:</strong> Brain Network Transformer (BNT, 45.8% LOSO)</p>
+              <p>• <strong>Student Model:</strong> Compact Distilled Linear Model (50 Edges, 56.7% LOSO)</p>
+              <p>• <strong>Footprint & Latency:</strong> 2.4 KB payload, 0.45 ms evaluation</p>
+              <div style="margin-top: 0.75rem; padding: 0.5rem; background: rgba(16, 185, 129, 0.1); border-radius: var(--radius-sm); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399;">
+                ✓ PASS: Runs 100% in client-side JavaScript without WebAssembly.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.75rem;">
+          Scientific Safeguards Verification Matrix
+        </h4>
+        <div class="data-table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Safeguard Check</th>
+                <th>Tested Metric</th>
+                <th>Result</th>
+                <th>Threshold</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Label-Shuffle Permutation</strong></td>
+                <td>Out-of-fold accuracy on permuted diagnostic labels</td>
+                <td><strong>45.83%</strong></td>
+                <td>Must collapse to chance (50% ± 8%)</td>
+                <td><span class="badge badge-trained">PASS</span></td>
+              </tr>
+              <tr>
+                <td><strong>Scanner Site Neutralization</strong></td>
+                <td>Hardware site predictability before vs after ComBat</td>
+                <td><strong>94.2% → 41.7%</strong> (Δ = -52.5%)</td>
+                <td>Predictability must drop significantly</td>
+                <td><span class="badge badge-trained">PASS</span></td>
+              </tr>
+              <tr>
+                <td><strong>Head Motion Confound</strong></td>
+                <td>Pearson correlation with Mean Framewise Displacement (FD)</td>
+                <td><strong>r = -0.1399</strong></td>
+                <td>|r| &lt; 0.15 (No motion artifact tracking)</td>
+                <td><span class="badge badge-trained">PASS</span></td>
+              </tr>
+              <tr>
+                <td><strong>Age Confound Check</strong></td>
+                <td>Pearson correlation with subject age at scan</td>
+                <td><strong>r = -0.1839</strong></td>
+                <td>|r| &lt; 0.25 (Controlled demographic confound)</td>
+                <td><span class="badge badge-trained">PASS</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Phase 5 Tab: What We Tried That Didn't Work -->
+    <section id="tab-negative" class="tab-panel">
+      <div class="glass-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>💡</span> <span>"What We Tried That Didn't Work" (Honest Scientific Negative Findings)</span>
+          </h3>
+          <span class="badge badge-privacy">Full Transparency</span>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+          In accordance with scientific integrity guidelines, we document experiments, architectures, and design approaches that proved ineffective or scientifically invalid.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.25rem;">
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: #f43f5e; margin-bottom: 0.4rem;">
+              1. 2D CNNs on Raw Connectivity Matrices
+            </h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+              <strong>What we tried:</strong> Applying 2D Convolutional Neural Networks directly to $200 \times 200$ functional correlation matrices treated as grayscale images.<br>
+              <strong>Why it failed:</strong> 2D CNN kernels assume spatial translational invariance (e.g. pixels adjacent in an image share local spatial relationships). Brain atlas regions are arbitrarily ordered; permuting ROI indices changes CNN convolution output arbitrarily while preserving the exact same connectome. Linear models and graph networks are fundamentally more principled.
+            </p>
+          </div>
+
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: #f43f5e; margin-bottom: 0.4rem;">
+              2. Deep Transformers on Unharmonized Full Edges (19,900)
+            </h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+              <strong>What we tried:</strong> Training deep multi-head attention models on all $19,900$ raw functional connectivity edges without feature selection or ComBat harmonization.<br>
+              <strong>Why it failed:</strong> With only $N=120$ subjects, $19,900$ edges created an extreme $p \gg n$ regime. The model easily achieved &gt;95% training accuracy, but cross-site generalization collapsed to near 50%, memorizing scanner site hardware noise rather than neural phenotypes.
+            </p>
+          </div>
+
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: #f43f5e; margin-bottom: 0.4rem;">
+              3. TabPFN Prior vs. CatBoost on Simple Questionnaires
+            </h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+              <strong>What we tried:</strong> Applying the TabPFN tabular foundation model to 5-item and 10-item screening questionnaires.<br>
+              <strong>Why it failed:</strong> TabPFN 2.x requires gated HuggingFace authentication and massive memory overhead. On structured 5-to-10 binary trait questions, simple Platt-calibrated CatBoost and Logistic Regression matched or exceeded its performance while executing in &lt;1 ms client-side.
+            </p>
+          </div>
+
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: #f43f5e; margin-bottom: 0.4rem;">
+              4. Facial / Video Automated Diagnosis
+            </h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+              <strong>What we rejected:</strong> Automated webcam facial landmark or video-based autism classification.<br>
+              <strong>Why it was rejected:</strong> Modern clinical and neurodiversity research definitively demonstrates that autistic expressions vary widely across cultures and individuals (masking/camouflaging). Commercial facial analysis tools encode racial and gender biases and lack clinical validity.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 8: Leakage Detector Tool -->
+    <section id="tab-detector" class="tab-panel">
+      <div class="glass-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>🛡️</span> <span>Bring-Your-Own-Dataset: Client-Side Leakage & Integrity Detector</span>
+          </h3>
+          <span class="badge badge-privacy">Runs 100% in Browser Memory</span>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+          Upload any autism screening or clinical CSV dataset to test for total score leakage, duplicate rows, single features predicting the label with suspicious accuracy (>97% AUC), and deterministic thresholding.
+        </p>
+
+        <div style="border: 2px dashed rgba(6, 182, 212, 0.4); border-radius: var(--radius-md); padding: 2rem; text-align: center; cursor: pointer;" id="leakage-drop-zone">
+          <input type="file" id="leakage-file-input" accept=".csv" style="display: none;">
+          <p style="font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: 0.5rem;">
+            Click to Browse or Drag & Drop Dataset CSV to Audit
+          </p>
+          <p style="font-size: 0.8rem; color: var(--text-secondary);">
+            Any tabular CSV file (e.g. from Kaggle, UCI, or hospital studies)
+          </p>
+        </div>
+
+        <div id="detector-results-box" style="display: none; margin-top: 1.5rem;">
+          <div id="detector-verdict-banner" style="border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1rem;">
+          </div>
+
+          <div class="data-table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Audit Check</th>
+                  <th>Status</th>
+                  <th>Findings & Plain-Language Explanation</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-detector-findings">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 9: Honest Leaderboard -->
+    <section id="tab-leaderboard" class="tab-panel">
+      <div class="glass-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>🏆</span> <span>Honest Model Leaderboard (Single Source of Truth)</span>
+          </h3>
+          <span class="badge badge-trained">Loaded live from metrics.json</span>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+          All scores reflect untouched test sets (20% partition) and Leave-One-Site-Out (LOSO) cross-validation with fold-internal ComBat. Zero synthetic or hardcoded metrics.
+        </p>
+
+        <div class="data-table-container">
+          <table class="data-table" id="table-leaderboard">
+            <thead>
+              <tr>
+                <th>Cohort</th>
+                <th>Feature Variant</th>
+                <th>Best Model</th>
+                <th>Accuracy [95% CI]</th>
+                <th>Balanced Acc</th>
+                <th>Sensitivity</th>
+                <th>Specificity</th>
+                <th>ROC-AUC</th>
+                <th>Brier Score</th>
+                <th>Conformal Uncertainty</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-leaderboard">
+            </tbody>
+          </table>
+        </div>
+
+        <div style="margin-top: 2rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 0.75rem;">
+            🧠 ABIDE I Brain Connectivity Benchmark: Honest LOSO vs Inflated Random Split
+          </h4>
+          <div class="data-table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Validation Method</th>
+                  <th>Model</th>
+                  <th>Accuracy</th>
+                  <th>ROC-AUC</th>
+                  <th>Clinical Generalizability Note</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-abide-leaderboard">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 10: Model Monitoring & Covariate Drift (Phase 3 Item 13) -->
+    <section id="tab-monitoring" class="tab-panel">
+      <div class="glass-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>📡</span> <span>Model Monitoring & Population Stability Drift Detector</span>
+          </h3>
+          <span class="badge badge-privacy">PSI Analysis</span>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+          Monitors whether incoming questionnaire answer distributions have drifted relative to the baseline training population. Population Stability Index (PSI) &lt; 0.1 indicates stability; PSI &ge; 0.25 flags significant domain drift.
+        </p>
+
+        <div class="grid-2col" style="margin-bottom: 1.5rem;">
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h4 style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">
+              Upload Batch to Check Drift
+            </h4>
+            <div style="border: 2px dashed var(--border-subtle); border-radius: var(--radius-sm); padding: 1.25rem; text-align: center; cursor: pointer;" id="drift-drop-zone">
+              <input type="file" id="drift-file-input" accept=".csv" style="display: none;">
+              <p style="font-size: 0.85rem; color: var(--accent-cyan); font-weight: 600;">
+                Click to Upload Evaluation CSV
+              </p>
+            </div>
+            <div id="drift-status-banner" style="margin-top: 1rem; padding: 0.75rem; border-radius: var(--radius-sm); font-size: 0.82rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399;">
+              Status: Baseline Training Distribution Active (PSI: 0.000 — Clean Baseline)
+            </div>
+          </div>
+
+          <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
+            <h4 style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">
+              Item-by-Item Stability Breakdown
+            </h4>
+            <div class="data-table-container" style="max-height: 220px;">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Training Pos %</th>
+                    <th>Batch Pos %</th>
+                    <th>PSI</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-drift-items">
+                  <tr><td>A1</td><td>71.4%</td><td>71.4%</td><td>0.000</td><td><span class="badge badge-trained">STABLE</span></td></tr>
+                  <tr><td>A2</td><td>60.2%</td><td>60.2%</td><td>0.000</td><td><span class="badge badge-trained">STABLE</span></td></tr>
+                  <tr><td>A3</td><td>54.1%</td><td>54.1%</td><td>0.000</td><td><span class="badge badge-trained">STABLE</span></td></tr>
+                  <tr><td>A4</td><td>66.8%</td><td>66.8%</td><td>0.000</td><td><span class="badge badge-trained">STABLE</span></td></tr>
+                  <tr><td>A5</td><td>61.5%</td><td>61.5%</td><td>0.000</td><td><span class="badge badge-trained">STABLE</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 11: Transparency -->
+    <section id="tab-transparency" class="tab-panel">
+      <div class="glass-card" style="margin-bottom: 1.5rem;">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>⚖️</span> <span>Model Transparency, Clinical Scope & Data Lineage</span>
+          </h3>
+          <span class="badge badge-privacy">Synchronized with model_card.md</span>
+        </div>
+
+        <div class="grid-2col">
+          <div>
+            <h4 style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">
+              🎯 Intended Population & Scope
+            </h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+              Designed exclusively for structured, preliminary behavioral trait screening and scientific multi-site fMRI research. Validated across four developmental stages: Toddlers (18-36 months, Q-CHAT-10), Children (4-11 years, AQ-10), Adolescents (12-16 years, AQ-10), and Adults (16+ years, AQ-10).
+            </p>
+            <h4 style="font-size: 0.9rem; font-weight: 700; color: #f43f5e; margin-top: 1rem; margin-bottom: 0.5rem;">
+              🚫 Explicitly Out-of-Scope Uses
+            </h4>
+            <ul style="font-size: 0.8rem; color: var(--text-secondary); padding-left: 1.2rem; line-height: 1.5;">
+              <li>Sole basis for medical diagnosis or diagnostic exclusion.</li>
+              <li>Prescription planning or pharmacological intervention.</li>
+              <li>Facial recognition or video-based automated diagnosis.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">
+              📦 Cohort Sample Sizes & Balance (Cleaned & Deduplicated)
+            </h4>
+            <div class="data-table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Cohort</th>
+                    <th>Distinct N</th>
+                    <th>Train / Test</th>
+                    <th>ASD Trait Rate</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-transparency-sizes">
+                  <tr><td>Adult</td><td>667</td><td>533 / 134</td><td>26.2%</td></tr>
+                  <tr><td>Adolescent</td><td>97</td><td>77 / 20</td><td>57.7%</td></tr>
+                  <tr><td>Child</td><td>262</td><td>209 / 53</td><td>45.4%</td></tr>
+                  <tr><td>Toddler</td><td>850</td><td>680 / 170</td><td>72.7%</td></tr>
+                  <tr><td>ABIDE I fMRI</td><td>120</td><td>4-Site LOSO</td><td>48.3% ASD</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <div class="glass-card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span>📈</span> <span>Probability Calibration Curve</span>
+            </h3>
+            <span class="badge badge-privacy">Platt Sigmoid</span>
+          </div>
+          <div style="height: 280px; position: relative;">
+            <canvas id="chart-calibration"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span>⚖️</span> <span>Subgroup Fairness Breakdown (by Sex)</span>
+            </h3>
+            <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">Disaggregated</span>
+          </div>
+          <div class="data-table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Subgroup</th>
+                  <th>Test Count</th>
+                  <th>Accuracy</th>
+                  <th>Sensitivity</th>
+                  <th>Specificity</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-fairness">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 12: Batch CSV Screening -->
+    <section id="tab-batch" class="tab-panel">
+      <div class="glass-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>📁</span> <span>Batch CSV Screening Engine (Client-Side)</span>
+          </h3>
+          <span class="badge badge-privacy">Local Browser Execution</span>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+          Upload a research cohort CSV with columns <code>A1</code> through <code>A10</code>. The engine evaluates all subjects locally in your browser memory and outputs calibrated risk probabilities and conformal flags.
+        </p>
+
+        <div style="border: 2px dashed var(--border-subtle); border-radius: var(--radius-md); padding: 2rem; text-align: center; cursor: pointer;" id="csv-drop-zone">
+          <input type="file" id="batch-file-input" accept=".csv" style="display: none;">
+          <p style="font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: 0.5rem;">
+            Click to Browse or Drag & Drop Screening CSV
+          </p>
+          <p style="font-size: 0.8rem; color: var(--text-secondary);">
+            Required columns: A1, A2, A3, A4, A5, A6, A7, A8, A9, A10 (Values: 0 or 1)
+          </p>
+        </div>
+
+        <div id="batch-results-area" style="display: none; margin-top: 2rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: #fff;">
+              Evaluated Batch Summary: <span id="batch-count-tag">0 records</span>
+            </h4>
+            <button id="btn-download-batch-csv" class="btn-control active">
+              📥 Export Assessed CSV
+            </button>
+          </div>
+
+          <div class="data-table-container" style="max-height: 350px;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Row</th>
+                  <th>Answer Profile</th>
+                  <th>Calibrated Risk</th>
+                  <th>Conformal State</th>
+                  <th>Trait Pattern</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-batch-results">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Floating Offline Grounded Help Assistant Widget (Phase 3 Item 10) -->
+  <button id="btn-toggle-assistant" class="floating-assistant-btn" title="Open Grounded Help Assistant">
+    💬
+  </button>
+
+  <div id="assistant-modal" class="assistant-modal">
+    <div class="assistant-header">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <span style="font-size: 1.1rem;">🤖</span>
+        <strong style="font-size: 0.85rem; color: #fff;">Offline Research Assistant</strong>
+      </div>
+      <button id="btn-close-assistant" class="btn-control" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;">✕</button>
+    </div>
+    <div id="assistant-chat-body" class="assistant-chat-body">
+      <div class="chat-bubble assistant">
+        Hello! I am an offline assistant grounded in this project's Learning Hub and Model Card. Ask me about screening tools, neurodiversity, or clinical pathways. (I do not provide medical diagnosis or treatment advice).
+      </div>
+    </div>
+    <div class="assistant-footer">
+      <input type="text" id="assistant-user-input" class="assistant-input" placeholder="Ask a question (e.g. 'How does AQ-10 work?')...">
+      <button id="btn-send-assistant" class="btn-control active" style="padding: 0.4rem 0.8rem;">Send</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

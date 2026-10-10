@@ -1,0 +1,21 @@
+A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,age,sex,ethnicity,jaundice,family_asd,contry_of_res,used_app_before,result,age_desc,relation,target,leakage_score,age_group
+1,1,1,1,1,1,1,1,1,1,14,1,Hispanic,0,0,Argentina,no,10,12-16 years,Self,1,10,adolescent
+1,1,0,0,0,0,0,1,0,0,16,0,White-European,0,0,United Kingdom,no,3,12-16 years,Self,0,3,adolescent
+1,0,0,1,1,1,1,1,1,1,12,0,White-European,0,0,United Kingdom,no,8,12-16 years,Self,1,8,adolescent
+0,1,0,0,0,0,0,0,0,0,15,1,Black,0,0,Argentina,no,1,12-16 years,Parent,0,1,adolescent
+0,0,1,1,1,1,1,1,1,0,15,0,White-European,0,0,Argentina,no,7,12-16 years,Parent,1,7,adolescent
+1,0,1,1,1,1,0,1,1,1,16,0,White-European,0,0,United States,no,8,12-16 years,Self,1,8,adolescent
+1,0,1,0,1,1,1,1,1,1,15,1,White-European,0,0,Croatia,no,8,12-16 years,Health care professional,1,8,adolescent
+1,1,0,0,1,0,1,1,1,1,14,1,Others,0,0,United Kingdom,no,7,12-16 years,Self,1,7,adolescent
+1,0,0,1,1,1,0,1,1,1,12,0,Others,0,0,United Kingdom,no,7,12-16 years,Self,1,7,adolescent
+1,0,1,1,1,1,1,1,1,1,14,0,Others,0,0,Canada,no,9,12-16 years,Self,1,9,adolescent
+1,1,1,0,1,1,1,0,1,1,12,1,White-European,0,0,United Kingdom,no,8,12-16 years,Parent,1,8,adolescent
+1,1,0,1,0,0,0,0,0,0,12,1,Middle Eastern ,0,0,Jordan,no,3,12-16 years,Self,0,3,adolescent
+1,0,0,0,1,1,0,1,1,0,13,0,Middle Eastern ,1,0,United Arab Emirates,no,5,12-16 years,Parent,0,5,adolescent
+1,1,1,1,1,1,0,0,1,1,14,1,White-European,0,0,United Kingdom,no,8,12-16 years,Parent,1,8,adolescent
+1,1,1,0,1,1,1,1,1,1,12,0,Black,0,0,France,no,9,12-16 years,Parent,1,9,adolescent
+1,1,1,1,1,1,1,0,0,0,16,0,?,0,0,Albania,no,7,12-16 years,?,1,7,adolescent
+1,0,1,0,0,0,0,1,0,1,16,1,Asian,0,0,India,no,4,12-15 years,Parent,0,4,adolescent
+1,0,0,0,1,1,0,0,0,0,16,1,Hispanic,0,0,Argentina,no,3,12-16 years,Self,0,3,adolescent
+1,0,0,0,1,1,0,1,0,0,16,1,South Asian,0,0,Comoros,no,4,12-16 years,Self,0,4,adolescent
+1,0,0,0,0,0,0,0,0,0,15,0,Hispanic,0,0,Argentina,no,1,12-16 years,Self,0,1,adolescent

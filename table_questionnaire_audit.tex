@@ -1,0 +1,44 @@
+\begin{table*}[t]
+\centering
+\caption{Audit of Behavioral Questionnaire Screening: Benchmark Scoring Rule vs. Supervised Machine Learning Models (Repeated $5 \times 10$ Stratified CV).}
+\label{tab:questionnaire_audit}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llcccccc}
+\toprule
+\textbf{Cohort} & \textbf{Model / Protocol} & \textbf{Accuracy (\%)} & \textbf{Sensitivity} & \textbf{Specificity} & \textbf{ROC-AUC} & \textbf{Brier Score} & \textbf{ECE} \\
+\midrule
+\textbf{Adult} & \textbf{Benchmark Scoring Rule ($\tau = 7$)} & \textbf{100.00 $\pm$ 0.00} & \textbf{1.000 $\pm$ 0.000} & \textbf{1.000 $\pm$ 0.000} & \textbf{1.000 $\pm$ 0.000} & \textbf{0.0000} & \textbf{0.0000} \\
+($N = 667$) & Logistic Regression (Var A) & 99.96 $\pm$ 0.18 & 0.998 $\pm$ 0.007 & 1.000 $\pm$ 0.000 & 1.000 $\pm$ 0.000 & 0.0146 & 0.0594 \\
+ & Logistic Regression (Var B) & 100.00 $\pm$ 0.00 & 1.000 $\pm$ 0.000 & 1.000 $\pm$ 0.000 & 1.000 $\pm$ 0.000 & 0.0057 & 0.0317 \\
+ & LightGBM (Var A) & 94.27 $\pm$ 2.38 & 0.831 $\pm$ 0.074 & 0.983 $\pm$ 0.014 & 0.989 $\pm$ 0.008 & 0.0488 & 0.0986 \\
+ & LightGBM (Var B) & 94.30 $\pm$ 2.36 & 0.828 $\pm$ 0.075 & 0.984 $\pm$ 0.013 & 0.989 $\pm$ 0.008 & 0.0488 & 0.0985 \\
+ & XGBoost (Var A) & 94.02 $\pm$ 2.40 & 0.830 $\pm$ 0.074 & 0.979 $\pm$ 0.015 & 0.988 $\pm$ 0.008 & 0.0504 & 0.1012 \\
+ & CatBoost (Var A) & 93.96 $\pm$ 2.36 & 0.833 $\pm$ 0.075 & 0.978 $\pm$ 0.015 & 0.985 $\pm$ 0.010 & 0.0596 & 0.1328 \\
+\midrule
+\textbf{Adolescent} & \textbf{Benchmark Scoring Rule ($\tau = 7$)} & \textbf{100.00 $\pm$ 0.00} & \textbf{1.000 $\pm$ 0.000} & \textbf{1.000 $\pm$ 0.000} & \textbf{1.000 $\pm$ 0.000} & \textbf{0.0000} & \textbf{0.0000} \\
+($N = 97$) & Logistic Regression (Var A) & 95.55 $\pm$ 5.47 & 0.991 $\pm$ 0.027 & 0.907 $\pm$ 0.121 & 0.997 $\pm$ 0.007 & 0.0551 & 0.1595 \\
+ & Logistic Regression (Var B) & 95.04 $\pm$ 4.52 & 0.968 $\pm$ 0.050 & 0.926 $\pm$ 0.099 & 0.992 $\pm$ 0.013 & 0.0418 & 0.0968 \\
+ & LightGBM (Var A) & 88.03 $\pm$ 6.62 & 0.962 $\pm$ 0.060 & 0.768 $\pm$ 0.146 & 0.961 $\pm$ 0.039 & 0.1078 & 0.2030 \\
+ & LightGBM (Var B) & 88.25 $\pm$ 6.65 & 0.964 $\pm$ 0.053 & 0.771 $\pm$ 0.140 & 0.957 $\pm$ 0.043 & 0.1085 & 0.2084 \\
+ & XGBoost (Var A) & 87.32 $\pm$ 7.83 & 0.941 $\pm$ 0.067 & 0.779 $\pm$ 0.150 & 0.957 $\pm$ 0.044 & 0.0995 & 0.1921 \\
+ & CatBoost (Var A) & 85.68 $\pm$ 7.13 & 0.977 $\pm$ 0.050 & 0.692 $\pm$ 0.150 & 0.952 $\pm$ 0.050 & 0.1305 & 0.2382 \\
+\midrule
+\textbf{Child} & \textbf{Benchmark Scoring Rule ($\tau = 7$)} & \textbf{100.00 $\pm$ 0.00} & \textbf{1.000 $\pm$ 0.000} & \textbf{1.000 $\pm$ 0.000} & \textbf{1.000 $\pm$ 0.000} & \textbf{0.0000} & \textbf{0.0000} \\
+($N = 262$) & Logistic Regression (Var A) & 99.43 $\pm$ 1.22 & 1.000 $\pm$ 0.000 & 0.989 $\pm$ 0.023 & 1.000 $\pm$ 0.000 & 0.0296 & 0.1111 \\
+ & Logistic Regression (Var B) & 99.65 $\pm$ 1.07 & 0.998 $\pm$ 0.008 & 0.995 $\pm$ 0.019 & 1.000 $\pm$ 0.000 & 0.0155 & 0.0649 \\
+ & LightGBM (Var A) & 91.26 $\pm$ 3.85 & 0.913 $\pm$ 0.064 & 0.912 $\pm$ 0.052 & 0.976 $\pm$ 0.017 & 0.0796 & 0.1485 \\
+ & LightGBM (Var B) & 91.07 $\pm$ 3.93 & 0.910 $\pm$ 0.063 & 0.911 $\pm$ 0.054 & 0.976 $\pm$ 0.017 & 0.0798 & 0.1481 \\
+ & XGBoost (Var A) & 89.84 $\pm$ 4.16 & 0.914 $\pm$ 0.063 & 0.885 $\pm$ 0.057 & 0.969 $\pm$ 0.020 & 0.0847 & 0.1476 \\
+ & CatBoost (Var A) & 90.69 $\pm$ 4.56 & 0.929 $\pm$ 0.051 & 0.888 $\pm$ 0.064 & 0.975 $\pm$ 0.019 & 0.0990 & 0.1961 \\
+\midrule
+\textbf{Toddler} & \textbf{Benchmark Scoring Rule ($\tau = 4$)} & \textbf{100.00 $\pm$ 0.00} & \textbf{1.000 $\pm$ 0.000} & \textbf{1.000 $\pm$ 0.000} & \textbf{1.000 $\pm$ 0.000} & \textbf{0.0000} & \textbf{0.0000} \\
+($N = 850$) & Logistic Regression (Var A) & 100.00 $\pm$ 0.00 & 1.000 $\pm$ 0.000 & 1.000 $\pm$ 0.000 & 1.000 $\pm$ 0.000 & 0.0132 & 0.0589 \\
+ & Logistic Regression (Var B) & 100.00 $\pm$ 0.00 & 1.000 $\pm$ 0.000 & 1.000 $\pm$ 0.000 & 1.000 $\pm$ 0.000 & 0.0042 & 0.0292 \\
+ & LightGBM (Var A) & 94.33 $\pm$ 1.97 & 0.983 $\pm$ 0.013 & 0.838 $\pm$ 0.062 & 0.988 $\pm$ 0.007 & 0.0526 & 0.1050 \\
+ & LightGBM (Var B) & 94.29 $\pm$ 1.96 & 0.983 $\pm$ 0.013 & 0.837 $\pm$ 0.065 & 0.988 $\pm$ 0.007 & 0.0527 & 0.1042 \\
+ & XGBoost (Var A) & 94.05 $\pm$ 1.95 & 0.983 $\pm$ 0.014 & 0.827 $\pm$ 0.064 & 0.988 $\pm$ 0.007 & 0.0546 & 0.1078 \\
+ & CatBoost (Var A) & 95.33 $\pm$ 1.75 & 0.987 $\pm$ 0.010 & 0.863 $\pm$ 0.057 & 0.992 $\pm$ 0.005 & 0.0604 & 0.1510 \\
+\bottomrule
+\end{tabular}
+\end{table*}

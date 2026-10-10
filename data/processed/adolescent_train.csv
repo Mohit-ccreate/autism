@@ -1,0 +1,78 @@
+A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,age,sex,ethnicity,jaundice,family_asd,contry_of_res,used_app_before,result,age_desc,relation,target,leakage_score,age_group
+1,0,1,1,1,1,0,1,1,1,15,0,White-European,0,0,Austria,no,8,12-16 years,Health care professional,1,8,adolescent
+0,0,1,1,0,1,0,1,1,1,13,1,Asian,0,0,Indonesia,no,6,12-16 years,Parent,0,6,adolescent
+1,1,1,0,1,1,1,1,1,1,15,0,Middle Eastern ,0,1,Egypt,no,9,12-15 years,Parent,1,9,adolescent
+1,1,1,1,0,1,1,1,1,1,16,0,Latino,0,1,Brazil,no,9,12-16 years,Self,1,9,adolescent
+1,1,0,1,1,1,1,1,1,1,15,0,White-European,0,1,United Kingdom,no,9,12-16 years,Parent,1,9,adolescent
+0,0,0,1,1,1,1,1,1,0,15,1,Hispanic,1,1,Austria,no,6,12-16 years,Parent,0,6,adolescent
+1,1,0,1,1,1,1,1,1,1,15,1,White-European,1,1,United Kingdom,no,9,12-16 years,Self,1,9,adolescent
+1,0,0,1,1,1,0,0,1,1,14,1,White-European,0,0,Finland,no,6,12-16 years,Parent,0,6,adolescent
+1,1,0,1,1,1,0,0,1,1,14,0,South Asian,0,0,United Kingdom,no,7,12-16 years,Self,1,7,adolescent
+1,1,1,1,1,1,0,1,1,1,12,0,Others,0,0,United Kingdom,no,9,12-16 years,Parent,1,9,adolescent
+1,1,1,1,1,1,1,0,1,1,16,1,Asian,1,0,India,no,9,12-16 years,Relative,1,9,adolescent
+0,1,1,1,1,1,0,1,1,0,14,0,White-European,0,0,United Kingdom,no,7,12-16 years,Self,1,7,adolescent
+1,0,0,0,1,0,0,1,0,1,15,0,?,0,0,Argentina,no,4,12-15 years,?,0,4,adolescent
+1,1,1,0,1,1,0,0,1,1,16,1,White-European,1,0,Ireland,no,7,12-16 years,Self,1,7,adolescent
+1,1,1,1,1,1,0,0,1,1,13,0,White-European,0,0,United States,no,8,12-16 years,Self,1,8,adolescent
+1,0,1,0,0,1,0,0,1,1,13,1,White-European,0,0,Norway,no,5,12-16 years,Self,0,5,adolescent
+1,1,1,1,1,1,1,1,0,0,16,1,White-European,0,0,Argentina,no,8,12-16 years,Self,1,8,adolescent
+1,0,1,1,1,1,0,1,1,1,14,0,White-European,0,0,United Kingdom,no,8,12-16 years,Self,1,8,adolescent
+1,0,1,1,1,1,0,1,1,1,12,0,Others,0,0,United Kingdom,no,8,12-16 years,Self,1,8,adolescent
+1,0,1,0,0,1,1,1,1,0,12,1,Asian,0,0,India,no,6,12-16 years,Parent,0,6,adolescent
+0,0,1,1,0,1,0,1,1,1,13,0,Black,0,0,AmericanSamoa,no,6,12-16 years,Parent,0,6,adolescent
+0,1,1,1,0,1,1,0,1,0,12,0,Middle Eastern ,0,0,Austria,no,6,12-15 years,Parent,0,6,adolescent
+0,1,1,0,0,1,0,0,1,0,12,0,South Asian,0,0,Azerbaijan,no,4,12-16 years,Parent,0,4,adolescent
+1,1,0,0,1,1,0,0,1,0,13,0,Others,1,1,United States,no,5,12-16 years,Self,0,5,adolescent
+0,1,1,1,1,1,1,1,1,1,16,1,Others,0,0,United Kingdom,no,9,12-16 years,Parent,1,9,adolescent
+1,1,0,1,0,0,1,1,0,0,15,1,Asian,0,0,Indonesia,no,5,12-15 years,Self,0,5,adolescent
+1,1,1,1,0,1,0,0,1,1,12,0,Black,0,1,United Kingdom,no,7,12-16 years,Self,1,7,adolescent
+1,1,1,0,1,1,1,0,1,1,16,1,Asian,0,0,Portugal,no,8,12-16 years,Relative,1,8,adolescent
+1,0,0,1,1,1,0,1,1,1,16,0,Black,0,0,United States,no,7,12-16 years,Self,1,7,adolescent
+1,1,0,1,1,0,1,1,0,1,15,0,Middle Eastern ,0,0,Australia,no,7,12-16 years,Parent,1,7,adolescent
+0,1,1,1,0,1,1,0,1,0,16,0,Middle Eastern ,0,0,Anguilla,yes,6,12-15 years,Parent,0,6,adolescent
+1,1,0,0,1,0,1,0,0,0,12,1,Asian,1,0,Viet Nam,no,4,12-16 years,Self,0,4,adolescent
+1,0,1,1,1,0,1,1,1,0,14,0,White-European,0,1,United Kingdom,no,7,12-16 years,Self,1,7,adolescent
+0,0,1,1,1,0,1,1,1,1,16,1,Asian,1,0,India,no,7,12-16 years,Others,1,7,adolescent
+1,0,0,0,0,1,0,0,1,0,13,0,?,0,0,Belgium,no,3,12-16 years,?,0,3,adolescent
+1,1,1,0,1,0,1,0,1,0,16,1,Asian,0,1,United Kingdom,no,6,12-16 years,Self,0,6,adolescent
+1,1,1,1,1,1,1,1,1,0,14,1,White-European,0,0,United States,no,9,12-16 years,Parent,1,9,adolescent
+0,0,1,0,1,1,1,0,0,0,16,1,White-European,0,0,Netherlands,no,4,12-16 years,Others,0,4,adolescent
+0,0,0,1,1,1,0,0,0,1,13,1,Middle Eastern ,0,0,Egypt,no,4,12-16 years,Others,0,4,adolescent
+1,0,1,1,1,1,1,1,1,1,13,1,Middle Eastern ,0,1,United States,no,9,12-16 years,Parent,1,9,adolescent
+1,1,1,1,0,1,1,1,1,1,14,1,White-European,0,0,New Zealand,no,9,12-16 years,Parent,1,9,adolescent
+1,1,1,1,0,1,0,0,1,0,12,1,Asian,0,0,Bangladesh,no,6,12-16 years,Parent,0,6,adolescent
+1,1,0,1,1,1,0,0,1,0,15,1,White-European,0,0,Croatia,no,6,12-16 years,Self,0,6,adolescent
+1,1,1,1,1,1,1,0,1,0,16,1,Asian,0,0,United Kingdom,no,8,12-16 years,Parent,1,8,adolescent
+0,1,0,1,1,1,0,1,1,1,16,0,White-European,0,0,United States,no,7,12-16 years,Self,1,7,adolescent
+1,1,1,1,1,1,1,1,1,1,12,0,White-European,0,1,United Kingdom,no,10,12-16 years,Self,1,10,adolescent
+0,0,0,0,0,0,1,0,0,0,16,1,Latino,0,0,Argentina,no,1,12-16 years,Self,0,1,adolescent
+1,1,1,1,1,1,0,0,0,1,13,1,White-European,0,0,United Kingdom,no,7,12-16 years,Self,1,7,adolescent
+0,0,1,1,1,1,1,1,1,1,12,1,White-European,0,0,United States,no,8,12-16 years,Relative,1,8,adolescent
+1,0,0,0,1,1,0,0,1,1,13,0,White-European,0,0,United Kingdom,no,5,12-16 years,Self,0,5,adolescent
+1,0,0,0,1,0,0,1,0,1,12,0,Others,1,1,United Kingdom,no,4,12-16 years,Parent,0,4,adolescent
+0,0,1,1,1,1,1,1,1,1,16,0,White-European,0,0,Netherlands,no,8,12-16 years,Parent,1,8,adolescent
+1,1,1,1,1,1,1,1,1,1,15,0,White-European,0,0,Australia,no,10,12-16 years,Parent,1,10,adolescent
+1,1,1,1,1,1,1,1,1,1,16,1,Asian,1,0,India,no,10,12-16 years,Relative,1,10,adolescent
+1,1,0,0,0,1,0,1,1,1,13,0,White-European,0,1,Belgium,yes,6,12-16 years,Health care professional,0,6,adolescent
+1,1,1,1,1,1,0,1,1,0,12,1,White-European,0,0,Albania,no,8,12-16 years,Health care professional,1,8,adolescent
+0,0,0,0,0,0,0,0,1,1,12,0,?,0,0,AmericanSamoa,no,2,12-16 years,?,0,2,adolescent
+1,1,1,1,1,1,0,0,0,0,12,1,Black,1,1,Bahrain,no,6,12-16 years,Parent,0,6,adolescent
+0,0,1,1,1,1,1,1,1,1,14,0,Others,0,0,Canada,no,8,12-16 years,Self,1,8,adolescent
+1,1,1,1,1,1,1,0,1,1,12,1,Middle Eastern ,1,0,United States,no,9,12-16 years,Parent,1,9,adolescent
+1,0,1,1,1,1,0,0,1,1,16,0,White-European,1,0,Greenland,no,7,12-16 years,Self,1,7,adolescent
+1,0,1,1,0,1,1,1,1,1,16,0,White-European,1,0,United Kingdom,no,8,12-16 years,Parent,1,8,adolescent
+0,0,0,0,0,0,0,0,1,1,15,1,Black,0,0,Austria,no,2,12-16 years,Relative,0,2,adolescent
+0,0,1,1,1,1,0,1,1,1,12,0,Others,0,0,United Kingdom,no,7,12-16 years,Parent,1,7,adolescent
+1,0,1,1,1,0,0,0,1,1,14,0,White-European,0,0,Canada,no,6,12-16 years,Self,0,6,adolescent
+1,0,1,1,1,1,1,1,1,1,15,0,Black,0,0,United States,no,9,12-16 years,Self,1,9,adolescent
+1,1,0,1,1,1,1,1,1,1,16,1,White-European,0,0,United States,no,9,12-16 years,Self,1,9,adolescent
+0,1,1,1,1,1,1,1,1,1,13,1,Asian,0,0,Indonesia,no,9,12-16 years,Parent,1,9,adolescent
+1,1,0,0,0,0,1,0,1,0,13,1,?,0,0,Afghanistan,no,4,12-16 years,?,0,4,adolescent
+0,0,0,1,0,0,1,1,0,0,15,1,Latino,0,0,Argentina,no,3,12-16 years,Self,0,3,adolescent
+0,1,1,1,0,0,0,1,1,1,16,0,White-European,1,0,United Kingdom,no,6,12-16 years,Self,0,6,adolescent
+1,1,1,1,1,1,1,0,1,1,14,0,White-European,0,0,South Africa,no,9,12-16 years,Parent,1,9,adolescent
+0,0,0,1,1,1,1,1,1,0,16,0,?,0,0,Afghanistan,no,6,12-16 years,?,0,6,adolescent
+1,0,1,0,1,0,1,0,0,0,12,1,Asian,0,0,India,yes,4,12-16 years,Relative,0,4,adolescent
+1,1,1,1,1,0,0,1,1,0,13,0,White-European,0,0,United Kingdom,no,7,12-16 years,Parent,1,7,adolescent
+1,1,1,1,1,1,1,1,0,0,16,0,Latino,0,0,Austria,no,8,12-15 years,Health care professional,1,8,adolescent
+1,1,0,1,1,0,0,0,1,1,13,0,White-European,0,0,United Kingdom,no,6,12-16 years,Self,0,6,adolescent
