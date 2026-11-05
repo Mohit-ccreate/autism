@@ -269,7 +269,7 @@ Adolescent (AQ-10) \cite{uci_adolescent} & \AdolescentRawCount & \AdolescentRemo
 Child (AQ-10) \cite{uci_child} & \ChildRawCount & \ChildRemovedCount & \ChildRetainedCount & $[A_1, \dots, A_{10}, \text{Age}, \text{Sex}, \text{Target}]$ \\
 Toddler (Q-CHAT-10) \cite{thabtah2018toddler} & \ToddlerRawCount & \ToddlerRemovedCount & \ToddlerRetainedCount & $[A_1, \dots, A_{10}, \text{Age}, \text{Sex}, \text{Target}]$ \\
 \midrule
-\textbf{Total} & \textbf{\RawTotalCount} & \textbf{\RemovedDuplicatesCount} & \textbf{\RetainedTotalCount} & \textbf{Exact Record Matching} \\
+\textbf{Total} & \textbf{\RawTotalCount} & \textbf{\RemovedDuplicatesCount} & \textbf{\RetainedTotalCount} & \textbf{Narrow-key matching} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -277,6 +277,35 @@ Toddler (Q-CHAT-10) \cite{thabtah2018toddler} & \ToddlerRawCount & \ToddlerRemov
 with open(os.path.join(BASE_DIR, "table_cohort_dedup.tex"), "w") as f:
     f.write(table_cohort_tex)
 print("[OK] Wrote table_cohort_dedup.tex")
+
+# -----------------------------------------------------------------------------
+# 3c. GENERATE table_threshold_sweep.tex
+# -----------------------------------------------------------------------------
+table_thresh_tex = r"""\begin{table}[h]
+\centering
+\caption{Threshold Sweep Concordance Across Behavioral Cohorts (Adult $N=667$, Adol. $N=97$, Child $N=262$, Toddler $N=850$).}
+\label{tab:threshold_concordance}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{ccccc}
+\toprule
+\textbf{Cutoff ($\tau$)} & \textbf{Adult} & \textbf{Adol.} & \textbf{Child} & \textbf{Toddler} \\
+\midrule
+$\tau = 2$ & 32.84\% (448) & 60.82\% (38) & 48.09\% (136) & 81.76\% (155) \\
+$\tau = 3$ & 43.18\% (379) & 62.89\% (36) & 51.53\% (127) & 89.76\% (87) \\
+$\tau = 4$ & 58.47\% (277) & 68.04\% (31) & 58.78\% (108) & \textbf{100.00\% (0)} \\
+$\tau = 5$ & 77.36\% (151) & 78.35\% (21) & 70.61\% (77) & 87.76\% (104) \\
+$\tau = 6$ & 89.66\% (69)  & 83.51\% (16) & 85.50\% (38) & 74.35\% (218) \\
+$\boldsymbol{\tau = 7}$ & \textbf{100.00\% (0)} & \textbf{100.00\% (0)} & \textbf{100.00\% (0)} & 64.24\% (304) \\
+$\tau = 8$ & 91.45\% (57)  & 82.47\% (17) & 84.73\% (40) & 49.88\% (426) \\
+$\tau = 9$ & 83.51\% (110) & 63.92\% (35) & 68.32\% (83) & 39.88\% (511) \\
+\bottomrule
+\end{tabular}
+\end{table}
+"""
+with open(os.path.join(BASE_DIR, "table_threshold_sweep.tex"), "w") as f:
+    f.write(table_thresh_tex)
+print("[OK] Wrote table_threshold_sweep.tex")
 
 # -----------------------------------------------------------------------------
 # 4. GENERATE table_questionnaire_audit.tex (Table III)

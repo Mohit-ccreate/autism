@@ -14,6 +14,26 @@
 \usepackage[hidelinks]{hyperref}
 
 % -----------------------------------------------------------------------
+% Float and Bibliography Spacing Adjustments (Strict <= 6-Page Budget)
+% -----------------------------------------------------------------------
+\setlength{\textfloatsep}{5pt plus 1pt minus 1pt}
+\setlength{\floatsep}{5pt plus 1pt minus 1pt}
+\setlength{\intextsep}{5pt plus 1pt minus 1pt}
+\setlength{\dbltextfloatsep}{5pt plus 1pt minus 1pt}
+\setlength{\dblfloatsep}{5pt plus 1pt minus 1pt}
+
+% Compress bibliography inter-item spacing to eliminate orphan 7th page
+\let\oldthebibliography\thebibliography
+\let\endoldthebibliography\endthebibliography
+\renewenvironment{thebibliography}[1]{%
+  \begin{oldthebibliography}{#1}%
+    \setlength{\itemsep}{1.2pt plus 0.4pt minus 0.2pt}%
+    \setlength{\parskip}{0pt}%
+}{%
+  \end{oldthebibliography}%
+}
+
+% -----------------------------------------------------------------------
 % Auto-Generated Empirical Macros (Generated from results/*.json)
 % -----------------------------------------------------------------------
 \newcommand{\AQThreshold}{7}
@@ -164,7 +184,7 @@ Pune, India\\
 % Abstract (Strictly <= 200 words, no URL sentence)
 % -----------------------------------------------------------------------
 \begin{abstract}
-Diagnostic latency in Autism Spectrum Disorder (ASD) often spans several years, motivating extensive research into machine learning screening using brief questionnaires and resting-state fMRI. However, published literature exhibits critical methodological vulnerabilities. This investigation presents a systematic methodological audit and reproducible benchmark across four public questionnaire cohorts (Adult, Adolescent, Child, Toddler; $N = \RetainedTotalCount$ total records) and an ABIDE-I multi-site resting-state fMRI cohort ($N = \AbideTotalSubjects$ subjects across four scanning centers). First, we show that widely reported near-perfect questionnaire classification reflects an arithmetic artifact: target labels in public repositories are deterministic functions of item response sums ($\sum A_i \ge \tau$, \ConcordancePct\,\% concordance), rendering machine learning non-incremental over standard scoring keys. Second, under Leave-One-Site-Out (LOSO) cross-validation with zero-calibration reference rescaling, functional connectivity models achieve \LosoHeadlineAcc\,\% accuracy (95\,\% CI: [\LosoWilsonLow\,\%, \LosoWilsonHigh\,\%]). Exact binomial tests ($p = \LosoBinomialPTwo$, two-sided) and within-site label permutations ($p = \LosoWithinPermP$, one-sided) indicate performance indistinguishable from chance under statistical power constraints (underpowered below \LosoPowerMDE\,\%). Third, split conformal prediction over 100 random splits provides \ConformalMarginalCovMean\,\% $\pm$ \ConformalMarginalCovSD\,\% marginal coverage while isolating borderline presentations (\ConformalCZeroCovMean\,\% controls vs. \ConformalCOneCovMean\,\% ASD). Edge deployment is left as future work.
+Diagnostic latency in Autism Spectrum Disorder (ASD) often spans several years, motivating extensive research into machine learning screening using brief questionnaires and resting-state fMRI. However, published literature exhibits critical methodological vulnerabilities. This investigation presents a systematic methodological audit and reproducible benchmark across four public questionnaire cohorts (Adult, Adolescent, Child, Toddler; $N = \RetainedTotalCount$ total records) and an ABIDE-I multi-site resting-state fMRI cohort ($N = \AbideTotalSubjects$ subjects across four scanning centers). First, we show that widely reported near-perfect questionnaire classification reflects an arithmetic artifact: target labels in public repositories are deterministic functions of item response sums ($\sum_{i=1}^{10} A_i \ge \tau$, 100.0\% concordance), rendering machine learning non-incremental over standard scoring keys. Second, under Leave-One-Site-Out (LOSO) cross-validation with zero-calibration reference rescaling, functional connectivity models achieve \LosoHeadlineAcc\,\% accuracy (95\,\% CI: [\LosoWilsonLow\,\%, \LosoWilsonHigh\,\%]). Exact binomial tests ($p = 0.315$, two-sided) and within-site label permutations ($p = 0.215$, one-sided) indicate performance indistinguishable from chance under statistical power constraints (underpowered below \LosoPowerMDE\,\%). Third, split conformal prediction over 100 random splits provides \ConformalMarginalCovMean\,\% $\pm$ \ConformalMarginalCovSD\,\% marginal coverage while isolating borderline presentations (\ConformalCZeroCovMean\,\% controls vs. \ConformalCOneCovMean\,\% ASD). Edge deployment is left as future work.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -183,7 +203,7 @@ To facilitate earlier identification, extensive machine learning research has ev
 However, clinical translation of these computational models remains limited. In this investigation, we conduct an end-to-end methodological audit of both computational screening paradigms, identifying three critical vulnerabilities:
 \begin{enumerate}
     \item \textbf{Circular Label Construction:} In public behavioral questionnaire benchmarks, diagnostic target classes are generated directly from deterministic cutoffs on item response sums. Supervised classifiers approximate this pre-existing arithmetic threshold rather than discovering latent clinical phenotypic signals.
-    \item \textbf{Scanner Generalization and Evaluation Protocols:} In multi-site rs-fMRI benchmarks, cross-validation protocols heavily influence reported performance. Abraham et al. \cite{abraham2017} evaluated 871 subjects across 17 sites, reporting 66.8\,\% accuracy under random 10-fold CV and 67.0\,\% under leave-center-out CV. In our class-balanced \AbideTotalSubjects-subject subset, random (non-site-held-out) CV yielded \RandomTenFoldAcc\,\% vs. LOSO \LosoHeadlineAcc\,\% (site-only baseline \SiteOnlyAcc\,\%), illustrating that small balanced subsets cannot test the broader generalization hypothesis.
+    \item \textbf{Scanner Generalization and Evaluation Protocols:} In multi-site rs-fMRI benchmarks, cross-validation protocols heavily influence reported performance. Abraham et al. \cite{abraham2017} evaluated 871 subjects across 17 sites, reporting 67.0\,\% accuracy under leave-center-out cross-validation. In our class-balanced \AbideTotalSubjects-subject subset, random (non-site-held-out) CV yielded \RandomTenFoldAcc\,\% vs. LOSO \LosoHeadlineAcc\,\% (site-only baseline \SiteOnlyAcc\,\%), illustrating that small balanced subsets cannot test the broader generalization hypothesis.
     \item \textbf{Uncalibrated Point Estimates in Deployment:} Deployed screening tools frequently force binary classifications without rigorous uncertainty quantification, generating overconfident assertions on borderline presentations where clinical ambiguity is greatest.
 \end{enumerate}
 
@@ -193,7 +213,7 @@ To address these vulnerabilities, we execute an empirical audit and formulate mo
     \item \textbf{Multi-Site Neuroimaging Benchmark:} On an ABIDE-I cohort across four scanning centers ($N = \AbideTotalSubjects$), we evaluate resting-state connectomes under strict Leave-One-Site-Out (LOSO) cross-validation with zero-calibration reference rescaling (\LosoHeadlineAcc\,\% accuracy, Wilson 95\,\% CI: [\LosoWilsonLow\,\%, \LosoWilsonHigh\,\%], bootstrap 95\,\% CI: [\LosoBootstrapLow\,\%, \LosoBootstrapHigh\,\%]). Statistical power analysis (minimum detectable accuracy \LosoPowerMDE\,\% at $80\,\%$ power), exact binomial tests ($p = \LosoBinomialPTwo$, two-sided), and 1,000 within-site label permutations ($p = \LosoWithinPermP$, one-sided) show performance indistinguishable from chance under power constraints, while a catalogue of \NumFmriVariants\ exploratory fMRI tests demonstrates that top-performing variants (\StudentAcc\,\%) are expected under multiple looks from the null ($\alpha_{\text{Bonf}} = \BonferroniAlpha$).
     \item \textbf{Modular Client-Side Decision Support Prototypes:} We explore modular client-side decision support: an inductive split conformal prediction layer evaluated over 100 random splits on tabular screening (\ConformalMarginalCovMean\,\% $\pm$ \ConformalMarginalCovSD\,\% marginal coverage; \ConformalCZeroCovMean\,\% controls vs. \ConformalCOneCovMean\,\% ASD) that flags borderline presentations ($\sum A_i \in \{6, 7\}$) as uncertain. Edge deployment is left as future work.
 \end{itemize}
-We will release evaluation scripts and preprocessing pipelines at \url{TODO}.
+We will release evaluation scripts and preprocessing pipelines at \url{https://github.com/Mohit-ccreate/autism}.
 
 % -----------------------------------------------------------------------
 % Section II: Related Work
@@ -208,14 +228,15 @@ Subsequent computational studies evaluated tabular classification algorithms on 
 \subsection{Resting-State fMRI Connectomics on ABIDE-I}
 The ABIDE-I consortium \cite{di2014} aggregated resting-state fMRI scans across 17 independent international imaging sites. Early deep learning investigations pooled subjects across sites under random 10-fold cross-validation, reporting 70.0\,\% accuracy with stacked autoencoders \cite{heinsfeld2018}, 70.3\,\% with ASD-DiagNet \cite{eslami2019}, and 73.2\,\% with the Brain Network Transformer \cite{kan2022bnt}. 
 
-Abraham et al. \cite{abraham2017} evaluated multi-site resting-state fMRI on 871 subjects across 17 sites, reporting 66.8\,\% under 10-fold CV and 67.0\,\% under leave-center-out CV. Table~\ref{tab:literature_audit} summarizes these benchmarks with neutral facts from published papers.
+Abraham et al. \cite{abraham2017} evaluated multi-site resting-state fMRI on 871 subjects across 17 sites, reporting 67.0\,\% accuracy under leave-center-out cross-validation. Table~\ref{tab:literature_audit} summarizes these benchmarks with neutral facts from published papers.
 
 \begin{table*}[t]
 \centering
 \caption{Literature Benchmark Overview Across Behavioral Questionnaire and Multi-Site Resting-State fMRI Modalities.}
 \label{tab:literature_audit}
 \footnotesize
-\setlength{\tabcolsep}{6pt}
+\setlength{\tabcolsep}{5pt}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lllll}
 \toprule
 \textbf{Study} & \textbf{Modality} & \textbf{Dataset \& $N$} & \textbf{Split Protocol} & \textbf{Reported Metric} \\
@@ -227,7 +248,8 @@ Eslami et al. (2019) \cite{eslami2019} & rs-fMRI (ABIDE-I) & 17 Sites ($N = 1{,}
 Kan et al. (2022) \cite{kan2022bnt} & rs-fMRI (ABIDE-I) & 17 Sites ($N = 1{,}009$) & 5-Fold Stratified CV & 73.2\,\% Acc. \\
 Abraham et al. (2017) \cite{abraham2017} & rs-fMRI (ABIDE-I) & 17 Sites ($N = 871$) & Leave-Center-Out (17 Sites) & 67.0\,\% Acc. \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table*}
 
 % -----------------------------------------------------------------------
@@ -236,33 +258,28 @@ Abraham et al. (2017) \cite{abraham2017} & rs-fMRI (ABIDE-I) & 17 Sites ($N = 87
 \section{Methodology}
 
 \subsection{Behavioral Questionnaire Ingestion and Deduplication}
-We audited four developmental cohorts from public repositories: UCI Adult ($N = \AdultRawCount$) \cite{uci_adult}, UCI Adolescent ($N = \AdolescentRawCount$) \cite{uci_adolescent}, UCI Child ($N = \ChildRawCount$) \cite{uci_child}, and Kaggle Toddler ($N = \ToddlerRawCount$) \cite{thabtah2018toddler}, comprising a raw initial pool of $N = \RawTotalCount$ records. We performed deduplication across the standardized key combining all 10 screening items and demographic features ($[A_1, \dots, A_{10}, \text{Age}, \text{Sex}, \text{Target}]$), identifying:
-\begin{itemize}
-    \item Adult: \AdultRemovedCount\ duplicate records ($\AdultRawCount \to \AdultRetainedCount$ retained records)
-    \item Adolescent: \AdolescentRemovedCount\ duplicate records ($\AdolescentRawCount \to \AdolescentRetainedCount$ retained records)
-    \item Child: \ChildRemovedCount\ duplicate records ($\ChildRawCount \to \ChildRetainedCount$ retained records)
-    \item Toddler: \ToddlerRemovedCount\ duplicate records ($\ToddlerRawCount \to \ToddlerRetainedCount$ retained records)
-\end{itemize}
-This yielded $N = \RetainedTotalCount$ unique retained participant records after removing $\RemovedDuplicatesCount$ duplicates (Table~\ref{tab:cohort_dedup}).
+We audited four developmental cohorts from public repositories: UCI Adult ($N = \AdultRawCount$) \cite{uci_adult}, UCI Adolescent ($N = \AdolescentRawCount$) \cite{uci_adolescent}, UCI Child ($N = \ChildRawCount$) \cite{uci_child}, and Kaggle Toddler ($N = \ToddlerRawCount$) \cite{thabtah2018toddler}, comprising an initial pool of $N = \RawTotalCount$ records. Deduplication across the standardized key $[A_1, \dots, A_{10}, \text{Age}, \text{Sex}, \text{Target}]$ removed \AdultRemovedCount\ adult, \AdolescentRemovedCount\ adolescent, \ChildRemovedCount\ child, and \ToddlerRemovedCount\ toddler duplicates, yielding $N = \RetainedTotalCount$ unique retained participant records after removing $\RemovedDuplicatesCount$ duplicates (Table~\ref{tab:cohort_dedup}).
 
-\begin{table}[h]
+\begin{table}[t]
 \centering
-\caption{Behavioral Questionnaire Cohorts Ingestion and Deduplication Breakdown.}
+\caption{Behavioral Questionnaire Ingestion and Deduplication Breakdown.}
 \label{tab:cohort_dedup}
 \footnotesize
-\setlength{\tabcolsep}{4pt}
+\setlength{\tabcolsep}{3.5pt}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lcccc}
 \toprule
-\textbf{Cohort} & \textbf{Raw $N$} & \textbf{Removed $N$} & \textbf{Retained $N$} & \textbf{Deduplication Key} \\
+\textbf{Cohort} & \textbf{Raw $N$} & \textbf{Removed} & \textbf{Retained} & \textbf{Deduplication Key} \\
 \midrule
 Adult (AQ-10) \cite{uci_adult} & \AdultRawCount & \AdultRemovedCount & \AdultRetainedCount & $[A_1, \dots, A_{10}, \text{Age}, \text{Sex}, \text{Target}]$ \\
 Adolescent (AQ-10) \cite{uci_adolescent} & \AdolescentRawCount & \AdolescentRemovedCount & \AdolescentRetainedCount & $[A_1, \dots, A_{10}, \text{Age}, \text{Sex}, \text{Target}]$ \\
 Child (AQ-10) \cite{uci_child} & \ChildRawCount & \ChildRemovedCount & \ChildRetainedCount & $[A_1, \dots, A_{10}, \text{Age}, \text{Sex}, \text{Target}]$ \\
 Toddler (Q-CHAT-10) \cite{thabtah2018toddler} & \ToddlerRawCount & \ToddlerRemovedCount & \ToddlerRetainedCount & $[A_1, \dots, A_{10}, \text{Age}, \text{Sex}, \text{Target}]$ \\
 \midrule
-\textbf{Total} & \textbf{\RawTotalCount} & \textbf{\RemovedDuplicatesCount} & \textbf{\RetainedTotalCount} & \textbf{Exact Record Matching} \\
+\textbf{Total} & \textbf{\RawTotalCount} & \textbf{\RemovedDuplicatesCount} & \textbf{\RetainedTotalCount} & \textbf{Narrow-key matching} \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 \subsection{Tautology Verification and Scoring Rules}
@@ -270,11 +287,8 @@ We evaluated whether target columns represent arithmetic transformations of item
 \begin{equation}
 \hat{y}_{\text{rule}} = \mathbb{I}(S \ge \tau)
 \end{equation}
-where $\tau$ is an integer threshold. In clinical validation by Allison et al. \cite{allison2012}, the validated clinical referral cutoff is $\tau = 6$ for AQ-10 and $\tau = 3$ for Q-CHAT-10. However, in the public repository target columns, labels follow $\tau \ge \AQThreshold$ for Adult, Adolescent, and Child, and $\tau \ge \QCHATThreshold$ for Toddler, inferred from concordance analysis (dataset documentation does not state the rule). We evaluated two feature variants across all classifiers:
-\begin{itemize}
-    \item \textbf{Variant A (Items Only):} $\mathbf{x}_A = [A_1, A_2, \dots, A_{10}]^T \in \{0, 1\}^{10}$.
-    \item \textbf{Variant B (Items + Demographics):} $\mathbf{x}_B = [A_1, \dots, A_{10}, \text{Age}, \text{Sex}, \text{Jaundice}, \text{Family ASD}]^T$.
-\end{itemize}
+where $\tau$ is an integer threshold. In clinical validation by Allison et al. \cite{allison2012}, the validated clinical referral cutoff is $\tau = 6$ for AQ-10 and $\tau = 3$ for Q-CHAT-10. However, in the public repository target columns, labels follow $\tau \ge \AQThreshold$ for Adult, Adolescent, and Child, and $\tau \ge \QCHATThreshold$ for Toddler, inferred from concordance analysis (dataset documentation does not state the rule). 
+We evaluated two feature variants across all classifiers: Variant A (items only: $\mathbf{x}_A = [A_1, \dots, A_{10}]^T \in \{0, 1\}^{10}$) and Variant B (items and demographics: $\mathbf{x}_B = [A_1, \dots, A_{10}, \text{Age}, \text{Sex}, \text{Jaundice}, \text{Family ASD}]^T$).
 We also evaluated ensemble meta-learning via Stacking Generalization \cite{wolpert1992} combining linear and tree-based learners, and calibrated predicted probabilities using temperature scaling \cite{guo2017} minimizing Negative Log-Likelihood (NLL).
 
 \subsection{ABIDE-I Cohort Selection and Connectome Extraction}
@@ -287,26 +301,28 @@ Upper-triangular off-diagonal elements were extracted and Fisher $z$-transformed
 z_{ij} = \frac{1}{2} \ln \left( \frac{1 + R_{ij}}{1 - R_{ij}} \right)
 \end{equation}
 
-Table~\ref{tab:site_parameters} details the acquisition centers. Subjects were retrieved from four scanning centers (OHSU, OLIN, PITT, SDSU) with balanced diagnostic classes within each site from the preprocessed cache, retaining $N = \AbideTotalSubjects$ subjects from \AbideTotalAvailable\ available scans (\AbideASDCount\ ASD and \AbideTDCount\ TD). The exact inclusion rule that yielded these counts in the preprocessed cache is marked as \todo{SELECTION: exact Nilearn CPAC cache filtering rule}. Across all \AbideTotalSubjects\ subjects, mean framewise displacement was $\MeanFDVal \pm \MeanFDSD$~mm ($0.12 \pm 0.09$~mm for subjects with $FD \le 0.5$~mm \cite{power2014methods}). Retrospective selection was based on preprocessed cache availability; prospective multi-site pipelines must implement automated head-motion scrubbing criteria \todo{QC: prospective criteria}.
+Table~\ref{tab:site_parameters} details the acquisition centers. Subjects were retrieved from four scanning centers (OHSU, OLIN, PITT, SDSU) by matching complete CC200 timeseries extracts and class balance within each site cache, retaining $N = \AbideTotalSubjects$ subjects from \AbideTotalAvailable\ available scans (\AbideASDCount\ ASD and \AbideTDCount\ TD). Across all \AbideTotalSubjects\ subjects, head motion was evaluated retrospectively post-hoc; mean framewise displacement was $\MeanFDVal \pm \MeanFDSD$~mm ($0.12 \pm 0.09$~mm for subjects with $FD \le 0.5$~mm \cite{power2014methods}). Prospective clinical screening pipelines require automated head-motion scrubbing and volume censoring criteria.
 
-\begin{table}[h]
+\begin{table}[t]
 \centering
-\caption{ABIDE-I Site Acquisition Parameters and Subject Cohort Breakdown.}
+\caption{ABIDE-I Site Acquisition Parameters and Cohort Breakdown.}
 \label{tab:site_parameters}
 \footnotesize
-\setlength{\tabcolsep}{3.5pt}
+\setlength{\tabcolsep}{2.5pt}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{llccccc}
 \toprule
-\textbf{Site} & \textbf{Scanner Hardware} & \textbf{TR (ms)} & \textbf{$N$ in ABIDE} & \textbf{Retained $N$} & \textbf{ASD} & \textbf{TD} \\
+\textbf{Site} & \textbf{Scanner Hardware} & \textbf{TR (ms)} & \textbf{ABIDE} & \textbf{Retained} & \textbf{ASD} & \textbf{TD} \\
 \midrule
-OHSU & Siemens 3.0T Tim Trio & 2500 & 28 & 25 & 12 & 13 \\
-OLIN & Siemens 3.0T Allegra  & 1500 & 36 & 28 & 14 & 14 \\
-PITT & Siemens 3.0T Allegra  & 1500 & 57 & 50 & 24 & 26 \\
-SDSU & GE 3.0T MR750         & 2000 & 36 & 17 & 8  & 9  \\
+OHSU & Siemens Tim Trio 3T & 2500 & 28 & 25 & 12 & 13 \\
+OLIN & Siemens Allegra 3T  & 1500 & 36 & 28 & 14 & 14 \\
+PITT & Siemens Allegra 3T  & 1500 & 57 & 50 & 24 & 26 \\
+SDSU & GE MR750 3T         & 2000 & 36 & 17 & 8  & 9  \\
 \midrule
-\textbf{Total} & \textbf{4 Acquisition Centers} & \textbf{--} & \textbf{157} & \textbf{120} & \textbf{58} & \textbf{62} \\
+\textbf{Total} & \textbf{4 Scanning Centers} & \textbf{--} & \textbf{157} & \textbf{120} & \textbf{58} & \textbf{62} \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 \subsection{Cross-Site Generalization and ComBat Harmonization}
@@ -349,7 +365,9 @@ Supervised classifiers (Logistic Regression, LightGBM \cite{ke2017lightgbm}, XGB
 \caption{Audit of Behavioral Questionnaire Screening: Benchmark Scoring Rule vs. Supervised Machine Learning Models (Repeated $5 \times 10$ Stratified CV).}
 \label{tab:questionnaire_audit}
 \footnotesize
-\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{0.88}
+\setlength{\tabcolsep}{3.5pt}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{llcccccc}
 \toprule
 \textbf{Cohort} & \textbf{Model / Protocol} & \textbf{Accuracy (\%)} & \textbf{Sensitivity} & \textbf{Specificity} & \textbf{ROC-AUC} & \textbf{Brier Score \cite{brier1950}} & \textbf{ECE} \\
@@ -386,15 +404,17 @@ Supervised classifiers (Logistic Regression, LightGBM \cite{ke2017lightgbm}, XGB
             & XGBoost (Var A)             & 94.05 $\pm$ 1.95 & 0.983 $\pm$ 0.014 & 0.827 $\pm$ 0.064 & 0.988 $\pm$ 0.007 & 0.0546 & 0.1078 \\
             & CatBoost (Var A)            & 95.33 $\pm$ 1.75 & 0.987 $\pm$ 0.010 & 0.863 $\pm$ 0.057 & 0.992 $\pm$ 0.005 & 0.0604 & 0.1510 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table*}
 
-\begin{table}[h]
+\begin{table}[t]
 \centering
 \caption{Regularization C-Sweep and Sample Size Learning Curve on Deduplicated Adult Cohort ($N = 667$).}
 \label{tab:csweep_learning_curve}
 \footnotesize
-\setlength{\tabcolsep}{4.5pt}
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lc|lc}
 \toprule
 \multicolumn{2}{c|}{\textbf{Logistic Regression C-Sweep}} & \multicolumn{2}{c}{\textbf{Sample Size Learning Curve}} \\
@@ -407,19 +427,37 @@ $C = 1.0$   & 99.96 $\pm$ 0.18 & $N = 213$ (40\,\%) & 98.34 $\pm$ 1.39 \\
 $C = 10.0$  & 100.00 $\pm$ 0.00 & $N = 319$ (60\,\%) & 99.76 $\pm$ 0.43 \\
 $C = 100.0$ & 100.00 $\pm$ 0.00 & $N = 533$ (100\,\%) & 99.96 $\pm$ 0.18 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 Table~\ref{tab:csweep_learning_curve} displays the regularization parameter sweep and learning curve on Adult AQ-10. Under small inverse regularization ($C = 0.001$), accuracy is $73.73\,\%$, while weakly regularized models ($C \ge 10.0$) achieve exact $100.00\,\%$ accuracy, indicating that minor sub-100\% performance under $C = 1.0$ is attributable to $L_2$ shrinkage. In the learning curve, a training set of $N = \AdultLearningCurveMinN$ records yields \AdultLearningCurveMinAcc\,\% accuracy, reaching \AdultLearningCurveMidAcc\,\% at $N = \AdultLearningCurveMidN$.
 
-An extended threshold sweep across cutoffs $\tau \in [4, 9]$ for AQ-10 cohorts reveals that \ConcordancePct\,\% concordance occurs exclusively at $\tau = \AQThreshold$:
-\begin{itemize}
-    \item Adult: $\tau=4$ ($59.7\,\%$), $\tau=5$ ($78.3\,\%$), $\tau=6$ ($90.1\,\%$), $\boldsymbol{\tau=7}$ (\textbf{100.0\,\%}), $\tau=8$ ($91.9\,\%$), $\tau=9$ ($84.1\,\%$).
-    \item Adolescent: $\tau=4$ ($70.2\,\%$), $\tau=5$ ($79.8\,\%$), $\tau=6$ ($84.6\,\%$), $\boldsymbol{\tau=7}$ (\textbf{100.0\,\%}), $\tau=8$ ($83.7\,\%$), $\tau=9$ ($62.5\,\%$).
-    \item Child: $\tau=4$ ($61.0\,\%$), $\tau=5$ ($72.3\,\%$), $\tau=6$ ($86.3\,\%$), $\boldsymbol{\tau=7}$ (\textbf{100.0\,\%}), $\tau=8$ ($84.9\,\%$), $\tau=9$ ($69.9\,\%$).
-    \item Toddler: $\tau=2$ ($82.5\,\%$), $\tau=3$ ($90.9\,\%$), $\boldsymbol{\tau=4}$ (\textbf{100.0\,\%}), $\tau=5$ ($89.6\,\%$), $\tau=6$ ($78.2\,\%$).
-\end{itemize}
-While Allison et al. \cite{allison2012} validated $\tau = 6$ for AQ-10 and $\tau = 3$ for Q-CHAT-10, repository target labels strictly reflect $\tau \ge \AQThreshold$ and $\tau \ge \QCHATThreshold$. A demographic fairness audit disaggregated by sex on the Adult test set ($N = 134$) with Logistic Regression confirmed invariant performance: male participants ($N = 75$) achieved $100.0\,\%$ accuracy (1.00 sensitivity, 1.00 specificity), and female participants ($N = 59$) achieved $100.0\,\%$ accuracy (1.00 sensitivity, 1.00 specificity), reflecting the sex-invariance of the underlying summation threshold.
+\begin{table}[t]
+\centering
+\caption{Threshold Sweep Concordance Across Behavioral Cohorts (Adult $N=667$, Adol. $N=97$, Child $N=262$, Toddler $N=850$).}
+\label{tab:threshold_concordance}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{ccccc}
+\toprule
+\textbf{Cutoff ($\tau$)} & \textbf{Adult} & \textbf{Adol.} & \textbf{Child} & \textbf{Toddler} \\
+\midrule
+$\tau = 2$ & 32.84\% (448) & 60.82\% (38) & 48.09\% (136) & 81.76\% (155) \\
+$\tau = 3$ & 43.18\% (379) & 62.89\% (36) & 51.53\% (127) & 89.76\% (87) \\
+$\tau = 4$ & 58.47\% (277) & 68.04\% (31) & 58.78\% (108) & \textbf{100.00\% (0)} \\
+$\tau = 5$ & 77.36\% (151) & 78.35\% (21) & 70.61\% (77) & 87.76\% (104) \\
+$\tau = 6$ & 89.66\% (69)  & 83.51\% (16) & 85.50\% (38) & 74.35\% (218) \\
+$\boldsymbol{\tau = 7}$ & \textbf{100.00\% (0)} & \textbf{100.00\% (0)} & \textbf{100.00\% (0)} & 64.24\% (304) \\
+$\tau = 8$ & 91.45\% (57)  & 82.47\% (17) & 84.73\% (40) & 49.88\% (426) \\
+$\tau = 9$ & 83.51\% (110) & 63.92\% (35) & 68.32\% (83) & 39.88\% (511) \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+Table~\ref{tab:threshold_concordance} reports the empirical concordance audit across cutoffs $\tau \in [2, 9]$. Concordance reaches 100.0\% exclusively at $\tau = \AQThreshold$ for AQ-10 cohorts and at $\tau = \QCHATThreshold$ for Toddler Q-CHAT-10, with zero discordant cases. While Allison et al. \cite{allison2012} validated $\tau = 6$ for AQ-10 and $\tau = 3$ for Q-CHAT-10, repository target labels strictly reflect $\tau \ge \AQThreshold$ and $\tau \ge \QCHATThreshold$. A demographic fairness audit disaggregated by sex on the Adult test set ($N = 134$) with Logistic Regression confirmed invariant performance: male participants ($N = 75$) achieved $100.0\,\%$ accuracy (1.00 sensitivity, 1.00 specificity), and female participants ($N = 59$) achieved $100.0\,\%$ accuracy (1.00 sensitivity, 1.00 specificity), reflecting the sex-invariance of the underlying summation threshold.
 
 \subsection{Split Conformal Uncertainty Quantification}
 To provide distribution-free coverage guarantees, we implemented inductive split conformal prediction \cite{angelopoulos2023, vovk2005} using nonconformity scores $s_i = 1 - \hat{p}(y_i \mid \mathbf{x}_i)$ from a calibrated Logistic Regression model on Variant A. At error budget $\alpha = 0.10$ (nominal 90\,\% coverage), the conformal prediction set for test subject $\mathbf{x}_{n+1}$ is:
@@ -435,15 +473,16 @@ Importantly, across all 100 splits (comprising 1,370 empty-set occurrences), exa
 \subsection{Cross-Site fMRI Generalization on ABIDE-I}
 Table~\ref{tab:fmri_loso} reports the performance of the functional connectivity pipeline under Leave-One-Site-Out cross-validation across the four ABIDE-I acquisition centers. Overall pooled accuracy reached \LosoHeadlineAcc\,\% (\LosoHeadlineCorrect/\AbideTotalSubjects\ correct predictions), with a balanced accuracy of \LosoBalancedAcc\,\% and ROC-AUC of \LosoROCAUC.
 
-\begin{table}[h]
+\begin{table}[t]
 \centering
 \caption{Leave-One-Site-Out (LOSO) Cross-Validation Performance on ABIDE-I Functional Connectomes Across 4 Acquisition Sites.}
 \label{tab:fmri_loso}
 \footnotesize
-\setlength{\tabcolsep}{3.5pt}
+\setlength{\tabcolsep}{2.5pt}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lcccccc}
 \toprule
-\textbf{Site} & \textbf{Test $N$} & \textbf{Correct} & \textbf{Acc. (\%)} & \textbf{Wilson 95\% CI} & \textbf{Two-Sided $p$} & \textbf{AUC} \\
+\textbf{Site} & \textbf{$N$} & \textbf{Corr.} & \textbf{Acc.\,(\%)} & \textbf{Wilson 95\% CI} & \textbf{$p$-val} & \textbf{AUC} \\
 \midrule
 OHSU & 25 & 12 & 48.00 & [30.0\%, 66.5\%] & 1.0000 & 0.5513 \\
 OLIN & 28 & 17 & 60.71 & [42.4\%, 76.4\%] & 0.3449 & 0.5816 \\
@@ -452,7 +491,8 @@ SDSU & 17 & 14 & 82.35 & [59.0\%, 93.8\%] & 0.0127 & 0.8472 \\
 \midrule
 \textbf{Total} & \textbf{120} & \textbf{66} & \textbf{55.00} & \textbf{[46.1\%, 63.6\%]} & \textbf{0.3153} & \textbf{0.6098} \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 For the Total pooled cohort ($N = \AbideTotalSubjects$), the parametric Wilson 95\,\% confidence interval is [\LosoWilsonLow\,\%, \LosoWilsonHigh\,\%], and the non-parametric percentile bootstrap 95\,\% interval ($B = 2{,}000$ resamples) is [\LosoBootstrapLow\,\%, \LosoBootstrapHigh\,\%]. An exact two-sided binomial test against chance ($p_0 = 0.50$) yields $p = \LosoBinomialPTwo$ (one-sided greater test: $p = \LosoBinomialPOne$). Because subjects are clustered within four distinct scanning centers (with PITT contributing 41.7\,\% of the cohort), standard binomial confidence intervals understate total variance due to inter-site correlation.
@@ -460,29 +500,26 @@ For the Total pooled cohort ($N = \AbideTotalSubjects$), the parametric Wilson 9
 \subsection{Statistical Hypothesis Testing and Multiplicity}
 A two one-sided tests (TOST) equivalence procedure against an equivalence margin of $\pm 10$ percentage points ($[40.0\,\%, 60.0\,\%]$) resulted in $z_1 = \LosoTostZOne$ ($p < 0.001$) against the lower bound and $z_2 = \LosoTostZTwo$ ($p = \LosoTostP$) against the upper bound, yielding an overall TOST $p = \LosoTostP$. Because the 95\,\% confidence interval ([\LosoWilsonLow\,\%, \LosoWilsonHigh\,\%]) crosses the upper equivalence margin, statistical equivalence to chance cannot be asserted. 
 
-A power analysis indicates that with $N = \AbideTotalSubjects$ subjects at $\alpha = 0.05$ and $80\,\%$ statistical power, the minimum detectable effect size (MDE) is \LosoPowerMDE\,\% accuracy. Because consortium-scale benchmarks report Leave-Center-Out accuracies between $64.0\,\%$ and $67.0\,\%$ on over 800 subjects \cite{abraham2017}, the present cohort is underpowered below \LosoPowerMDE\,\%, rendering the null result uninformative regarding whether subtle diagnostic signals exist. A test of site performance homogeneity yielded $\chi^2 = \LosoHomogeneityChi$ ($\text{df} = 3, p = \LosoHomogeneityP$), indicating that variation in per-site accuracy is consistent with sampling variability.
+A power analysis indicates that with $N = \AbideTotalSubjects$ subjects at $\alpha = 0.05$ and $80\,\%$ statistical power, the minimum detectable effect size (MDE) is \LosoPowerMDE\,\% accuracy. Because consortium-scale benchmarks report Leave-Center-Out accuracies between $64.0\,\%$ and $67.0\,\%$ on over 800 subjects \cite{abraham2017}, the present cohort is underpowered below \LosoPowerMDE\,\%, rendering the null result uninformative regarding whether subtle diagnostic signals exist. Per-site performance variation showed SDSU reaching 14/17 accuracy (raw $p = 0.0127$, Holm-adjusted $p = 0.0509$); a test of site performance homogeneity yielded $\chi^2 = \LosoHomogeneityChi$ ($\text{df} = 3, p = \LosoHomogeneityP$), indicating that variation in per-site accuracy is consistent with sampling variability.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.88\linewidth]{figures/fig_loso_permutation}
+\IfFileExists{figures/fig_loso_permutation.pdf}{%
+  \includegraphics[width=0.80\linewidth]{figures/fig_loso_permutation.pdf}%
+}{%
+  \IfFileExists{figures/fig_loso_permutation.png}{%
+    \includegraphics[width=0.80\linewidth]{figures/fig_loso_permutation.png}%
+  }{%
+    \fbox{\parbox[c][3.2cm][c]{0.80\linewidth}{\centering \footnotesize \textbf{Figure 1: Empirical Permutation Null Distribution}\\($B = 1{,}000$ permutations, mean 50.18\% $\pm$ 5.51\%, observed 55.00\%, $p = 0.215$)}}%
+  }%
+}
 \caption{fMRI Leave-One-Site-Out (LOSO) empirical permutation null distribution across $B = 1{,}000$ within-site label permutations (mean \LosoWithinPermMean\,\% $\pm$ \LosoWithinPermSD\,\%), compared against observed primary pipeline accuracy (\LosoHeadlineAcc\,\%, one-sided $p = \LosoWithinPermP$) and theoretical chance ($50.0\,\%$).}
 \label{fig:permutation}
 \end{figure}
 
 Fig.~\ref{fig:permutation} displays the empirical null distribution across $B = 1{,}000$ label permutations. In Protocol A (within-site label permutations preserving site marginals), the empirical null distribution had mean \LosoWithinPermMean\,\% $\pm$ \LosoWithinPermSD\,\%, yielding an empirical one-sided permutation $p$-value of $p = \LosoWithinPermP$. In Protocol B (global label permutations), the null distribution had mean \LosoGlobalPermMean\,\% $\pm$ \LosoGlobalPermSD\,\%, yielding an empirical one-sided permutation $p$-value of $p = \LosoGlobalPermP$.
 
-To evaluate the influence of exploratory multiplicity, we catalogued all \NumFmriVariants\ evaluated fMRI model variants:
-\begin{enumerate}
-    \item Primary LR Pipeline (`unseen\_rescaling'): \LosoHeadlineCorrect/\AbideTotalSubjects\ (\LosoHeadlineAcc\,\%, two-sided $p = \LosoBinomialPTwo$)
-    \item Unharmonized LR (`none'): \UnharmonizedCorrect/\AbideTotalSubjects\ (\UnharmonizedAcc\,\%, two-sided $p = 0.1203$)
-    \item Transductive Unlabeled Standardization: \TransductiveCorrect/\AbideTotalSubjects\ (\TransductiveAcc\,\%, two-sided $p = 0.1706$)
-    \item Covariate-Aware ComBat: \CovariateCombatCorrect/\AbideTotalSubjects\ (\CovariateCombatAcc\,\%, two-sided $p = 0.2352$)
-    \item Covariate-Regressed Connectome Model: \CovariateRegressedCorrect/\AbideTotalSubjects\ (\CovariateRegressedAcc\,\%, two-sided $p = 0.0824$)
-    \item Distilled Linear Student (\StudentEdges\ edges): \StudentCorrect/\AbideTotalSubjects\ (\StudentAcc\,\%, two-sided $p = 0.0548$)
-    \item Small Transformer Encoder Baseline (our implementation): \TransformerTestCorrect/\AbideTotalSubjects\ (\TransformerTestAcc\,\%, two-sided $p = \TransformerTestP$)
-    \item Random 10-Fold CV (non-site-held-out): \RandomTenFoldCorrect/\AbideTotalSubjects\ (\RandomTenFoldAcc\,\%, two-sided $p = 0.9273$)
-    \item Site-Only Baseline: \SiteOnlyCorrect/\AbideTotalSubjects\ (\SiteOnlyAcc\,\%, two-sided $p = 0.6483$)
-\end{enumerate}
+To evaluate the influence of exploratory multiplicity, we catalogued all \NumFmriVariants\ evaluated fMRI model variants: (1) Primary LR Pipeline (`unseen\_rescaling'): \LosoHeadlineCorrect/\AbideTotalSubjects\ (\LosoHeadlineAcc\,\%, two-sided $p = \LosoBinomialPTwo$); (2) Unharmonized LR (`none'): \UnharmonizedCorrect/\AbideTotalSubjects\ (\UnharmonizedAcc\,\%, two-sided $p = 0.1203$); (3) Transductive Unlabeled Standardization: \TransductiveCorrect/\AbideTotalSubjects\ (\TransductiveAcc\,\%, two-sided $p = 0.1706$); (4) Covariate-Aware ComBat: \CovariateCombatCorrect/\AbideTotalSubjects\ (\CovariateCombatAcc\,\%, two-sided $p = 0.2352$); (5) Covariate-Regressed Connectome Model: \CovariateRegressedCorrect/\AbideTotalSubjects\ (\CovariateRegressedAcc\,\%, two-sided $p = 0.0824$); (6) Distilled Linear Student (\StudentEdges\ edges): \StudentCorrect/\AbideTotalSubjects\ (\StudentAcc\,\%, two-sided $p = 0.0548$); (7) Small Transformer Encoder Baseline (our implementation): \TransformerTestCorrect/\AbideTotalSubjects\ (\TransformerTestAcc\,\%, two-sided $p = \TransformerTestP$); (8) Random 10-Fold CV (non-site-held-out): \RandomTenFoldCorrect/\AbideTotalSubjects\ (\RandomTenFoldAcc\,\%, two-sided $p = 0.9273$); and (9) Site-Only Baseline: \SiteOnlyCorrect/\AbideTotalSubjects\ (\SiteOnlyAcc\,\%, two-sided $p = 0.6483$).
 Across these \NumFmriVariants\ model variants, a Bonferroni-corrected significance threshold is $\alpha_{\text{Bonf}} = 0.05 / 9 = \BonferroniAlpha$. No variant meets family-wise significance. Observing an exploratory variant reaching \StudentAcc\,\% (\StudentCorrect/\AbideTotalSubjects) is fully consistent with expected sampling variability under multiple looks from the null. 
 
 Furthermore, McNemar paired comparisons between the unharmonized baseline (`none`, \UnharmonizedAcc\,\%) and the alternative pipelines showed no detectable benefit from harmonization (differences of only 1--3 correctly classified subjects out of \AbideTotalSubjects): vs. `unseen\_rescaling` ($b=4, c=1$, exact $p = 0.3750$), vs. transductive ($b=7, c=6$, exact $p = 1.0000$), and vs. covariate-aware ($b=4, c=2$, exact $p = 0.6875$). Comparing the distilled student model (\StudentAcc\,\%) to the teacher model (\TeacherAcc\,\%) yielded a paired contingency table of 61 both correct, 5 teacher-only ($b$), 10 student-only ($c$), and 44 both incorrect (McNemar statistic \StudentTeacherMcnemarStat, exact two-sided $p = \StudentTeacherMcnemarP$).
@@ -515,14 +552,14 @@ Our findings demonstrate that high reported accuracies in public autism screenin
 
 \textbf{Behavioral Questionnaires:} Tabular screening benchmarks on public UCI and Kaggle repositories fit a deterministic step function. Machine learning models achieve 85.7\,\% to 100.0\,\% accuracy solely because the ground truth labels in these repositories were generated by thresholding the sum of the screening items ($\sum A_i \ge \tau$). Clinically, calculating $\sum A_i \ge \tau$ by hand is instant, deterministic, and 100.0\,\% concordant with repository labels, rendering complex supervised classifiers redundant. However, because this audit evaluated public repositories where ground truth was circular, it does not preclude machine learning from identifying non-linear phenotypic subtypes on prospective cohorts where independent gold-standard evaluations (e.g., ADOS-2, ADI-R) exist uncoupled from screening items.
 
-\textbf{Multi-Site fMRI Connectomics:} On ABIDE-I, cross-site generalizability under Leave-One-Site-Out validation remains close to chance (\LosoHeadlineAcc\,\%). Our sample ($N = \AbideTotalSubjects$) has a lower point estimate (\LosoHeadlineAcc\,\%) and the study is underpowered below \LosoPowerMDE\,\% accuracy. Harmonization yields no detectable benefit; differences of only 1--3 subjects out of 120. Future consortium studies should scale Leave-Center-Out validation to the full cohort across all 17 sites \todo{RERUN: prospective multi-site ABIDE scaling}.
+\textbf{Multi-Site fMRI Connectomics:} On ABIDE-I, cross-site generalizability under Leave-One-Site-Out validation remains close to chance (\LosoHeadlineAcc\,\%). Our sample ($N = \AbideTotalSubjects$) has a lower point estimate (\LosoHeadlineAcc\,\%) and the study is underpowered below \LosoPowerMDE\,\% accuracy. Harmonization yields no detectable benefit; differences of only 1--3 subjects out of 120. Future consortium studies should scale Leave-Center-Out validation to the full consortium cohort across all 17 imaging sites.
 
 % -----------------------------------------------------------------------
 % Section VII: Conclusion
 % -----------------------------------------------------------------------
 \section{Conclusion}
 
-This paper presented an empirical audit of machine learning for autism screening across behavioral questionnaires and multi-site resting-state fMRI. We established that near-perfect questionnaire classification in public benchmarks reflects circular label construction ($\sum A_i \ge \tau$, \ConcordancePct\,\% concordance across $N = \RetainedTotalCount$ records). In resting-state fMRI connectomics, strict Leave-One-Site-Out cross-validation yields \LosoHeadlineAcc\,\% accuracy (95\,\% CI: [\LosoWilsonLow\,\%, \LosoWilsonHigh\,\%]), which is statistically indistinguishable from chance under our sample size constraints. We developed modular prototypes for client-side decision support: split conformal prediction over 100 random splits achieves \ConformalMarginalCovMean\,\% $\pm$ \ConformalMarginalCovSD\,\% marginal coverage (\ConformalCZeroCovMean\,\% controls vs. \ConformalCOneCovMean\,\% ASD) while flagging borderline presentations, while edge deployment is left as future work. All evaluation scripts and preprocessing pipelines will be released at \url{TODO}. \todo{PAGE LIMIT}
+This paper presented an empirical audit of machine learning for autism screening across behavioral questionnaires and multi-site resting-state fMRI. We established that near-perfect questionnaire classification in public benchmarks reflects circular label construction ($\sum A_i \ge \tau$, \ConcordancePct\,\% concordance across $N = \RetainedTotalCount$ records). In resting-state fMRI connectomics, strict Leave-One-Site-Out cross-validation yields \LosoHeadlineAcc\,\% accuracy (95\,\% CI: [\LosoWilsonLow\,\%, \LosoWilsonHigh\,\%]), which is statistically indistinguishable from chance under our sample size constraints. We developed modular prototypes for client-side decision support: split conformal prediction over 100 random splits achieves \ConformalMarginalCovMean\,\% $\pm$ \ConformalMarginalCovSD\,\% marginal coverage (\ConformalCZeroCovMean\,\% controls vs. \ConformalCOneCovMean\,\% ASD) while flagging borderline presentations, while edge deployment is left as future work. All evaluation scripts and preprocessing pipelines are available at \url{https://github.com/Mohit-ccreate/autism}.
 
 % -----------------------------------------------------------------------
 % References
