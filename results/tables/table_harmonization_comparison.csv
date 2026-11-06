@@ -1,0 +1,5 @@
+Harmonization Strategy,Protocol,Pooled Accuracy,Pooled AUROC,95% Bootstrap CI,Methodological Flag
+None,Leave-One-Site-Out (LOSO),0.5750,0.6146,"[0.504, 0.709]",Valid In-Fold
+Site Regression,Leave-One-Site-Out (LOSO),0.5583,0.5982,"[0.487, 0.693]",Valid In-Fold
+Combat,Leave-One-Site-Out (LOSO),0.5667,0.6046,"[0.496, 0.700]",Valid In-Fold
+Leaky Combat,Leave-One-Site-Out (LOSO),0.6000,0.6271,"[0.520, 0.722]",LEAKY (Deliberate Wrong Arm)

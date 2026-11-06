@@ -116,36 +116,41 @@ python scripts/generate_audit_reports.py
 # pdflatex main && bibtex main && pdflatex main && pdflatex main
 ```
 
-### Step 6: Open the Web Application
-Start the local web server:
+### Step 6: Launch the Research Demonstration Applications
+The repository provides two demonstration interfaces:
+
+#### Option A: Streamlit Multi-Page Research Platform (Recommended for Faculty Review)
+```powershell
+streamlit run app/Home.py
+```
+Opens an interactive research workbench at **http://localhost:8501** featuring:
+- **Tautology Explorer:** Dataset selector, rule recovery check, interactive ablation plots, and Tautology Index.
+- **Benchmark Leaderboard:** Sortable table across models, protocols, and metrics with CSV export.
+- **Scanner Generalization:** LOSO vs. Random-CV comparison, site probe, and ComBat harmonization (including leaky arm).
+- **Uncertainty Lab:** Reliability diagrams, per-site conformal coverage, and risk-coverage curves.
+- **Screening Simulator:** Demographics-only non-leaky model with conformal uncertainty intervals and triage policy.
+- **Reproducibility & Methods:** Verified parameters, seeds, configurations, and pipeline schematics.
+- **Audit Checklist:** 15-item ML-for-autism peer-review evaluation checklist with CSV/Markdown download.
+
+#### Option B: Client-Side Browser PWA (Offline In-Browser Scoring & 3D Brain)
 ```powershell
 python -m http.server 8000 --directory webapp
 ```
-Then open your web browser to:
-👉 **[http://localhost:8000](http://localhost:8000)**
-
-*(Alternatively, you can directly double-click `webapp/index.html` to open it in any modern browser!)*
+Then open **[http://localhost:8000](http://localhost:8000)** in any browser.
 
 ---
 
-## 5. Web Application Feature Map (All 5 Phases)
+## 5. Verified Data Lineage & Checksums
 
-The web application includes 15 distinct clinical and research tabs:
-1. **Screening Questionnaire (`#tab-screening`):** Step-by-step 10-item cards for Toddler, Child, Adolescent, and Adult cohorts, with picture cues, rapid keyboard shortcuts (`1`/`0`, `y`/`n`), and real-time 3D brain mesh.
-2. **Results & Explainability (`#tab-results`):** Calibrated risk gauge with 95% bootstrap CI, 90% conformal uncertainty state, counterfactual flips (*"what would change this result"*), model confidence breakdown, and printable appointment PDF.
-3. **Audience Perspectives:** Toggle between **Adult Self-Report**, **Parent / Caregiver**, and **Clinician / Specialist** interpretations.
-4. **Strengths & Support Profile (`#tab-strengths`):** Interactive sensory, communication, and cognitive reflection tool generating a shareable **"About Me" Profile Card** for school, workplace, or doctor appointments.
-5. **Private Local History (`#tab-history`):** 100% client-side, zero-telemetry assessment timeline with one-click JSON/CSV export, individual deletion, and complete data wipe.
-6. **Evidence-Based Learning Hub (`#tab-learning`):** Plain-language guides citing WHO ICD-11, NICE Guidelines (CG142/CG170), and peer-reviewed autism literature.
-7. **Clinician & Researcher Mode (`#tab-clinician`):** Cohort triage risk distribution histogram (Chart.js) across 5 strata and downloadable Clinician Batch Summary & Model Governance PDF (`Clinical_Batch_Triage_Summary.pdf`).
-8. **3D Neural Attention Explorer (`#tab-brain-explorer`):** Interactive Three.js 3D brain mesh with 200 CC200 ROI nodes. Hover over key Brain Network Transformer attention hubs (PCC, mPFC, STG, Insula, dlPFC, Fusiform, Precuneus) to highlight connections and Yeo networks. Features prominent ethical warning: *"WHAT THE MODEL USED, NOT WHERE AUTISM IS"*.
-9. **Experiment Arena (`#tab-arena`):** Interactive toggle comparing **Honest LOSO CV** against **Inflated Random CV**, visually demonstrating the impact of scanner hardware leakage.
-10. **Model vs. Model Disagreement Inspector (`#tab-disagreement`):** Interactive pairwise comparator (LR vs BNT, LR vs BrainGAT, BNT vs BrainGAT) showing concordance rates (75.0% – 82.5%) and case-level conflict analysis.
-11. **Self-Supervised Data-Efficiency Curve (`#tab-efficiency`):** Dynamic Chart.js line plot illustrating model performance from scratch vs. self-supervised pretraining across sample fractions (N=30 to N=120).
-12. **Robustness & Scientific Safeguards Matrix (`#tab-robustness`):** Verification matrix documenting missing modality dropout resilience, 2.4 KB browser distillation, and all 4 passed scientific safeguards.
-13. **"What We Tried That Didn't Work" (`#tab-negative`):** Scientific negative findings gallery explaining why 2D CNNs, small-cohort deep transformers, and random splits fail.
-14. **In-Browser Dataset Leakage Detector (`#tab-detector`):** Drag-and-drop any screening dataset CSV into the browser to check for total score leakage and deterministic threshold traps.
-15. **Honest Leaderboard & Model Transparency (`#tab-leaderboard`, `#tab-transparency`):** Real-time metrics feed from `metrics.json` and subgroup fairness audits.
+All datasets are verified with SHA-256 integrity checksums:
+
+| Dataset | File Path | Records (Raw $\to$ Dedup) | Size (Bytes) | SHA-256 Checksum | Source / Citation |
+|---|---|---|---|---|---|
+| **UCI Adult AQ-10** | `data/uci_adult.csv` | $704 \to 667$ | 56,148 | `657021cddb337358640470cea758b72087bc4519e1234f7bc59c2b0160a0060d` | UCI Repository #426 (Thabtah 2017) |
+| **UCI Adolescent AQ-10** | `data/uci_adolescent.csv` | $104 \to 97$ | 8,710 | `4753e2ce2c791c32181ad9413c55b6556828b9578a22d166d0cef7caaf93c89d` | UCI Repository #420 (Thabtah 2017) |
+| **UCI Child AQ-10** | `data/uci_child.csv` | $292 \to 262$ | 23,270 | `aff0928863f6c930d4102bda422fb46b4a337356ef431ddfacb3bd07925f2aa2` | UCI Repository #419 (Thabtah 2017) |
+| **Toddler Q-CHAT-10** | `data/toddler_qchat10.csv` | $1,054 \to 850$ | 70,146 | `818d604290cdae767f40a1bfcc2ca5634f1ba9ed1c31bfd41aa4b450943d973f` | Kaggle / Thabtah (2018) |
+| **ABIDE I CC200 Cache** | `data/abide_cache.npz` | $120$ (4 sites) | 34,656,831 | `33e743f746e0fe883f7401eb0f7b2639bc3f85af88c997e786332d7f3ef1dfbc` | PCP / Nilearn (Di Martino et al. 2014) |
 
 ---
 
@@ -153,74 +158,99 @@ The web application includes 15 distinct clinical and research tabs:
 
 ```text
 asd-project/
-├── data/                          # Raw and processed datasets
-│   ├── processed/                 # Cleaned, deduplicated train/test CSVs
-│   ├── abide/                     # ABIDE I CC200 .1D resting-state time series
-│   ├── abide_cache.npz            # Cached 120-subject CC200 matrices and metadata
-│   ├── uci_adult.csv              # Adult AQ-10 screening records
-│   ├── uci_adolescent.csv         # Adolescent AQ-10 screening records
-│   ├── uci_child.csv              # Child AQ-10 screening records
-│   └── toddler_qchat10.csv        # Toddler Q-CHAT-10 screening records
-├── src/                           # Production Python pipeline modules
-│   ├── data_ingestion.py          # Automated downloading with SHA-256 checks
-│   ├── data_preprocessing.py      # Cleaning, deduplication, and stratified splits
-│   ├── train_questionnaire.py     # Model training, Optuna tuning, and calibration
-│   ├── train_abide.py             # ABIDE connectivity, ComBat, and LOSO CV
-│   ├── export_metrics.py          # Compiles metrics.json and markdown reports
-│   ├── leakage_check.py           # Standalone dataset leakage & integrity auditor
-│   ├── drift_detector.py          # Population Stability Index (PSI) drift monitoring
-│   ├── research_lab.py            # Phase 4 deep architectures, SSL, & safeguards
-│   └── export_paper_draft.py      # Phase 5 scientific paper draft & summary compiler
-├── notebooks/                     # Interactive research notebooks
-│   └── Phase4_Deep_Research_Lab.ipynb # Standalone Google Colab GPU notebook (12 cells)
-├── models/                        # Exported models & browser parameters
-│   ├── models_export.json         # Client-side parameter vectors for the browser
-│   └── *.onnx                     # ONNX exported model graphs
-├── reports/                       # Scientific documentation & single source of truth
-│   ├── metrics.json               # Single Source of Truth for Phase 1-3 metrics
-│   ├── lab_metrics.json           # Single Source of Truth for Phase 4 research metrics
-│   ├── paper_draft.md             # Peer-reviewed journal pre-print draft
-│   ├── v2_summary.md              # Executive research summary & system audit
-│   ├── model_card.md              # Full clinical AI model card (Mitchell et al.)
-│   ├── honest_leaderboard.md      # Comprehensive model rankings
-│   ├── comparison.md              # Comparison with published literature
-│   ├── leakage_investigation.md   # Mathematical proof of target threshold trap
-│   ├── licenses.md                # Dataset, questionnaire, and software licenses
-│   ├── data_sources.md            # Data lineage, row counts, and checksums
-│   └── plots/                     # Calibration curves and SHAP importance figures
-├── webapp/                        # Self-contained browser application (PWA)
-│   ├── index.html                 # Accessible, futuristic glassmorphic UI
-│   ├── style.css                  # Dark glassmorphism, responsive, sensory-friendly
-│   ├── app.js                     # 3D brain, client-side inference, PDF export, assistant
-│   ├── manifest.json              # PWA installation manifest
-│   ├── sw.js                      # PWA offline service worker caching
-│   ├── icon-192.png               # 192x192 PWA application icon
-│   ├── icon-512.png               # 512x512 PWA application icon
-│   ├── metrics.json               # Live metrics feed
-│   ├── lab_metrics.json           # Live research lab metrics feed
-│   ├── models_export.json         # Trained parameters for client scoring
-│   └── vendor/                    # Three.js, Chart.js, GSAP, jsPDF (offline-ready)
-├── tests/                         # Automated test suite (24/24 passing)
-│   ├── test_phase1.py             # Zero leakage, zero overlap, metric truth
-│   ├── test_phase2.py             # Non-diagnosis wording, detector, help links, risk calibration
-│   ├── test_phase3.py             # PWA assets, PSI drift, JS syntax, assistant
-│   └── test_phase4_5.py           # Deep lab parity, safeguards, paper, Colab nb
-├── run_all.py                     # Master one-command execution script
-├── requirements.txt               # Pinned Python package dependencies
-├── CHANGELOG.md                   # Running log of changes across all phases
-└── README.md                      # This beginner-friendly documentation
+├── app/                           # Streamlit multi-page research platform
+│   ├── Home.py                    # Main overview, thesis, and headline metrics
+│   └── pages/                     # Interactive exploratory modules
+│       ├── 1_🔍_Tautology_Audit.py
+│       ├── 2_🏆_Benchmark_Leaderboard.py
+│       ├── 3_🧲_Scanner_Generalization.py
+│       ├── 4_🎯_Uncertainty_Lab.py
+│       ├── 5_🖊_Screening_Simulator.py
+│       ├── 6_🔬_Reproducibility.py
+│       └── 7_✅_Audit_Checklist.py
+├── configs/                       # Pinned YAML experiment configurations
+│   ├── main.yaml                  # Global reproducibility seeds, paths, CV
+│   └── models.yaml                # Model hyperparameter search grids
+├── data/                          # Raw and processed clinical & neuroimaging data
+│   ├── processed/                 # Deduplicated, stratified 80/20 train/test CSVs
+│   ├── abide/                     # ABIDE CC200 .1D resting-state timeseries
+│   └── abide_cache.npz            # Verified 120-subject CC200 correlation cache
+├── docs/                          # Audit templates and demonstration scripts
+│   ├── lit_audit_template.csv     # Empty literature meta-audit schema
+│   └── DEMO_SCRIPT.md             # 5-minute faculty presentation order
+├── figures/                       # Publication-quality figures (vector PDF + 300-dpi PNG)
+│   ├── pipeline_schematic.[pdf/png]
+│   ├── tautology_ablation.[pdf/png]
+│   ├── loso_gap.[pdf/png]
+│   ├── site_probe_confounds.[pdf/png]
+│   ├── harmonization_comparison.[pdf/png]
+│   ├── reliability_diagrams.[pdf/png]
+│   ├── conformal_coverage_per_site.[pdf/png]
+│   └── risk_coverage_curves.[pdf/png]
+├── results/                       # Empirical artifacts & single sources of truth
+│   ├── paper_facts.json           # Machine-readable ledger of all verified values
+│   ├── SUMMARY.md                 # Executive research summary & finding tables
+│   ├── SUSPICIOUS.md              # Diagnostics for suspicious/unexpected results
+│   ├── RUN_LOG.md                 # Complete chronological execution history
+│   ├── tautology_audit.json       # Module 1 empirical audit data
+│   ├── site_analysis.json         # Module 3 scanner & harmonization results
+│   ├── uncertainty_main.json      # Module 4 calibration & conformal results
+│   └── tables/                    # Exported LaTeX (.tex) and CSV (.csv) tables
+├── src/                           # Core research Python modules
+│   ├── audit/                     # Module 1: Tautology audit & feature ablation
+│   ├── data/                      # Ingestion, cleaning, and deduplication
+│   ├── eval/                      # Module 3: Site generalization, LOSO, ComBat
+│   ├── uncertainty/               # Module 4: Calibration, conformal, selective prediction
+│   └── viz/                       # Vector figure generation
+├── tests/                         # Automated test suite (32/32 tests passing)
+│   ├── test_audit_extension.py    # Quality gates: isolation, conformal, figures
+│   ├── test_phase1.py             # Zero leakage & train/test isolation
+│   ├── test_phase2.py             # Non-diagnostic phrasing & detector checks
+│   ├── test_phase3.py             # PWA assets & PSI drift monitoring
+│   └── test_phase4_5.py           # Deep lab parity & scientific safeguards
+├── webapp/                        # Client-side offline browser PWA
+├── AUDIT.md                       # Comprehensive methodological audit inventory
+├── PROGRESS.md                    # Live checkpointing and phase tracker
+├── run_all.py                     # Master execution script (Phases 1-5)
+├── run_extended.py                # Extended audit orchestrator (Modules 1-6)
+├── Makefile                       # One-command execution targets
+├── Dockerfile                     # Reproducible container deployment
+├── requirements.txt               # Pinned Python package dependencies (UTF-8)
+└── README.md                      # This comprehensive documentation
 ```
 
 ---
 
-## 7. How to Run the Verification Tests
+## 7. Automated Quality Gates & Verification
 
-To run the automated scientific and software integrity checks across all 5 phases:
+Run the complete 32-test verification suite:
 ```powershell
 python -m pytest tests/ -v
 ```
-All **24 tests** verify:
-- **Phase 1 Tests (5 tests):** Confirms no total score column exists in feature sets, 0% train/test overlap, metric traceability, honest ABIDE LOSO scores, and local offline vendor libraries.
-- **Phase 2 Tests (5 tests):** Confirms strict absence of definitive diagnostic assertions, accurate dataset leakage detection, UI numbers tracing to `metrics.json`, help directory verification dates (Sep 2026), and non-zero monotonic clinical screening risk calibration.
-- **Phase 3 Tests (6 tests):** Confirms PWA manifest and service worker validity, PSI drift calculation accuracy for stable vs drifted cohorts, webapp JavaScript syntax via `node --check`, Grounded Assistant crisis safety rules and diagnostic refusals, and DOM elements in `index.html`.
-- **Phase 4 & 5 Tests (8 tests):** Confirms parity between `reports/` and `webapp/` `lab_metrics.json`, label-shuffle collapse to chance (45.83%), scanner neutralization drop, head motion and age confound controls, honest deep model LOSO constraints (<60%), multimodal graceful degradation, browser distillation footprint (<10 KB), paper draft and summary generation, Colab GPU notebook structure, and ethical warning banners.
+All **32 tests** verify:
+1. **Zero Overlap & Isolation (8 tests):** Strictly 0% train/test overlap, in-fold scaler and imputer fitting, in-fold ComBat site parameter isolation.
+2. **Scientific Safeguards (8 tests):** Label-shuffle permutation collapses to chance ($45.8\% - 50.0\%$), scanner hardware neutralization drop ($94.2\% \to 41.7\%$), motion confound decorrelation ($|r| < 0.15$), age confound decorrelation ($|r| < 0.25$).
+3. **Uncertainty & Conformal Validity (4 tests):** Marginal coverage $\ge 1 - \alpha$ on validation splits, ECE non-zero monotonic calibration, selective prediction risk monotonicity.
+4. **Reproducibility & Publication Schema (6 tests):** All 8 publication figures exist in both PDF and PNG format; all 5 main tables exist in both `.tex` and `.csv`; `results/paper_facts.json` schema validation.
+5. **Software & PWA Integrity (6 tests):** Client-side PWA manifest, service worker caching, browser parameter vector distillation footprint ($< 10$ KB), JavaScript syntax integrity, ethical warning banners.
+
+---
+
+## 8. License, Data Use Acknowledgments, & Citation
+
+### Data Use Acknowledgments
+- **ABIDE I:** Autism Brain Imaging Data Exchange (PCP release). We acknowledge the contributing clinical sites (OHSU, OLIN, PITT, SDSU) and consortium investigators (Di Martino et al., 2014; Craddock et al., 2013). Data usage follows the 1000 Functional Connectomes Project terms.
+- **UCI Screening Datasets:** Dr. Fadi Thabtah (Adult ID 426, Adolescent ID 420, Child ID 419) and Kaggle Toddler Q-CHAT-10. Usage follows Creative Commons Attribution 4.0 International (CC BY 4.0).
+
+### Ethical & Regulatory Disclaimer
+> This software is an academic research prototype and preliminary methodology auditor. It is **NOT** a Medical Device (SaMD), does not provide medical advice, and is not cleared or approved by the FDA, EMA, or any regulatory body. It strictly evaluates statistical properties of machine learning models and must never be used for formal diagnostic determinations.
+
+### Citation
+```bibtex
+@article{autism_screening_audit_2026,
+  title={A Methodological Audit and Reproducible Benchmark of Machine Learning for Autism Screening: Behavioral Tautologies, Scanner Generalization, and Uncertainty-Aware Decision Support},
+  author={Research Team},
+  journal={arXiv preprint},
+  year={2026}
+}
+```
