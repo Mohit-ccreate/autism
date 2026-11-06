@@ -1,0 +1,286 @@
+{
+  "deduplication_audit": {
+    "adult": {
+      "cohort": "adult",
+      "n_raw": 704,
+      "n_removed": 37,
+      "n_clean": 667,
+      "exact_duplicates_purged": 37,
+      "pct_purged": 5.26,
+      "clean_item_near_duplicate_pairs": 24421,
+      "clean_identical_item_patterns_retained": 1184,
+      "cross_label_conflicts_raw": 0,
+      "cross_label_conflicts_clean": 0,
+      "auroc_items_raw": 1.0,
+      "auroc_items_clean": 1.0,
+      "auroc_demos_raw": 0.6085,
+      "auroc_demos_clean": 0.5578
+    },
+    "adolescent": {
+      "cohort": "adolescent",
+      "n_raw": 104,
+      "n_removed": 7,
+      "n_clean": 97,
+      "exact_duplicates_purged": 7,
+      "pct_purged": 6.73,
+      "clean_item_near_duplicate_pairs": 711,
+      "clean_identical_item_patterns_retained": 36,
+      "cross_label_conflicts_raw": 0,
+      "cross_label_conflicts_clean": 0,
+      "auroc_items_raw": 0.9977,
+      "auroc_items_clean": 0.9956,
+      "auroc_demos_raw": 0.5277,
+      "auroc_demos_clean": 0.5634
+    },
+    "child": {
+      "cohort": "child",
+      "n_raw": 292,
+      "n_removed": 30,
+      "n_clean": 262,
+      "exact_duplicates_purged": 30,
+      "pct_purged": 10.27,
+      "clean_item_near_duplicate_pairs": 3767,
+      "clean_identical_item_patterns_retained": 161,
+      "cross_label_conflicts_raw": 0,
+      "cross_label_conflicts_clean": 0,
+      "auroc_items_raw": 1.0,
+      "auroc_items_clean": 0.9998,
+      "auroc_demos_raw": 0.5143,
+      "auroc_demos_clean": 0.4507
+    },
+    "toddler": {
+      "cohort": "toddler",
+      "n_raw": 1054,
+      "n_removed": 204,
+      "n_clean": 850,
+      "exact_duplicates_purged": 204,
+      "pct_purged": 19.35,
+      "clean_item_near_duplicate_pairs": 36776,
+      "clean_identical_item_patterns_retained": 2144,
+      "cross_label_conflicts_raw": 0,
+      "cross_label_conflicts_clean": 0,
+      "auroc_items_raw": 1.0,
+      "auroc_items_clean": 1.0,
+      "auroc_demos_raw": 0.5583,
+      "auroc_demos_clean": 0.5464
+    }
+  },
+  "threshold_sweeps": {
+    "adult": {
+      "cohort": "adult",
+      "n_eval": 667,
+      "recovered_cutoff": 7,
+      "recovered_accuracy": 1.0,
+      "published_cutoff_allison2012": 6,
+      "accuracy_at_published_cutoff": 0.8966,
+      "cutoff_mismatch_flag": true,
+      "note": "Published AQ-10 cutoff is score >= 6. Empirical dataset labels match score >= 7 with 100.00% concordance.",
+      "threshold_sweep": {
+        "tau_4": {
+          "threshold": 4,
+          "accuracy": 0.5847,
+          "sensitivity": 1.0,
+          "specificity": 0.437,
+          "discordant_cases": 277
+        },
+        "tau_5": {
+          "threshold": 5,
+          "accuracy": 0.7736,
+          "sensitivity": 1.0,
+          "specificity": 0.6931,
+          "discordant_cases": 151
+        },
+        "tau_6": {
+          "threshold": 6,
+          "accuracy": 0.8966,
+          "sensitivity": 1.0,
+          "specificity": 0.8598,
+          "discordant_cases": 69
+        },
+        "tau_7": {
+          "threshold": 7,
+          "accuracy": 1.0,
+          "sensitivity": 1.0,
+          "specificity": 1.0,
+          "discordant_cases": 0
+        },
+        "tau_8": {
+          "threshold": 8,
+          "accuracy": 0.9145,
+          "sensitivity": 0.6743,
+          "specificity": 1.0,
+          "discordant_cases": 57
+        },
+        "tau_9": {
+          "threshold": 9,
+          "accuracy": 0.8351,
+          "sensitivity": 0.3714,
+          "specificity": 1.0,
+          "discordant_cases": 110
+        }
+      }
+    },
+    "adolescent": {
+      "cohort": "adolescent",
+      "n_eval": 97,
+      "recovered_cutoff": 7,
+      "recovered_accuracy": 1.0,
+      "published_cutoff_allison2012": 6,
+      "accuracy_at_published_cutoff": 0.8351,
+      "cutoff_mismatch_flag": true,
+      "note": "Published AQ-10 cutoff is score >= 6. Empirical dataset labels match score >= 7 with 100.00% concordance.",
+      "threshold_sweep": {
+        "tau_4": {
+          "threshold": 4,
+          "accuracy": 0.6804,
+          "sensitivity": 1.0,
+          "specificity": 0.2439,
+          "discordant_cases": 31
+        },
+        "tau_5": {
+          "threshold": 5,
+          "accuracy": 0.7835,
+          "sensitivity": 1.0,
+          "specificity": 0.4878,
+          "discordant_cases": 21
+        },
+        "tau_6": {
+          "threshold": 6,
+          "accuracy": 0.8351,
+          "sensitivity": 1.0,
+          "specificity": 0.6098,
+          "discordant_cases": 16
+        },
+        "tau_7": {
+          "threshold": 7,
+          "accuracy": 1.0,
+          "sensitivity": 1.0,
+          "specificity": 1.0,
+          "discordant_cases": 0
+        },
+        "tau_8": {
+          "threshold": 8,
+          "accuracy": 0.8247,
+          "sensitivity": 0.6964,
+          "specificity": 1.0,
+          "discordant_cases": 17
+        },
+        "tau_9": {
+          "threshold": 9,
+          "accuracy": 0.6392,
+          "sensitivity": 0.375,
+          "specificity": 1.0,
+          "discordant_cases": 35
+        }
+      }
+    },
+    "child": {
+      "cohort": "child",
+      "n_eval": 262,
+      "recovered_cutoff": 7,
+      "recovered_accuracy": 1.0,
+      "published_cutoff_allison2012": 6,
+      "accuracy_at_published_cutoff": 0.855,
+      "cutoff_mismatch_flag": true,
+      "note": "Published AQ-10 cutoff is score >= 6. Empirical dataset labels match score >= 7 with 100.00% concordance.",
+      "threshold_sweep": {
+        "tau_4": {
+          "threshold": 4,
+          "accuracy": 0.5878,
+          "sensitivity": 1.0,
+          "specificity": 0.2448,
+          "discordant_cases": 108
+        },
+        "tau_5": {
+          "threshold": 5,
+          "accuracy": 0.7061,
+          "sensitivity": 1.0,
+          "specificity": 0.4615,
+          "discordant_cases": 77
+        },
+        "tau_6": {
+          "threshold": 6,
+          "accuracy": 0.855,
+          "sensitivity": 1.0,
+          "specificity": 0.7343,
+          "discordant_cases": 38
+        },
+        "tau_7": {
+          "threshold": 7,
+          "accuracy": 1.0,
+          "sensitivity": 1.0,
+          "specificity": 1.0,
+          "discordant_cases": 0
+        },
+        "tau_8": {
+          "threshold": 8,
+          "accuracy": 0.8473,
+          "sensitivity": 0.6639,
+          "specificity": 1.0,
+          "discordant_cases": 40
+        },
+        "tau_9": {
+          "threshold": 9,
+          "accuracy": 0.6832,
+          "sensitivity": 0.3025,
+          "specificity": 1.0,
+          "discordant_cases": 83
+        }
+      }
+    },
+    "toddler": {
+      "cohort": "toddler",
+      "n_eval": 850,
+      "recovered_cutoff": 4,
+      "recovered_accuracy": 1.0,
+      "published_cutoff_allison2012": 4,
+      "accuracy_at_published_cutoff": 1.0,
+      "cutoff_mismatch_flag": false,
+      "note": "Published AQ-10 cutoff is score >= 4. Empirical dataset labels match score >= 4 with 100.00% concordance.",
+      "threshold_sweep": {
+        "tau_4": {
+          "threshold": 4,
+          "accuracy": 1.0,
+          "sensitivity": 1.0,
+          "specificity": 1.0,
+          "discordant_cases": 0
+        },
+        "tau_5": {
+          "threshold": 5,
+          "accuracy": 0.8776,
+          "sensitivity": 0.8317,
+          "specificity": 1.0,
+          "discordant_cases": 104
+        },
+        "tau_6": {
+          "threshold": 6,
+          "accuracy": 0.7435,
+          "sensitivity": 0.6472,
+          "specificity": 1.0,
+          "discordant_cases": 218
+        },
+        "tau_7": {
+          "threshold": 7,
+          "accuracy": 0.6424,
+          "sensitivity": 0.5081,
+          "specificity": 1.0,
+          "discordant_cases": 304
+        },
+        "tau_8": {
+          "threshold": 8,
+          "accuracy": 0.4988,
+          "sensitivity": 0.3107,
+          "specificity": 1.0,
+          "discordant_cases": 426
+        },
+        "tau_9": {
+          "threshold": 9,
+          "accuracy": 0.3988,
+          "sensitivity": 0.1731,
+          "specificity": 1.0,
+          "discordant_cases": 511
+        }
+      }
+    }
+  }
+}

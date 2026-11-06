@@ -242,18 +242,26 @@ def tautology_index(
             if tis:
                 ti_lo = float(np.percentile(tis, 2.5))
                 ti_hi = float(np.percentile(tis, 97.5))
-            else:
-                ti_lo, ti_hi = float(ti), float(ti)
         else:
             ti_lo, ti_hi = float(ti), float(ti)
 
+    ti_clipped = float(np.clip(ti, 0.0, 1.0))
+    ti_lo_clipped = float(np.clip(ti_lo, 0.0, 1.0))
+    ti_hi_clipped = float(np.clip(ti_hi, 0.0, 1.0))
+
     return {
         "tautology_index": float(ti),
+        "tautology_index_raw": float(ti),
+        "tautology_index_clipped": ti_clipped,
         "ti_ci_95": [ti_lo, ti_hi],
+        "ti_ci_95_clipped": [ti_lo_clipped, ti_hi_clipped],
         "perf_leaky": float(perf_leaky),
         "perf_clean": float(perf_clean),
         "chance": 0.5,
-        "interpretation": "TI ≈ 1 indicates performance is primarily an artifact of feature leakage."
+        "interpretation": (
+            "Raw TI > 1.0 occurs when clean feature performance is below chance (<0.50). "
+            "Clipped TI maps to [0, 1] where 1 indicates performance is completely driven by leakage."
+        )
     }
 
 

@@ -1,0 +1,156 @@
+{
+  "_metadata": {
+    "generated_at": "2026-11-06T05:47:04.636436+00:00",
+    "git_commit": "8cb7dfcbdb5f",
+    "source": "run_extended.py:build_paper_facts",
+    "note": "Every number here must trace to a results/ JSON file."
+  },
+  "findings": {
+    "questionnaire_tautology": {
+      "adult_concordance_pct": 100.0,
+      "adolescent_concordance_pct": 100.0,
+      "child_concordance_pct": 100.0,
+      "toddler_concordance_pct": 100.0,
+      "adult_threshold": 7,
+      "toddler_threshold": 4,
+      "source_file": "results/v4_audit_pass1.json",
+      "note": "Label is deterministic step function of item sum. Verified over all rows."
+    },
+    "adult_lr_auroc_var_a": {
+      "value": 1.0,
+      "source_file": "results/v4_audit_pass1.json",
+      "key": "f10_ml_grid.adult.Logistic Regression (Var A).auc_mean"
+    },
+    "abide_loso_lr": {
+      "accuracy": 0.55,
+      "n_correct": 66,
+      "n_total": 120,
+      "sites": [
+        "OHSU",
+        "OLIN",
+        "PITT",
+        "SDSU"
+      ],
+      "auroc": 0.6098,
+      "source_file": "AUDIT_REPORT.md + results/v4_audit_pass1.json",
+      "note": "LR + ComBat (inside fold) on 4-site subset. LOSO protocol."
+    },
+    "abide_loso_bnt": {
+      "accuracy": 0.4583,
+      "n_correct": 55,
+      "n_total": 120,
+      "auroc": 0.4883,
+      "source_file": "AUDIT_REPORT.md",
+      "note": "BNT LOSO. Below chance \u2014 p>>n regime overfitting."
+    },
+    "abide_binomial_p": {
+      "value": 0.3153,
+      "test": "exact two-sided binomial (k=66, n=120)",
+      "source_file": "results/v4_audit_pass1.json + AUDIT_REPORT.md"
+    },
+    "abide_permutation_p": {
+      "value": 0.2148,
+      "test": "within-site permutation B=1000, seed=42",
+      "source_file": "results/v4_amendments_output.json"
+    },
+    "scanner_neutralization": {
+      "pre_combat_site_pred_acc": 0.7333,
+      "post_combat_site_pred_acc_note": "Deleted (artifact \u2014 in-sample ComBat)",
+      "source_file": "results/v4_audit_pass1.json"
+    },
+    "head_motion_correlation": {
+      "r": -0.1399,
+      "interpretation": "|r| < 0.15, motion artifact controlled",
+      "source_file": "AUDIT_REPORT.md"
+    },
+    "tautology_index_adult": {
+      "value": 0.818027129283587,
+      "ci_95": [
+        0.7247403805676125,
+        0.9193080828074759
+      ],
+      "source_file": "results/tautology_audit.json"
+    },
+    "tautology_index_adolescent": {
+      "value": 1.0309243247038065,
+      "ci_95": [
+        0.7547952160024338,
+        1.219692542768152
+      ],
+      "source_file": "results/tautology_audit.json"
+    },
+    "tautology_index_child": {
+      "value": 1.1080995569255645,
+      "ci_95": [
+        0.97816277416578,
+        1.25461724898121
+      ],
+      "source_file": "results/tautology_audit.json"
+    },
+    "tautology_index_toddler": {
+      "value": 0.8884692657433566,
+      "ci_95": [
+        0.808738996045212,
+        0.9844687210125667
+      ],
+      "source_file": "results/tautology_audit.json"
+    },
+    "ablation_adult": {
+      "auroc_items_only": 0.9999433776512999,
+      "auroc_items_plus_score": 1.0,
+      "auroc_demos_only": 0.5909864353582065,
+      "source_file": "results/tautology_audit.json"
+    },
+    "ablation_adolescent": {
+      "auroc_items_only": 0.9938555132765519,
+      "auroc_items_plus_score": 0.9976635579627042,
+      "auroc_demos_only": 0.48461009054030973,
+      "source_file": "results/tautology_audit.json"
+    },
+    "ablation_child": {
+      "auroc_items_only": 0.9999812662253555,
+      "auroc_items_plus_score": 1.0,
+      "auroc_demos_only": 0.44595022153721775,
+      "source_file": "results/tautology_audit.json"
+    },
+    "ablation_toddler": {
+      "auroc_items_only": 1.0,
+      "auroc_items_plus_score": 1.0,
+      "auroc_demos_only": 0.5557653671283217,
+      "source_file": "results/tautology_audit.json"
+    },
+    "conformal_prediction": {
+      "marginal_coverage_lac_alpha10": 0.9776119402985075,
+      "mean_set_size_lac_alpha10": 0.9776119402985075,
+      "fraction_refer_for_review": 0.022388059701492536,
+      "aurc": 0.000140491775013589,
+      "source_file": "results/uncertainty_main.json"
+    },
+    "site_analysis": {
+      "n_subjects": 120,
+      "n_sites": 4,
+      "site_probe_acc": 0.7333333333333333,
+      "source_file": "results/site_analysis.json"
+    },
+    "harmonization_none": {
+      "pooled_auroc": 0.6145717463848721,
+      "is_leaky": false,
+      "source_file": "results/site_analysis.json"
+    },
+    "harmonization_site_regression": {
+      "pooled_auroc": 0.5981646273637375,
+      "is_leaky": false,
+      "source_file": "results/site_analysis.json"
+    },
+    "harmonization_combat": {
+      "pooled_auroc": 0.6045606229143492,
+      "is_leaky": false,
+      "source_file": "results/site_analysis.json"
+    },
+    "harmonization_leaky_combat": {
+      "pooled_auroc": 0.6270856507230256,
+      "is_leaky": true,
+      "source_file": "results/site_analysis.json"
+    }
+  }
+}

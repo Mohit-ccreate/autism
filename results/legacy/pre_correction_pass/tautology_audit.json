@@ -1,0 +1,472 @@
+{
+  "module": "1_tautology_audit",
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "rule_recovery": {
+    "adult": {
+      "cohort": "adult",
+      "threshold": 7,
+      "n_total": 667,
+      "n_concordant": 667,
+      "n_discordant": 0,
+      "accuracy": 1.0,
+      "discordant_sums": []
+    },
+    "adolescent": {
+      "cohort": "adolescent",
+      "threshold": 7,
+      "n_total": 97,
+      "n_concordant": 97,
+      "n_discordant": 0,
+      "accuracy": 1.0,
+      "discordant_sums": []
+    },
+    "child": {
+      "cohort": "child",
+      "threshold": 7,
+      "n_total": 262,
+      "n_concordant": 262,
+      "n_discordant": 0,
+      "accuracy": 1.0,
+      "discordant_sums": []
+    },
+    "toddler": {
+      "cohort": "toddler",
+      "threshold": 4,
+      "n_total": 850,
+      "n_concordant": 850,
+      "n_discordant": 0,
+      "accuracy": 1.0,
+      "discordant_sums": []
+    }
+  },
+  "feature_ablation": {
+    "adult": {
+      "varA_items_only": {
+        "auroc": 0.9999433776512999,
+        "auroc_ci": [
+          0.9997851252983967,
+          1.0
+        ],
+        "bacc": 0.9912437598008011,
+        "sensitivity": 0.983157980052975,
+        "specificity": 0.9993295395486271,
+        "n_features": 10
+      },
+      "varB_items_plus_demos": {
+        "auroc": 0.9997832396371841,
+        "auroc_ci": [
+          0.9993577200051952,
+          1.0
+        ],
+        "bacc": 0.9793902942789542,
+        "sensitivity": 0.9601430355475443,
+        "specificity": 0.9986375530103642,
+        "n_features": 14
+      },
+      "varC_demos_only": {
+        "auroc": 0.5909864353582065,
+        "auroc_ci": [
+          0.540497535979829,
+          0.6406550761306024
+        ],
+        "bacc": 0.5082879811481107,
+        "sensitivity": 0.03226009114365517,
+        "specificity": 0.9843158711525662,
+        "n_features": 4
+      },
+      "varD_with_leakage_score": {
+        "auroc": 1.0,
+        "auroc_ci": [
+          1.0,
+          1.0
+        ],
+        "bacc": 0.9972208966697241,
+        "sensitivity": 0.9944417933394482,
+        "specificity": 1.0,
+        "n_features": 11
+      }
+    },
+    "adolescent": {
+      "varA_items_only": {
+        "auroc": 0.9938555132765519,
+        "auroc_ci": [
+          0.9826290511317302,
+          0.9997076532795403
+        ],
+        "bacc": 0.9039710244743627,
+        "sensitivity": 0.9938132133002234,
+        "specificity": 0.814128835648502,
+        "n_features": 10
+      },
+      "varB_items_plus_demos": {
+        "auroc": 0.9893072739608733,
+        "auroc_ci": [
+          0.972542879967604,
+          0.9994192799070848
+        ],
+        "bacc": 0.8746917420025094,
+        "sensitivity": 0.975868124982513,
+        "specificity": 0.7735153590225058,
+        "n_features": 14
+      },
+      "varC_demos_only": {
+        "auroc": 0.48461009054030973,
+        "auroc_ci": [
+          0.3678846060770273,
+          0.604014525566666
+        ],
+        "bacc": 0.48776853812219145,
+        "sensitivity": 0.8204591149466477,
+        "specificity": 0.15507796129773518,
+        "n_features": 4
+      },
+      "varD_with_leakage_score": {
+        "auroc": 0.9976635579627042,
+        "auroc_ci": [
+          0.9917481087279336,
+          1.0
+        ],
+        "bacc": 0.923221070957255,
+        "sensitivity": 1.0,
+        "specificity": 0.84644214191451,
+        "n_features": 11
+      }
+    },
+    "child": {
+      "varA_items_only": {
+        "auroc": 0.9999812662253555,
+        "auroc_ci": [
+          0.9998827735771644,
+          1.0
+        ],
+        "bacc": 0.9964581338475781,
+        "sensitivity": 1.0,
+        "specificity": 0.9929162676951563,
+        "n_features": 10
+      },
+      "varB_items_plus_demos": {
+        "auroc": 0.9996991402300311,
+        "auroc_ci": [
+          0.9988713329662225,
+          1.0
+        ],
+        "bacc": 0.9910171786558122,
+        "sensitivity": 0.991478241730078,
+        "specificity": 0.9905561155815462,
+        "n_features": 14
+      },
+      "varC_demos_only": {
+        "auroc": 0.44595022153721775,
+        "auroc_ci": [
+          0.3790117848449737,
+          0.5181562518822083
+        ],
+        "bacc": 0.502803111264731,
+        "sensitivity": 0.15916878083734956,
+        "specificity": 0.8464374416921124,
+        "n_features": 4
+      },
+      "varD_with_leakage_score": {
+        "auroc": 1.0,
+        "auroc_ci": [
+          1.0,
+          1.0
+        ],
+        "bacc": 0.9988456346662429,
+        "sensitivity": 1.0,
+        "specificity": 0.9976912693324858,
+        "n_features": 11
+      }
+    },
+    "toddler": {
+      "varA_items_only": {
+        "auroc": 1.0,
+        "auroc_ci": [
+          1.0,
+          1.0
+        ],
+        "bacc": 0.9992488622648561,
+        "sensitivity": 1.0,
+        "specificity": 0.9984977245297122,
+        "n_features": 10
+      },
+      "varB_items_plus_demos": {
+        "auroc": 0.9999906752796629,
+        "auroc_ci": [
+          0.999956132708057,
+          1.0
+        ],
+        "bacc": 0.9961622639506452,
+        "sensitivity": 0.999476647031491,
+        "specificity": 0.9928478808697995,
+        "n_features": 14
+      },
+      "varC_demos_only": {
+        "auroc": 0.5557653671283217,
+        "auroc_ci": [
+          0.5114323264047266,
+          0.5996407730205585
+        ],
+        "bacc": 0.5,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "n_features": 4
+      },
+      "varD_with_leakage_score": {
+        "auroc": 1.0,
+        "auroc_ci": [
+          1.0,
+          1.0
+        ],
+        "bacc": 1.0,
+        "sensitivity": 1.0,
+        "specificity": 1.0,
+        "n_features": 11
+      }
+    }
+  },
+  "single_feature_baselines": {
+    "adult": {
+      "A1": {
+        "auroc": 0.6393
+      },
+      "A2": {
+        "auroc": 0.6418
+      },
+      "A3": {
+        "auroc": 0.7201
+      },
+      "A4": {
+        "auroc": 0.7323
+      },
+      "A5": {
+        "auroc": 0.7785
+      },
+      "A6": {
+        "auroc": 0.7783
+      },
+      "A7": {
+        "auroc": 0.6584
+      },
+      "A8": {
+        "auroc": 0.5927
+      },
+      "A9": {
+        "auroc": 0.8035
+      },
+      "A10": {
+        "auroc": 0.6754
+      }
+    },
+    "adolescent": {
+      "A1": {
+        "auroc": 0.5342
+      },
+      "A2": {
+        "auroc": 0.5427
+      },
+      "A3": {
+        "auroc": 0.6709
+      },
+      "A4": {
+        "auroc": 0.6956
+      },
+      "A5": {
+        "auroc": 0.6696
+      },
+      "A6": {
+        "auroc": 0.6341
+      },
+      "A7": {
+        "auroc": 0.6041
+      },
+      "A8": {
+        "auroc": 0.6357
+      },
+      "A9": {
+        "auroc": 0.615
+      },
+      "A10": {
+        "auroc": 0.6707
+      }
+    },
+    "child": {
+      "A1": {
+        "auroc": 0.658
+      },
+      "A2": {
+        "auroc": 0.5737
+      },
+      "A3": {
+        "auroc": 0.6345
+      },
+      "A4": {
+        "auroc": 0.7422
+      },
+      "A5": {
+        "auroc": 0.6156
+      },
+      "A6": {
+        "auroc": 0.6653
+      },
+      "A7": {
+        "auroc": 0.6025
+      },
+      "A8": {
+        "auroc": 0.6825
+      },
+      "A9": {
+        "auroc": 0.6836
+      },
+      "A10": {
+        "auroc": 0.6526
+      }
+    },
+    "toddler": {
+      "A1": {
+        "auroc": 0.7318
+      },
+      "A2": {
+        "auroc": 0.7123
+      },
+      "A3": {
+        "auroc": 0.6804
+      },
+      "A4": {
+        "auroc": 0.7332
+      },
+      "A5": {
+        "auroc": 0.7583
+      },
+      "A6": {
+        "auroc": 0.7613
+      },
+      "A7": {
+        "auroc": 0.7324
+      },
+      "A8": {
+        "auroc": 0.6968
+      },
+      "A9": {
+        "auroc": 0.7774
+      },
+      "A10": {
+        "auroc": 0.558
+      }
+    }
+  },
+  "tautology_indices": {
+    "adult": {
+      "tautology_index": 0.818027129283587,
+      "ti_ci_95": [
+        0.7247403805676125,
+        0.9193080828074759
+      ],
+      "perf_leaky": 1.0,
+      "perf_clean": 0.5909864353582065,
+      "chance": 0.5,
+      "interpretation": "TI \u2248 1 indicates performance is primarily an artifact of feature leakage."
+    },
+    "adolescent": {
+      "tautology_index": 1.0309243247038065,
+      "ti_ci_95": [
+        0.7547952160024338,
+        1.219692542768152
+      ],
+      "perf_leaky": 0.9976635579627042,
+      "perf_clean": 0.48461009054030973,
+      "chance": 0.5,
+      "interpretation": "TI \u2248 1 indicates performance is primarily an artifact of feature leakage."
+    },
+    "child": {
+      "tautology_index": 1.1080995569255645,
+      "ti_ci_95": [
+        0.97816277416578,
+        1.25461724898121
+      ],
+      "perf_leaky": 1.0,
+      "perf_clean": 0.44595022153721775,
+      "chance": 0.5,
+      "interpretation": "TI \u2248 1 indicates performance is primarily an artifact of feature leakage."
+    },
+    "toddler": {
+      "tautology_index": 0.8884692657433566,
+      "ti_ci_95": [
+        0.808738996045212,
+        0.9844687210125667
+      ],
+      "perf_leaky": 1.0,
+      "perf_clean": 0.5557653671283217,
+      "chance": 0.5,
+      "interpretation": "TI \u2248 1 indicates performance is primarily an artifact of feature leakage."
+    }
+  },
+  "near_duplicate_analysis": {
+    "adult": {
+      "cohort": "adult",
+      "n_total": 667,
+      "exact_duplicates_pairs": 1184,
+      "near_duplicate_pairs": 24421,
+      "cross_label_item_patterns_with_conflicting_targets": 0,
+      "note": "Evaluated post-deduplication on processed cohort records."
+    },
+    "adolescent": {
+      "cohort": "adolescent",
+      "n_total": 97,
+      "exact_duplicates_pairs": 36,
+      "near_duplicate_pairs": 711,
+      "cross_label_item_patterns_with_conflicting_targets": 0,
+      "note": "Evaluated post-deduplication on processed cohort records."
+    },
+    "child": {
+      "cohort": "child",
+      "n_total": 262,
+      "exact_duplicates_pairs": 161,
+      "near_duplicate_pairs": 3767,
+      "cross_label_item_patterns_with_conflicting_targets": 0,
+      "note": "Evaluated post-deduplication on processed cohort records."
+    },
+    "toddler": {
+      "cohort": "toddler",
+      "n_total": 850,
+      "exact_duplicates_pairs": 2144,
+      "near_duplicate_pairs": 36776,
+      "cross_label_item_patterns_with_conflicting_targets": 0,
+      "note": "Evaluated post-deduplication on processed cohort records."
+    }
+  },
+  "label_shuffle_controls": {
+    "adult": {
+      "feature_set": "varA_items_only",
+      "mean_permuted_auroc": 0.49477671312427407,
+      "std_permuted_auroc": 0.031994280542295056,
+      "n_permutations": 20,
+      "sanity_pass": true
+    },
+    "adolescent": {
+      "feature_set": "varA_items_only",
+      "mean_permuted_auroc": 0.5000217770034843,
+      "std_permuted_auroc": 0.07586486993889907,
+      "n_permutations": 20,
+      "sanity_pass": true
+    },
+    "child": {
+      "feature_set": "varA_items_only",
+      "mean_permuted_auroc": 0.4923826173826173,
+      "std_permuted_auroc": 0.048898848761391896,
+      "n_permutations": 20,
+      "sanity_pass": true
+    },
+    "toddler": {
+      "feature_set": "varA_items_only",
+      "mean_permuted_auroc": 0.490917064222743,
+      "std_permuted_auroc": 0.033941089970143605,
+      "n_permutations": 20,
+      "sanity_pass": true
+    }
+  }
+}

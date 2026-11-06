@@ -1,0 +1,14 @@
+\begin{table}
+\caption{Deduplication Accounting and Generalization Impact across Screening Cohorts}
+\label{tab:dedup}
+\begin{tabular}{lrrrlrrll}
+\toprule
+Cohort & Raw N & Clean N & Exact Duplicates Removed & Purge Pct (%) & Near-Duplicates (Hamming <= 2) & Cross-Label Conflicts & Items AUROC (Raw vs Clean) & Demos AUROC (Raw vs Clean) \\
+\midrule
+Adult & 704 & 667 & 37 & 5.26% & 24421 & 0 & 1.0000 vs 1.0000 & 0.6085 vs 0.5578 \\
+Adolescent & 104 & 97 & 7 & 6.73% & 711 & 0 & 0.9977 vs 0.9956 & 0.5277 vs 0.5634 \\
+Child & 292 & 262 & 30 & 10.27% & 3767 & 0 & 1.0000 vs 0.9998 & 0.5143 vs 0.4507 \\
+Toddler & 1054 & 850 & 204 & 19.35% & 36776 & 0 & 1.0000 vs 1.0000 & 0.5583 vs 0.5464 \\
+\bottomrule
+\end{tabular}
+\end{table}

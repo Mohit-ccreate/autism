@@ -20,6 +20,8 @@ kaggle.json
 
 # Large raw caches
 data/cache/
+data/abide/
+*.npz
 nilearn_data/
 
 # OS artifacts

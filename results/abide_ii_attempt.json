@@ -1,0 +1,39 @@
+{
+  "attempt_timestamp": "2026-11-06T16:50:00+05:30",
+  "status": "SKIPPED",
+  "reason": "ABIDE II does not provide standardized CPAC/CC200 preprocessed time-series on public S3 comparable to the ABIDE I Preprocessed Connectome Project (PCP). The preprocessed derivatives require manual raw data preprocessing through CPAC/fMRIPrep or authenticated NITRC downloads which cannot be completed non-interactively without credentials.",
+  "endpoints_tested": [
+    {
+      "name": "ABIDE II S3 Preprocessed Root",
+      "url": "https://s3.amazonaws.com/fcp-indi/data/Projects/ABIDE2/Outputs/",
+      "description": "Amazon S3 bucket for preprocessed derivatives",
+      "accessible": false,
+      "status_code": 404,
+      "message": "HTTP Error 404: Not Found"
+    },
+    {
+      "name": "ABIDE II NITRC Project Page",
+      "url": "https://fcon_1000.projects.nitrc.org/indi/abide/abide_II.html",
+      "description": "Official ABIDE II portal",
+      "accessible": false,
+      "status_code": null,
+      "message": "URL Error: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'fcon_1000.projects.nitrc.org'. (_ssl.c:1006)"
+    },
+    {
+      "name": "ABIDE II S3 Phenotypic Table",
+      "url": "https://s3.amazonaws.com/fcp-indi/data/Projects/ABIDE2/Phenotypic_V1_0b.csv",
+      "description": "ABIDE II Phenotypic manifest on S3",
+      "accessible": false,
+      "status_code": 404,
+      "message": "HTTP Error 404: Not Found"
+    },
+    {
+      "name": "ABIDE II NITRC Phenotypic Download",
+      "url": "https://www.nitrc.org/frs/download.php/8404/ABIDEII_Composite_Phenotypic.csv",
+      "description": "Direct composite phenotypic download on NITRC",
+      "accessible": true,
+      "status_code": 200,
+      "message": "HTTP 200 OK"
+    }
+  ]
+}

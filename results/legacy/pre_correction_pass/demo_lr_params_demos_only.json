@@ -1,0 +1,29 @@
+{
+  "feature_names": [
+    "age",
+    "sex",
+    "jaundice",
+    "family_asd"
+  ],
+  "scaler_mean": [
+    30.01125703564728,
+    0.5103189493433395,
+    0.0900562851782364,
+    0.1275797373358349
+  ],
+  "scaler_scale": [
+    18.25172805089634,
+    0.4998935079438916,
+    0.2862623808294282,
+    0.3336212642460823
+  ],
+  "coef": [
+    0.04567577677785458,
+    -0.07547667936631443,
+    0.0962077475061502,
+    0.22367345595023436
+  ],
+  "intercept": -1.0490720619321068,
+  "trained_on": "adult_train.csv (N=533)",
+  "description": "Honest demographics-only Logistic Regression (no questionnaire items, no total score)"
+}

@@ -112,3 +112,77 @@ This section records every module, configuration, documentation artifact, and qu
    - `configs/main.yaml` & `configs/models.yaml`: Centralized experiment configurations and hyperparameter grids.
    - `README.md`: Comprehensive beginner-to-researcher documentation with data lineage, verified SHA-256 checksums, and citation metadata.
    - `requirements.txt`: Converted to UTF-8 with pinned Streamlit and Plotly dependencies.
+
+---
+
+## 4. Correction Pass Ledger (Full ABIDE Scaling, Statistical Honesty & Rigor)
+
+This section details all modifications, new modules, metric diffs, and forensic resolutions completed during the peer-review correction pass.
+
+### A. Scaled ABIDE I to Full Multi-Center Cohort (N=854, 20 Clinical Sites)
+- **Files Added:**
+  - `scripts/download_all_abide_multithread.py`: 16-worker multi-threaded downloader with exponential retry to bypass urllib socket timeout in Nilearn. Fetched 869/871 QC subjects.
+  - `data/abide_full_cache.npz` & `data/abide_full_phenotypic.csv`: Validated CC200 functional connectivity matrices for $N=854$ quality-controlled subjects (398 ASD, 456 Control) across all 20 clinical sites.
+  - `data/abide_raw_cache.npz` & `data/abide_raw_phenotypic.csv`: Complete robustness non-QC cohort ($N=989$, 20 sites).
+- **Files Modified:**
+  - `src/eval/site_analysis.py`: Scaled from 4 sites ($N=120$) to all 20 clinical sites ($N=854$). Implemented subject-level bootstrap, site-cluster bootstrap, within-site permutation tests, and paired bootstrap tests between harmonization arms.
+  - `results/site_analysis.json`:
+    - In-fold ComBat LOSO AUROC: **0.6593** [Subject 95% CI: $0.6215, 0.6962$; Site-Cluster 95% CI: $0.6075, 0.7045$], Acc = 61.71%. Permutation $p < 0.0001$, Binomial $p = 7.90 \times 10^{-12}$.
+    - Random 5-Fold CV AUROC: **0.6728** (Generalization gap: $+0.0135$).
+    - Pre-ComBat Site Decodability: **64.87%** (vs 19.91% base rate for NYU majority site).
+    - Confound Models: LOSO AUROC = **0.5588**.
+    - Non-QC Robustness Arm ($N=989$): LOSO AUROC = **0.6985**.
+    - Full 20-site per-site generalization gap table compiled.
+- **Metric Diff:**
+  - Previous preliminary LOSO AUROC on $N=120$ (4 sites): $0.6098$ [CI: $0.505, 0.708$], permutation $p = 0.2148$, binomial $p = 0.3153$ (indistinguishable from chance).
+  - New full-cohort LOSO AUROC on $N=854$ (20 sites): $0.6593$ [CI: $0.6215, 0.6962$], permutation $p < 0.0001$, binomial $p = 7.90 \times 10^{-12}$ (statistically verified signal).
+
+### B. Uncertainty Module Overhaul & Strict Set-Size Decomposition
+- **Files Modified:**
+  - `src/uncertainty/calibration.py`: Separated into 3 explicit arms: (1) Leak-Free Tabular (demographics only, 4 cohorts), (2) Full ABIDE I LOSO (calibration strictly from training sites), (3) `LEAKY CONTRAST ONLY` (Adult questionnaire items). Enforced set-size identity verification.
+  - `results/uncertainty_main.json`: Output structured by evaluation arm with full calibration (uncalibrated, Platt, Isotonic, Temperature), split conformal (LAC, APS, Mondrian), selective prediction, and triage policy.
+- **Set-Size Identity Verified:**
+  $$\text{mean\_set\_size} = 1.0 \times \text{fraction\_singleton} + 2.0 \times \text{fraction\_both} + 0.0 \times \text{fraction\_empty}$$
+  Verified to $< 10^{-6}$ across all conformal methods and arms.
+- **Metric Diff:**
+  - ABIDE I LOSO LAC ($\alpha=0.10$): Marginal coverage = **87.00%**, Mean set size = **1.595**, Empty = **0.0%**, Singleton = **40.5%**, Both = **59.5%**, Triage burden = **59.5%**.
+  - Adult Demographics LAC ($\alpha=0.10$): Marginal coverage = **89.96%**, Mean set size = **1.553**, Empty = **0.0%**, Singleton = **44.7%**, Both = **55.3%**, Triage burden = **55.3%**.
+  - Per-site coverage under LOSO reported honestly: 4 sites over-covered ($>95\%$), 11 under-covered ($<85\%$), 5 well-calibrated ($85\%-95\%$).
+
+### C. Statistical Honesty & Forensic Audits
+- **Files Added:**
+  - `src/audit/dedup_and_threshold_audit.py`: Exhaustive deduplication accounting and empirical threshold sensitivity sweep.
+  - `results/dedup_and_threshold_audit.json`: Logged exact deduplication accounting and threshold sweeps for thresholds 5, 6, 7, 8 across all cohorts.
+- **Files Modified:**
+  - `src/audit/tautology_audit.py`: Output both raw $\text{TI}_{\text{raw}}$ and clipped $\text{TI}_{\text{clipped}} \in [0, 1]$, explaining mathematical mechanism of $\text{TI} > 1.0$.
+  - `results/SUSPICIOUS.md`: Added forensic diagnoses for (1) Threshold mismatch ($\tau=7$ vs $\tau=6$), (2) Tautology Index $> 1.0$, (3) Preliminary $N=120$ CI vs permutation reconciliation, (4) Conformal set-size identity resolution, and (5) Nilearn S3 timeout root cause.
+- **Findings:**
+  - UCI Adult, Adolescent, and Child binary targets match $\tau=7$ with 100.00% concordance (vs 83.5%–89.7% at published $\tau=6$). Toddler Q-CHAT-10 matches published $\tau=4$ with 100.00% concordance.
+  - Paired bootstrap test between Leaky ComBat and In-Fold ComBat: $\Delta = +0.0156$ [95% CI: $-0.0013, 0.0328$], $p_{\text{holm}} = 0.2840$. Because 95% CI includes zero, verdict is **NOT SUPPORTED** and reported as "no detectable difference at this sample size (N=854, 20 sites)".
+
+### D. Missing Components & Leaderboard
+- **Files Added:**
+  - `src/models/autoencoder.py`: Deep Autoencoder with LayerNorm and drop_last in PyTorch for robust representation learning on fMRI.
+  - `src/eval/benchmark.py`: Complete Module 2 benchmark leaderboard across 8 neuroimaging models and 6 tabular models.
+  - `results/benchmark_leaderboard.json`: Full benchmark metrics, CIs, and generalization gaps.
+  - `scripts/attempt_abide_ii.py` & `results/abide_ii_attempt.json`: Verified ABIDE II preprocessed CC200 files are not on public S3 (`HTTP 404`); institutional access required for raw scans. Marked as **SKIPPED**.
+- **Results:**
+  - ABIDE I Leaderboard (LOSO AUROC / Random CV AUROC): Random Forest (0.7003 / 0.6998), LightGBM (0.6992 / 0.7019), Extra Trees (0.6867 / 0.6959), Heinsfeld Autoencoder (0.6820 / 0.6685), Linear SVM (0.6765 / 0.6888), Small MLP (0.6671 / 0.6724), L2 Logistic Regression (0.6593 / 0.6728), Tangent Space Logistic (0.6092).
+
+### E. Claim Language & Scientific Verdicts
+- **Files Modified:**
+  - `scripts/compile_paper_facts_and_summary.py`: Replaced monolithic binary verdicts with per-component scientific verdicts.
+  - `results/paper_facts.json` & `results/SUMMARY.md`:
+    - Thesis 1 (Behavioral Tautology): `SUPPORTED`
+    - Thesis 2 (Scanner Generalization Gap): `SUPPORTED`
+    - Thesis 3 (Leaky ComBat Inflation): `NOT SUPPORTED`
+    - Thesis 4 (Uncertainty-Aware Decision Support): `PARTIALLY SUPPORTED`
+  - `results/tables/`: Generated 10 publication tables in both `.csv` and `.tex`. Prior runs archived in `results/legacy/pre_correction_pass/`.
+
+### F. Quality Gates & Web Application
+- **Files Modified:**
+  - `tests/test_audit_extension.py`: Expanded to 13 test functions covering set-size identity, synthetic conformal exchangeability, in-fold ComBat isolation, JSON schemas, ABIDE $N=854$ dataset integrity, and paired bootstrap identity. **37/37 tests passing (100%)**.
+  - `app/pages/2_🏆_Benchmark_Leaderboard.py`: Updated to load dynamically from `results/benchmark_leaderboard.json`.
+  - `app/pages/3_🧲_Scanner_Generalization.py`: Updated to display full $N=854$ ABIDE results across all 20 clinical sites, statistical reconciliation, and paired bootstrap test.
+  - `app/pages/4_🎯_Uncertainty_Lab.py`: Updated to support multi-arm evaluation, set-size decomposition, per-site coverage breakdown under LOSO, and 3-way triage policy.
+
