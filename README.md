@@ -50,24 +50,40 @@ All numbers below come directly from `reports/metrics.json` and `reports/lab_met
 | **Unified Cross-Age** | **Abbreviated (5 Items)** | CatBoost | **76.86%** [72.3% – 81.1%] | 74.74% | 79.12% | **0.8543** | 6.4% flagged for referral |
 | **Adult / Child / Toddler** | 10 Items Full | Logistic Regression | 100.00% [Deterministic] | 100.00% | 100.00% | 1.0000 | *Replicates Allison cut-off rule ($\sum A_i \ge 7$)* |
 
-### ABIDE I Neuroimaging Benchmarks (120 Subjects across 4 Clinical Sites, Craddock CC200 Atlas)
+### Full ABIDE I Multi-Center Benchmark ($N=854$ across all 20 Clinical Sites, CC200 Atlas)
+
+From the full-cohort audit in `results/benchmark_leaderboard.json` and `results/site_analysis.json`:
+
+| Architecture / Model | Evaluation Protocol | Accuracy [95% CI] | ROC-AUC [95% CI] | Scientific & Clinical Findings |
+|---|---|---|---|---|
+| **Random Forest** | **Leave-One-Site-Out (LOSO) CV** | **65.11%** | **0.7003** [$0.6648, 0.7346$] | Best-performing tree ensemble on functional connectomes. |
+| **LightGBM** | **Leave-One-Site-Out (LOSO) CV** | **64.64%** | **0.6992** [$0.6631, 0.7336$] | Gradient boosting robust to inter-scanner feature scaling. |
+| **Extra Trees** | **Leave-One-Site-Out (LOSO) CV** | **63.11%** | **0.6867** [$0.6495, 0.7217$] | Extremely randomized trees maintain high out-of-site stability. |
+| **Heinsfeld Autoencoder** | **Leave-One-Site-Out (LOSO) CV** | **62.88%** | **0.6820** [$0.6453, 0.7175$] | Deep representation learning with LayerNorm; beats linear baselines. |
+| **Linear SVM** | **Leave-One-Site-Out (LOSO) CV** | **63.11%** | **0.6765** [$0.6390, 0.7143$] | Maximum margin boundary with fold-internal feature selection. |
+| **Logistic Regression (L2) + ComBat** | **Leave-One-Site-Out (LOSO) CV** | **61.71%** | **0.6593** [$0.6215, 0.6962$] | **Headline Baseline:** Permutation $p < 0.0001$, Binomial $p = 7.90 \times 10^{-12}$. |
+| **Small MLP** | **Leave-One-Site-Out (LOSO) CV** | **62.41%** | **0.6671** [$0.6288, 0.7042$] | Two-layer perceptron with dropout. |
+| **Tangent Space Logistic** | **Leave-One-Site-Out (LOSO) CV** | 58.78% | 0.6092 [$0.5707, 0.6481$] | Riemannian log-Euclidean projection. |
+| **Random 5-Fold CV (LR)** | 5-Fold Random Split | 62.72% | 0.6728 [$0.6561, 0.6891$] | Generalization gap is $+0.0135$ across 5 seeds. |
+
+### Preliminary 4-Site Subset ($N=120$) & Statistical Reconciliation
 
 | Architecture / Model | Evaluation Protocol | Accuracy [95% CI] | ROC-AUC | Balanced Acc | Scientific & Clinical Findings |
 |---|---|---|---|---|---|
-| **Logistic Regression (L2) + ComBat** | **Leave-One-Site-Out (LOSO) CV** | **55.00%** [47.0% – 63.0%] | **0.6098** | **54.67%** | **Headline Baseline:** Simple regularized boundary generalizes best to unseen scanners. |
-| **Brain Network Transformer (BNT)** | **Leave-One-Site-Out (LOSO) CV** | **45.83%** [38.0% – 54.0%] | 0.4883 | 45.86% | Deep attention over 200 ROIs overfits sample noise in the $p \gg n$ regime. |
-| **Connectivity ViT** | **Leave-One-Site-Out (LOSO) CV** | **51.67%** [43.0% – 60.0%] | 0.4964 | 51.40% | Non-local 14x14 patch attention; matrix geometry lacks translation invariance. |
-| **Small 2D CNN** | **Leave-One-Site-Out (LOSO) CV** | **51.67%** [43.0% – 60.0%] | 0.5612 | 51.80% | Spatial grid assumption violates atlas permutation invariance. |
-| **BrainGAT (Graph Attention)** | **Leave-One-Site-Out (LOSO) CV** | **51.67%** [43.0% – 60.0%] | 0.5584 | 51.60% | Graph attention on sparse top positive correlation edges. |
-| **Logistic Regression (Random CV)** | 5-Fold Random Split | 58.33% [50.0% – 66.0%] | 0.6424 | 58.10% | **Inflated:** Scanner hardware signatures leak across train and test folds. |
+| **Logistic Regression (L2) + ComBat** | **Leave-One-Site-Out (LOSO) CV** | **55.00%** [47.0% – 63.0%] | **0.6098** | **54.67%** | Statistically indistinguishable from chance on $N=120$ (perm $p=0.215$, binom $p=0.315$). |
+| **Brain Network Transformer (BNT)** | **Leave-One-Site-Out (LOSO) CV** | **45.83%** [38.0% – 54.0%] | 0.4883 | 45.86% | Deep attention over 200 ROIs collapses under out-of-site deployment. |
+| **Connectivity ViT** | **Leave-One-Site-Out (LOSO) CV** | 51.67% [43.0% – 60.0%] | 0.4964 | 51.40% | Non-local 14x14 patch attention lacks translation invariance on connectomes. |
+| **Small 2D CNN** | **Leave-One-Site-Out (LOSO) CV** | 51.67% [43.0% – 60.0%] | 0.5612 | 51.80% | Grid convolution violates atlas node permutation invariance. |
 | **BNT (Random CV)** | 5-Fold Random Split | 68.33% [59.0% – 77.0%] | 0.7120 | 67.80% | **Severe Leakage Exploitation:** Deep model memorizes scanner hardware fingerprints. |
 
 ### Scientific Safeguards Verification Matrix
 
 | Safeguard Protocol | Target Tested | Real Value | Target Threshold | Status |
 |---|---|---|---|---|
-| **Label-Shuffle Permutation** | Out-of-fold cross-validation accuracy on permuted labels | **45.83%** | Must collapse to chance (50% $\pm$ 8%) | **PASS** |
-| **Scanner Hardware Neutralization** | Site predictability before vs after ComBat | **94.2% → 41.7%** ($\Delta = -52.5\%$) | Predictability must drop significantly | **PASS** |
+| **Full ABIDE Permutation Test** | Within-site label permutation test on $N=854$ (1,000 permutations) | **p < 0.0001** | $p < 0.05$ (Valid non-chance signal) | **PASS** |
+| **Site Hardware Probe** | Decoding scanner site from functional connectomes | **64.87%** | Chance = 19.91% (NYU base rate) | **CONFIRMED** |
+| **Harmonization Test** | Paired bootstrap $\Delta$ (Leaky vs In-Fold ComBat) | **+0.0156** [$-0.0013, 0.0328$] | $p_{\text{holm}} = 0.2840$ (No detectable difference) | **VERIFIED** |
+| **Conformal Identity Check** | $\text{mean\_set\_size} = 1\cdot s + 2\cdot b + 0\cdot e$ | **Verified (<1e-6)** | Must hold exactly | **PASS** |
 | **Head Motion Artifact Audit** | Pearson correlation with Mean Framewise Displacement (FD) | **r = -0.1399** | $\|r\| < 0.15$ (No motion artifact tracking) | **PASS** |
 | **Age Confound Audit** | Pearson correlation with subject age at scan | **r = -0.1839** | $\|r\| < 0.25$ (Demographic confound controlled) | **PASS** |
 
