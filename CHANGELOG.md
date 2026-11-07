@@ -186,3 +186,24 @@ This section details all modifications, new modules, metric diffs, and forensic 
   - `app/pages/3_🧲_Scanner_Generalization.py`: Updated to display full $N=854$ ABIDE results across all 20 clinical sites, statistical reconciliation, and paired bootstrap test.
   - `app/pages/4_🎯_Uncertainty_Lab.py`: Updated to support multi-arm evaluation, set-size decomposition, per-site coverage breakdown under LOSO, and 3-way triage policy.
 
+---
+
+## 5. Literature Meta-Audit (N=33 Published Papers Ledger)
+
+- **Date:** 2026-11-07
+- **Deliverables Added/Modified:**
+  - `docs/lit_audit_template.csv`: Standardized 18-column corpus auditing 33 real, published papers (16 Tabular AQ-10/Q-CHAT-10, 17 ABIDE I/II) from 2015 to 2026 with verified open-access URLs/DOIs.
+  - `results/lit_search_log.md`: Query logs, database sources (PMC, PubMed, arXiv, medRxiv, IEEE Xplore, HAL, ETASR), and inclusion/exclusion criteria.
+  - `scripts/summarize_lit_audit.py`: Updated aggregator computing safeguard prevalence with explicit denominators and rendering 4-panel publication visualization.
+  - `results/lit_audit_summary.json`: Granular counts, denominators, and rates across overall, tabular, and neuroimaging subsets.
+  - `figures/lit_meta_audit_summary.png` & `figures/lit_meta_audit_summary.pdf`: Publication-grade visualization of methodological pitfalls vs safeguards.
+  - `docs/lit_audit_for_human_review.md`: Complete inspection document providing direct URLs, evidence level, and verbatim methods justifications.
+  - `tests/test_lit_meta_audit.py`: 3 automated tests verifying corpus size (30-40), schema conformity, evidence level flags, human review triggers, and summary consistency (test suite total: 40/40 passing).
+- **Core Empirical Findings:**
+  - Behavioral Tautology (Label Leakage): 15 of 16 (93.8%) tabular papers contain direct label-leaking questionnaire items, producing near-perfect accuracy (96%-100%) that collapses under leak-free controls. 0 of 17 (0.0%) neuroimaging papers contain label leakage.
+  - Evaluation Protocols: 13 of 13 (100.0%) tabular and 10 of 17 (58.8%) neuroimaging papers use random cross-validation. Only 4 of 17 (23.5%) neuroimaging papers evaluate leave-one-site-out (LOSO) generalization.
+  - Preprocessing Isolation: 12 of 27 (44.4%) evaluated papers fit feature selection, PCA, or imputation across the entire dataset prior to folding.
+  - Calibration & Uncertainty: Only 1 of 33 (3.0%) papers reports probability calibration, and only 2 of 33 (6.1%) report predictive uncertainty. 31 of 33 (93.9%) provide uncalibrated, point-prediction outputs with no abstention capability.
+  - External Validation: Only 5 of 33 (15.2%) test on independent external cohorts.
+
+

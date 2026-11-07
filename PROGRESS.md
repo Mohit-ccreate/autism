@@ -1,8 +1,8 @@
 # PROGRESS.md — Phase Tracking for ASD Screening Paper Revision
 
 **Branch:** `paper-revision`  
-**Last updated:** 2026-11-06T20:25:00+05:30  
-**Status:** All Correction Pass Phases Complete & Verified (37/37 Pytest Quality Gates Passing)
+**Last updated:** 2026-11-07T10:55:00+05:30  
+**Status:** All Correction Pass Phases & Literature Meta-Audit Complete (40/40 Pytest Quality Gates Passing)
 
 ---
 
@@ -18,6 +18,7 @@
 | **Correction Pass D** | Missing components (8-model leaderboard; Heinsfeld AE; ABIDE II skip; 8-page Streamlit app; 8 figures & 10 tables) | ✅ DONE | 2026-11-06 |
 | **Correction Pass E** | Claim Language (nuanced verdicts: SUPPORTED, PARTIALLY SUPPORTED, NOT SUPPORTED) | ✅ DONE | 2026-11-06 |
 | **Correction Pass F** | Quality Gates (37 passing automated tests; clean reproducibility) | ✅ DONE | 2026-11-06 |
+| **Correction Pass G** | Literature Meta-Audit ($N=33$ published papers, 18-col audit, summary JSON/figures) | ✅ DONE | 2026-11-07 |
 
 ---
 
@@ -77,7 +78,25 @@
   - **Thesis 4 (Uncertainty Decision Support):** `PARTIALLY SUPPORTED` (Conformal guarantees hold marginally and on exchangeable data, but scanner shift induces per-site coverage variability, and abstention does not eliminate errors).
 
 ### Part F: Quality Gates ✅ DONE
-- Automated test suite expanded to **37 tests** covering set-size identity, synthetic conformal exchangeability, in-fold ComBat isolation, schema validation, ABIDE $N=854$ dataset integrity, and paired bootstrap identity. **37/37 passing (100%)**.
+- Automated test suite expanded to **40 tests** covering set-size identity, synthetic conformal exchangeability, in-fold ComBat isolation, schema validation, ABIDE $N=854$ dataset integrity, paired bootstrap identity, and literature meta-audit schema/summary validation. **40/40 passing (100%)**.
+
+### Part G: Literature Meta-Audit ($N=33$ Papers) ✅ DONE
+- **Corpus Coverage:** Audited 33 real, published papers spanning 2015 to 2026 across 18 columns in `docs/lit_audit_template.csv`. Every row includes an authenticated open-access URL or DOI.
+  - Subsets: 16 Tabular (UCI AQ-10, Q-CHAT-10) and 17 Neuroimaging (ABIDE I/II).
+  - Evidence levels: 31 full_text (93.9%), 2 abstract_only (6.1%). 3 rows flagged `needs_human_check = Y` (9.1%).
+- **Key Empirical Prevalences:**
+  - **Behavioral Tautology (Label Leakage):** 15 of 16 (93.8%) tabular papers include the questionnaire item responses that deterministically define the diagnostic target, reporting inflated accuracies of 96%–100%. 0 of 17 (0.0%) neuroimaging papers contain label leakage.
+  - **Data Splitting Protocol:** 13 of 13 (100.0%) tabular and 10 of 17 (58.8%) neuroimaging papers rely on random cross-validation. Only 4 of 17 (23.5%) neuroimaging papers evaluate leave-one-site-out (LOSO) generalization.
+  - **In-Fold Preprocessing:** 12 of 27 (44.4%) evaluated papers fit feature selection, scaling, or imputation on the pooled dataset outside cross-validation folds.
+  - **Calibration & Uncertainty:** Only 1 of 33 (3.0%) papers reports calibration error; only 2 of 33 (6.1%) report predictive uncertainty. 31 of 33 (93.9%) provide uncalibrated, point-prediction outputs with no abstention capability.
+  - **External Validation:** 5 of 33 (15.2%) evaluate on independent external cohorts.
+- **Artifacts:**
+  - Verified CSV: `docs/lit_audit_template.csv`
+  - Review ledger with verbatim methods quotes: `docs/lit_audit_for_human_review.md`
+  - Search log: `results/lit_search_log.md`
+  - Aggregation engine: `scripts/summarize_lit_audit.py`
+  - Structured summary: `results/lit_audit_summary.json`
+  - Publication figure: `figures/lit_meta_audit_summary.png` & `figures/lit_meta_audit_summary.pdf`
 
 ---
 
@@ -107,9 +126,13 @@ python src/viz/generate_figures.py
 python scripts/export_tables.py
 python scripts/compile_paper_facts_and_summary.py
 
-# 8. Run full automated verification suite (37 tests)
+# 8. Run literature meta-audit aggregation and generate figures
+python scripts/summarize_lit_audit.py
+
+# 9. Run full automated verification suite (40 tests)
 python -m pytest tests/ -v
 
-# 9. Launch Streamlit interactive research platform
+# 10. Launch Streamlit interactive research platform
 streamlit run app/Home.py
 ```
+

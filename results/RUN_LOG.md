@@ -167,3 +167,23 @@ Compiling paper_facts.json...
 - **Figures:** All 8 figures regenerated in vector PDF and 300-dpi PNG (`figures/*.pdf`, `figures/*.png`) via `src/viz/generate_figures.py`.
 - **Tables:** All 9 benchmark tables exported in both `.csv` and `.tex` (`results/tables/`) via `scripts/export_tables.py`.
 - **Ledgers:** `results/paper_facts.json` and `results/SUMMARY.md` compiled via `scripts/compile_paper_facts_and_summary.py`.
+
+### 2026-11-07T10:45:00+05:30 — Literature Meta-Audit (N=33 Published Papers)
+- **Status:** SUCCESS
+- **Script:** `scripts/summarize_lit_audit.py`
+- **Output Artifacts:**
+  - `docs/lit_audit_template.csv`: 33 authenticated, published peer-reviewed papers spanning 2015-2026 across 18 columns.
+  - `docs/lit_audit_for_human_review.md`: Granular evidence ledger with clickable URLs, evidence levels, and textual excerpts for quick verification.
+  - `results/lit_search_log.md`: Detailed query log across PMC, PubMed, arXiv, medRxiv, IEEE Xplore, HAL, and ETASR with inclusion/exclusion criteria.
+  - `results/lit_audit_summary.json`: Strict statistical aggregations computed over non-unclear cells with explicit denominators.
+  - `figures/lit_meta_audit_summary.png` & `figures/lit_meta_audit_summary.pdf`: Multi-panel publication figure displaying methodological safeguard prevalence.
+  - `tests/test_lit_meta_audit.py`: 3 automated quality gates verifying schema, valid URLs, non-empty fields, and count integrity (40/40 passing overall).
+- **Key Empirical Summary:**
+  - Corpus: 16 Tabular (AQ-10 / Q-CHAT-10), 17 Neuroimaging (ABIDE I/II). 31 full_text (93.9%), 2 abstract_only (6.1%), 3 flagged needs_human_check (9.1%).
+  - Behavioral Tautology / Label Leakage: Tabular = 15 of 16 (93.8%); Neuroimaging = 0 of 17 (0.0%).
+  - Data Splitting: Tabular Random CV = 13 of 13 (100.0%); Neuroimaging Random CV = 10 of 17 (58.8%), Site-wise (LOSO) = 4 of 17 (23.5%), Subject-wise = 3 of 17 (17.6%).
+  - In-Fold Preprocessing: Tabular = 4 of 11 (36.4%); Neuroimaging = 11 of 16 (68.8%).
+  - Calibration: 1 of 33 (3.0%).
+  - Uncertainty Quantification: 2 of 33 (6.1%).
+  - External Validation: 5 of 33 (15.2%).
+

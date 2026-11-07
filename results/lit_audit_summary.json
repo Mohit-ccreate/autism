@@ -1,0 +1,243 @@
+{
+  "meta": {
+    "total_papers": 33,
+    "tabular_papers": 16,
+    "neuroimaging_papers": 17,
+    "evidence_levels": {
+      "full_text": {
+        "count": 31,
+        "formatted": "31 of 33 (93.9%)"
+      },
+      "abstract_only": {
+        "count": 2,
+        "formatted": "2 of 33 (6.1%)"
+      }
+    },
+    "needs_human_check": {
+      "count": 3,
+      "formatted": "3 of 33 (9.1%)"
+    }
+  },
+  "overall": {
+    "split_type": {
+      "counts": {
+        "random": 23,
+        "site-wise": 4,
+        "subject-wise": 3
+      },
+      "total_evaluated": 30,
+      "unclear_count": 3,
+      "formatted": {
+        "random": "23 of 30 (76.7%)",
+        "site-wise": "4 of 30 (13.3%)",
+        "subject-wise": "3 of 30 (10.0%)"
+      },
+      "percentages": {
+        "random": 76.7,
+        "site-wise": 13.3,
+        "subject-wise": 10.0
+      }
+    },
+    "preprocessing_fit_in_fold": {
+      "positive_count": 15,
+      "negative_count": 12,
+      "total_evaluated": 27,
+      "unclear_count": 6,
+      "formatted_rate": "15 of 27 (55.6%)",
+      "percentage": 55.6
+    },
+    "leaking_features": {
+      "positive_count": 15,
+      "negative_count": 18,
+      "total_evaluated": 33,
+      "unclear_count": 0,
+      "formatted_rate": "15 of 33 (45.5%)",
+      "percentage": 45.5
+    },
+    "harmonization": {
+      "counts": {
+        "none": 29,
+        "other": 4
+      },
+      "total_evaluated": 33,
+      "unclear_count": 0,
+      "formatted": {
+        "none": "29 of 33 (87.9%)",
+        "other": "4 of 33 (12.1%)"
+      },
+      "percentages": {
+        "none": 87.9,
+        "other": 12.1
+      }
+    },
+    "calibration_reported": {
+      "positive_count": 1,
+      "negative_count": 32,
+      "total_evaluated": 33,
+      "unclear_count": 0,
+      "formatted_rate": "1 of 33 (3.0%)",
+      "percentage": 3.0
+    },
+    "uncertainty_reported": {
+      "positive_count": 2,
+      "negative_count": 31,
+      "total_evaluated": 33,
+      "unclear_count": 0,
+      "formatted_rate": "2 of 33 (6.1%)",
+      "percentage": 6.1
+    },
+    "external_validation": {
+      "positive_count": 5,
+      "negative_count": 28,
+      "total_evaluated": 33,
+      "unclear_count": 0,
+      "formatted_rate": "5 of 33 (15.2%)",
+      "percentage": 15.2
+    }
+  },
+  "tabular": {
+    "split_type": {
+      "counts": {
+        "random": 13
+      },
+      "total_evaluated": 13,
+      "unclear_count": 3,
+      "formatted": {
+        "random": "13 of 13 (100.0%)"
+      },
+      "percentages": {
+        "random": 100.0
+      }
+    },
+    "preprocessing_fit_in_fold": {
+      "positive_count": 4,
+      "negative_count": 7,
+      "total_evaluated": 11,
+      "unclear_count": 5,
+      "formatted_rate": "4 of 11 (36.4%)",
+      "percentage": 36.4
+    },
+    "leaking_features": {
+      "positive_count": 15,
+      "negative_count": 1,
+      "total_evaluated": 16,
+      "unclear_count": 0,
+      "formatted_rate": "15 of 16 (93.8%)",
+      "percentage": 93.8
+    },
+    "harmonization": {
+      "counts": {
+        "none": 16
+      },
+      "total_evaluated": 16,
+      "unclear_count": 0,
+      "formatted": {
+        "none": "16 of 16 (100.0%)"
+      },
+      "percentages": {
+        "none": 100.0
+      }
+    },
+    "calibration_reported": {
+      "positive_count": 1,
+      "negative_count": 15,
+      "total_evaluated": 16,
+      "unclear_count": 0,
+      "formatted_rate": "1 of 16 (6.2%)",
+      "percentage": 6.2
+    },
+    "uncertainty_reported": {
+      "positive_count": 1,
+      "negative_count": 15,
+      "total_evaluated": 16,
+      "unclear_count": 0,
+      "formatted_rate": "1 of 16 (6.2%)",
+      "percentage": 6.2
+    },
+    "external_validation": {
+      "positive_count": 1,
+      "negative_count": 15,
+      "total_evaluated": 16,
+      "unclear_count": 0,
+      "formatted_rate": "1 of 16 (6.2%)",
+      "percentage": 6.2
+    }
+  },
+  "neuroimaging": {
+    "split_type": {
+      "counts": {
+        "random": 10,
+        "site-wise": 4,
+        "subject-wise": 3
+      },
+      "total_evaluated": 17,
+      "unclear_count": 0,
+      "formatted": {
+        "random": "10 of 17 (58.8%)",
+        "site-wise": "4 of 17 (23.5%)",
+        "subject-wise": "3 of 17 (17.6%)"
+      },
+      "percentages": {
+        "random": 58.8,
+        "site-wise": 23.5,
+        "subject-wise": 17.6
+      }
+    },
+    "preprocessing_fit_in_fold": {
+      "positive_count": 11,
+      "negative_count": 5,
+      "total_evaluated": 16,
+      "unclear_count": 1,
+      "formatted_rate": "11 of 16 (68.8%)",
+      "percentage": 68.8
+    },
+    "leaking_features": {
+      "positive_count": 0,
+      "negative_count": 17,
+      "total_evaluated": 17,
+      "unclear_count": 0,
+      "formatted_rate": "0 of 17 (0.0%)",
+      "percentage": 0.0
+    },
+    "harmonization": {
+      "counts": {
+        "none": 13,
+        "other": 4
+      },
+      "total_evaluated": 17,
+      "unclear_count": 0,
+      "formatted": {
+        "none": "13 of 17 (76.5%)",
+        "other": "4 of 17 (23.5%)"
+      },
+      "percentages": {
+        "none": 76.5,
+        "other": 23.5
+      }
+    },
+    "calibration_reported": {
+      "positive_count": 0,
+      "negative_count": 17,
+      "total_evaluated": 17,
+      "unclear_count": 0,
+      "formatted_rate": "0 of 17 (0.0%)",
+      "percentage": 0.0
+    },
+    "uncertainty_reported": {
+      "positive_count": 1,
+      "negative_count": 16,
+      "total_evaluated": 17,
+      "unclear_count": 0,
+      "formatted_rate": "1 of 17 (5.9%)",
+      "percentage": 5.9
+    },
+    "external_validation": {
+      "positive_count": 4,
+      "negative_count": 13,
+      "total_evaluated": 17,
+      "unclear_count": 0,
+      "formatted_rate": "4 of 17 (23.5%)",
+      "percentage": 23.5
+    }
+  }
+}
