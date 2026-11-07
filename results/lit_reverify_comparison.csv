@@ -1,0 +1,364 @@
+paper,first_author,field,original_value,blind_value,agree
+Early Detection of Autism Spectrum Disorder Through Automated Machine Learning,Ehsan,dataset,Q-CHAT-10 Pakistan,"UCI AQ-10 (Adult, Adolescent, Child)",N
+Early Detection of Autism Spectrum Disorder Through Automated Machine Learning,Ehsan,n,742,"1100 (704 Adult, 104 Adolescent, 292 Child)",N
+Early Detection of Autism Spectrum Disorder Through Automated Machine Learning,Ehsan,split_type,random,random,Y
+Early Detection of Autism Spectrum Disorder Through Automated Machine Learning,Ehsan,preprocessing_fit_in_fold,N,N,Y
+Early Detection of Autism Spectrum Disorder Through Automated Machine Learning,Ehsan,leaking_features,Y,Y,Y
+Early Detection of Autism Spectrum Disorder Through Automated Machine Learning,Ehsan,harmonization,none,none,Y
+Early Detection of Autism Spectrum Disorder Through Automated Machine Learning,Ehsan,calibration_reported,N,N,Y
+Early Detection of Autism Spectrum Disorder Through Automated Machine Learning,Ehsan,uncertainty_reported,N,N,Y
+Early Detection of Autism Spectrum Disorder Through Automated Machine Learning,Ehsan,external_validation,N,N,Y
+Early Detection of Autism Spectrum Disorder Through Automated Machine Learning,Ehsan,reported_accuracy,78.0%,99.1% (AutoML TPOT Adult),N
+Early Detection of Autism Spectrum Disorder Through Automated Machine Learning,Ehsan,evidence_level,full_text,full_text,Y
+"Detecting autism spectrum disorder using machine learning techniques: An experimental analysis on toddler, child, adolescent and adult datasets",Hossain,dataset,UCI AQ-10,Q-CHAT-10 Toddler & UCI AQ-10,Y
+"Detecting autism spectrum disorder using machine learning techniques: An experimental analysis on toddler, child, adolescent and adult datasets",Hossain,n,2154,"2154 (1054 Toddler, 292 Child, 104 Adolescent, 704 Adult)",Y
+"Detecting autism spectrum disorder using machine learning techniques: An experimental analysis on toddler, child, adolescent and adult datasets",Hossain,split_type,random,random,Y
+"Detecting autism spectrum disorder using machine learning techniques: An experimental analysis on toddler, child, adolescent and adult datasets",Hossain,preprocessing_fit_in_fold,unclear,N,N
+"Detecting autism spectrum disorder using machine learning techniques: An experimental analysis on toddler, child, adolescent and adult datasets",Hossain,leaking_features,Y,Y,Y
+"Detecting autism spectrum disorder using machine learning techniques: An experimental analysis on toddler, child, adolescent and adult datasets",Hossain,harmonization,none,none,Y
+"Detecting autism spectrum disorder using machine learning techniques: An experimental analysis on toddler, child, adolescent and adult datasets",Hossain,calibration_reported,N,N,Y
+"Detecting autism spectrum disorder using machine learning techniques: An experimental analysis on toddler, child, adolescent and adult datasets",Hossain,uncertainty_reported,N,N,Y
+"Detecting autism spectrum disorder using machine learning techniques: An experimental analysis on toddler, child, adolescent and adult datasets",Hossain,external_validation,N,N,Y
+"Detecting autism spectrum disorder using machine learning techniques: An experimental analysis on toddler, child, adolescent and adult datasets",Hossain,reported_accuracy,100.0%,"100% (Adult MLP/SVM), 98.7% (Toddler)",N
+"Detecting autism spectrum disorder using machine learning techniques: An experimental analysis on toddler, child, adolescent and adult datasets",Hossain,evidence_level,full_text,full_text,Y
+Compact subsets of autism screening items predict clinical diagnoses with a machine learning analysis of the QCHAT-10,Sollis,dataset,Q-CHAT-10 NZ/Saudi/Poland,Q-CHAT-10 Toddler + Polish clinical cohort,N
+Compact subsets of autism screening items predict clinical diagnoses with a machine learning analysis of the QCHAT-10,Sollis,n,1812,"1054 discovery, 125 external",N
+Compact subsets of autism screening items predict clinical diagnoses with a machine learning analysis of the QCHAT-10,Sollis,split_type,random,random,Y
+Compact subsets of autism screening items predict clinical diagnoses with a machine learning analysis of the QCHAT-10,Sollis,preprocessing_fit_in_fold,Y,Y,Y
+Compact subsets of autism screening items predict clinical diagnoses with a machine learning analysis of the QCHAT-10,Sollis,leaking_features,Y,Y,Y
+Compact subsets of autism screening items predict clinical diagnoses with a machine learning analysis of the QCHAT-10,Sollis,harmonization,none,none,Y
+Compact subsets of autism screening items predict clinical diagnoses with a machine learning analysis of the QCHAT-10,Sollis,calibration_reported,N,N,Y
+Compact subsets of autism screening items predict clinical diagnoses with a machine learning analysis of the QCHAT-10,Sollis,uncertainty_reported,N,N,Y
+Compact subsets of autism screening items predict clinical diagnoses with a machine learning analysis of the QCHAT-10,Sollis,external_validation,Y,Y,Y
+Compact subsets of autism screening items predict clinical diagnoses with a machine learning analysis of the QCHAT-10,Sollis,reported_accuracy,"89% (NZ), 92% (Saudi)","AUC 0.98 (discovery), AUC 0.89 (external)",N
+Compact subsets of autism screening items predict clinical diagnoses with a machine learning analysis of the QCHAT-10,Sollis,evidence_level,full_text,full_text,Y
+Autism spectrum disorder detection with kNN imputer and machine learning classifiers via questionnaire mode of screening,Shrivastava,dataset,UCI AQ-10,UCI AQ-10 & Q-CHAT-10,Y
+Autism spectrum disorder detection with kNN imputer and machine learning classifiers via questionnaire mode of screening,Shrivastava,n,2154,"2154 (1054 Toddler, 292 Child, 104 Adolescent, 704 Adult)",Y
+Autism spectrum disorder detection with kNN imputer and machine learning classifiers via questionnaire mode of screening,Shrivastava,split_type,random,random,Y
+Autism spectrum disorder detection with kNN imputer and machine learning classifiers via questionnaire mode of screening,Shrivastava,preprocessing_fit_in_fold,N,N,Y
+Autism spectrum disorder detection with kNN imputer and machine learning classifiers via questionnaire mode of screening,Shrivastava,leaking_features,Y,Y,Y
+Autism spectrum disorder detection with kNN imputer and machine learning classifiers via questionnaire mode of screening,Shrivastava,harmonization,none,none,Y
+Autism spectrum disorder detection with kNN imputer and machine learning classifiers via questionnaire mode of screening,Shrivastava,calibration_reported,N,N,Y
+Autism spectrum disorder detection with kNN imputer and machine learning classifiers via questionnaire mode of screening,Shrivastava,uncertainty_reported,N,N,Y
+Autism spectrum disorder detection with kNN imputer and machine learning classifiers via questionnaire mode of screening,Shrivastava,external_validation,N,N,Y
+Autism spectrum disorder detection with kNN imputer and machine learning classifiers via questionnaire mode of screening,Shrivastava,reported_accuracy,100%,"98.5% (Child RF), 97.8% (Adult)",N
+Autism spectrum disorder detection with kNN imputer and machine learning classifiers via questionnaire mode of screening,Shrivastava,evidence_level,full_text,full_text,Y
+Use of Machine Learning to Investigate the Quantitative Checklist for Autism in Toddlers (Q-CHAT) towards Early Autism Screening,Tartarisco,dataset,Italian Q-CHAT clinical cohort,Clinical Toddler cohort (ADOS-2/ADI-R),N
+Use of Machine Learning to Investigate the Quantitative Checklist for Autism in Toddlers (Q-CHAT) towards Early Autism Screening,Tartarisco,n,259,135,N
+Use of Machine Learning to Investigate the Quantitative Checklist for Autism in Toddlers (Q-CHAT) towards Early Autism Screening,Tartarisco,split_type,random,random,Y
+Use of Machine Learning to Investigate the Quantitative Checklist for Autism in Toddlers (Q-CHAT) towards Early Autism Screening,Tartarisco,preprocessing_fit_in_fold,Y,Y,Y
+Use of Machine Learning to Investigate the Quantitative Checklist for Autism in Toddlers (Q-CHAT) towards Early Autism Screening,Tartarisco,leaking_features,N,N,Y
+Use of Machine Learning to Investigate the Quantitative Checklist for Autism in Toddlers (Q-CHAT) towards Early Autism Screening,Tartarisco,harmonization,none,none,Y
+Use of Machine Learning to Investigate the Quantitative Checklist for Autism in Toddlers (Q-CHAT) towards Early Autism Screening,Tartarisco,calibration_reported,N,N,Y
+Use of Machine Learning to Investigate the Quantitative Checklist for Autism in Toddlers (Q-CHAT) towards Early Autism Screening,Tartarisco,uncertainty_reported,N,N,Y
+Use of Machine Learning to Investigate the Quantitative Checklist for Autism in Toddlers (Q-CHAT) towards Early Autism Screening,Tartarisco,external_validation,N,N,Y
+Use of Machine Learning to Investigate the Quantitative Checklist for Autism in Toddlers (Q-CHAT) towards Early Autism Screening,Tartarisco,reported_accuracy,"95% (25 items), 91% (14 items)",95.0% (SVM),N
+Use of Machine Learning to Investigate the Quantitative Checklist for Autism in Toddlers (Q-CHAT) towards Early Autism Screening,Tartarisco,evidence_level,full_text,full_text,Y
+Machine Learning-Based Models for Early Stage Detection of Autism Spectrum Disorders,Akter,dataset,UCI AQ-10,UCI AQ-10 & Q-CHAT-10,Y
+Machine Learning-Based Models for Early Stage Detection of Autism Spectrum Disorders,Akter,n,2154,"2154 (1054 Toddler, 292 Child, 104 Adolescent, 704 Adult)",Y
+Machine Learning-Based Models for Early Stage Detection of Autism Spectrum Disorders,Akter,split_type,random,random,Y
+Machine Learning-Based Models for Early Stage Detection of Autism Spectrum Disorders,Akter,preprocessing_fit_in_fold,N,N,Y
+Machine Learning-Based Models for Early Stage Detection of Autism Spectrum Disorders,Akter,leaking_features,Y,Y,Y
+Machine Learning-Based Models for Early Stage Detection of Autism Spectrum Disorders,Akter,harmonization,none,none,Y
+Machine Learning-Based Models for Early Stage Detection of Autism Spectrum Disorders,Akter,calibration_reported,N,N,Y
+Machine Learning-Based Models for Early Stage Detection of Autism Spectrum Disorders,Akter,uncertainty_reported,N,N,Y
+Machine Learning-Based Models for Early Stage Detection of Autism Spectrum Disorders,Akter,external_validation,N,N,Y
+Machine Learning-Based Models for Early Stage Detection of Autism Spectrum Disorders,Akter,reported_accuracy,"98.7% (toddler), 98.4% (adult)","98.7% (Toddler SVM), 100% (Adult GLM)",N
+Machine Learning-Based Models for Early Stage Detection of Autism Spectrum Disorders,Akter,evidence_level,full_text,full_text,Y
+Detection of Autism Spectrum Disorder in Children Using Machine Learning Techniques,Vakadkar,dataset,Kaggle/UCI Toddler,Toddler Q-CHAT-10,N
+Detection of Autism Spectrum Disorder in Children Using Machine Learning Techniques,Vakadkar,n,1054,1054,Y
+Detection of Autism Spectrum Disorder in Children Using Machine Learning Techniques,Vakadkar,split_type,random,random,Y
+Detection of Autism Spectrum Disorder in Children Using Machine Learning Techniques,Vakadkar,preprocessing_fit_in_fold,unclear,unclear,Y
+Detection of Autism Spectrum Disorder in Children Using Machine Learning Techniques,Vakadkar,leaking_features,Y,Y,Y
+Detection of Autism Spectrum Disorder in Children Using Machine Learning Techniques,Vakadkar,harmonization,none,none,Y
+Detection of Autism Spectrum Disorder in Children Using Machine Learning Techniques,Vakadkar,calibration_reported,N,N,Y
+Detection of Autism Spectrum Disorder in Children Using Machine Learning Techniques,Vakadkar,uncertainty_reported,N,N,Y
+Detection of Autism Spectrum Disorder in Children Using Machine Learning Techniques,Vakadkar,external_validation,N,N,Y
+Detection of Autism Spectrum Disorder in Children Using Machine Learning Techniques,Vakadkar,reported_accuracy,97.19%,98.9% (Random Forest),N
+Detection of Autism Spectrum Disorder in Children Using Machine Learning Techniques,Vakadkar,evidence_level,abstract_only,abstract_only,Y
+Autism screening: an unsupervised machine learning approach,Thabtah,dataset,ASD Tests / Autism AI mobile,UCI AQ-10 Adult,N
+Autism screening: an unsupervised machine learning approach,Thabtah,n,2048,704,N
+Autism screening: an unsupervised machine learning approach,Thabtah,split_type,random,unclear,N
+Autism screening: an unsupervised machine learning approach,Thabtah,preprocessing_fit_in_fold,N,N,Y
+Autism screening: an unsupervised machine learning approach,Thabtah,leaking_features,Y,Y,Y
+Autism screening: an unsupervised machine learning approach,Thabtah,harmonization,none,none,Y
+Autism screening: an unsupervised machine learning approach,Thabtah,calibration_reported,N,N,Y
+Autism screening: an unsupervised machine learning approach,Thabtah,uncertainty_reported,N,N,Y
+Autism screening: an unsupervised machine learning approach,Thabtah,external_validation,N,N,Y
+Autism screening: an unsupervised machine learning approach,Thabtah,reported_accuracy,"96% (screening), 68% (clinical)",96.8% (Clustering purity),N
+Autism screening: an unsupervised machine learning approach,Thabtah,evidence_level,full_text,full_text,Y
+ASD-Bench: A Four-Axis Comprehensive Benchmark of AI Models for Autism Spectrum Disorder,Singh,dataset,UCI AQ-10 v3,"AQ-10, Q-CHAT-10, ABIDE I",N
+ASD-Bench: A Four-Axis Comprehensive Benchmark of AI Models for Autism Spectrum Disorder,Singh,n,4068,"2154 tabular, 871 ABIDE",N
+ASD-Bench: A Four-Axis Comprehensive Benchmark of AI Models for Autism Spectrum Disorder,Singh,split_type,random,random,Y
+ASD-Bench: A Four-Axis Comprehensive Benchmark of AI Models for Autism Spectrum Disorder,Singh,preprocessing_fit_in_fold,Y,Y,Y
+ASD-Bench: A Four-Axis Comprehensive Benchmark of AI Models for Autism Spectrum Disorder,Singh,leaking_features,Y,Y,Y
+ASD-Bench: A Four-Axis Comprehensive Benchmark of AI Models for Autism Spectrum Disorder,Singh,harmonization,none,none,Y
+ASD-Bench: A Four-Axis Comprehensive Benchmark of AI Models for Autism Spectrum Disorder,Singh,calibration_reported,Y,Y,Y
+ASD-Bench: A Four-Axis Comprehensive Benchmark of AI Models for Autism Spectrum Disorder,Singh,uncertainty_reported,Y,Y,Y
+ASD-Bench: A Four-Axis Comprehensive Benchmark of AI Models for Autism Spectrum Disorder,Singh,external_validation,N,N,Y
+ASD-Bench: A Four-Axis Comprehensive Benchmark of AI Models for Autism Spectrum Disorder,Singh,reported_accuracy,100% (Adult F1=1.000),"98.2% (Items), 62.4% (Demographics)",N
+ASD-Bench: A Four-Axis Comprehensive Benchmark of AI Models for Autism Spectrum Disorder,Singh,evidence_level,full_text,full_text,Y
+Questioning the Benchmarks: Hidden Circularity in AQ-10 Autism Screening Datasets,Katlariwala,dataset,UCI AQ-10,"UCI AQ-10 (Adult, Adolescent, Child)",Y
+Questioning the Benchmarks: Hidden Circularity in AQ-10 Autism Screening Datasets,Katlariwala,n,1092,"1092 (699 Adult, 103 Adolescent, 290 Child)",Y
+Questioning the Benchmarks: Hidden Circularity in AQ-10 Autism Screening Datasets,Katlariwala,split_type,random,random,Y
+Questioning the Benchmarks: Hidden Circularity in AQ-10 Autism Screening Datasets,Katlariwala,preprocessing_fit_in_fold,Y,Y,Y
+Questioning the Benchmarks: Hidden Circularity in AQ-10 Autism Screening Datasets,Katlariwala,leaking_features,Y,Y,Y
+Questioning the Benchmarks: Hidden Circularity in AQ-10 Autism Screening Datasets,Katlariwala,harmonization,none,none,Y
+Questioning the Benchmarks: Hidden Circularity in AQ-10 Autism Screening Datasets,Katlariwala,calibration_reported,N,N,Y
+Questioning the Benchmarks: Hidden Circularity in AQ-10 Autism Screening Datasets,Katlariwala,uncertainty_reported,N,N,Y
+Questioning the Benchmarks: Hidden Circularity in AQ-10 Autism Screening Datasets,Katlariwala,external_validation,N,N,Y
+Questioning the Benchmarks: Hidden Circularity in AQ-10 Autism Screening Datasets,Katlariwala,reported_accuracy,100% (drops to 50.7% on demographics),"99.2% (Adult Items), 50.7%-71.5% (Demographics)",N
+Questioning the Benchmarks: Hidden Circularity in AQ-10 Autism Screening Datasets,Katlariwala,evidence_level,full_text,full_text,Y
+A new machine learning model based on induction of rules for autism detection,Thabtah,dataset,UCI AQ-10,"UCI AQ-10 (Adult, Adolescent, Child)",Y
+A new machine learning model based on induction of rules for autism detection,Thabtah,n,1100,"1100 (704 Adult, 104 Adolescent, 292 Child)",Y
+A new machine learning model based on induction of rules for autism detection,Thabtah,split_type,random,random,Y
+A new machine learning model based on induction of rules for autism detection,Thabtah,preprocessing_fit_in_fold,unclear,N,N
+A new machine learning model based on induction of rules for autism detection,Thabtah,leaking_features,Y,Y,Y
+A new machine learning model based on induction of rules for autism detection,Thabtah,harmonization,none,none,Y
+A new machine learning model based on induction of rules for autism detection,Thabtah,calibration_reported,N,N,Y
+A new machine learning model based on induction of rules for autism detection,Thabtah,uncertainty_reported,N,N,Y
+A new machine learning model based on induction of rules for autism detection,Thabtah,external_validation,N,N,Y
+A new machine learning model based on induction of rules for autism detection,Thabtah,reported_accuracy,"97.4% (adult), 96.1% (child)","99.7% (Adult RML), 98.3% (Child RML)",N
+A new machine learning model based on induction of rules for autism detection,Thabtah,evidence_level,full_text,full_text,Y
+The diagnosis of ASD using multiple machine learning techniques,Kumar,dataset,UCI AQ-10 Adult,Q-CHAT-10 Toddler,N
+The diagnosis of ASD using multiple machine learning techniques,Kumar,n,701,1054,N
+The diagnosis of ASD using multiple machine learning techniques,Kumar,split_type,random,random,Y
+The diagnosis of ASD using multiple machine learning techniques,Kumar,preprocessing_fit_in_fold,N,N,Y
+The diagnosis of ASD using multiple machine learning techniques,Kumar,leaking_features,Y,Y,Y
+The diagnosis of ASD using multiple machine learning techniques,Kumar,harmonization,none,none,Y
+The diagnosis of ASD using multiple machine learning techniques,Kumar,calibration_reported,N,N,Y
+The diagnosis of ASD using multiple machine learning techniques,Kumar,uncertainty_reported,N,N,Y
+The diagnosis of ASD using multiple machine learning techniques,Kumar,external_validation,N,N,Y
+The diagnosis of ASD using multiple machine learning techniques,Kumar,reported_accuracy,100%,99.05% (Random Forest),N
+The diagnosis of ASD using multiple machine learning techniques,Kumar,evidence_level,full_text,full_text,Y
+An Evaluation of Machine Learning Approaches for Early Diagnosis of Autism Spectrum Disorder,Rasul,dataset,UCI AQ-10 Child/Adult/Combined,UCI AQ-10 Adult,N
+An Evaluation of Machine Learning Approaches for Early Diagnosis of Autism Spectrum Disorder,Rasul,n,996,704,N
+An Evaluation of Machine Learning Approaches for Early Diagnosis of Autism Spectrum Disorder,Rasul,split_type,random,random,Y
+An Evaluation of Machine Learning Approaches for Early Diagnosis of Autism Spectrum Disorder,Rasul,preprocessing_fit_in_fold,N,N,Y
+An Evaluation of Machine Learning Approaches for Early Diagnosis of Autism Spectrum Disorder,Rasul,leaking_features,Y,Y,Y
+An Evaluation of Machine Learning Approaches for Early Diagnosis of Autism Spectrum Disorder,Rasul,harmonization,none,none,Y
+An Evaluation of Machine Learning Approaches for Early Diagnosis of Autism Spectrum Disorder,Rasul,calibration_reported,N,N,Y
+An Evaluation of Machine Learning Approaches for Early Diagnosis of Autism Spectrum Disorder,Rasul,uncertainty_reported,N,N,Y
+An Evaluation of Machine Learning Approaches for Early Diagnosis of Autism Spectrum Disorder,Rasul,external_validation,N,N,Y
+An Evaluation of Machine Learning Approaches for Early Diagnosis of Autism Spectrum Disorder,Rasul,reported_accuracy,"100% (children), 97.14% (adult)","100% (LightGBM, CatBoost)",N
+An Evaluation of Machine Learning Approaches for Early Diagnosis of Autism Spectrum Disorder,Rasul,evidence_level,full_text,full_text,Y
+Detection of autism spectrum disorder using multilayer perceptron classifier,Hadi,dataset,Kaggle/UCI Toddler,UCI AQ-10 Adult,N
+Detection of autism spectrum disorder using multilayer perceptron classifier,Hadi,n,1054,704,N
+Detection of autism spectrum disorder using multilayer perceptron classifier,Hadi,split_type,unclear,random,N
+Detection of autism spectrum disorder using multilayer perceptron classifier,Hadi,preprocessing_fit_in_fold,unclear,unclear,Y
+Detection of autism spectrum disorder using multilayer perceptron classifier,Hadi,leaking_features,Y,Y,Y
+Detection of autism spectrum disorder using multilayer perceptron classifier,Hadi,harmonization,none,none,Y
+Detection of autism spectrum disorder using multilayer perceptron classifier,Hadi,calibration_reported,N,N,Y
+Detection of autism spectrum disorder using multilayer perceptron classifier,Hadi,uncertainty_reported,N,N,Y
+Detection of autism spectrum disorder using multilayer perceptron classifier,Hadi,external_validation,N,N,Y
+Detection of autism spectrum disorder using multilayer perceptron classifier,Hadi,reported_accuracy,100%,97.16% (MLP),N
+Detection of autism spectrum disorder using multilayer perceptron classifier,Hadi,evidence_level,abstract_only,abstract_only,Y
+"Improving Early Autism Detection with Chi-Square Feature Selection, Machine Learning, and Explainable AI",Abu-Errub,dataset,Kaggle/UCI Toddler,UCI AQ-10 Adult,N
+"Improving Early Autism Detection with Chi-Square Feature Selection, Machine Learning, and Explainable AI",Abu-Errub,n,1054,704,N
+"Improving Early Autism Detection with Chi-Square Feature Selection, Machine Learning, and Explainable AI",Abu-Errub,split_type,unclear,random,N
+"Improving Early Autism Detection with Chi-Square Feature Selection, Machine Learning, and Explainable AI",Abu-Errub,preprocessing_fit_in_fold,unclear,N,N
+"Improving Early Autism Detection with Chi-Square Feature Selection, Machine Learning, and Explainable AI",Abu-Errub,leaking_features,Y,Y,Y
+"Improving Early Autism Detection with Chi-Square Feature Selection, Machine Learning, and Explainable AI",Abu-Errub,harmonization,none,none,Y
+"Improving Early Autism Detection with Chi-Square Feature Selection, Machine Learning, and Explainable AI",Abu-Errub,calibration_reported,N,N,Y
+"Improving Early Autism Detection with Chi-Square Feature Selection, Machine Learning, and Explainable AI",Abu-Errub,uncertainty_reported,N,N,Y
+"Improving Early Autism Detection with Chi-Square Feature Selection, Machine Learning, and Explainable AI",Abu-Errub,external_validation,N,N,Y
+"Improving Early Autism Detection with Chi-Square Feature Selection, Machine Learning, and Explainable AI",Abu-Errub,reported_accuracy,100% (SVM),97.4% (Random Forest),N
+"Improving Early Autism Detection with Chi-Square Feature Selection, Machine Learning, and Explainable AI",Abu-Errub,evidence_level,full_text,full_text,Y
+A Machine Learning Framework for Early-Stage Detection of Autism Spectrum Disorders,Hasan,dataset,UCI AQ-10 (4 cohorts),UCI AQ-10 & Q-CHAT-10,N
+A Machine Learning Framework for Early-Stage Detection of Autism Spectrum Disorders,Hasan,n,2154,"2154 (1054 Toddler, 292 Child, 104 Adolescent, 704 Adult)",Y
+A Machine Learning Framework for Early-Stage Detection of Autism Spectrum Disorders,Hasan,split_type,unclear,random,N
+A Machine Learning Framework for Early-Stage Detection of Autism Spectrum Disorders,Hasan,preprocessing_fit_in_fold,N,N,Y
+A Machine Learning Framework for Early-Stage Detection of Autism Spectrum Disorders,Hasan,leaking_features,Y,Y,Y
+A Machine Learning Framework for Early-Stage Detection of Autism Spectrum Disorders,Hasan,harmonization,none,none,Y
+A Machine Learning Framework for Early-Stage Detection of Autism Spectrum Disorders,Hasan,calibration_reported,N,N,Y
+A Machine Learning Framework for Early-Stage Detection of Autism Spectrum Disorders,Hasan,uncertainty_reported,N,N,Y
+A Machine Learning Framework for Early-Stage Detection of Autism Spectrum Disorders,Hasan,external_validation,N,N,Y
+A Machine Learning Framework for Early-Stage Detection of Autism Spectrum Disorders,Hasan,reported_accuracy,"99.25% (toddler), 99.03% (adult)","99.05% (Toddler CatBoost), 100% (Adult)",N
+A Machine Learning Framework for Early-Stage Detection of Autism Spectrum Disorders,Hasan,evidence_level,full_text,full_text,Y
+A Framework for Comparison and Interpretation of Machine Learning Classifiers to Predict Autism on the ABIDE Dataset,Dong,dataset,ABIDE I (20 sites),ABIDE I CC200,N
+A Framework for Comparison and Interpretation of Machine Learning Classifiers to Predict Autism on the ABIDE Dataset,Dong,n,870,871,N
+A Framework for Comparison and Interpretation of Machine Learning Classifiers to Predict Autism on the ABIDE Dataset,Dong,split_type,random,random,Y
+A Framework for Comparison and Interpretation of Machine Learning Classifiers to Predict Autism on the ABIDE Dataset,Dong,preprocessing_fit_in_fold,Y,Y,Y
+A Framework for Comparison and Interpretation of Machine Learning Classifiers to Predict Autism on the ABIDE Dataset,Dong,leaking_features,N,N,Y
+A Framework for Comparison and Interpretation of Machine Learning Classifiers to Predict Autism on the ABIDE Dataset,Dong,harmonization,none,none,Y
+A Framework for Comparison and Interpretation of Machine Learning Classifiers to Predict Autism on the ABIDE Dataset,Dong,calibration_reported,N,N,Y
+A Framework for Comparison and Interpretation of Machine Learning Classifiers to Predict Autism on the ABIDE Dataset,Dong,uncertainty_reported,N,N,Y
+A Framework for Comparison and Interpretation of Machine Learning Classifiers to Predict Autism on the ABIDE Dataset,Dong,external_validation,N,N,Y
+A Framework for Comparison and Interpretation of Machine Learning Classifiers to Predict Autism on the ABIDE Dataset,Dong,reported_accuracy,"72.2% (GCN ensemble), 70.1% (SVM)","72.4% (XGBoost), 71.8% (RF)",N
+A Framework for Comparison and Interpretation of Machine Learning Classifiers to Predict Autism on the ABIDE Dataset,Dong,evidence_level,full_text,full_text,Y
+Identification of autism spectrum disorder using deep learning and the ABIDE dataset,Heinsfeld,dataset,ABIDE I CC200 (17 sites),ABIDE I CC200,Y
+Identification of autism spectrum disorder using deep learning and the ABIDE dataset,Heinsfeld,n,1035,1035,Y
+Identification of autism spectrum disorder using deep learning and the ABIDE dataset,Heinsfeld,split_type,random,random,Y
+Identification of autism spectrum disorder using deep learning and the ABIDE dataset,Heinsfeld,preprocessing_fit_in_fold,unclear,N,N
+Identification of autism spectrum disorder using deep learning and the ABIDE dataset,Heinsfeld,leaking_features,N,N,Y
+Identification of autism spectrum disorder using deep learning and the ABIDE dataset,Heinsfeld,harmonization,none,none,Y
+Identification of autism spectrum disorder using deep learning and the ABIDE dataset,Heinsfeld,calibration_reported,N,N,Y
+Identification of autism spectrum disorder using deep learning and the ABIDE dataset,Heinsfeld,uncertainty_reported,N,N,Y
+Identification of autism spectrum disorder using deep learning and the ABIDE dataset,Heinsfeld,external_validation,N,N,Y
+Identification of autism spectrum disorder using deep learning and the ABIDE dataset,Heinsfeld,reported_accuracy,70% (pooled CV); 52% (intra-site),70.0% (Autoencoder + MLP),N
+Identification of autism spectrum disorder using deep learning and the ABIDE dataset,Heinsfeld,evidence_level,full_text,full_text,Y
+Deriving reproducible biomarkers from multi-site resting-state data: An Autism-based example,Abraham,dataset,ABIDE I (20 sites),ABIDE I CC200 (17 sites),N
+Deriving reproducible biomarkers from multi-site resting-state data: An Autism-based example,Abraham,n,871,871,Y
+Deriving reproducible biomarkers from multi-site resting-state data: An Autism-based example,Abraham,split_type,site-wise,site-wise,Y
+Deriving reproducible biomarkers from multi-site resting-state data: An Autism-based example,Abraham,preprocessing_fit_in_fold,Y,Y,Y
+Deriving reproducible biomarkers from multi-site resting-state data: An Autism-based example,Abraham,leaking_features,N,N,Y
+Deriving reproducible biomarkers from multi-site resting-state data: An Autism-based example,Abraham,harmonization,none,other,N
+Deriving reproducible biomarkers from multi-site resting-state data: An Autism-based example,Abraham,calibration_reported,N,N,Y
+Deriving reproducible biomarkers from multi-site resting-state data: An Autism-based example,Abraham,uncertainty_reported,N,N,Y
+Deriving reproducible biomarkers from multi-site resting-state data: An Autism-based example,Abraham,external_validation,Y,Y,Y
+Deriving reproducible biomarkers from multi-site resting-state data: An Autism-based example,Abraham,reported_accuracy,67%,"67.0% (LOSO), 66.8% (10-fold CV)",N
+Deriving reproducible biomarkers from multi-site resting-state data: An Autism-based example,Abraham,evidence_level,full_text,full_text,Y
+Disease prediction using graph convolutional networks: Application to Autism Spectrum Disorder and Alzheimer's disease,Parisot,dataset,ABIDE I CC200 (20 sites),ABIDE I CC200,Y
+Disease prediction using graph convolutional networks: Application to Autism Spectrum Disorder and Alzheimer's disease,Parisot,n,871,871,Y
+Disease prediction using graph convolutional networks: Application to Autism Spectrum Disorder and Alzheimer's disease,Parisot,split_type,random,random,Y
+Disease prediction using graph convolutional networks: Application to Autism Spectrum Disorder and Alzheimer's disease,Parisot,preprocessing_fit_in_fold,N,N,Y
+Disease prediction using graph convolutional networks: Application to Autism Spectrum Disorder and Alzheimer's disease,Parisot,leaking_features,N,N,Y
+Disease prediction using graph convolutional networks: Application to Autism Spectrum Disorder and Alzheimer's disease,Parisot,harmonization,none,none,Y
+Disease prediction using graph convolutional networks: Application to Autism Spectrum Disorder and Alzheimer's disease,Parisot,calibration_reported,N,N,Y
+Disease prediction using graph convolutional networks: Application to Autism Spectrum Disorder and Alzheimer's disease,Parisot,uncertainty_reported,N,N,Y
+Disease prediction using graph convolutional networks: Application to Autism Spectrum Disorder and Alzheimer's disease,Parisot,external_validation,N,N,Y
+Disease prediction using graph convolutional networks: Application to Autism Spectrum Disorder and Alzheimer's disease,Parisot,reported_accuracy,69.5%,70.4% (Spectral GCN),N
+Disease prediction using graph convolutional networks: Application to Autism Spectrum Disorder and Alzheimer's disease,Parisot,evidence_level,full_text,full_text,Y
+ASD-DiagNet: A Hybrid Learning Approach for Detection of Autism Spectrum Disorder Using fMRI Data,Eslami,dataset,ABIDE I CC200 (17 sites),ABIDE I CC200,Y
+ASD-DiagNet: A Hybrid Learning Approach for Detection of Autism Spectrum Disorder Using fMRI Data,Eslami,n,1035,1035,Y
+ASD-DiagNet: A Hybrid Learning Approach for Detection of Autism Spectrum Disorder Using fMRI Data,Eslami,split_type,random,random,Y
+ASD-DiagNet: A Hybrid Learning Approach for Detection of Autism Spectrum Disorder Using fMRI Data,Eslami,preprocessing_fit_in_fold,N,N,Y
+ASD-DiagNet: A Hybrid Learning Approach for Detection of Autism Spectrum Disorder Using fMRI Data,Eslami,leaking_features,N,N,Y
+ASD-DiagNet: A Hybrid Learning Approach for Detection of Autism Spectrum Disorder Using fMRI Data,Eslami,harmonization,none,none,Y
+ASD-DiagNet: A Hybrid Learning Approach for Detection of Autism Spectrum Disorder Using fMRI Data,Eslami,calibration_reported,N,N,Y
+ASD-DiagNet: A Hybrid Learning Approach for Detection of Autism Spectrum Disorder Using fMRI Data,Eslami,uncertainty_reported,N,N,Y
+ASD-DiagNet: A Hybrid Learning Approach for Detection of Autism Spectrum Disorder Using fMRI Data,Eslami,external_validation,N,N,Y
+ASD-DiagNet: A Hybrid Learning Approach for Detection of Autism Spectrum Disorder Using fMRI Data,Eslami,reported_accuracy,"82% (peak site), 70.3% (overall)","70.3% (Overall), 82.0% (NYU site)",N
+ASD-DiagNet: A Hybrid Learning Approach for Detection of Autism Spectrum Disorder Using fMRI Data,Eslami,evidence_level,full_text,full_text,Y
+Multisite functional connectivity MRI classification of autism: ABIDE results,Nielsen,dataset,ABIDE I (16 sites),ABIDE I (16 sites),Y
+Multisite functional connectivity MRI classification of autism: ABIDE results,Nielsen,n,964,964,Y
+Multisite functional connectivity MRI classification of autism: ABIDE results,Nielsen,split_type,subject-wise,site-wise,N
+Multisite functional connectivity MRI classification of autism: ABIDE results,Nielsen,preprocessing_fit_in_fold,Y,Y,Y
+Multisite functional connectivity MRI classification of autism: ABIDE results,Nielsen,leaking_features,N,N,Y
+Multisite functional connectivity MRI classification of autism: ABIDE results,Nielsen,harmonization,other,other,Y
+Multisite functional connectivity MRI classification of autism: ABIDE results,Nielsen,calibration_reported,N,N,Y
+Multisite functional connectivity MRI classification of autism: ABIDE results,Nielsen,uncertainty_reported,N,N,Y
+Multisite functional connectivity MRI classification of autism: ABIDE results,Nielsen,external_validation,N,N,Y
+Multisite functional connectivity MRI classification of autism: ABIDE results,Nielsen,reported_accuracy,60.0%,60.0% (Overall LOSO),Y
+Multisite functional connectivity MRI classification of autism: ABIDE results,Nielsen,evidence_level,full_text,full_text,Y
+Functional connectivity classification of autism identifies highly predictive brain features but falls short of biomarker standards,Plitt,dataset,ABIDE I + NIMH,"ABIDE I (NYU, USM, PITT) + NIMH",N
+Functional connectivity classification of autism identifies highly predictive brain features but falls short of biomarker standards,Plitt,n,296,"178 discovery, 40 external",N
+Functional connectivity classification of autism identifies highly predictive brain features but falls short of biomarker standards,Plitt,split_type,subject-wise,subject-wise,Y
+Functional connectivity classification of autism identifies highly predictive brain features but falls short of biomarker standards,Plitt,preprocessing_fit_in_fold,Y,Y,Y
+Functional connectivity classification of autism identifies highly predictive brain features but falls short of biomarker standards,Plitt,leaking_features,N,N,Y
+Functional connectivity classification of autism identifies highly predictive brain features but falls short of biomarker standards,Plitt,harmonization,other,none,N
+Functional connectivity classification of autism identifies highly predictive brain features but falls short of biomarker standards,Plitt,calibration_reported,N,N,Y
+Functional connectivity classification of autism identifies highly predictive brain features but falls short of biomarker standards,Plitt,uncertainty_reported,N,N,Y
+Functional connectivity classification of autism identifies highly predictive brain features but falls short of biomarker standards,Plitt,external_validation,Y,Y,Y
+Functional connectivity classification of autism identifies highly predictive brain features but falls short of biomarker standards,Plitt,reported_accuracy,"76.67% (fMRI), 95.19% (SRS)","76.7% (Discovery 10-fold), 52.5% (External NIMH)",N
+Functional connectivity classification of autism identifies highly predictive brain features but falls short of biomarker standards,Plitt,evidence_level,full_text,full_text,Y
+Edge-variational Graph Convolutional Networks for Uncertainty-aware Disease Prediction,Huang,dataset,ABIDE I CC200 (20 sites),ABIDE I CC200,Y
+Edge-variational Graph Convolutional Networks for Uncertainty-aware Disease Prediction,Huang,n,871,871,Y
+Edge-variational Graph Convolutional Networks for Uncertainty-aware Disease Prediction,Huang,split_type,random,random,Y
+Edge-variational Graph Convolutional Networks for Uncertainty-aware Disease Prediction,Huang,preprocessing_fit_in_fold,N,Y,N
+Edge-variational Graph Convolutional Networks for Uncertainty-aware Disease Prediction,Huang,leaking_features,N,N,Y
+Edge-variational Graph Convolutional Networks for Uncertainty-aware Disease Prediction,Huang,harmonization,none,none,Y
+Edge-variational Graph Convolutional Networks for Uncertainty-aware Disease Prediction,Huang,calibration_reported,N,N,Y
+Edge-variational Graph Convolutional Networks for Uncertainty-aware Disease Prediction,Huang,uncertainty_reported,Y,Y,Y
+Edge-variational Graph Convolutional Networks for Uncertainty-aware Disease Prediction,Huang,external_validation,N,N,Y
+Edge-variational Graph Convolutional Networks for Uncertainty-aware Disease Prediction,Huang,reported_accuracy,81.06%,72.8% (EV-GCN),N
+Edge-variational Graph Convolutional Networks for Uncertainty-aware Disease Prediction,Huang,evidence_level,full_text,full_text,Y
+A Novel Transfer Learning Approach to Enhance Deep Neural Network Classification of Brain Functional Connectomes,Li,dataset,ABIDE I (4 sites),ABIDE I CC200,N
+A Novel Transfer Learning Approach to Enhance Deep Neural Network Classification of Brain Functional Connectomes,Li,n,409,871,N
+A Novel Transfer Learning Approach to Enhance Deep Neural Network Classification of Brain Functional Connectomes,Li,split_type,site-wise,random,N
+A Novel Transfer Learning Approach to Enhance Deep Neural Network Classification of Brain Functional Connectomes,Li,preprocessing_fit_in_fold,Y,N,N
+A Novel Transfer Learning Approach to Enhance Deep Neural Network Classification of Brain Functional Connectomes,Li,leaking_features,N,N,Y
+A Novel Transfer Learning Approach to Enhance Deep Neural Network Classification of Brain Functional Connectomes,Li,harmonization,none,none,Y
+A Novel Transfer Learning Approach to Enhance Deep Neural Network Classification of Brain Functional Connectomes,Li,calibration_reported,N,N,Y
+A Novel Transfer Learning Approach to Enhance Deep Neural Network Classification of Brain Functional Connectomes,Li,uncertainty_reported,N,N,Y
+A Novel Transfer Learning Approach to Enhance Deep Neural Network Classification of Brain Functional Connectomes,Li,external_validation,N,N,Y
+A Novel Transfer Learning Approach to Enhance Deep Neural Network Classification of Brain Functional Connectomes,Li,reported_accuracy,70.4% (USM site),70.2% (DNN Transfer),N
+A Novel Transfer Learning Approach to Enhance Deep Neural Network Classification of Brain Functional Connectomes,Li,evidence_level,full_text,full_text,Y
+Diagnosing Autism Spectrum Disorder from Brain Resting-State Functional Connectivity Patterns Using a Deep Neural Network with a Novel Feature Selection Method,Guo,dataset,ABIDE I (UM site),ABIDE I (UM & USM sites),N
+Diagnosing Autism Spectrum Disorder from Brain Resting-State Functional Connectivity Patterns Using a Deep Neural Network with a Novel Feature Selection Method,Guo,n,110,"246 (145 UM, 101 USM)",N
+Diagnosing Autism Spectrum Disorder from Brain Resting-State Functional Connectivity Patterns Using a Deep Neural Network with a Novel Feature Selection Method,Guo,split_type,subject-wise,subject-wise,Y
+Diagnosing Autism Spectrum Disorder from Brain Resting-State Functional Connectivity Patterns Using a Deep Neural Network with a Novel Feature Selection Method,Guo,preprocessing_fit_in_fold,Y,Y,Y
+Diagnosing Autism Spectrum Disorder from Brain Resting-State Functional Connectivity Patterns Using a Deep Neural Network with a Novel Feature Selection Method,Guo,leaking_features,N,N,Y
+Diagnosing Autism Spectrum Disorder from Brain Resting-State Functional Connectivity Patterns Using a Deep Neural Network with a Novel Feature Selection Method,Guo,harmonization,none,none,Y
+Diagnosing Autism Spectrum Disorder from Brain Resting-State Functional Connectivity Patterns Using a Deep Neural Network with a Novel Feature Selection Method,Guo,calibration_reported,N,N,Y
+Diagnosing Autism Spectrum Disorder from Brain Resting-State Functional Connectivity Patterns Using a Deep Neural Network with a Novel Feature Selection Method,Guo,uncertainty_reported,N,N,Y
+Diagnosing Autism Spectrum Disorder from Brain Resting-State Functional Connectivity Patterns Using a Deep Neural Network with a Novel Feature Selection Method,Guo,external_validation,N,N,Y
+Diagnosing Autism Spectrum Disorder from Brain Resting-State Functional Connectivity Patterns Using a Deep Neural Network with a Novel Feature Selection Method,Guo,reported_accuracy,86.36%,"86.4% (UM), 82.2% (USM)",N
+Diagnosing Autism Spectrum Disorder from Brain Resting-State Functional Connectivity Patterns Using a Deep Neural Network with a Novel Feature Selection Method,Guo,evidence_level,full_text,full_text,Y
+Classification of Autism Spectrum Disorder Using Random Support Vector Machine Cluster,Bi,dataset,ABIDE I single scanner,ABIDE I CC200,N
+Classification of Autism Spectrum Disorder Using Random Support Vector Machine Cluster,Bi,n,84,871,N
+Classification of Autism Spectrum Disorder Using Random Support Vector Machine Cluster,Bi,split_type,random,random,Y
+Classification of Autism Spectrum Disorder Using Random Support Vector Machine Cluster,Bi,preprocessing_fit_in_fold,N,Y,N
+Classification of Autism Spectrum Disorder Using Random Support Vector Machine Cluster,Bi,leaking_features,N,N,Y
+Classification of Autism Spectrum Disorder Using Random Support Vector Machine Cluster,Bi,harmonization,none,none,Y
+Classification of Autism Spectrum Disorder Using Random Support Vector Machine Cluster,Bi,calibration_reported,N,N,Y
+Classification of Autism Spectrum Disorder Using Random Support Vector Machine Cluster,Bi,uncertainty_reported,N,N,Y
+Classification of Autism Spectrum Disorder Using Random Support Vector Machine Cluster,Bi,external_validation,N,N,Y
+Classification of Autism Spectrum Disorder Using Random Support Vector Machine Cluster,Bi,reported_accuracy,96.15%,76.8% (Random SVM Cluster),N
+Classification of Autism Spectrum Disorder Using Random Support Vector Machine Cluster,Bi,evidence_level,full_text,full_text,Y
+A heterogeneous graph convolutional attention network method for classification of autism spectrum disorder,Shao,dataset,ABIDE I Harvard-Oxford (17 sites),ABIDE I (17 sites),N
+A heterogeneous graph convolutional attention network method for classification of autism spectrum disorder,Shao,n,871,1035,N
+A heterogeneous graph convolutional attention network method for classification of autism spectrum disorder,Shao,split_type,random,random,Y
+A heterogeneous graph convolutional attention network method for classification of autism spectrum disorder,Shao,preprocessing_fit_in_fold,N,Y,N
+A heterogeneous graph convolutional attention network method for classification of autism spectrum disorder,Shao,leaking_features,N,N,Y
+A heterogeneous graph convolutional attention network method for classification of autism spectrum disorder,Shao,harmonization,none,none,Y
+A heterogeneous graph convolutional attention network method for classification of autism spectrum disorder,Shao,calibration_reported,N,N,Y
+A heterogeneous graph convolutional attention network method for classification of autism spectrum disorder,Shao,uncertainty_reported,N,N,Y
+A heterogeneous graph convolutional attention network method for classification of autism spectrum disorder,Shao,external_validation,N,N,Y
+A heterogeneous graph convolutional attention network method for classification of autism spectrum disorder,Shao,reported_accuracy,82.9%,74.5% (HGCAN),N
+A heterogeneous graph convolutional attention network method for classification of autism spectrum disorder,Shao,evidence_level,full_text,full_text,Y
+Insights from an autism imaging biomarker challenge: Promises and threats to biomarker discovery,Traut,dataset,ABIDE I & II,ABIDE I discovery + EU-AIMS LEAP external,N
+Insights from an autism imaging biomarker challenge: Promises and threats to biomarker discovery,Traut,n,2150,"871 discovery, 268 external",N
+Insights from an autism imaging biomarker challenge: Promises and threats to biomarker discovery,Traut,split_type,site-wise,site-wise,Y
+Insights from an autism imaging biomarker challenge: Promises and threats to biomarker discovery,Traut,preprocessing_fit_in_fold,Y,Y,Y
+Insights from an autism imaging biomarker challenge: Promises and threats to biomarker discovery,Traut,leaking_features,N,N,Y
+Insights from an autism imaging biomarker challenge: Promises and threats to biomarker discovery,Traut,harmonization,other,other,Y
+Insights from an autism imaging biomarker challenge: Promises and threats to biomarker discovery,Traut,calibration_reported,N,N,Y
+Insights from an autism imaging biomarker challenge: Promises and threats to biomarker discovery,Traut,uncertainty_reported,N,N,Y
+Insights from an autism imaging biomarker challenge: Promises and threats to biomarker discovery,Traut,external_validation,Y,Y,Y
+Insights from an autism imaging biomarker challenge: Promises and threats to biomarker discovery,Traut,reported_accuracy,"0.80 AUC (challenge), 0.72 AUC (EU-AIMS)","63.0% (LOSO), 58.0% (External EU-AIMS)",N
+Insights from an autism imaging biomarker challenge: Promises and threats to biomarker discovery,Traut,evidence_level,full_text,full_text,Y
+Automated Detection of Autism Spectrum Disorder Using a Convolutional Neural Network,Sherkatghanad,dataset,ABIDE I CC400,ABIDE I CC200,N
+Automated Detection of Autism Spectrum Disorder Using a Convolutional Neural Network,Sherkatghanad,n,871,1035,N
+Automated Detection of Autism Spectrum Disorder Using a Convolutional Neural Network,Sherkatghanad,split_type,site-wise,random,N
+Automated Detection of Autism Spectrum Disorder Using a Convolutional Neural Network,Sherkatghanad,preprocessing_fit_in_fold,Y,Y,Y
+Automated Detection of Autism Spectrum Disorder Using a Convolutional Neural Network,Sherkatghanad,leaking_features,N,N,Y
+Automated Detection of Autism Spectrum Disorder Using a Convolutional Neural Network,Sherkatghanad,harmonization,none,none,Y
+Automated Detection of Autism Spectrum Disorder Using a Convolutional Neural Network,Sherkatghanad,calibration_reported,N,N,Y
+Automated Detection of Autism Spectrum Disorder Using a Convolutional Neural Network,Sherkatghanad,uncertainty_reported,N,N,Y
+Automated Detection of Autism Spectrum Disorder Using a Convolutional Neural Network,Sherkatghanad,external_validation,N,N,Y
+Automated Detection of Autism Spectrum Disorder Using a Convolutional Neural Network,Sherkatghanad,reported_accuracy,"70.22% (CV), 53-75% (LOSO)",70.2% (1D-CNN),N
+Automated Detection of Autism Spectrum Disorder Using a Convolutional Neural Network,Sherkatghanad,evidence_level,full_text,full_text,Y
+Identifying Autism from Resting-State fMRI Using Long Short-Term Memory Networks,Dvornek,dataset,ABIDE I Craddock 200 (17 sites),ABIDE I (NYU site),N
+Identifying Autism from Resting-State fMRI Using Long Short-Term Memory Networks,Dvornek,n,1100,175,N
+Identifying Autism from Resting-State fMRI Using Long Short-Term Memory Networks,Dvornek,split_type,random,subject-wise,N
+Identifying Autism from Resting-State fMRI Using Long Short-Term Memory Networks,Dvornek,preprocessing_fit_in_fold,Y,Y,Y
+Identifying Autism from Resting-State fMRI Using Long Short-Term Memory Networks,Dvornek,leaking_features,N,N,Y
+Identifying Autism from Resting-State fMRI Using Long Short-Term Memory Networks,Dvornek,harmonization,none,none,Y
+Identifying Autism from Resting-State fMRI Using Long Short-Term Memory Networks,Dvornek,calibration_reported,N,N,Y
+Identifying Autism from Resting-State fMRI Using Long Short-Term Memory Networks,Dvornek,uncertainty_reported,N,N,Y
+Identifying Autism from Resting-State fMRI Using Long Short-Term Memory Networks,Dvornek,external_validation,N,N,Y
+Identifying Autism from Resting-State fMRI Using Long Short-Term Memory Networks,Dvornek,reported_accuracy,68.5%,68.5% (LSTM),Y
+Identifying Autism from Resting-State fMRI Using Long Short-Term Memory Networks,Dvornek,evidence_level,full_text,full_text,Y
+Distance Metric Learning using Graph Convolutionn Networks: Application to Functional Brain Networks,Ktena,dataset,ABIDE I Harvard-Oxford (20 sites),ABIDE I CC200 (17 sites),N
+Distance Metric Learning using Graph Convolutionn Networks: Application to Functional Brain Networks,Ktena,n,871,871,Y
+Distance Metric Learning using Graph Convolutionn Networks: Application to Functional Brain Networks,Ktena,split_type,random,random,Y
+Distance Metric Learning using Graph Convolutionn Networks: Application to Functional Brain Networks,Ktena,preprocessing_fit_in_fold,Y,Y,Y
+Distance Metric Learning using Graph Convolutionn Networks: Application to Functional Brain Networks,Ktena,leaking_features,N,N,Y
+Distance Metric Learning using Graph Convolutionn Networks: Application to Functional Brain Networks,Ktena,harmonization,other,none,N
+Distance Metric Learning using Graph Convolutionn Networks: Application to Functional Brain Networks,Ktena,calibration_reported,N,N,Y
+Distance Metric Learning using Graph Convolutionn Networks: Application to Functional Brain Networks,Ktena,uncertainty_reported,N,N,Y
+Distance Metric Learning using Graph Convolutionn Networks: Application to Functional Brain Networks,Ktena,external_validation,N,N,Y
+Distance Metric Learning using Graph Convolutionn Networks: Application to Functional Brain Networks,Ktena,reported_accuracy,64.2%,69.5% (Siamese GCN),N
+Distance Metric Learning using Graph Convolutionn Networks: Application to Functional Brain Networks,Ktena,evidence_level,full_text,full_text,Y
+Brain Network Transformer,Kan,dataset,ABIDE I CC200 (17 sites),ABIDE I + ABCD external,N
+Brain Network Transformer,Kan,n,1009,"1029 discovery, 8182 external",N
+Brain Network Transformer,Kan,split_type,random,site-wise,N
+Brain Network Transformer,Kan,preprocessing_fit_in_fold,Y,Y,Y
+Brain Network Transformer,Kan,leaking_features,N,N,Y
+Brain Network Transformer,Kan,harmonization,none,none,Y
+Brain Network Transformer,Kan,calibration_reported,N,N,Y
+Brain Network Transformer,Kan,uncertainty_reported,N,N,Y
+Brain Network Transformer,Kan,external_validation,Y,Y,Y
+Brain Network Transformer,Kan,reported_accuracy,80.2% AUROC,"67.5% (LOSO), 73.7% (5-fold CV)",N
+Brain Network Transformer,Kan,evidence_level,full_text,full_text,Y

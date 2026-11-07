@@ -178,6 +178,17 @@ Compiling paper_facts.json...
   - `results/lit_audit_summary.json`: Strict statistical aggregations computed over non-unclear cells with explicit denominators.
   - `figures/lit_meta_audit_summary.png` & `figures/lit_meta_audit_summary.pdf`: Multi-panel publication figure displaying methodological safeguard prevalence.
   - `tests/test_lit_meta_audit.py`: 3 automated quality gates verifying schema, valid URLs, non-empty fields, and count integrity (40/40 passing overall).
+
+### 2026-11-07T12:25:00+05:30 — Blind Re-Verification, Number Cross-Check & Paper Figure Pack
+- **Status:** SUCCESS
+- **Scripts:**
+  - `scripts/reverify_literature_audit.py` -> `results/lit_reverify_blind.csv`, `results/lit_reverify_comparison.csv`
+  - `scripts/apply_reconciled_lit_audit.py` -> `docs/lit_audit_template.csv` (backup `docs/lit_audit_template_v1.csv` preserved)
+  - `scripts/generate_paper_number_check.py` -> `results/paper_number_check.csv` (50 items audited, 6 mismatches flagged)
+  - `scripts/build_paper_pack.py` -> `figures/paper_pack/` (`fig1` through `fig9` in `.pdf` and 300-DPI `.png`, `FIGURE_CHECK.md`, `MANIFEST.csv`)
+  - `scripts/summarize_lit_audit.py` -> regenerated `results/lit_audit_summary.json` with union calculations & accuracy distributions
+- **Final Output File:** `results/PAPER_HANDOFF.md` (Self-contained, 1,432 words).
+
 - **Key Empirical Summary:**
   - Corpus: 16 Tabular (AQ-10 / Q-CHAT-10), 17 Neuroimaging (ABIDE I/II). 31 full_text (93.9%), 2 abstract_only (6.1%), 3 flagged needs_human_check (9.1%).
   - Behavioral Tautology / Label Leakage: Tabular = 15 of 16 (93.8%); Neuroimaging = 0 of 17 (0.0%).

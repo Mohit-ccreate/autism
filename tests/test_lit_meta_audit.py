@@ -43,10 +43,27 @@ def test_lit_audit_summary_json():
     assert meta["neuroimaging_papers"] == 17
     assert meta["evidence_levels"]["full_text"]["count"] == 31
     assert meta["evidence_levels"]["abstract_only"]["count"] == 2
-    assert meta["needs_human_check"]["count"] == 3
+    # Post-reconciliation, papers with modified or uncertain fields have needs_human_check=Y
+    assert meta["needs_human_check"]["count"] == 23
+    assert meta["calibration_or_uncertainty_union"]["count"] == 2
+    assert meta["neither_calibration_nor_uncertainty"]["count"] == 31
 
 def test_lit_audit_artifacts_exist():
     assert (REPO_ROOT / "figures" / "lit_meta_audit_summary.png").exists()
     assert (REPO_ROOT / "figures" / "lit_meta_audit_summary.pdf").exists()
     assert (REPO_ROOT / "docs" / "lit_audit_for_human_review.md").exists()
     assert (REPO_ROOT / "results" / "lit_search_log.md").exists()
+    assert (REPO_ROOT / "results" / "lit_reverify_blind.csv").exists()
+    assert (REPO_ROOT / "results" / "lit_reverify_comparison.csv").exists()
+    assert (REPO_ROOT / "results" / "paper_number_check.csv").exists()
+    assert (REPO_ROOT / "results" / "PAPER_HANDOFF.md").exists()
+    assert (REPO_ROOT / "figures" / "paper_pack" / "MANIFEST.csv").exists()
+    assert (REPO_ROOT / "figures" / "paper_pack" / "FIGURE_CHECK.md").exists()
+
+    # Verify all 9 figures in paper_pack
+    for i in range(1, 10):
+        png_f = list((REPO_ROOT / "figures" / "paper_pack").glob(f"fig{i}_*.png"))
+        pdf_f = list((REPO_ROOT / "figures" / "paper_pack").glob(f"fig{i}_*.pdf"))
+        assert len(png_f) == 1, f"Missing fig{i} PNG"
+        assert len(pdf_f) == 1, f"Missing fig{i} PDF"
+

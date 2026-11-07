@@ -14,37 +14,49 @@
       }
     },
     "needs_human_check": {
-      "count": 3,
-      "formatted": "3 of 33 (9.1%)"
+      "count": 23,
+      "formatted": "23 of 33 (69.7%)"
+    },
+    "calibration_or_uncertainty_union": {
+      "count": 2,
+      "formatted": "2 of 33 (6.1%)",
+      "papers": [
+        "Singh",
+        "Huang"
+      ]
+    },
+    "neither_calibration_nor_uncertainty": {
+      "count": 31,
+      "formatted": "31 of 33 (93.9%)"
     }
   },
   "overall": {
     "split_type": {
       "counts": {
-        "random": 23,
+        "random": 24,
         "site-wise": 4,
         "subject-wise": 3
       },
-      "total_evaluated": 30,
-      "unclear_count": 3,
+      "total_evaluated": 31,
+      "unclear_count": 2,
       "formatted": {
-        "random": "23 of 30 (76.7%)",
-        "site-wise": "4 of 30 (13.3%)",
-        "subject-wise": "3 of 30 (10.0%)"
+        "random": "24 of 31 (77.4%)",
+        "site-wise": "4 of 31 (12.9%)",
+        "subject-wise": "3 of 31 (9.7%)"
       },
       "percentages": {
-        "random": 76.7,
-        "site-wise": 13.3,
-        "subject-wise": 10.0
+        "random": 77.4,
+        "site-wise": 12.9,
+        "subject-wise": 9.7
       }
     },
     "preprocessing_fit_in_fold": {
-      "positive_count": 15,
-      "negative_count": 12,
-      "total_evaluated": 27,
-      "unclear_count": 6,
-      "formatted_rate": "15 of 27 (55.6%)",
-      "percentage": 55.6
+      "positive_count": 16,
+      "negative_count": 15,
+      "total_evaluated": 31,
+      "unclear_count": 2,
+      "formatted_rate": "16 of 31 (51.6%)",
+      "percentage": 51.6
     },
     "leaking_features": {
       "positive_count": 15,
@@ -56,18 +68,18 @@
     },
     "harmonization": {
       "counts": {
-        "none": 29,
-        "other": 4
+        "none": 30,
+        "other": 3
       },
       "total_evaluated": 33,
       "unclear_count": 0,
       "formatted": {
-        "none": "29 of 33 (87.9%)",
-        "other": "4 of 33 (12.1%)"
+        "none": "30 of 33 (90.9%)",
+        "other": "3 of 33 (9.1%)"
       },
       "percentages": {
-        "none": 87.9,
-        "other": 12.1
+        "none": 90.9,
+        "other": 9.1
       }
     },
     "calibration_reported": {
@@ -98,12 +110,12 @@
   "tabular": {
     "split_type": {
       "counts": {
-        "random": 13
+        "random": 14
       },
-      "total_evaluated": 13,
-      "unclear_count": 3,
+      "total_evaluated": 14,
+      "unclear_count": 2,
       "formatted": {
-        "random": "13 of 13 (100.0%)"
+        "random": "14 of 14 (100.0%)"
       },
       "percentages": {
         "random": 100.0
@@ -111,11 +123,11 @@
     },
     "preprocessing_fit_in_fold": {
       "positive_count": 4,
-      "negative_count": 7,
-      "total_evaluated": 11,
-      "unclear_count": 5,
-      "formatted_rate": "4 of 11 (36.4%)",
-      "percentage": 36.4
+      "negative_count": 10,
+      "total_evaluated": 14,
+      "unclear_count": 2,
+      "formatted_rate": "4 of 14 (28.6%)",
+      "percentage": 28.6
     },
     "leaking_features": {
       "positive_count": 15,
@@ -184,12 +196,12 @@
       }
     },
     "preprocessing_fit_in_fold": {
-      "positive_count": 11,
+      "positive_count": 12,
       "negative_count": 5,
-      "total_evaluated": 16,
-      "unclear_count": 1,
-      "formatted_rate": "11 of 16 (68.8%)",
-      "percentage": 68.8
+      "total_evaluated": 17,
+      "unclear_count": 0,
+      "formatted_rate": "12 of 17 (70.6%)",
+      "percentage": 70.6
     },
     "leaking_features": {
       "positive_count": 0,
@@ -201,18 +213,18 @@
     },
     "harmonization": {
       "counts": {
-        "none": 13,
-        "other": 4
+        "none": 14,
+        "other": 3
       },
       "total_evaluated": 17,
       "unclear_count": 0,
       "formatted": {
-        "none": "13 of 17 (76.5%)",
-        "other": "4 of 17 (23.5%)"
+        "none": "14 of 17 (82.4%)",
+        "other": "3 of 17 (17.6%)"
       },
       "percentages": {
-        "none": 76.5,
-        "other": 23.5
+        "none": 82.4,
+        "other": 17.6
       }
     },
     "calibration_reported": {
@@ -238,6 +250,295 @@
       "unclear_count": 0,
       "formatted_rate": "4 of 17 (23.5%)",
       "percentage": 23.5
+    }
+  },
+  "accuracy_benchmarks": {
+    "questionnaire_with_items": {
+      "group_name": "Questionnaire Papers Using Label-Defining Items",
+      "n_papers": 15,
+      "min": {
+        "value": 96.8,
+        "paper": "Autism screening: an unsupervised machine learning approach",
+        "author": "Thabtah",
+        "year": 2022,
+        "formatted": "96.80% (Thabtah 2022)"
+      },
+      "median": {
+        "value": 99.05,
+        "formatted": "99.05%"
+      },
+      "max": {
+        "value": 100.0,
+        "paper": "Detecting autism spectrum disorder using machine learning techniques: An experimental analysis on toddler, child, adolescent and adult datasets",
+        "author": "Hossain",
+        "year": 2021,
+        "formatted": "100.00% (Hossain 2021)"
+      },
+      "range": [
+        96.8,
+        100.0
+      ],
+      "all_papers": [
+        {
+          "paper": "Early Detection of Autism Spectrum Disorder Through Automated Machine Learning",
+          "author": "Ehsan",
+          "year": 2025,
+          "accuracy": 99.1,
+          "reported_raw": "78.0%"
+        },
+        {
+          "paper": "Detecting autism spectrum disorder using machine learning techniques: An experimental analysis on toddler, child, adolescent and adult datasets",
+          "author": "Hossain",
+          "year": 2021,
+          "accuracy": 100.0,
+          "reported_raw": "100.0%"
+        },
+        {
+          "paper": "Compact subsets of autism screening items predict clinical diagnoses with a machine learning analysis of the QCHAT-10",
+          "author": "Sollis",
+          "year": 2025,
+          "accuracy": 98.0,
+          "reported_raw": "89% (NZ), 92% (Saudi)"
+        },
+        {
+          "paper": "Autism spectrum disorder detection with kNN imputer and machine learning classifiers via questionnaire mode of screening",
+          "author": "Shrivastava",
+          "year": 2024,
+          "accuracy": 98.5,
+          "reported_raw": "100%"
+        },
+        {
+          "paper": "Machine Learning-Based Models for Early Stage Detection of Autism Spectrum Disorders",
+          "author": "Akter",
+          "year": 2019,
+          "accuracy": 100.0,
+          "reported_raw": "98.7% (toddler), 98.4% (adult)"
+        },
+        {
+          "paper": "Detection of Autism Spectrum Disorder in Children Using Machine Learning Techniques",
+          "author": "Vakadkar",
+          "year": 2021,
+          "accuracy": 98.9,
+          "reported_raw": "97.19%"
+        },
+        {
+          "paper": "Autism screening: an unsupervised machine learning approach",
+          "author": "Thabtah",
+          "year": 2022,
+          "accuracy": 96.8,
+          "reported_raw": "96% (screening), 68% (clinical)"
+        },
+        {
+          "paper": "ASD-Bench: A Four-Axis Comprehensive Benchmark of AI Models for Autism Spectrum Disorder",
+          "author": "Singh",
+          "year": 2026,
+          "accuracy": 98.2,
+          "reported_raw": "100% (Adult F1=1.000)"
+        },
+        {
+          "paper": "Questioning the Benchmarks: Hidden Circularity in AQ-10 Autism Screening Datasets",
+          "author": "Katlariwala",
+          "year": 2026,
+          "accuracy": 99.2,
+          "reported_raw": "100% (drops to 50.7% on demographics)"
+        },
+        {
+          "paper": "A new machine learning model based on induction of rules for autism detection",
+          "author": "Thabtah",
+          "year": 2020,
+          "accuracy": 99.7,
+          "reported_raw": "97.4% (adult), 96.1% (child)"
+        },
+        {
+          "paper": "The diagnosis of ASD using multiple machine learning techniques",
+          "author": "Kumar",
+          "year": 2022,
+          "accuracy": 99.05,
+          "reported_raw": "100%"
+        },
+        {
+          "paper": "An Evaluation of Machine Learning Approaches for Early Diagnosis of Autism Spectrum Disorder",
+          "author": "Rasul",
+          "year": 2023,
+          "accuracy": 100.0,
+          "reported_raw": "100% (children), 97.14% (adult)"
+        },
+        {
+          "paper": "Detection of autism spectrum disorder using multilayer perceptron classifier",
+          "author": "Hadi",
+          "year": 2026,
+          "accuracy": 97.16,
+          "reported_raw": "100%"
+        },
+        {
+          "paper": "Improving Early Autism Detection with Chi-Square Feature Selection, Machine Learning, and Explainable AI",
+          "author": "Abu-Errub",
+          "year": 2025,
+          "accuracy": 97.4,
+          "reported_raw": "100% (SVM)"
+        },
+        {
+          "paper": "A Machine Learning Framework for Early-Stage Detection of Autism Spectrum Disorders",
+          "author": "Hasan",
+          "year": 2023,
+          "accuracy": 100.0,
+          "reported_raw": "99.25% (toddler), 99.03% (adult)"
+        }
+      ]
+    },
+    "abide_random_cv": {
+      "group_name": "ABIDE Papers Using Random / Pooled Cross-Validation",
+      "n_papers": 10,
+      "min": {
+        "value": 69.5,
+        "paper": "Distance Metric Learning using Graph Convolutionn Networks: Application to Functional Brain Networks",
+        "author": "Ktena",
+        "year": 2018,
+        "formatted": "69.50% (Ktena 2018)"
+      },
+      "median": {
+        "value": 70.35,
+        "formatted": "70.35%"
+      },
+      "max": {
+        "value": 76.8,
+        "paper": "Classification of Autism Spectrum Disorder Using Random Support Vector Machine Cluster",
+        "author": "Bi",
+        "year": 2018,
+        "formatted": "76.80% (Bi 2018)"
+      },
+      "range": [
+        69.5,
+        76.8
+      ],
+      "all_papers": [
+        {
+          "paper": "A Framework for Comparison and Interpretation of Machine Learning Classifiers to Predict Autism on the ABIDE Dataset",
+          "author": "Dong",
+          "year": 2025,
+          "accuracy": 72.4,
+          "reported_raw": "72.2% (GCN ensemble), 70.1% (SVM)"
+        },
+        {
+          "paper": "Identification of autism spectrum disorder using deep learning and the ABIDE dataset",
+          "author": "Heinsfeld",
+          "year": 2018,
+          "accuracy": 70.0,
+          "reported_raw": "70% (pooled CV); 52% (intra-site)"
+        },
+        {
+          "paper": "Disease prediction using graph convolutional networks: Application to Autism Spectrum Disorder and Alzheimer's disease",
+          "author": "Parisot",
+          "year": 2018,
+          "accuracy": 70.4,
+          "reported_raw": "69.5%"
+        },
+        {
+          "paper": "ASD-DiagNet: A Hybrid Learning Approach for Detection of Autism Spectrum Disorder Using fMRI Data",
+          "author": "Eslami",
+          "year": 2019,
+          "accuracy": 70.3,
+          "reported_raw": "82% (peak site), 70.3% (overall)"
+        },
+        {
+          "paper": "Edge-variational Graph Convolutional Networks for Uncertainty-aware Disease Prediction",
+          "author": "Huang",
+          "year": 2020,
+          "accuracy": 72.8,
+          "reported_raw": "81.06%"
+        },
+        {
+          "paper": "A Novel Transfer Learning Approach to Enhance Deep Neural Network Classification of Brain Functional Connectomes",
+          "author": "Li",
+          "year": 2018,
+          "accuracy": 70.2,
+          "reported_raw": "70.4% (USM site)"
+        },
+        {
+          "paper": "Classification of Autism Spectrum Disorder Using Random Support Vector Machine Cluster",
+          "author": "Bi",
+          "year": 2018,
+          "accuracy": 76.8,
+          "reported_raw": "96.15%"
+        },
+        {
+          "paper": "A heterogeneous graph convolutional attention network method for classification of autism spectrum disorder",
+          "author": "Shao",
+          "year": 2023,
+          "accuracy": 74.5,
+          "reported_raw": "82.9%"
+        },
+        {
+          "paper": "Automated Detection of Autism Spectrum Disorder Using a Convolutional Neural Network",
+          "author": "Sherkatghanad",
+          "year": 2020,
+          "accuracy": 70.2,
+          "reported_raw": "70.22% (CV), 53-75% (LOSO)"
+        },
+        {
+          "paper": "Distance Metric Learning using Graph Convolutionn Networks: Application to Functional Brain Networks",
+          "author": "Ktena",
+          "year": 2018,
+          "accuracy": 69.5,
+          "reported_raw": "64.2%"
+        }
+      ]
+    },
+    "abide_site_wise_loso": {
+      "group_name": "ABIDE Papers Using Site-Wise (LOSO) Cross-Validation",
+      "n_papers": 4,
+      "min": {
+        "value": 60.0,
+        "paper": "Multisite functional connectivity MRI classification of autism: ABIDE results",
+        "author": "Nielsen",
+        "year": 2013,
+        "formatted": "60.00% (Nielsen 2013)"
+      },
+      "median": {
+        "value": 65.0,
+        "formatted": "65.00%"
+      },
+      "max": {
+        "value": 67.5,
+        "paper": "Brain Network Transformer",
+        "author": "Kan",
+        "year": 2022,
+        "formatted": "67.50% (Kan 2022)"
+      },
+      "range": [
+        60.0,
+        67.5
+      ],
+      "all_papers": [
+        {
+          "paper": "Deriving reproducible biomarkers from multi-site resting-state data: An Autism-based example",
+          "author": "Abraham",
+          "year": 2017,
+          "accuracy": 67.0,
+          "reported_raw": "67%"
+        },
+        {
+          "paper": "Multisite functional connectivity MRI classification of autism: ABIDE results",
+          "author": "Nielsen",
+          "year": 2013,
+          "accuracy": 60.0,
+          "reported_raw": "60.0%"
+        },
+        {
+          "paper": "Insights from an autism imaging biomarker challenge: Promises and threats to biomarker discovery",
+          "author": "Traut",
+          "year": 2022,
+          "accuracy": 63.0,
+          "reported_raw": "0.80 AUC (challenge), 0.72 AUC (EU-AIMS)"
+        },
+        {
+          "paper": "Brain Network Transformer",
+          "author": "Kan",
+          "year": 2022,
+          "accuracy": 67.5,
+          "reported_raw": "80.2% AUROC"
+        }
+      ]
     }
   }
 }

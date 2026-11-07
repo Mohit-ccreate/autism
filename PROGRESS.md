@@ -1,8 +1,8 @@
 # PROGRESS.md — Phase Tracking for ASD Screening Paper Revision
 
 **Branch:** `paper-revision`  
-**Last updated:** 2026-11-07T10:55:00+05:30  
-**Status:** All Correction Pass Phases & Literature Meta-Audit Complete (40/40 Pytest Quality Gates Passing)
+**Last updated:** 2026-11-07T12:30:00+05:30  
+**Status:** All Correction Pass Phases, Blind Re-Verification, Number Cross-Checks & Figure Pack Complete (40/40 Pytest Quality Gates Passing)
 
 ---
 
@@ -17,8 +17,9 @@
 | **Correction Pass C** | Statistical Honesty ($N=120$ vs $N=854$ reconciliation; paired bootstrap; raw/clipped TI; dedup accounting; threshold sweep) | ✅ DONE | 2026-11-06 |
 | **Correction Pass D** | Missing components (8-model leaderboard; Heinsfeld AE; ABIDE II skip; 8-page Streamlit app; 8 figures & 10 tables) | ✅ DONE | 2026-11-06 |
 | **Correction Pass E** | Claim Language (nuanced verdicts: SUPPORTED, PARTIALLY SUPPORTED, NOT SUPPORTED) | ✅ DONE | 2026-11-06 |
-| **Correction Pass F** | Quality Gates (37 passing automated tests; clean reproducibility) | ✅ DONE | 2026-11-06 |
+| **Correction Pass F** | Quality Gates (40 passing automated tests; clean reproducibility) | ✅ DONE | 2026-11-07 |
 | **Correction Pass G** | Literature Meta-Audit ($N=33$ published papers, 18-col audit, summary JSON/figures) | ✅ DONE | 2026-11-07 |
+| **Correction Pass H** | Blind Re-Verification, Number Cross-Check ($50$ claims, $6$ mismatches), Figure Pack (`fig1`-`fig9`), & Paper Handoff | ✅ DONE | 2026-11-07 |
 
 ---
 
@@ -98,6 +99,21 @@
   - Structured summary: `results/lit_audit_summary.json`
   - Publication figure: `figures/lit_meta_audit_summary.png` & `figures/lit_meta_audit_summary.pdf`
 
+### Part H: Blind Re-Verification, Number Cross-Check & Paper Pack ✅ DONE
+- **Blind Independent Re-Verification:**
+  - `results/lit_reverify_blind.csv`: Re-extracted fields across all 33 papers from full text / publisher pages prior to comparing against v1 template.
+  - `results/lit_reverify_comparison.csv`: Computed exact agreement rates per field across 363 comparison cells (100% agreement on leaking features, calibration, uncertainty, external validation, evidence level).
+  - Preserved original template as `docs/lit_audit_template_v1.csv`; updated `docs/lit_audit_template.csv` with reconciled categorical fields and corrected URL typos. Flagged all changed or uncertain rows as `needs_human_check = Y` (23 of 33, 69.7%).
+  - Computed exact union: Calibration OR Uncertainty = **2 of 33 (6.1%)**; Neither = **31 of 33 (93.9%)**.
+  - Accuracy benchmarks: Questionnaire items Min 96.80% (Thabtah 2022), Median 99.05%, Max 100.00% (Hossain 2021); ABIDE Random CV Min 69.50% (Ktena 2018), Median 70.35%, Max 76.80% (Bi 2018); ABIDE LOSO Min 60.00% (Nielsen 2013), Median 65.00%, Max 67.50% (Kan 2022).
+- **Paper Number Cross-Check:**
+  - `results/paper_number_check.csv`: Evaluated 50 claims against `results/*.json`. 44 matched exactly; 6 mismatches flagged (Child recovered cutoff accuracy 100.0% vs draft 99.98%; LightGBM accuracy 64.29% vs 64.64%; Autoencoder accuracy 62.65% vs 62.88%; MLP accuracy 61.83% vs 62.41%; Tangent Space accuracy 59.72% vs 58.78%; Conformal ABIDE LOSO 95% coverage 92.39% vs 94.03%).
+- **Publication Figure Pack:**
+  - `figures/paper_pack/`: 9 figures in vector `.pdf` and 300-DPI `.png` named `fig1` through `fig9`. Verified typography, single/double column legibility, explicit units, open whitespace legend placement, and Wong (2011) colorblind accessibility.
+  - `figures/paper_pack/MANIFEST.csv` & `figures/paper_pack/FIGURE_CHECK.md`.
+- **Master Handoff Ledger:**
+  - `results/PAPER_HANDOFF.md`: Self-contained 1,432-word ledger detailing all findings, reconciliation decisions, mismatches, and per-site distributions.
+
 ---
 
 ## Commands to Reproduce Everything from Scratch
@@ -129,10 +145,16 @@ python scripts/compile_paper_facts_and_summary.py
 # 8. Run literature meta-audit aggregation and generate figures
 python scripts/summarize_lit_audit.py
 
-# 9. Run full automated verification suite (40 tests)
+# 9. Run blind re-verification, paper number cross-check, and assemble figure pack
+python scripts/reverify_literature_audit.py
+python scripts/generate_paper_number_check.py
+python scripts/build_paper_pack.py
+
+# 10. Run full automated verification suite (40 tests)
 python -m pytest tests/ -v
 
-# 10. Launch Streamlit interactive research platform
+# 11. Launch Streamlit interactive research platform
 streamlit run app/Home.py
 ```
+
 

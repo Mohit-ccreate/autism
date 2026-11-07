@@ -199,6 +199,24 @@ This section details all modifications, new modules, metric diffs, and forensic 
   - `figures/lit_meta_audit_summary.png` & `figures/lit_meta_audit_summary.pdf`: Publication-grade visualization of methodological pitfalls vs safeguards.
   - `docs/lit_audit_for_human_review.md`: Complete inspection document providing direct URLs, evidence level, and verbatim methods justifications.
   - `tests/test_lit_meta_audit.py`: 3 automated tests verifying corpus size (30-40), schema conformity, evidence level flags, human review triggers, and summary consistency (test suite total: 40/40 passing).
+
+---
+
+## 6. Blind Re-Verification, Paper Number Cross-Check & Figure Pack
+
+- **Date:** 2026-11-07
+- **Deliverables Added/Modified:**
+  - `docs/lit_audit_template_v1.csv`: Preserved initial baseline version of the literature audit.
+  - `results/lit_reverify_blind.csv`: Re-extracted fields across all 33 papers independently from source text before comparison.
+  - `results/lit_reverify_comparison.csv`: Field-by-field agreement evaluation (363 comparison rows). 100% agreement on leaking features, calibration, uncertainty, external validation, and evidence level.
+  - `docs/lit_audit_template.csv`: Reconciled categorical fields based on source passages; corrected URL prefixes (PMID typos) for Sollis 2025, Shrivastava 2024, Tartarisco 2021, and Katlariwala 2026. Flagged all changed or uncertain rows as `needs_human_check = Y` (23 of 33, 69.7%).
+  - `scripts/summarize_lit_audit.py`: Updated to compute exact union of calibration or uncertainty (2 of 33, 6.1%) and complement (31 of 33, 93.9%), plus min/median/max reported accuracy per stratum with named papers.
+  - `results/paper_number_check.csv`: Meticulous cross-check of 50 empirical claims against `results/*.json`. Verified 44 exact matches and flagged 6 exact mismatches (Child recovered accuracy 100.0% vs draft 99.98%; LightGBM accuracy 64.29% vs 64.64%; Autoencoder accuracy 62.65% vs 62.88%; MLP accuracy 61.83% vs 62.41%; Tangent Space accuracy 59.72% vs 58.78%; Conformal ABIDE LOSO 95% coverage 92.39% vs 94.03%).
+  - `figures/paper_pack/`: Consolidated all 9 publication figures as vector `.pdf` and 300-DPI `.png` files with canonical naming `fig1` through `fig9`. Verified typography, explicit units, legibility at 8.5 cm and 17.5 cm, and Wong (2011) colorblind accessibility.
+  - `figures/paper_pack/MANIFEST.csv`: Index of figures, paper numbers, target sections, factual captions, and source result files.
+  - `figures/paper_pack/FIGURE_CHECK.md`: Detailed quality and formatting audit report.
+  - `results/PAPER_HANDOFF.md`: Self-contained handoff document (1,432 words) summarizing literature findings, re-verification rates, number check mismatches, and per-site LOSO distributions.
+
 - **Core Empirical Findings:**
   - Behavioral Tautology (Label Leakage): 15 of 16 (93.8%) tabular papers contain direct label-leaking questionnaire items, producing near-perfect accuracy (96%-100%) that collapses under leak-free controls. 0 of 17 (0.0%) neuroimaging papers contain label leakage.
   - Evaluation Protocols: 13 of 13 (100.0%) tabular and 10 of 17 (58.8%) neuroimaging papers use random cross-validation. Only 4 of 17 (23.5%) neuroimaging papers evaluate leave-one-site-out (LOSO) generalization.
