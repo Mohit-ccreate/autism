@@ -105,61 +105,84 @@
   </div>
 
   <main class="main-wrapper" id="main-content">
-    <!-- Navigation Tabs -->
+    <!-- Audience Persona Toggle (Refactored Navigation) -->
+    <div class="persona-selector-container">
+      <div class="persona-label">
+        <span>👤</span> <span>Audience Workspace:</span>
+      </div>
+      <div class="persona-toggle-group" role="radiogroup" aria-label="Audience View">
+        <button type="button" class="btn-persona active" data-persona="caregiver">
+          👨‍👩‍👧 Caregiver & Individual View
+        </button>
+        <button type="button" class="btn-persona" data-persona="clinician">
+          🩺 Clinician & Research Suite
+        </button>
+        <button type="button" class="btn-persona" data-persona="reference">
+          📚 Educational & Reference
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs (Grouped by Audience) -->
     <nav class="nav-tabs-container" role="tablist">
-      <button class="tab-btn active" data-tab="tab-screening" role="tab">
+      <!-- Caregiver & Individual Group -->
+      <button class="tab-btn active" data-tab="tab-screening" data-group="caregiver" role="tab">
         📋 <span id="nav-screening">Screening Questionnaire</span>
       </button>
-      <button class="tab-btn" data-tab="tab-results" role="tab">
+      <button class="tab-btn" data-tab="tab-results" data-group="caregiver" role="tab">
         📊 <span id="nav-results">Results & Explainability</span>
       </button>
-      <button class="tab-btn" data-tab="tab-profile" role="tab">
+      <button class="tab-btn" data-tab="tab-profile" data-group="caregiver" role="tab">
         🧩 <span id="nav-profile">Strengths & Support Profile</span>
       </button>
-      <button class="tab-btn" data-tab="tab-help" role="tab">
+      <button class="tab-btn" data-tab="tab-help" data-group="caregiver" role="tab">
         🏥 <span id="nav-help">Find Help (India & World)</span>
       </button>
-      <button class="tab-btn" data-tab="tab-history" role="tab">
-        🕒 <span id="nav-history">Local History</span>
-      </button>
-      <button class="tab-btn" data-tab="tab-learning" role="tab">
-        📚 <span id="nav-learning">Learning Hub</span>
-      </button>
-      <button class="tab-btn" data-tab="tab-clinician" role="tab">
+
+      <!-- Clinician & Research Suite Group -->
+      <button class="tab-btn" data-tab="tab-clinician" data-group="clinician" role="tab" style="display: none;">
         🩺 <span id="nav-clinician">Clinician Mode</span>
       </button>
-      <button class="tab-btn" data-tab="tab-brain-explorer" role="tab">
+      <button class="tab-btn" data-tab="tab-brain-explorer" data-group="clinician" role="tab" style="display: none;">
         🔬 <span id="nav-brain-explorer">Brain Explorer</span>
       </button>
-      <button class="tab-btn" data-tab="tab-arena" role="tab">
+      <button class="tab-btn" data-tab="tab-arena" data-group="clinician" role="tab" style="display: none;">
         ⚔️ <span id="nav-arena">Experiment Arena</span>
       </button>
-      <button class="tab-btn" data-tab="tab-disagreement" role="tab">
+      <button class="tab-btn" data-tab="tab-disagreement" data-group="clinician" role="tab" style="display: none;">
         🔀 <span id="nav-disagreement">Model vs Model</span>
       </button>
-      <button class="tab-btn" data-tab="tab-efficiency" role="tab">
-        📈 <span id="nav-efficiency">Data Efficiency</span>
-      </button>
-      <button class="tab-btn" data-tab="tab-robustness" role="tab">
-        🛡️ <span id="nav-robustness">Robustness & Controls</span>
-      </button>
-      <button class="tab-btn" data-tab="tab-negative" role="tab">
-        💡 <span id="nav-negative">What Didn't Work</span>
-      </button>
-      <button class="tab-btn" data-tab="tab-detector" role="tab">
+      <button class="tab-btn" data-tab="tab-detector" data-group="clinician" role="tab" style="display: none;">
         🛡️ <span id="nav-detector">Leakage Detector</span>
       </button>
-      <button class="tab-btn" data-tab="tab-leaderboard" role="tab">
+      <button class="tab-btn" data-tab="tab-leaderboard" data-group="clinician" role="tab" style="display: none;">
         🏆 <span id="nav-leaderboard">Honest Leaderboard</span>
       </button>
-      <button class="tab-btn" data-tab="tab-monitoring" role="tab">
+      <button class="tab-btn" data-tab="tab-monitoring" data-group="clinician" role="tab" style="display: none;">
         📡 <span id="nav-monitoring">Model Monitoring & Drift</span>
       </button>
-      <button class="tab-btn" data-tab="tab-transparency" role="tab">
+      <button class="tab-btn" data-tab="tab-batch" data-group="clinician" role="tab" style="display: none;">
+        📁 <span id="nav-batch">Batch CSV</span>
+      </button>
+
+      <!-- Educational & Reference Group -->
+      <button class="tab-btn" data-tab="tab-learning" data-group="reference" role="tab" style="display: none;">
+        📚 <span id="nav-learning">Learning Hub</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-robustness" data-group="reference" role="tab" style="display: none;">
+        🛡️ <span id="nav-robustness">Robustness & Controls</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-efficiency" data-group="reference" role="tab" style="display: none;">
+        📈 <span id="nav-efficiency">Data Efficiency</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-negative" data-group="reference" role="tab" style="display: none;">
+        💡 <span id="nav-negative">What Didn't Work</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-transparency" data-group="reference" role="tab" style="display: none;">
         ⚖️ <span id="nav-transparency">Transparency</span>
       </button>
-      <button class="tab-btn" data-tab="tab-batch" role="tab">
-        📁 <span id="nav-batch">Batch CSV</span>
+      <button class="tab-btn" data-tab="tab-history" data-group="reference" role="tab" style="display: none;">
+        🕒 <span id="nav-history">Local History</span>
       </button>
     </nav>
 
@@ -248,117 +271,161 @@
 
     <!-- Tab 2: Results & Explainability -->
     <section id="tab-results" class="tab-panel">
-      <!-- Answer Quality Warning Banner -->
-      <div id="data-quality-banner" style="display: none; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: var(--radius-md); padding: 0.85rem 1.25rem; margin-bottom: 1.5rem;">
-        <div style="display: flex; align-items: center; gap: 0.75rem;">
-          <span style="font-size: 1.4rem;">⚠️</span>
-          <div>
-            <strong style="color: #fde68a; font-size: 0.9rem;" id="data-quality-title">Data Quality Notice</strong>
-            <p style="font-size: 0.8rem; color: #fef3c7; margin-top: 0.2rem;" id="data-quality-desc">
-              Rapid completion or uniform answers detected. Confidence interval has been widened to account for response uncertainty.
-            </p>
-          </div>
-        </div>
+      <!-- Empty State Card (Visible when assessment is pending) -->
+      <div id="results-empty-state" class="results-empty-card">
+        <div class="results-empty-icon">📋</div>
+        <h3 class="results-empty-title">No Assessment Recorded Yet</h3>
+        <p class="results-empty-desc">
+          To view calibrated screening likelihood, personalized strengths insights, and explainability breakdowns, please complete the 10-question screening questionnaire or upload connectome data in research mode.
+        </p>
+        <button type="button" id="btn-start-screening-cta" class="btn-start-cta">
+          Start 10-Question Screening →
+        </button>
       </div>
 
-      <!-- Audience Perspective Switcher -->
-      <div class="glass-card" style="margin-bottom: 1.5rem; padding: 1rem 1.5rem;">
-        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-          <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="font-weight: 700; font-size: 0.9rem; color: #fff;">👁️ Report Perspective:</span>
-            <div style="display: flex; gap: 0.4rem;">
-              <button class="btn-control active perspective-btn" data-perspective="adult">Adult Self-Report</button>
-              <button class="btn-control perspective-btn" data-perspective="caregiver">Parent / Caregiver</button>
-              <button class="btn-control perspective-btn" data-perspective="clinician">Clinician / Specialist</button>
+      <!-- Calculated Results Container (Initially gated until assessment is completed) -->
+      <div id="results-calculated-container" style="display: none;">
+        <!-- Answer Quality Warning Banner -->
+        <div id="data-quality-banner" style="display: none; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: var(--radius-md); padding: 0.85rem 1.25rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span style="font-size: 1.4rem;">⚠️</span>
+            <div>
+              <strong style="color: #fde68a; font-size: 0.9rem;" id="data-quality-title">Data Quality Notice</strong>
+              <p style="font-size: 0.8rem; color: #fef3c7; margin-top: 0.2rem;" id="data-quality-desc">
+                Rapid completion or uniform answers detected. Confidence interval has been widened to account for response uncertainty.
+              </p>
             </div>
-          </div>
-          <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="font-size: 0.8rem; color: var(--text-secondary);">Response Integrity:</span>
-            <span id="badge-data-quality" class="badge badge-trained">✓ High Integrity (38s)</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid-2col">
-        <!-- Left: Calibrated Risk Gauge & Perspective Content -->
-        <div class="glass-card gauge-card">
-          <div class="card-header" style="width: 100%;">
-            <h3 class="card-title">
-              <span>📊</span> <span id="lbl-calibrated-gauge">Calibrated Screening Likelihood</span>
-            </h3>
-            <span class="badge badge-privacy">Conformal 90% Bound</span>
-          </div>
-
-          <div id="risk-gauge-circle" class="gauge-circle" style="--gauge-pct: 42;">
-            <div class="gauge-inner">
-              <span id="risk-gauge-value" class="gauge-value">42%</span>
-              <span id="risk-gauge-subtext" class="gauge-label">Screening Risk</span>
-            </div>
-          </div>
-
-          <div id="conformal-status-banner" class="conformal-banner conformal-certain">
-            <strong>Screening Assessment:</strong> <span id="txt-conformal-desc">Your answers indicate a trait pattern typical for preliminary screening.</span>
-          </div>
-
-          <div id="perspective-narrative-box" style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-secondary); text-align: left; width: 100%; line-height: 1.6; background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem;">
-          </div>
-
-          <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-secondary); text-align: left; width: 100%;">
-            <p><strong>95% Bootstrap Confidence Interval:</strong> <span id="txt-ci-range">[38.2% – 46.1%]</span></p>
-          </div>
-
-          <div style="margin-top: 1.25rem; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: var(--radius-md); padding: 1rem; text-align: left; width: 100%;">
-            <strong style="color: #c7d2fe; font-size: 0.85rem; display: flex; align-items: center; gap: 0.4rem;">
-              <span>ℹ️</span> What This Result Does NOT Mean:
-            </strong>
-            <ul style="font-size: 0.78rem; color: #e0e7ff; margin-top: 0.5rem; padding-left: 1.2rem; line-height: 1.5;">
-              <li>Does <strong>NOT</strong> confirm or rule out an autism diagnosis.</li>
-              <li>Does <strong>NOT</strong> indicate severity level (e.g. "Level 1/2/3") or cognitive ability.</li>
-              <li>Does <strong>NOT</strong> replace clinical developmental observation (ADOS-2, ADI-R).</li>
-              <li>Traits can overlap with ADHD, sensory sensitivity, giftedness, or social anxiety.</li>
-            </ul>
-          </div>
-
-          <div style="display: flex; gap: 0.5rem; width: 100%; margin-top: 1.5rem;">
-            <button id="btn-export-pdf" class="btn-control active" style="flex: 2; justify-content: center; padding: 0.75rem;">
-              📄 Doctor Summary (PDF)
-            </button>
-            <button id="btn-save-to-history" class="btn-control" style="flex: 1; justify-content: center; padding: 0.75rem;">
-              💾 Save
-            </button>
           </div>
         </div>
 
-        <!-- Right: Explainability, Counterfactual & What-If -->
-        <div class="glass-card">
-          <div class="card-header">
-            <h3 class="card-title">
-              <span>🔬</span> <span id="lbl-shap-importance">Explainability & Counterfactual Analysis</span>
-            </h3>
-            <span class="badge" style="background: rgba(99, 102, 241, 0.2); color: #a5b4fc;">SHAP + Perturbations</span>
+        <!-- Audience Perspective Switcher -->
+        <div class="glass-card" style="margin-bottom: 1.5rem; padding: 1rem 1.5rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="font-weight: 700; font-size: 0.9rem; color: #fff;">👁️ Report Perspective:</span>
+              <div style="display: flex; gap: 0.4rem;">
+                <button class="btn-control active perspective-btn" data-perspective="adult">Adult Self-Report</button>
+                <button class="btn-control perspective-btn" data-perspective="caregiver">Parent / Caregiver</button>
+                <button class="btn-control perspective-btn" data-perspective="clinician">Clinician / Specialist</button>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="font-size: 0.8rem; color: var(--text-secondary);">Response Integrity:</span>
+              <span id="badge-data-quality" class="badge badge-trained">✓ High Integrity (38s)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2col">
+          <!-- Left: Calibrated Risk Gauge & Perspective Content -->
+          <div class="glass-card gauge-card">
+            <!-- Observational Screening Aid Advisory Callout -->
+            <div class="screening-aid-advisory">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+                <span style="font-size: 1.1rem;">🩺</span>
+                <strong style="color: #c7d2fe; font-size: 0.85rem;">Observational Screening Aid Only</strong>
+              </div>
+              <p style="font-size: 0.78rem; color: #e0e7ff; line-height: 1.5; margin: 0;">
+                This assessment evaluates self-reported trait patterns against clinical screening baselines. It <strong>DOES NOT</strong> provide a medical diagnosis of Autism Spectrum Disorder. Clinical evaluation by a qualified specialist using standardized diagnostic instruments (such as ADOS-2 and ADI-R) is required for formal diagnosis.
+              </p>
+            </div>
+
+            <div class="card-header" style="width: 100%;">
+              <h3 class="card-title">
+                <span>📊</span> <span id="lbl-calibrated-gauge">Calibrated Screening Likelihood</span>
+              </h3>
+              <span class="badge badge-privacy" id="badge-conformal-reliability">Conformal 90% Bound</span>
+            </div>
+
+            <div id="risk-gauge-circle" class="gauge-circle" style="--gauge-pct: 42;">
+              <div class="gauge-inner">
+                <span id="risk-gauge-value" class="gauge-value">42%</span>
+                <span id="risk-gauge-subtext" class="gauge-label">Screening Risk</span>
+              </div>
+            </div>
+
+            <div id="conformal-status-banner" class="conformal-banner conformal-certain">
+              <strong>Screening Assessment:</strong> <span id="txt-conformal-desc">Your answers indicate a trait pattern typical for preliminary screening.</span>
+            </div>
+
+            <div id="perspective-narrative-box" style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-secondary); text-align: left; width: 100%; line-height: 1.6; background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem;">
+            </div>
+
+            <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-secondary); text-align: left; width: 100%;">
+              <p><strong>95% Bootstrap Confidence Interval:</strong> <span id="txt-ci-range">[38.2% – 46.1%]</span></p>
+            </div>
+
+            <div style="margin-top: 1.25rem; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: var(--radius-md); padding: 1rem; text-align: left; width: 100%;">
+              <strong style="color: #c7d2fe; font-size: 0.85rem; display: flex; align-items: center; gap: 0.4rem;">
+                <span>ℹ️</span> What This Result Does NOT Mean:
+              </strong>
+              <ul style="font-size: 0.78rem; color: #e0e7ff; margin-top: 0.5rem; padding-left: 1.2rem; line-height: 1.5;">
+                <li>Does <strong>NOT</strong> confirm or rule out an autism diagnosis.</li>
+                <li>Does <strong>NOT</strong> indicate severity level (e.g. "Level 1/2/3") or cognitive ability.</li>
+                <li>Does <strong>NOT</strong> replace clinical developmental observation (ADOS-2, ADI-R).</li>
+                <li>Traits can overlap with ADHD, sensory sensitivity, giftedness, or social anxiety.</li>
+              </ul>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; width: 100%; margin-top: 1.5rem;">
+              <button id="btn-export-pdf" class="btn-control active" style="flex: 2; justify-content: center; padding: 0.75rem;">
+                📄 Doctor Summary (PDF)
+              </button>
+              <button id="btn-save-to-history" class="btn-control" style="flex: 1; justify-content: center; padding: 0.75rem;">
+                💾 Save
+              </button>
+            </div>
           </div>
 
-          <div id="counterfactual-box" style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: var(--radius-md); padding: 0.9rem; margin-bottom: 1.25rem;">
-            <strong style="color: #67e8f9; font-size: 0.85rem;">🔄 Counterfactual Insight ("What Would Change This Result"):</strong>
-            <p id="counterfactual-text" style="font-size: 0.8rem; color: #cffafe; margin-top: 0.3rem;">
-              Analyzing minimum question flips required to change the screening classification...
+          <!-- Right: Explainability, Counterfactual & What-If -->
+          <div class="glass-card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <span>🔬</span> <span id="lbl-shap-importance">Explainability & Counterfactual Analysis</span>
+              </h3>
+              <span class="badge" id="badge-shap-counterfactual" style="background: rgba(99, 102, 241, 0.2); color: #a5b4fc;">SHAP + Perturbations</span>
+            </div>
+
+            <div id="counterfactual-box" style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: var(--radius-md); padding: 0.9rem; margin-bottom: 1.25rem;">
+              <strong style="color: #67e8f9; font-size: 0.85rem;">🔄 Counterfactual Insight ("What Would Change This Result"):</strong>
+              <p id="counterfactual-text" style="font-size: 0.8rem; color: #cffafe; margin-top: 0.3rem;">
+                Analyzing minimum question flips required to change the screening classification...
+              </p>
+            </div>
+
+            <div style="background: rgba(30, 41, 59, 0.5); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 0.9rem; margin-bottom: 1.25rem;">
+              <strong style="color: #fff; font-size: 0.85rem;">🎯 How Confident Is The Model and Why?</strong>
+              <div id="confidence-why-text" style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.4rem; line-height: 1.5;">
+                Loading model certainty profile...
+              </div>
+            </div>
+
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+              Interactive What-If Editor: Toggle answers below in real-time to observe counterfactual changes:
+            </p>
+
+            <div id="what-if-controls-container" class="what-if-cards-list">
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Details / Research Telemetry Expandable Accordion -->
+        <details class="technical-telemetry-accordion" id="telemetry-accordion">
+          <summary>
+            <span>🔬</span> <span>Technical Details / Research Telemetry (Click to Expand)</span>
+          </summary>
+          <div class="telemetry-body" id="telemetry-content">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 0.75rem;">
+              <div><strong>Method:</strong> Split-Conformal Predictor (LAC & APS)</div>
+              <div><strong>Coverage Guarantee:</strong> Nominal 90% (&alpha; = 0.10)</div>
+              <div><strong>Calibration:</strong> Platt Temperature Scaling</div>
+              <div><strong>Feature Set:</strong> Non-Tautological Baseline</div>
+            </div>
+            <p>
+              In our full benchmark audit ($N=854$, 20 clinical sites), uncalibrated models force a binary classification on all subjects. Conformal prediction constructs predictive sets $C_{\alpha}(x) \subseteq \{0, 1\}$ that satisfy valid finite-sample marginal coverage: $P(Y \in C_{\alpha}(X)) \ge 1 - \alpha$. When response uncertainty is high, the model outputs $\{0, 1\}$, referring the case for multidisciplinary specialist triage.
             </p>
           </div>
-
-          <div style="background: rgba(30, 41, 59, 0.5); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 0.9rem; margin-bottom: 1.25rem;">
-            <strong style="color: #fff; font-size: 0.85rem;">🎯 How Confident Is The Model and Why?</strong>
-            <div id="confidence-why-text" style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.4rem; line-height: 1.5;">
-              Loading model certainty profile...
-            </div>
-          </div>
-
-          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
-            Interactive What-If Editor: Toggle answers below in real-time to observe counterfactual changes:
-          </p>
-
-          <div id="what-if-controls-container" class="shap-bar-container">
-          </div>
-        </div>
+        </details>
       </div>
     </section>
 

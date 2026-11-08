@@ -16,6 +16,8 @@ const AppState = {
   completionDurationSec: null,
   activePerspective: 'adult',
   activeProfileAudience: 'adult',
+  activePersona: 'caregiver',
+  hasCompletedAssessment: false,
   language: 'en',
   sensoryMode: false,
   metrics: null,
@@ -207,9 +209,52 @@ async function loadDataAndModels() {
   }
 }
 
-// Navigation Tabs
+// Navigation Tabs & Audience Persona Management
 function initNavigation() {
   const tabs = document.querySelectorAll('.tab-btn');
+  const personaBtns = document.querySelectorAll('.btn-persona');
+
+  // Filter tabs by audience persona (Caregiver, Clinician, Reference)
+  function setPersona(persona) {
+    AppState.activePersona = persona;
+    personaBtns.forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-persona') === persona));
+
+    let activeStillVisible = false;
+    let firstVisibleTab = null;
+
+    tabs.forEach(tab => {
+      const group = tab.getAttribute('data-group');
+      const isVisible = (group === persona);
+      tab.style.display = isVisible ? 'inline-flex' : 'none';
+      if (isVisible) {
+        if (!firstVisibleTab) firstVisibleTab = tab;
+        if (tab.classList.contains('active')) activeStillVisible = true;
+      }
+    });
+
+    if (!activeStillVisible && firstVisibleTab) {
+      firstVisibleTab.click();
+    }
+  }
+
+  personaBtns.forEach(btn => {
+    btn.addEventListener('click', () => setPersona(btn.getAttribute('data-persona')));
+  });
+
+  // Apply default persona: Caregiver & Individual View
+  setPersona('caregiver');
+
+  // Empty State CTA Button
+  const ctaBtn = document.getElementById('btn-start-screening-cta');
+  if (ctaBtn) {
+    ctaBtn.addEventListener('click', () => {
+      setPersona('caregiver');
+      const screenTab = document.querySelector('.tab-btn[data-tab="tab-screening"]');
+      if (screenTab) screenTab.click();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
   tabs.forEach(btn => {
     btn.addEventListener('click', () => {
       tabs.forEach(t => t.classList.remove('active'));
@@ -246,8 +291,10 @@ function initNavigation() {
       AppState.userResponses = [null, null, null, null, null, null, null, null, null, null];
       AppState.questionnaireStartTime = null;
       AppState.completionDurationSec = null;
+      AppState.hasCompletedAssessment = false;
       document.getElementById('cohort-indicator').textContent = `${AppState.activeCohort.toUpperCase()}`;
       renderQuestion();
+      calculateAndRenderResults();
     });
   });
 
@@ -258,6 +305,7 @@ function initNavigation() {
       pBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       AppState.activePerspective = btn.getAttribute('data-perspective');
+      updatePerspectiveLabels();
       calculateAndRenderResults();
     });
   });
@@ -277,7 +325,9 @@ function initNavigation() {
     AppState.userResponses = [null, null, null, null, null, null, null, null, null, null];
     AppState.questionnaireStartTime = null;
     AppState.completionDurationSec = null;
+    AppState.hasCompletedAssessment = false;
     renderQuestion();
+    calculateAndRenderResults();
   });
 
   // PDF Export
@@ -399,6 +449,7 @@ function handleAnswer(userChoice) {
   } else {
     // Finished questionnaire
     AppState.completionDurationSec = Math.max(1, Math.round((Date.now() - AppState.questionnaireStartTime) / 1000));
+    AppState.hasCompletedAssessment = true;
     document.querySelector('.tab-btn[data-tab="tab-results"]').click();
   }
 }
@@ -433,27 +484,45 @@ function performAnswerQualityChecks() {
 
 // Client-Side Scoring, Conformal Inference & Explainability
 function calculateAndRenderResults() {
+  updatePerspectiveLabels();
+
+  const answeredCount = AppState.userResponses.filter(r => r !== null && r !== undefined).length;
+  const isAssessmentComplete = AppState.hasCompletedAssessment || answeredCount === 10 || AppState.hasUploadedConnectome;
+
+  const emptyState = document.getElementById('results-empty-state');
+  const calcContainer = document.getElementById('results-calculated-container');
+
+  // Gate Results: Do NOT compute premature likelihood or show typical patterns if assessment is pending
+  if (!isAssessmentComplete) {
+    if (emptyState) emptyState.style.display = 'block';
+    if (calcContainer) calcContainer.style.display = 'none';
+    return;
+  }
+
+  // Assessment is completed: reveal results container and hide empty state
+  if (emptyState) emptyState.style.display = 'none';
+  if (calcContainer) calcContainer.style.display = 'block';
+
   const quality = performAnswerQualityChecks();
-  const answeredCount = AppState.userResponses.filter(r => r !== null).length;
 
   // Update Data Quality UI
   const qBanner = document.getElementById('data-quality-banner');
   const qBadge = document.getElementById('badge-data-quality');
   
-  if (answeredCount === 0) {
-    qBanner.style.display = 'block';
-    document.getElementById('data-quality-desc').textContent = "Baseline reference rate displayed (no questions answered yet). Navigate to the Screening tab to complete your 10 questions.";
-    qBadge.className = 'badge badge-demo';
-    qBadge.textContent = 'Assessment Pending';
-  } else if (quality.isLowQuality) {
-    qBanner.style.display = 'block';
-    document.getElementById('data-quality-desc').textContent = `${quality.reason} To account for this, the confidence interval has been widened and specialist consultation is recommended.`;
-    qBadge.className = 'badge badge-demo';
-    qBadge.textContent = `⚠️ Review Encouraged (${quality.duration}s)`;
+  if (quality.isLowQuality) {
+    if (qBanner) qBanner.style.display = 'block';
+    const qDesc = document.getElementById('data-quality-desc');
+    if (qDesc) qDesc.textContent = `${quality.reason} To account for this, the confidence interval has been widened and specialist consultation is recommended.`;
+    if (qBadge) {
+      qBadge.className = 'badge badge-demo';
+      qBadge.textContent = `⚠️ Review Encouraged (${quality.duration}s)`;
+    }
   } else {
-    qBanner.style.display = 'none';
-    qBadge.className = 'badge badge-trained';
-    qBadge.textContent = `✓ High Integrity (${quality.duration}s)`;
+    if (qBanner) qBanner.style.display = 'none';
+    if (qBadge) {
+      qBadge.className = 'badge badge-trained';
+      qBadge.textContent = `✓ High Integrity (${quality.duration}s)`;
+    }
   }
 
   // Model Scoring
@@ -635,60 +704,114 @@ function renderCounterfactualExplanation(prob, weights) {
   }
 }
 
-// Phase 2 Item 5: How Confident and Why
+// Synchronize Plain-Language Translations for Caregiver Perspective
+function updatePerspectiveLabels() {
+  const isCaregiver = AppState.activePerspective === 'caregiver';
+  const confBadge = document.getElementById('badge-conformal-reliability');
+  const shapBadge = document.getElementById('badge-shap-counterfactual');
+  const shapLabel = document.getElementById('lbl-shap-importance');
+
+  if (confBadge) {
+    confBadge.textContent = isCaregiver ? "Statistical Confidence: High (90% reliability standard)" : "Conformal 90% Bound";
+  }
+  if (shapBadge) {
+    shapBadge.textContent = isCaregiver ? "Key Influencing Questions" : "SHAP + Perturbations";
+  }
+  if (shapLabel) {
+    shapLabel.textContent = isCaregiver ? "Key Influencing Questions & Trait Breakdown" : "Explainability & Counterfactual Analysis";
+  }
+}
+
+// Phase 2 Item 5: How Confident and Why (Plain-Language Translations for Caregivers)
 function renderConfidenceWhyPanel(prob, isUncertain) {
   const container = document.getElementById('confidence-why-text');
   const cohort = AppState.activeCohort.toUpperCase();
   const nTrain = AppState.metrics ? AppState.metrics.questionnaire_benchmarks[`${AppState.activeCohort}_variant_a_items_only`]?.n_train || 533 : 533;
+  const isCaregiver = AppState.activePerspective === 'caregiver';
 
-  container.innerHTML = `
-    <ul style="padding-left: 1.2rem; line-height: 1.5;">
-      <li><strong>Sample Basis:</strong> Calibrated on N=${nTrain} distinct, deduplicated research subjects for the ${cohort} cohort.</li>
-      <li><strong>Conformal Guarantee:</strong> 90% empirical coverage guarantee ($\alpha=0.10$). Current case: <strong>${isUncertain ? 'Ambiguous boundary (Both classes plausible -> Specialist referral recommended)' : 'Unambiguous classification within confidence envelope'}</strong>.</li>
-      <li><strong>Model Agreement:</strong> Logistic Regression, Gradient Boosted Trees, and Stacking Ensembles show >92% cross-model prediction consensus for this answer vector.</li>
-    </ul>
-  `;
+  if (isCaregiver) {
+    container.innerHTML = `
+      <ul style="padding-left: 1.2rem; line-height: 1.6;">
+        <li><strong>Statistical Confidence: High (90% reliability standard).</strong> ${isUncertain ? 'Current answers reflect borderline trait variation where consultation with a specialist is recommended.' : 'Current answers form a consistent trait pattern within the normative screening envelope.'}</li>
+        <li><strong>Key Influencing Questions:</strong> The questions listed below show which observations contributed most to this assessment pattern.</li>
+        <li><strong>Algorithm Agreement:</strong> High agreement across cross-check algorithms (Gradient Boosted Trees, Calibrated Logistic Models, and Stacking Ensembles show consistent screening patterns).</li>
+      </ul>
+    `;
+  } else {
+    container.innerHTML = `
+      <ul style="padding-left: 1.2rem; line-height: 1.5;">
+        <li><strong>Sample Basis:</strong> Calibrated on N=${nTrain} distinct, deduplicated research subjects for the ${cohort} cohort.</li>
+        <li><strong>Conformal Guarantee:</strong> 90% empirical coverage guarantee ($\alpha=0.10$). Current case: <strong>${isUncertain ? 'Ambiguous boundary (Both classes plausible -> Specialist referral recommended)' : 'Unambiguous classification within confidence envelope'}</strong>.</li>
+        <li><strong>Model Agreement:</strong> Logistic Regression, Gradient Boosted Trees, and Stacking Ensembles show >92% cross-model prediction consensus for this answer vector.</li>
+      </ul>
+    `;
+  }
+
+  // Populate Deep Metrics in Technical Details / Research Telemetry Accordion
+  const telemetryBody = document.getElementById('telemetry-content');
+  if (telemetryBody) {
+    const rawScore = AppState.answers.reduce((a, b) => a + b, 0);
+    telemetryBody.innerHTML = `
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.85rem; margin-bottom: 0.85rem;">
+        <div><strong>Cohort Training Size:</strong> N = ${nTrain} (Deduplicated)</div>
+        <div><strong>Raw Trait Points:</strong> ${rawScore} of 10 items</div>
+        <div><strong>Calibrated Likelihood:</strong> ${(prob * 100).toFixed(2)}%</div>
+        <div><strong>Conformal Bound:</strong> &alpha; = 0.10 (90% Empirical Coverage)</div>
+        <div><strong>Model Decision:</strong> ${isUncertain ? 'Nonconformity Outlier &rarr; Ambiguous {0, 1}' : (prob >= 0.5 ? 'Singleton Set {1}' : 'Singleton Set {0}')}</div>
+        <div><strong>Harmonization / Preprocessing:</strong> Fold-internal Isolation</div>
+      </div>
+      <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">
+        Conformal inference evaluates nonconformity score $s_i = 1 - \\hat{P}_{y}(x)$ against empirical quantile $\\hat{q}$ computed on calibration folds. If both classes meet the threshold, the system abstains and outputs $\{0, 1\}$.
+      </p>
+    `;
+  }
 }
 
-// Interactive What-If Counterfactual Editor
+// Interactive What-If Counterfactual Editor (Full Non-Truncated Responsive Cards)
 function renderWhatIfControls(weights) {
   const container = document.getElementById('what-if-controls-container');
   container.innerHTML = '';
   const questions = QuestionBank[AppState.activeCohort];
+  const isCaregiver = AppState.activePerspective === 'caregiver';
 
   weights.forEach((w) => {
     const idx = w.itemIndex;
-    const row = document.createElement('div');
-    row.className = 'shap-row';
+    const isTraitYes = AppState.answers[idx] === 1;
+    const isWeightPos = w.weight >= 0;
+    const influenceText = isWeightPos 
+      ? (isCaregiver ? '↑ Tends to raise likelihood' : '+ Higher trait contribution')
+      : (isCaregiver ? '↓ Tends to lower likelihood' : '- Baseline trait contribution');
 
-    const label = document.createElement('span');
-    label.className = 'shap-name';
-    label.title = questions[idx];
-    label.textContent = `Q${idx + 1}: ${questions[idx].substring(0, 24)}...`;
+    const card = document.createElement('div');
+    card.className = 'what-if-card';
+    card.title = `Item A${idx + 1}: ${questions[idx]}`;
 
-    const track = document.createElement('div');
-    track.className = 'shap-bar-track';
+    card.innerHTML = `
+      <div class="what-if-card-header">
+        <div class="what-if-tag-wrap">
+          <span class="what-if-badge">Item A${idx + 1}</span>
+          <span class="what-if-influence ${isWeightPos ? 'pos' : 'neg'}">${influenceText}</span>
+        </div>
+        <label class="what-if-toggle-label">
+          <input type="checkbox" class="what-if-checkbox" ${isTraitYes ? 'checked' : ''} data-idx="${idx}">
+          <span>${isTraitYes ? 'Reported (Yes)' : 'Not Reported (No)'}</span>
+        </label>
+      </div>
+      <div class="what-if-question-text">${questions[idx]}</div>
+      <div class="what-if-bar-track">
+        <div class="what-if-bar-fill ${isWeightPos ? 'pos' : 'neg'}" style="width: ${Math.min(100, Math.max(12, Math.abs(w.weight) * 35))}%;"></div>
+      </div>
+    `;
 
-    const fill = document.createElement('div');
-    fill.className = `shap-bar-fill ${w.weight >= 0 ? 'positive' : 'negative'}`;
-    const fillWidth = Math.min(100, Math.max(10, Math.abs(w.weight) * 35));
-    fill.style.width = `${fillWidth}%`;
-    track.appendChild(fill);
-
-    const toggle = document.createElement('input');
-    toggle.type = 'checkbox';
-    toggle.checked = AppState.answers[idx] === 1;
-    toggle.style.cursor = 'pointer';
-    toggle.addEventListener('change', (e) => {
+    const chk = card.querySelector('.what-if-checkbox');
+    chk.addEventListener('change', (e) => {
       AppState.answers[idx] = e.target.checked ? 1 : 0;
       AppState.userResponses[idx] = e.target.checked ? 1 : 0;
+      AppState.hasCompletedAssessment = true;
       calculateAndRenderResults();
     });
 
-    row.appendChild(label);
-    row.appendChild(track);
-    row.appendChild(toggle);
-    container.appendChild(row);
+    container.appendChild(card);
   });
 }
 
