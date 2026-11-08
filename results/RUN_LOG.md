@@ -195,6 +195,18 @@ Compiling paper_facts.json...
   - Data Splitting: Tabular Random CV = 13 of 13 (100.0%); Neuroimaging Random CV = 10 of 17 (58.8%), Site-wise (LOSO) = 4 of 17 (23.5%), Subject-wise = 3 of 17 (17.6%).
   - In-Fold Preprocessing: Tabular = 4 of 11 (36.4%); Neuroimaging = 11 of 16 (68.8%).
   - Calibration: 1 of 33 (3.0%).
-  - Uncertainty Quantification: 2 of 33 (6.1%).
-  - External Validation: 5 of 33 (15.2%).
+### 2026-11-08T16:20:00+05:30 — Anti-Gravity Dark Glassmorphism UI/UX Redesign
+- **Status:** SUCCESS
+- **Files Modified:** `webapp/index.html`, `webapp/style.css`, `CHANGELOG.md`, `PROGRESS.md`
+- **Enhancements Implemented:**
+  1. Horizontal Scrollbar Removal: Sub-tabs styled as floating pill container with `backdrop-filter: blur(12px)`, rounded-full pills, subtle border highlights, and native scrollbar suppressed via `scrollbar-width: none` and `::-webkit-scrollbar { display: none }`.
+  2. Header Density Reorganization: Secondary accessibility buttons moved into a top-right floating pill toolbar, giving title `NEURO-SCREEN AI` and status badges breathing room.
+  3. Anti-Gravity Floating Depth Cards: `.glass-card` styled with `radial-gradient(135% 135% at 50% 0%, rgba(30, 41, 59, 0.45) 0%, rgba(15, 23, 42, 0.6) 100%)`, 1px subtle glass borders, elevation shadows (`box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7)`), and smooth hover lift (`transform: translateY(-3px)`).
+  4. Age Cohort Redesign: Floating segmented tiles with active cyan glow outline (`box-shadow: 0 0 20px rgba(56, 189, 248, 0.25)`).
+  5. Question Presentation & Tactile Answers: Crisp prominent question text (`1.25rem`, `#F8FAFC`, `font-weight: 600`), wide tactile glass answer cards with emerald hover/active glow for Agree (`#btn-ans-agree`) and indigo/slate glow for Disagree (`#btn-ans-disagree`).
+  6. 3D Neural Connectome Stage: Holographic viewport cyber-glow (`radial-gradient(circle at center, rgba(56, 189, 248, 0.12) 0%, rgba(10, 15, 30, 0.8) 75%)`, `border: 1px solid rgba(56, 189, 248, 0.25)`), and animated pulsing live indicator badge (`● CC200 Atlas Live`).
+  7. Refined Clinical Safety Banner: Restyled `.clinical-disclaimer-banner` into a low-profile amber glass callout.
+  8. Sensory-Friendly Invariants: Disabled hover transform and animations under `body.sensory-friendly`.
+- **Quality Gates:** 40/40 pytest tests pass, `node --check webapp/app.js` returns 0 syntax errors, web server returns HTTP 200 OK.
+
 

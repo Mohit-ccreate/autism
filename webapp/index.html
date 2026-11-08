@@ -44,55 +44,60 @@
     </div>
   </div>
 
-  <!-- Accessibility Toolbar (Phase 3 Item 11) -->
-  <aside class="accessibility-bar" aria-label="Accessibility Options">
-    <span style="color: var(--text-muted);">♿ Accessibility:</span>
-    <button id="btn-dyslexia-font" class="btn-control" style="padding: 0.2rem 0.5rem; font-size: 0.7rem;">Dyslexia Font</button>
-    <button id="btn-high-contrast" class="btn-control" style="padding: 0.2rem 0.5rem; font-size: 0.7rem;">High Contrast</button>
-    <button id="btn-text-size" class="btn-control" style="padding: 0.2rem 0.5rem; font-size: 0.7rem;">Text Size: Normal</button>
-    <button id="btn-read-aloud" class="btn-control" style="padding: 0.2rem 0.5rem; font-size: 0.7rem;">🔊 Read Aloud</button>
-  </aside>
-
   <!-- Header -->
   <header class="app-header">
     <div class="header-container">
-      <div class="logo-section">
-        <div class="logo-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
-            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0V7a1.5 1.5 0 0 1 3 0z"/>
-          </svg>
+      <div class="header-branding-block">
+        <div class="logo-section">
+          <div class="logo-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0V7a1.5 1.5 0 0 1 3 0z"/>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <h1>NEURO-SCREEN AI</h1>
+            <span id="txt-sub-header">ASD Honest Clinical Screening Research Platform</span>
+          </div>
         </div>
-        <div class="logo-text">
-          <h1>NEURO-SCREEN AI</h1>
-          <span id="txt-sub-header">ASD Honest Clinical Screening Research Platform</span>
+
+        <div class="header-badges">
+          <span id="badge-model-status" class="badge badge-trained">
+            <span class="status-dot">●</span> <span id="txt-model-badge">TRAINED MODEL (2026-09-30)</span>
+          </span>
+          <span class="badge badge-privacy">
+            🔒 <span id="txt-privacy-badge">100% Local Browser Privacy</span>
+          </span>
         </div>
       </div>
 
-      <div class="header-badges">
-        <span id="badge-model-status" class="badge badge-trained">
-          <span class="status-dot">●</span> <span id="txt-model-badge">TRAINED MODEL (2026-09-30)</span>
-        </span>
-        <span class="badge badge-privacy">
-          🔒 <span id="txt-privacy-badge">100% Local Browser Privacy</span>
-        </span>
-      </div>
+      <!-- Clean Floating Utility Group at Top-Right -->
+      <div class="header-floating-utilities">
+        <!-- Floating accessibility pill toolbar -->
+        <aside class="accessibility-bar" aria-label="Accessibility Options">
+          <span class="accessibility-label" title="Accessibility Tools">♿</span>
+          <button id="btn-dyslexia-font" class="btn-control access-btn" title="Toggle Dyslexia Font">Dyslexia Font</button>
+          <button id="btn-high-contrast" class="btn-control access-btn" title="Toggle High Contrast">High Contrast</button>
+          <button id="btn-text-size" class="btn-control access-btn" title="Cycle Font Size">Text Size: Normal</button>
+          <button id="btn-read-aloud" class="btn-control access-btn" title="Screen Reader Voice">🔊 Read Aloud</button>
+        </aside>
 
-      <div class="header-controls">
-        <a href="neurotriage.html" class="btn-control" style="background: linear-gradient(135deg, #00F2FE, #7F00FF); color: #0A0E17; font-weight: 800; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 0.8rem; border-radius: 6px; box-shadow: 0 0 15px rgba(0,242,254,0.3); font-size: 0.78rem;">
-          ⚡ Launch NeuroTriage ML
-        </a>
-        <button id="btn-sensory-mode" class="btn-control" title="Toggle Calm / Sensory-Friendly Mode">
-          🕊️ <span id="txt-sensory-mode">Sensory Mode</span>
-        </button>
-        <div style="display: flex; flex-direction: column; align-items: flex-end;">
-          <select id="select-lang" class="select-control" aria-label="Select Language">
-            <option value="en">English (EN)</option>
-            <option value="hi">हिन्दी (Hindi)</option>
-            <option value="mr">मराठी (Marathi)</option>
-            <option value="es">Español (ES)</option>
-            <option value="ar">العربية (Arabic - RTL)</option>
-          </select>
-          <span id="translation-disclaimer-note" style="font-size: 0.62rem; color: var(--text-muted); display: none;">*Needs native clinical review</span>
+        <div class="header-controls">
+          <a href="neurotriage.html" class="btn-control" style="background: linear-gradient(135deg, #00F2FE, #7F00FF); color: #0A0E17; font-weight: 800; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 0.8rem; border-radius: 6px; box-shadow: 0 0 15px rgba(0,242,254,0.3); font-size: 0.78rem;">
+            ⚡ Launch NeuroTriage ML
+          </a>
+          <button id="btn-sensory-mode" class="btn-control" title="Toggle Calm / Sensory-Friendly Mode">
+            🕊️ <span id="txt-sensory-mode">Sensory Mode</span>
+          </button>
+          <div style="display: flex; flex-direction: column; align-items: flex-end;">
+            <select id="select-lang" class="select-control" aria-label="Select Language">
+              <option value="en">English (EN)</option>
+              <option value="hi">हिन्दी (Hindi)</option>
+              <option value="mr">मराठी (Marathi)</option>
+              <option value="es">Español (ES)</option>
+              <option value="ar">العربية (Arabic - RTL)</option>
+            </select>
+            <span id="translation-disclaimer-note" style="font-size: 0.62rem; color: var(--text-muted); display: none;">*Needs native clinical review</span>
+          </div>
         </div>
       </div>
     </div>
@@ -252,6 +257,9 @@
           </div>
 
           <div id="brain-container" class="brain-canvas-container">
+            <div class="cc200-live-badge">
+              <span class="pulse-green-dot">●</span> CC200 Atlas Live
+            </div>
             <div class="brain-overlay-hud">
               <div class="hud-tag">
                 <span>Active Model: </span><strong id="hud-model-name">Leave-One-Site-Out Baseline</strong>

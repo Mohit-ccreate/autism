@@ -236,5 +236,30 @@ This section details all modifications, new modules, metric diffs, and forensic 
   - `webapp/index.html`: Added quick-launch navigation link to NeuroTriage ML in the header bar.
 - **Verification:** All 40 pytest tests pass, `node --check webapp/neurotriage.js` verified syntax with zero errors, clinical non-diagnostic language rules verified, and HTTP 200 response confirmed at `http://localhost:8000/neurotriage.html`.
 
+---
+
+## 8. Anti-Gravity Dark Glassmorphism UI/UX Redesign
+
+- **Date:** 2026-11-08
+- **Deliverables Added/Modified:**
+  - `webapp/index.html`:
+    - Reorganized header layout into distinct branding and floating utility clusters; moved accessibility bar (`#btn-dyslexia-font`, `#btn-high-contrast`, `#btn-text-size`, `#btn-read-aloud`) into a clean floating utility group at top-right, giving the platform title and model/privacy badges ample breathing room.
+    - Added floating live status mini-badge (`<div class="cc200-live-badge"><span class="pulse-green-dot">●</span> CC200 Atlas Live</div>`) inside `#brain-container`.
+    - Preserved 100% of underlying DOM IDs and test invariants across phases 1-5.
+  - `webapp/style.css`:
+    - Removed horizontal scrollbar on `.nav-tabs-container` (`scrollbar-width: none;`, `::-webkit-scrollbar { display: none; }`) and restyled sub-tabs into a floating pill container with `backdrop-filter: blur(12px)`, rounded-full pills, and subtle border highlights.
+    - Implemented "Anti-Gravity" glassmorphism depth cards (`.glass-card`): radial depth gradients, 1px subtle glass borders, layered elevation drop shadows (`box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7)`), and smooth hover lift micro-interactions (`transform: translateY(-3px)`).
+    - Overhauled age cohort selector into segmented floating tiles with active cyan glow outline (`box-shadow: 0 0 20px rgba(56, 189, 248, 0.25)`).
+    - Refactored question card typography: crisp, high-contrast, prominent question presentation (`font-weight: 600`, color `#F8FAFC`, `font-size: 1.25rem`, `line-height: 1.5`).
+    - Engineered wide tactile glass answer action cards (`.btn-answer`): emerald hover/active glow for Agree (`#btn-ans-agree`) and indigo/slate hover/active glow for Disagree (`#btn-ans-disagree`).
+    - Upgraded 3D neural connectome stage (`#brain-container`): holographic viewport with radial cyber-glow (`radial-gradient(circle at center, rgba(56, 189, 248, 0.12) 0%, rgba(10, 15, 30, 0.8) 75%)`, `border: 1px solid rgba(56, 189, 248, 0.25)`), and animated pulsing green live indicator.
+    - Restyled clinical safety banner (`.clinical-disclaimer-banner`) into a refined, low-profile amber glass callout.
+    - Enforced motion and transform cancellation under `body.sensory-friendly` to safeguard users with sensory sensitivities.
+- **Verification:**
+  - Automated tests: 40/40 pytest tests passing (`python -m pytest tests/ -v`).
+  - JavaScript syntax: `node --check webapp/app.js` confirmed 0 errors.
+  - Live server: `http://localhost:8000/index.html` confirmed HTTP 200 OK.
+
+
 
 

@@ -21,6 +21,7 @@
 | **Correction Pass G** | Literature Meta-Audit ($N=33$ published papers, 18-col audit, summary JSON/figures) | ✅ DONE | 2026-11-07 |
 | **Correction Pass H** | Blind Re-Verification, Number Cross-Check ($50$ claims, $6$ mismatches), Figure Pack (`fig1`-`fig9`), & Paper Handoff | ✅ DONE | 2026-11-07 |
 | **Correction Pass I** | NeuroTriage ML Ultra-Modern Web Application (3D Connectome, Screener, Conformal Triage, Benchmark Charts, 14-Item Checklist) | ✅ DONE | 2026-11-08 |
+| **Correction Pass J** | "Anti-Gravity" Dark Glassmorphism UI/UX Redesign (Killed scrollbar, floating pills, elevation cards, CC200 live badge) | ✅ DONE | 2026-11-08 |
 
 ---
 
