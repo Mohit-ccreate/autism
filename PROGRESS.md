@@ -20,6 +20,7 @@
 | **Correction Pass F** | Quality Gates (40 passing automated tests; clean reproducibility) | ✅ DONE | 2026-11-07 |
 | **Correction Pass G** | Literature Meta-Audit ($N=33$ published papers, 18-col audit, summary JSON/figures) | ✅ DONE | 2026-11-07 |
 | **Correction Pass H** | Blind Re-Verification, Number Cross-Check ($50$ claims, $6$ mismatches), Figure Pack (`fig1`-`fig9`), & Paper Handoff | ✅ DONE | 2026-11-07 |
+| **Correction Pass I** | NeuroTriage ML Ultra-Modern Web Application (3D Connectome, Screener, Conformal Triage, Benchmark Charts, 14-Item Checklist) | ✅ DONE | 2026-11-08 |
 
 ---
 
@@ -155,6 +156,10 @@ python -m pytest tests/ -v
 
 # 11. Launch Streamlit interactive research platform
 streamlit run app/Home.py
+
+# 12. Launch ultra-modern NeuroTriage ML webapp (http://localhost:8000/neurotriage.html)
+python -m http.server 8000 --directory webapp
 ```
+
 
 

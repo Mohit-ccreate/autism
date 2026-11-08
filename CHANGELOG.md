@@ -224,4 +224,17 @@ This section details all modifications, new modules, metric diffs, and forensic 
   - Calibration & Uncertainty: Only 1 of 33 (3.0%) papers reports probability calibration, and only 2 of 33 (6.1%) report predictive uncertainty. 31 of 33 (93.9%) provide uncalibrated, point-prediction outputs with no abstention capability.
   - External Validation: Only 5 of 33 (15.2%) test on independent external cohorts.
 
+---
+
+## 7. NeuroTriage ML Application Deployment
+
+- **Date:** 2026-11-08
+- **Deliverables Added/Modified:**
+  - `webapp/neurotriage.html`: Ultra-modern dark obsidian application featuring interactive 3D Three.js connectome lattice (200 Craddock ROIs), live behavioral screener with real-time tautology audit toggle, connectome triage with conformal prediction set displays, 4 Chart.js benchmark graphs, and a 14-item methodological compliance checklist.
+  - `webapp/neurotriage.css`: Obsidian theme system (`#0A0E17`), glassmorphic panels, electric cyan accents (`#00F2FE`), violet glow, and emerald/rose/amber medical status indicators.
+  - `webapp/neurotriage.js`: Core client-side engine supporting 3D WebGL particle lattice with mouse inertia, real-time AQ-10 psychometric scoring, feature ablation simulator, conformal sets $\{0\}, \{1\}, \{0, 1\}$ at $\alpha = 0.10$, and dynamic integrity score gauge.
+  - `webapp/index.html`: Added quick-launch navigation link to NeuroTriage ML in the header bar.
+- **Verification:** All 40 pytest tests pass, `node --check webapp/neurotriage.js` verified syntax with zero errors, clinical non-diagnostic language rules verified, and HTTP 200 response confirmed at `http://localhost:8000/neurotriage.html`.
+
+
 

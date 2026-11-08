@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeuroTriage ML — Methodological Audit & Reproducible Benchmark for Autism Screening</title>
+  
+  <!-- Modern Typography from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Dedicated Obsidian Stylesheet -->
+  <link rel="stylesheet" href="neurotriage.css">
+
+  <!-- Local Offline-Ready Vendor Libraries -->
+  <script src="vendor/three.min.js"></script>
+  <script src="vendor/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.4z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-title">NeuroTriage ML</div>
+      </div>
+      <span class="brand-tag">v2.4 Audit Edition</span>
+    </div>
+
+    <div class="nav-links">
+      <a href="https://github.com/Mohit-ccreate/autism" target="_blank" rel="noopener noreferrer" class="btn-nav">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        GitHub Repository
+      </a>
+      <a href="index.html" class="btn-nav">
+        Clinical PWA View
+      </a>
+      <a href="#tab-checklist" onclick="document.querySelector('[data-tab=\'tab-checklist\']').click()" class="btn-nav btn-primary">
+        Run 14-Item Audit
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Interactive 3D Three.js Connectome Lattice -->
+  <section class="hero-section">
+    <!-- WebGL 3D Brain Lattice Canvas -->
+    <canvas id="canvas-connectome"></canvas>
+
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <div class="pulse-dot"></div>
+          <span>Craddock-200 Resting-State Connectome • Leave-One-Site-Out (LOSO) Validated</span>
+        </div>
+        
+        <h1 class="hero-heading">
+          Methodological Audit & <br>
+          <span class="gradient-cyan">Uncertainty-Aware</span> <span class="gradient-violet">Triage</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Auditing behavioral label tautologies, measuring scanner hardware confounding, and replacing fragile point predictions with calibrated conformal decision sets across 20 multi-center clinical cohorts.
+        </p>
+
+        <!-- Live System Metric Badges -->
+        <div class="hero-metrics-ribbon">
+          <div class="ribbon-card">
+            <div class="ribbon-label">Full ABIDE I Cohort</div>
+            <div class="ribbon-val mono">N = 854</div>
+            <div class="ribbon-sub">20 Multi-Center Sites</div>
+          </div>
+          <div class="ribbon-card">
+            <div class="ribbon-label">Craddock Atlas ROIs</div>
+            <div class="ribbon-val mono">200 Nodes</div>
+            <div class="ribbon-sub">19,900 Fisher z-Edges</div>
+          </div>
+          <div class="ribbon-card">
+            <div class="ribbon-label">Scanner Site Probe</div>
+            <div class="ribbon-val mono">64.87%</div>
+            <div class="ribbon-sub">vs 19.91% Base Rate</div>
+          </div>
+          <div class="ribbon-card">
+            <div class="ribbon-label">Conformal Coverage</div>
+            <div class="ribbon-val mono">90.0%</div>
+            <div class="ribbon-sub">Nominal α = 0.10</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3D Connectome Floating HUD Controls -->
+      <div class="brain-hud">
+        <div class="hud-header">
+          <div class="hud-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            Interactive 3D Connectome
+          </div>
+          <span style="font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono);">200 ROIs</span>
+        </div>
+
+        <div class="hud-node-info">
+          <div class="hud-node-name" id="hud-node-name">Hover over brain node to inspect</div>
+          <div id="hud-node-meta" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.72rem;">
+            MNI: [—, —, —] | Network: DMN / Salience | Hub Degree: —
+          </div>
+        </div>
+
+        <div class="hud-controls-row">
+          <button type="button" class="btn-hud-pill" id="btn-hud-pause">Pause Orbit</button>
+          <button type="button" class="btn-hud-pill" id="btn-hud-density">Edges: Dense</button>
+          <button type="button" class="btn-hud-pill" id="btn-hud-reset">Reset View</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Interactive Application Workspace -->
+  <main class="main-wrapper">
+
+    <!-- Workspace Tabs Navigation -->
+    <nav class="tab-nav" aria-label="Workspace Modules">
+      <button type="button" class="tab-btn active" data-tab="tab-screener">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Tab A: Behavioral Screener (Tautology Audit)
+      </button>
+
+      <button type="button" class="tab-btn" data-tab="tab-connectome">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+        Tab B: Connectome Triage (Conformal Decision Support)
+      </button>
+
+      <button type="button" class="tab-btn" data-tab="tab-charts">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <line x1="18" y1="20" x2="18" y2="10"></line>
+          <line x1="12" y1="20" x2="12" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="14"></line>
+        </svg>
+        Empirical Benchmark Dashboard
+      </button>
+
+      <button type="button" class="tab-btn" data-tab="tab-checklist">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        14-Item Methodological Checklist
+      </button>
+    </nav>
+
+    <!-- ======================================================================
+         TAB A: LIVE BEHAVIORAL QUESTIONNAIRE SCREENER (TAUTOLOGY AUDIT)
+         ====================================================================== -->
+    <div class="tab-pane active" id="tab-screener">
+      
+      <!-- Critical Tautology Warning Banner -->
+      <div class="tautology-warning-banner">
+        <div class="warning-icon">⚠️</div>
+        <div class="warning-text">
+          <h3>Methodological Tautology Warning: Label Leakage in Behavioral Datasets</h3>
+          <p>
+            In published machine learning papers on the UCI and Kaggle autism questionnaire datasets, the target label was simply an arithmetic step function of the questionnaire item scores (<span class="mono">$\sum_{i=1}^{10} A_i \ge 7 \iff \text{Screen-Positive}$</span>). Complex neural networks and gradient boosting models achieve trivial 99%–100% accuracy because they are simply reconstructing this addition rule.
+          </p>
+          <div class="tautology-toggle-row">
+            <label class="switch-label">
+              <input type="checkbox" id="chk-tautology-mode" class="switch-input" checked>
+              <div class="switch-track">
+                <div class="switch-thumb"></div>
+              </div>
+              <span id="tautology-status-label" style="color: var(--accent-cyan); font-family: var(--font-mono); font-size: 0.82rem;">
+                Items A1–A10 Included (Tautological Mode)
+              </span>
+            </label>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">
+              (Switch to "Demographics Only" to observe the real-time empirical collapse to chance AUROC 0.5050 [0.447, 0.580]).
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-panel">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2>Live Behavioral Questionnaire Screener</h2>
+            <p>Interactive AQ-10 item responses with real-time scoring and dual rule comparison.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button type="button" class="btn-nav" id="btn-preset-high">Load High-Score (8/10)</button>
+            <button type="button" class="btn-nav" id="btn-preset-border">Load Cut-Off (7/10)</button>
+            <button type="button" class="btn-nav" id="btn-preset-low">Load Low-Score (2/10)</button>
+          </div>
+        </div>
+
+        <!-- Demographics Input Bar -->
+        <div class="screener-demographics-bar">
+          <div class="input-group">
+            <label for="range-age">Participant Age</label>
+            <div class="range-wrap">
+              <input type="range" id="range-age" class="input-range" min="1" max="60" value="28">
+              <span class="range-val" id="val-age">28</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="select-sex">Assigned Sex</label>
+            <select id="select-sex" class="input-select">
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+              <option value="O">Other / Diverse</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label for="select-fam-history">Family History of ASD</label>
+            <select id="select-fam-history" class="input-select">
+              <option value="no">No Documented History</option>
+              <option value="yes">First-Degree Relative</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label for="select-instrument">Questionnaire Protocol</label>
+            <select id="select-instrument" class="input-select">
+              <option value="aq10">AQ-10 (Adult / Child Cut-Off ≥ 7)</option>
+              <option value="qchat10">Q-CHAT-10 (Toddler Cut-Off ≥ 4)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 10-Item Binary Toggle Cards Grid -->
+        <div class="questions-grid" id="questions-grid">
+          <!-- Injected dynamically by neurotriage.js -->
+        </div>
+
+        <!-- Live Dual Comparison Results Box -->
+        <div class="live-screener-results">
+          <!-- Rule 1: Clinical Hand Rule -->
+          <div class="result-badge-card neutral" id="card-hand-rule">
+            <div class="badge-card-title">Standard Clinical Hand Rule (Allison et al.)</div>
+            <div class="badge-status-pill status-amb" id="badge-hand-rule">CALCULATING...</div>
+            <div class="badge-detail-row">
+              <span>Arithmetic Item Sum:</span>
+              <strong class="mono" id="txt-hand-sum" style="color: #FFF;">Score: 0/10 (Cut-off ≥ 7)</strong>
+            </div>
+            <div class="badge-detail-row">
+              <span>Decision Criterion:</span>
+              <span>Deterministic Step Function</span>
+            </div>
+          </div>
+
+          <!-- Rule 2: Simulated Classifier Output -->
+          <div class="result-badge-card neutral" id="card-ml-output">
+            <div class="badge-card-title">Simulated Machine Learning Screener</div>
+            <div class="badge-status-pill status-amb" id="badge-ml-output">CALCULATING...</div>
+            <div class="badge-detail-row">
+              <span>Calibrated Screening Probability:</span>
+              <strong class="mono" id="txt-ml-prob" style="color: var(--accent-cyan); font-size: 1.1rem;">—</strong>
+            </div>
+            <div class="badge-detail-row">
+              <span>Audit Context:</span>
+              <span id="txt-ml-note" style="font-size: 0.75rem;">Evaluating...</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         TAB B: CONNECTOME TRIAGE & CONFORMAL PREDICTION
+         ====================================================================== -->
+    <div class="tab-pane" id="tab-connectome">
+      <div class="card-panel">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2>Neuroimaging Connectome Triage (Craddock-200 Atlas)</h2>
+            <p>Evaluating resting-state fMRI functional connectivity under Leave-One-Site-Out (LOSO) distribution shift.</p>
+          </div>
+          <span class="brand-tag">N = 854 • 20 Sites</span>
+        </div>
+
+        <div style="background: rgba(10, 14, 23, 0.4); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 2rem; font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
+          <strong style="color: var(--accent-cyan);">Computational Context:</strong> High-dimensional 4D fMRI scans (Craddock-200 atlas yielding $\frac{200 \times 199}{2} = 19,900$ Fisher $z$-transformed correlation edges) require specialized cluster preprocessing pipelines. The module below evaluates precomputed validated participant vectors and demonstrates conformal prediction sets $\{0\}, \{1\}, \{0, 1\}$ at nominal $90\%$ confidence ($\alpha = 0.10$).
+        </div>
+
+        <div class="connectome-grid">
+          <!-- Left Column: Patient Presets & Upload Zone -->
+          <div>
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: #FFF; margin-bottom: 0.85rem;">
+              1. Select Precomputed Patient Profile / Site
+            </h3>
+
+            <div class="preset-card-list">
+              <div class="preset-item active" data-preset="nyu">
+                <div class="preset-meta">
+                  <h4>Site NYU Langone (Typical ASD Case)</h4>
+                  <p>Siemens 3.0T Allegra • High DMN hyper-connectivity</p>
+                </div>
+                <span class="mono" style="color: var(--status-positive); font-weight: 700;">ASD Profile</span>
+              </div>
+
+              <div class="preset-item" data-preset="stanford">
+                <div class="preset-meta">
+                  <h4>Site Stanford Medical (Typical Control)</h4>
+                  <p>GE 3.0T Signa • Balanced frontoparietal connectivity</p>
+                </div>
+                <span class="mono" style="color: var(--status-negative); font-weight: 700;">Control Profile</span>
+              </div>
+
+              <div class="preset-item" data-preset="ohsu">
+                <div class="preset-meta">
+                  <h4>Site OHSU (Borderline / Out-of-Distribution)</h4>
+                  <p>Siemens 3.0T Tim Trio • Extreme scanner site shift</p>
+                </div>
+                <span class="mono" style="color: var(--status-ambiguous); font-weight: 700;">High Variance</span>
+              </div>
+
+              <div class="preset-item" data-preset="synthetic">
+                <div class="preset-meta">
+                  <h4>Synthetic Ambiguous Case</h4>
+                  <p>Equidistant Centroid Connectome • Nonconformity outlier</p>
+                </div>
+                <span class="mono" style="color: var(--text-muted); font-weight: 700;">Ambiguous</span>
+              </div>
+            </div>
+
+            <!-- Upload Connectome Zone -->
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: #FFF; margin-bottom: 0.85rem;">
+              Or Upload Patient Connectome (CSV / NPY)
+            </h3>
+            <div class="upload-zone" id="connectome-dropzone">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <div style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);" id="upload-status-text">
+                Drop 200x200 Correlation Matrix or 19,900 Fisher Vector
+              </div>
+              <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.25rem;">
+                Supports .csv, .npy, and .json connectome formats (100% private in-browser)
+              </div>
+              <input type="file" id="connectome-file-input" style="display: none;" accept=".csv,.npy,.json">
+            </div>
+
+            <!-- Model Family Selector -->
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: #FFF; margin: 1.5rem 0 0.85rem;">
+              2. Classifier Architecture
+            </h3>
+            <div class="model-selector-grid">
+              <button type="button" class="btn-model-select active" data-model="rf">Random Forest (0.7003 AUROC)</button>
+              <button type="button" class="btn-model-select" data-model="lgbm">LightGBM (0.6992 AUROC)</button>
+              <button type="button" class="btn-model-select" data-model="ae">Autoencoder (0.6820 AUROC)</button>
+              <button type="button" class="btn-model-select" data-model="svm">Linear SVM (0.6765 AUROC)</button>
+              <button type="button" class="btn-model-select" data-model="lr">Logistic Reg (0.6593 AUROC)</button>
+              <button type="button" class="btn-model-select" data-model="et">Extra Trees (0.6867 AUROC)</button>
+            </div>
+          </div>
+
+          <!-- Right Column: Conformal Decision Support Output -->
+          <div class="triage-output-panel">
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: #FFF;">
+              Conformal Prediction & Three-Way Triage Output
+            </h3>
+
+            <!-- 3-Way Triage Hero Status Banner -->
+            <div class="triage-hero-status screen-pos" id="triage-status-box">
+              <div class="triage-status-title" id="triage-status-title">Screen-Positive (Elevated Likelihood)</div>
+              <div class="triage-status-desc" id="triage-status-desc">
+                High posterior cingulate hyper-connectivity pattern. Singleton set at 90% confidence.
+              </div>
+            </div>
+
+            <!-- Mathematical Conformal Set Box -->
+            <div class="conformal-set-box">
+              <div>
+                <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 0.25rem;">
+                  Conformal Prediction Set (α = 0.10)
+                </div>
+                <div class="conformal-math" id="conformal-math-set">C_0.10(x) = {1}</div>
+              </div>
+              <div class="conformal-badge">90.0% Coverage Guarantee</div>
+            </div>
+
+            <!-- Key Metrics Grid -->
+            <div class="triage-metrics-row">
+              <div class="metric-stat-box">
+                <div class="val" id="triage-val-prob">84.2%</div>
+                <div class="lbl">Calibrated Posterior $P(\text{ASD} \mid x)$</div>
+              </div>
+              <div class="metric-stat-box">
+                <div class="val" id="triage-val-nonconf">0.158</div>
+                <div class="lbl">Nonconformity Score $s_i$</div>
+              </div>
+              <div class="metric-stat-box">
+                <div class="val" id="triage-val-burden">59.5%</div>
+                <div class="lbl">Empirical Referral Burden</div>
+              </div>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 1rem; font-size: 0.78rem; color: var(--text-secondary); line-height: 1.55;">
+              <strong style="color: #FFF;">Clinical Safety Principle:</strong> Under Leave-One-Site-Out (LOSO) deployment, uncalibrated models force a binary classification on every subject, resulting in high misclassification rates. Our three-way triage policy abstains on ambiguous cases (yielding $\{0, 1\}$), referring 59.5% of cases for expert specialist evaluation and raising decided accuracy to <strong>67.9%</strong>.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         TAB C: EMPIRICAL BENCHMARK DASHBOARD
+         ====================================================================== -->
+    <div class="tab-pane" id="tab-charts">
+      <div class="card-panel">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2>Empirical Benchmark & Methodological Audit Dashboard</h2>
+            <p>Every number traces to verified JSON execution logs in results/.</p>
+          </div>
+          <span class="brand-tag">Verified Runs</span>
+        </div>
+
+        <div class="charts-grid">
+          <!-- Chart 1: Feature Collapse -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Chart 1: Behavioral Feature Collapse (The Tautology Proof)</h3>
+              <p>AUROC collapses to chance when removing label-defining questionnaire items.</p>
+            </div>
+            <div class="chart-canvas-wrap">
+              <canvas id="chart-feature-collapse"></canvas>
+            </div>
+            <div class="chart-stat-callout">
+              <strong>Audit Finding:</strong> When questionnaire items are retained, models achieve trivial 100% accuracy replicating the $\sum A_i \ge 7$ cutoff. Demographics alone yield AUROC = 0.5050 [0.447, 0.580], confirming no latent demographic signal.
+            </div>
+          </div>
+
+          <!-- Chart 2: LOSO vs Random CV Leaderboard -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Chart 2: LOSO vs Random CV Leaderboard (Full ABIDE I, N=854)</h3>
+              <p>Comparing out-of-site generalization against pooled random splits across 8 architectures.</p>
+            </div>
+            <div class="chart-canvas-wrap">
+              <canvas id="chart-loso-leaderboard"></canvas>
+            </div>
+            <div class="chart-stat-callout">
+              <strong>Headline Benchmark:</strong> Random Forest leads with 0.7003 AUROC under LOSO. Deep models and logistic regression show small negative generalization gaps due to scanner hardware distribution shift across the 20 sites.
+            </div>
+          </div>
+
+          <!-- Chart 3: Scanner Decodability Probe -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Chart 3: Scanner Decodability Probe</h3>
+              <p>Connectomes predict physical scanner hardware stronger than clinical diagnosis.</p>
+            </div>
+            <div class="chart-canvas-wrap">
+              <canvas id="chart-site-probe"></canvas>
+            </div>
+            <div class="chart-stat-callout">
+              <strong>Confound Finding:</strong> Connectome features decode scanner identity with 64.87% top-1 accuracy (vs 19.91% majority-site base rate, 5.0% chance), explaining why random CV leaks scanner identity across train/test splits.
+            </div>
+          </div>
+
+          <!-- Chart 4: Harmonization Breakdown -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Chart 4: Harmonization Breakdown (ComBat Audit)</h3>
+              <p>Paired bootstrap test comparing Raw vs In-Fold ComBat vs Leaky Full-Data ComBat.</p>
+            </div>
+            <div class="chart-canvas-wrap">
+              <canvas id="chart-harmonization"></canvas>
+            </div>
+            <div class="chart-stat-callout">
+              <strong>Statistical Honesty:</strong> Paired bootstrap $\Delta = +0.0156$ [$-0.0013, 0.0328$], $p = 0.0710$ ($p_{\text{holm}} = 0.2840$). Leaky ComBat does not produce a statistically detectable inflation on this dataset.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         TAB D: 14-ITEM METHODOLOGICAL CHECKLIST
+         ====================================================================== -->
+    <div class="tab-pane" id="tab-checklist">
+      <div class="card-panel">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2>14-Item Methodological Checklist for ML Autism Screening</h2>
+            <p>Peer-review compliance criteria for detecting leakage, confounding, and evaluation flaws.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button type="button" class="btn-nav" id="btn-chk-all">Select All (14/14)</button>
+            <button type="button" class="btn-nav" id="btn-chk-reset">Reset</button>
+            <button type="button" class="btn-nav btn-primary" id="btn-chk-export">Export Audit (.json)</button>
+          </div>
+        </div>
+
+        <div class="checklist-container">
+          <!-- 14 Interactive Checklist Items -->
+          <div class="checklist-items-list" id="checklist-items-list">
+            <!-- Injected dynamically by neurotriage.js -->
+          </div>
+
+          <!-- Integrity Score Gauge Card -->
+          <div class="integrity-score-card">
+            <h3 style="font-size: 0.9rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">
+              Methodological Integrity Score
+            </h3>
+
+            <div class="ring-container">
+              <svg width="160" height="160" viewBox="0 0 160 160">
+                <circle class="ring-circle-bg" cx="80" cy="80" r="70" stroke-width="12" fill="none"></circle>
+                <circle class="ring-circle-val" id="ring-score-circle" cx="80" cy="80" r="70" stroke-width="12" fill="none"
+                        stroke-dasharray="440" stroke-dashoffset="0" transform="rotate(-90 80 80)"></circle>
+              </svg>
+              <div class="ring-text">
+                <div class="ring-number" id="ring-score-number">14</div>
+                <div class="ring-denom" id="ring-score-denom">of 14 (100%)</div>
+              </div>
+            </div>
+
+            <div class="integrity-tier-badge" id="integrity-tier-badge" style="background: rgba(16, 185, 129, 0.15); color: #6EE7B7; border: 1px solid rgba(16, 185, 129, 0.35);">
+              GOLD STANDARD REPRODUCIBLE BENCHMARK
+            </div>
+
+            <p style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.5; margin-top: 0.5rem;">
+              Click checklist items to audit any external study. Studies failing items 1, 2, or 5 possess critical risks of reporting artificially inflated performance.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Clinical & Safety Disclaimer Box -->
+    <div class="clinical-disclaimer-box">
+      <div class="disclaimer-icon">🛡️</div>
+      <div class="disclaimer-content">
+        <h4>Critical Clinical & Research Protocol Disclaimer</h4>
+        <p>
+          <strong>Research Prototype Only:</strong> NeuroTriage ML is an open-source academic benchmarking tool demonstrating methodological auditing, scanner site-shift resilience, and conformal decision support. It is <strong>NOT</strong> a medical diagnostic device and does not diagnose Autism Spectrum Disorder. Clinical evaluation must be performed by licensed developmental specialists using comprehensive gold-standard assessment protocols (e.g., ADOS-2, ADI-R).
+        </p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div>
+        <strong>NeuroTriage ML Platform</strong> • Built on branch <span class="mono" style="color: var(--accent-cyan);">paper-revision</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/Mohit-ccreate/autism" target="_blank" rel="noopener noreferrer">GitHub (Mohit-ccreate/autism)</a>
+        <a href="index.html">Legacy Client PWA</a>
+        <a href="https://www.cdc.gov/autism/" target="_blank" rel="noopener noreferrer">CDC Autism Guidelines</a>
+        <a href="https://www.nhs.uk/conditions/autism/" target="_blank" rel="noopener noreferrer">NHS ASD Resource</a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Script Initialization -->
+  <script src="neurotriage.js"></script>
+</body>
+</html>
