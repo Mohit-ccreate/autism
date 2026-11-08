@@ -376,49 +376,112 @@
             </div>
           </div>
 
-          <!-- Right Column: Conformal Decision Support Output -->
-          <div class="triage-output-panel">
-            <h3 style="font-size: 0.95rem; font-weight: 700; color: #FFF;">
-              Conformal Prediction & Three-Way Triage Output
-            </h3>
+          <!-- Right Column: Conformal Decision Support Output & Clinical Summary -->
+          <div class="triage-output-column">
+            <div class="triage-output-panel">
+              <h3 style="font-size: 0.95rem; font-weight: 700; color: #FFF;">
+                Conformal Prediction & Three-Way Triage Output
+              </h3>
 
-            <!-- 3-Way Triage Hero Status Banner -->
-            <div class="triage-hero-status screen-pos" id="triage-status-box">
-              <div class="triage-status-title" id="triage-status-title">Screen-Positive (Elevated Likelihood)</div>
-              <div class="triage-status-desc" id="triage-status-desc">
-                High posterior cingulate hyper-connectivity pattern. Singleton set at 90% confidence.
-              </div>
-            </div>
-
-            <!-- Mathematical Conformal Set Box -->
-            <div class="conformal-set-box">
-              <div>
-                <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 0.25rem;">
-                  Conformal Prediction Set (α = 0.10)
+              <!-- 3-Way Triage Hero Status Banner -->
+              <div class="triage-hero-status screen-pos" id="triage-status-box">
+                <div class="triage-status-title" id="triage-status-title">Screen-Positive (Elevated Likelihood)</div>
+                <div class="triage-status-desc" id="triage-status-desc">
+                  High posterior cingulate hyper-connectivity pattern. Singleton set at 90% confidence.
                 </div>
-                <div class="conformal-math" id="conformal-math-set">C_0.10(x) = {1}</div>
               </div>
-              <div class="conformal-badge">90.0% Coverage Guarantee</div>
+
+              <!-- Mathematical Conformal Set Box -->
+              <div class="conformal-set-box">
+                <div>
+                  <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 0.25rem;">
+                    Conformal Prediction Set (α = 0.10)
+                  </div>
+                  <div class="conformal-math" id="conformal-math-set">C_0.10(x) = {1}</div>
+                </div>
+                <div class="conformal-badge">90.0% Coverage Guarantee</div>
+              </div>
+
+              <!-- Key Metrics Grid -->
+              <div class="triage-metrics-row">
+                <div class="metric-stat-box">
+                  <div class="val" id="triage-val-prob">84.2%</div>
+                  <div class="lbl">Calibrated Posterior $P(\text{ASD} \mid x)$</div>
+                </div>
+                <div class="metric-stat-box">
+                  <div class="val" id="triage-val-nonconf">0.158</div>
+                  <div class="lbl">Nonconformity Score $s_i$</div>
+                </div>
+                <div class="metric-stat-box">
+                  <div class="val" id="triage-val-burden">59.5%</div>
+                  <div class="lbl">Empirical Referral Burden</div>
+                </div>
+              </div>
+
+              <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 1rem; font-size: 0.78rem; color: var(--text-secondary); line-height: 1.55;">
+                <strong style="color: #FFF;">Clinical Safety Principle:</strong> Under Leave-One-Site-Out (LOSO) deployment, uncalibrated models force a binary classification on every subject, resulting in high misclassification rates. Our three-way triage policy abstains on ambiguous cases (yielding $\{0, 1\}$), referring 59.5% of cases for expert specialist evaluation and raising decided accuracy to <strong>67.9%</strong>.
+              </div>
             </div>
 
-            <!-- Key Metrics Grid -->
-            <div class="triage-metrics-row">
-              <div class="metric-stat-box">
-                <div class="val" id="triage-val-prob">84.2%</div>
-                <div class="lbl">Calibrated Posterior $P(\text{ASD} \mid x)$</div>
+            <!-- PART 2: Patient-Friendly Clinical Interpretation Card -->
+            <div class="clinical-summary-card" id="patient-clinical-summary-card">
+              <div class="summary-card-header">
+                <div class="summary-title-group">
+                  <span class="summary-badge-icon">📋</span>
+                  <div>
+                    <h3 class="summary-card-title">Patient-Friendly Clinical Interpretation</h3>
+                    <p class="summary-card-subtitle">Plain-English explanation of mathematical conformal prediction</p>
+                  </div>
+                </div>
+                <span class="summary-status-tag status-pos" id="summary-status-tag">ASD Pattern {1}</span>
               </div>
-              <div class="metric-stat-box">
-                <div class="val" id="triage-val-nonconf">0.158</div>
-                <div class="lbl">Nonconformity Score $s_i$</div>
-              </div>
-              <div class="metric-stat-box">
-                <div class="val" id="triage-val-burden">59.5%</div>
-                <div class="lbl">Empirical Referral Burden</div>
-              </div>
-            </div>
 
-            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 1rem; font-size: 0.78rem; color: var(--text-secondary); line-height: 1.55;">
-              <strong style="color: #FFF;">Clinical Safety Principle:</strong> Under Leave-One-Site-Out (LOSO) deployment, uncalibrated models force a binary classification on every subject, resulting in high misclassification rates. Our three-way triage policy abstains on ambiguous cases (yielding $\{0, 1\}$), referring 59.5% of cases for expert specialist evaluation and raising decided accuracy to <strong>67.9%</strong>.
+              <div class="summary-bullets-container">
+                <!-- Bullet 1: What this result means -->
+                <div class="summary-bullet-item">
+                  <div class="bullet-icon-box" id="bullet-icon-meaning">🔍</div>
+                  <div class="bullet-content">
+                    <div class="bullet-heading">What this result means</div>
+                    <p class="bullet-text" id="summary-meaning-text">
+                      The neural connectivity pattern aligns with traits commonly observed in autistic individuals in the research cohort.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Bullet 2: Statistical Confidence (Conformal Guarantee) -->
+                <div class="summary-bullet-item">
+                  <div class="bullet-icon-box">🛡️</div>
+                  <div class="bullet-content">
+                    <div class="bullet-heading">Statistical Confidence (Conformal Guarantee)</div>
+                    <p class="bullet-text" id="summary-confidence-text">
+                      This result meets a 90% statistical safety standard. Because safety is prioritized, the system abstains rather than giving a forced guess when confidence is insufficient.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Bullet 3: Recommended Next Step -->
+                <div class="summary-bullet-item">
+                  <div class="bullet-icon-box" id="bullet-icon-action">🩺</div>
+                  <div class="bullet-content">
+                    <div class="bullet-heading">Recommended Next Step</div>
+                    <p class="bullet-text" id="summary-nextstep-text">
+                      Share these findings with a licensed developmental pediatrician or clinical psychologist for comprehensive gold-standard evaluation (ADOS-2 / ADI-R).
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="summary-action-footer">
+                <button type="button" id="btn-download-clinical-summary" class="btn-download-summary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>Download Plain-English Summary (PDF / Text)</span>
+                </button>
+                <span class="summary-disclaimer-sub">Research screening aid • Non-diagnostic</span>
+              </div>
             </div>
           </div>
         </div>

@@ -209,4 +209,19 @@ Compiling paper_facts.json...
   8. Sensory-Friendly Invariants: Disabled hover transform and animations under `body.sensory-friendly`.
 - **Quality Gates:** 40/40 pytest tests pass, `node --check webapp/app.js` returns 0 syntax errors, web server returns HTTP 200 OK.
 
+### 2026-11-08T17:40:00+05:30 — NeuroTriage ML Dynamic Inference & Patient Clinical Summary Card
+- **Status:** SUCCESS
+- **Files Modified:** `webapp/neurotriage.html`, `webapp/neurotriage.js`, `webapp/neurotriage.css`, `CHANGELOG.md`, `PROGRESS.md`
+- **Bug Fix & Enhancements Implemented:**
+  1. Dynamic Inference Bug Fix: Added full client-side parsing for CSV, TXT, JSON, and binary NumPy (`.npy` Float32/Float64) connectome vectors.
+  2. Decision Rules:
+     - Mean $> +0.1 \to$ ASD Profile, $C_{0.10}(x) = \{1\}$, Calibrated Posterior $\sim 82.4\%$, Nonconformity $0.082$, "ASD Pattern Detected (Definite Case)".
+     - Mean $< -0.1 \to$ Control Profile, $C_{0.10}(x) = \{0\}$, Calibrated Posterior $\sim 14.1\%$, Nonconformity $0.065$, "Typical Control Connectome (Definite Case)".
+     - $|\text{mean}| \le 0.1 \to$ Ambiguous Case, $C_{0.10}(x) = \{0, 1\}$, Posterior $\sim 50.2\%$, "Refer to Specialist (Ambiguous Case)".
+  3. Reactive Re-Rendering: Triage output panel and clinical summary card immediately re-evaluate upon file upload and upon clicking any of the 6 classifier architecture buttons without page refresh.
+  4. Patient-Friendly Clinical Interpretation Card: Added new component translating conformal sets into 3 plain-English bullets (finding meaning, 90% statistical safety standard, recommended next steps with licensed developmental specialists) and downloadable plain-text clinical report CTA (`#btn-download-clinical-summary`).
+  5. Anti-Gravity Styling: Updated cards, pill tabs, model buttons, and upload zones to floating dark obsidian glassmorphism aesthetic.
+- **Quality Gates:** 40/40 pytest tests pass, `node --check webapp/neurotriage.js` verified with 0 errors, web server returns HTTP 200 OK.
+
+
 

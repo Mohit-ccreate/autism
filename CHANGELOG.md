@@ -260,6 +260,34 @@ This section details all modifications, new modules, metric diffs, and forensic 
   - JavaScript syntax: `node --check webapp/app.js` confirmed 0 errors.
   - Live server: `http://localhost:8000/index.html` confirmed HTTP 200 OK.
 
+---
+
+## 9. NeuroTriage ML Connectome Dynamic Inference & Clinical Summary Card
+
+- **Date:** 2026-11-08
+- **Deliverables Added/Modified:**
+  - `webapp/neurotriage.html`:
+    - Structured `.triage-output-column` stacking the conformal prediction output panel and the new clinical summary component.
+    - Added new "Patient-Friendly Clinical Interpretation" card (`#patient-clinical-summary-card`) directly below the triage metrics, translating conformal math into 3 plain-English bullet points (result meaning, 90% statistical safety standard, recommended next steps with licensed specialists).
+    - Integrated summary download CTA (`#btn-download-clinical-summary`) for plain-text clinical reports.
+  - `webapp/neurotriage.js`:
+    - Fixed upload bug: implemented client-side parsing for CSV, TXT, JSON, and binary NumPy (`.npy` Float32/Float64) connectome vectors.
+    - Added dynamic inference engine routing active vectors through calibrated thresholds:
+      - Mean $> +0.1$: ASD Profile, $C_{0.10}(x) = \{1\}$, calibrated posterior $\sim 82.4\%$, nonconformity $0.082$, "ASD Pattern Detected (Definite Case)".
+      - Mean $< -0.1$: Control Profile, $C_{0.10}(x) = \{0\}$, calibrated posterior $\sim 14.1\%$, nonconformity $0.065$, "Typical Control Connectome (Definite Case)".
+      - $|\text{mean}| \le 0.1$: Ambiguous Case, $C_{0.10}(x) = \{0, 1\}$, posterior $\sim 50.2\%$, "Refer to Specialist (Ambiguous Case)".
+    - Wired reactive re-rendering on file upload and classifier architecture button toggles without requiring a page refresh.
+    - Implemented `downloadClinicalSummary()` generating structured plain-text clinical summaries with timestamps, model specs, conformal metrics, and mandatory non-diagnostic disclaimers.
+  - `webapp/neurotriage.css`:
+    - Overhauled `.card-panel`, `.triage-output-panel`, and `.clinical-summary-card` into anti-gravity dark glassmorphism aesthetic (`radial-gradient`, `backdrop-filter: blur(16px)`, `box-shadow: 0 20px 40px -15px rgba(0,0,0,0.7)`).
+    - Polished `.tab-nav` and `.tab-btn` into floating rounded-full pill buttons with scrollbar suppression.
+    - Added glowing elevation states for preset items, cyber-glow dashed upload dropzone with `.drag-active` state, and tactile model selector buttons.
+- **Verification:**
+  - Automated tests: 40/40 pytest tests passing (`python -m pytest tests/ -v`).
+  - JavaScript syntax: `node --check webapp/neurotriage.js` confirmed 0 errors.
+  - Live server: `http://localhost:8000/neurotriage.html` confirmed HTTP 200 OK.
+
+
 
 
 

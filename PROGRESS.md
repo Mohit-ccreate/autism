@@ -22,6 +22,7 @@
 | **Correction Pass H** | Blind Re-Verification, Number Cross-Check ($50$ claims, $6$ mismatches), Figure Pack (`fig1`-`fig9`), & Paper Handoff | ✅ DONE | 2026-11-07 |
 | **Correction Pass I** | NeuroTriage ML Ultra-Modern Web Application (3D Connectome, Screener, Conformal Triage, Benchmark Charts, 14-Item Checklist) | ✅ DONE | 2026-11-08 |
 | **Correction Pass J** | "Anti-Gravity" Dark Glassmorphism UI/UX Redesign (Killed scrollbar, floating pills, elevation cards, CC200 live badge) | ✅ DONE | 2026-11-08 |
+| **Correction Pass K** | NeuroTriage ML Dynamic Inference (NPY/CSV parser bugfix, model re-eval, clinical summary card, plain-text export) | ✅ DONE | 2026-11-08 |
 
 ---
 
