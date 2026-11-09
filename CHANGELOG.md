@@ -287,6 +287,34 @@ This section details all modifications, new modules, metric diffs, and forensic 
   - JavaScript syntax: `node --check webapp/neurotriage.js` confirmed 0 errors.
   - Live server: `http://localhost:8000/neurotriage.html` confirmed HTTP 200 OK.
 
+---
+
+## 10. NEURO-SCREEN AI Client UI Refactor: Sub-Navigation Flexbox, Profile Grid & Results Flow
+
+- **Date:** 2026-11-09
+- **Deliverables Added/Modified:**
+  - `webapp/style.css`:
+    - Eliminated horizontal scrollbar in sub-navigation bar (`.nav-tabs-container`) by converting display to responsive flexbox with wrapping: `display: flex; flex-wrap: wrap; gap: 0.5rem; overflow-x: hidden; max-width: 100%;`.
+    - Added responsive CSS grid for reflection profile (`.profile-grid`): `display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; align-items: start; width: 100%;`.
+    - Added sticky container for profile preview card (`.profile-preview-sticky`): `position: sticky; top: 1.5rem; align-self: start;` ensuring the "About Me" card remains in view while scrolling trait options.
+    - Added high-contrast (`body.high-contrast`) and dyslexia-friendly (`body.dyslexia-font`) accessibility overrides for `.profile-grid`, `.profile-preview-sticky`, `#about-me-card-content`, and `.nav-tabs-container`.
+  - `webapp/index.html`:
+    - Refactored `#tab-profile` layout from `.grid-2col` to `.profile-grid`.
+    - Added `.profile-preview-sticky` class to the "About Me" Profile Card Preview container.
+    - Added secondary action buttons (`#btn-calculate`, `#submit-screening`) into the questionnaire navigation row for immediate results triggering.
+  - `webapp/app.js`:
+    - Implemented centralized programmatic tab routing function `switchToTab(targetTabId)` ensuring all button states (`.active`, `aria-selected`) and tab panels are synchronized consistently.
+    - Fixed results generation flow: upon completion of question 10 or clicking `#btn-calculate`/`#submit-screening`, `AppState.hasCompletedAssessment` is flagged, `switchToTab('tab-results')` is called, `#results-empty-state` is hidden, and `#results-calculated-container` is displayed without null-pointer exceptions.
+    - Added global aliases `window.calculateAndDisplayResults = calculateAndRenderResults` and `window.calculateAndRenderResults`.
+    - Enhanced `#tab-profile` event handling: bound `change` and `input` events across all 12 checkboxes (`#chk-sound`, `#chk-light`, `#chk-texture`, `#chk-crowds`, `#chk-written`, `#chk-direct`, `#chk-delay`, `#chk-routine`, `#chk-detail`, `#chk-focus`, `#chk-honesty`, `#chk-creative`).
+    - Updated `renderAboutMeCard()` to incorporate all 12 traits (including `#chk-texture` and `#chk-creative`) and dynamically tailor copy across Adult Self-Reflection, Teen/Student, and Caregiver-Filled perspectives.
+    - Implemented resilient fallback handling for `#btn-copy-profile-text` (clipboard API with textarea fallback) and `#btn-download-profile-pdf` (jsPDF with structured text file fallback).
+- **Verification:**
+  - Automated tests: 40/40 pytest tests passing (`python -m pytest tests/ -v`).
+  - JavaScript syntax: `node --check webapp/app.js` confirmed 0 errors.
+  - Live server: `http://localhost:8000/index.html` confirmed HTTP 200 OK.
+
+
 
 
 

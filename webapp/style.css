@@ -90,6 +90,37 @@ body.high-contrast input {
   color: #ffffff !important;
 }
 
+body.high-contrast .glass-card,
+body.high-contrast .profile-grid .glass-card,
+body.high-contrast .profile-preview-sticky {
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: none !important;
+}
+
+body.high-contrast #about-me-card-content {
+  background: #050505 !important;
+  border: 2px solid #00ffff !important;
+  color: #ffffff !important;
+}
+
+body.high-contrast .nav-tabs-container {
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+body.high-contrast .tab-btn.active {
+  background: #222222 !important;
+  border: 2px solid #00ffff !important;
+  color: #00ffff !important;
+}
+
+body.dyslexia-font #about-me-card-content,
+body.dyslexia-font .profile-grid label {
+  letter-spacing: 0.04em !important;
+  line-height: 1.8 !important;
+}
+
 /* Font Size Scales */
 body.text-lg {
   font-size: 1.15rem;
@@ -374,11 +405,13 @@ body {
 /* Nav Tabs Floating Pill Container */
 .nav-tabs-container {
   display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  overflow-x: hidden;
+  max-width: 100%;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.6rem;
+  padding: 0.45rem 0.65rem;
   margin-bottom: 1.5rem;
-  overflow-x: auto;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
   background: rgba(15, 23, 42, 0.55);
@@ -442,6 +475,21 @@ body {
   .grid-2col {
     grid-template-columns: 1fr;
   }
+}
+
+/* Strengths, Sensory & Support Reflection Profile Grid */
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+  width: 100%;
+}
+
+.profile-preview-sticky {
+  position: sticky;
+  top: 1.5rem;
+  align-self: start;
 }
 
 /* Glass Card with Anti-Gravity Floating Depth */

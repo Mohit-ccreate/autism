@@ -209,6 +209,37 @@ async function loadDataAndModels() {
   }
 }
 
+// Programmatic and User Tab Switching
+function switchToTab(targetTabId) {
+  const tabs = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.tab-panel');
+
+  tabs.forEach(t => {
+    const isTarget = (t.getAttribute('data-tab') === targetTabId);
+    t.classList.toggle('active', isTarget);
+    t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+  });
+
+  panels.forEach(p => {
+    const isTarget = (p.id === targetTabId);
+    p.classList.toggle('active', isTarget);
+  });
+
+  AppState.activeTab = targetTabId;
+
+  if (targetTabId === 'tab-results') {
+    calculateAndRenderResults();
+  } else if (targetTabId === 'tab-clinician') {
+    renderClinicianChart();
+  } else if (targetTabId === 'tab-history') {
+    renderHistoryTable();
+  } else if (targetTabId === 'tab-efficiency') {
+    renderDataEfficiencyChart();
+  } else if (targetTabId === 'tab-brain-explorer') {
+    if (typeof resizeExplorerBrain === 'function') resizeExplorerBrain();
+  }
+}
+
 // Navigation Tabs & Audience Persona Management
 function initNavigation() {
   const tabs = document.querySelectorAll('.tab-btn');
@@ -233,7 +264,7 @@ function initNavigation() {
     });
 
     if (!activeStillVisible && firstVisibleTab) {
-      firstVisibleTab.click();
+      switchToTab(firstVisibleTab.getAttribute('data-tab'));
     }
   }
 
@@ -249,33 +280,36 @@ function initNavigation() {
   if (ctaBtn) {
     ctaBtn.addEventListener('click', () => {
       setPersona('caregiver');
-      const screenTab = document.querySelector('.tab-btn[data-tab="tab-screening"]');
-      if (screenTab) screenTab.click();
+      switchToTab('tab-screening');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // Calculate & Submit Screening Buttons
+  const btnCalculate = document.getElementById('btn-calculate');
+  if (btnCalculate) {
+    btnCalculate.addEventListener('click', () => {
+      AppState.hasCompletedAssessment = true;
+      AppState.completionDurationSec = Math.max(1, Math.round((Date.now() - (AppState.questionnaireStartTime || Date.now())) / 1000));
+      switchToTab('tab-results');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  const submitScreening = document.getElementById('submit-screening');
+  if (submitScreening) {
+    submitScreening.addEventListener('click', () => {
+      AppState.hasCompletedAssessment = true;
+      AppState.completionDurationSec = Math.max(1, Math.round((Date.now() - (AppState.questionnaireStartTime || Date.now())) / 1000));
+      switchToTab('tab-results');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
   tabs.forEach(btn => {
     btn.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      
-      btn.classList.add('active');
       const targetId = btn.getAttribute('data-tab');
-      document.getElementById(targetId).classList.add('active');
-      AppState.activeTab = targetId;
-
-      if (targetId === 'tab-results') {
-        calculateAndRenderResults();
-      } else if (targetId === 'tab-clinician') {
-        renderClinicianChart();
-      } else if (targetId === 'tab-history') {
-        renderHistoryTable();
-      } else if (targetId === 'tab-efficiency') {
-        renderDataEfficiencyChart();
-      } else if (targetId === 'tab-brain-explorer') {
-        if (typeof resizeExplorerBrain === 'function') resizeExplorerBrain();
-      }
+      switchToTab(targetId);
     });
   });
 
@@ -407,26 +441,44 @@ function renderQuestion() {
     AppState.questionnaireStartTime = Date.now();
   }
 
-  const questions = QuestionBank[AppState.activeCohort];
+  const questions = QuestionBank[AppState.activeCohort] || QuestionBank.adult;
   const idx = AppState.currentQuestionIndex;
   
-  document.getElementById('question-step-counter').textContent = `QUESTION ${idx + 1} OF ${questions.length}`;
-  document.getElementById('question-active-text').textContent = questions[idx];
+  const stepCounter = document.getElementById('question-step-counter');
+  if (stepCounter) stepCounter.textContent = `QUESTION ${idx + 1} OF ${questions.length}`;
+
+  const activeText = document.getElementById('question-active-text');
+  if (activeText) activeText.textContent = questions[idx] || "";
   
   const pct = ((idx + 1) / questions.length) * 100;
-  document.getElementById('step-progress-bar').style.width = `${pct}%`;
+  const progressBar = document.getElementById('step-progress-bar');
+  if (progressBar) progressBar.style.width = `${pct}%`;
   
-  document.getElementById('btn-prev-q').style.visibility = idx > 0 ? 'visible' : 'hidden';
+  const prevBtn = document.getElementById('btn-prev-q');
+  if (prevBtn) prevBtn.style.visibility = idx > 0 ? 'visible' : 'hidden';
 
   const userChoice = AppState.userResponses[idx];
-  document.getElementById('btn-ans-agree').classList.toggle('selected', userChoice === 1);
-  document.getElementById('btn-ans-disagree').classList.toggle('selected', userChoice === 0);
+  const agreeBtn = document.getElementById('btn-ans-agree');
+  if (agreeBtn) agreeBtn.classList.toggle('selected', userChoice === 1);
+  const disagreeBtn = document.getElementById('btn-ans-disagree');
+  if (disagreeBtn) disagreeBtn.classList.toggle('selected', userChoice === 0);
 
   // Picture Cue Update
   const cueContainer = document.getElementById('picture-cue-container');
   if (cueContainer && typeof PictureCues !== 'undefined') {
     const cues = PictureCues[AppState.activeCohort] || PictureCues.adult;
     cueContainer.textContent = cues[idx] || '📝';
+  }
+
+  // Update dynamic calculate & submit buttons visibility
+  const btnCalculate = document.getElementById('btn-calculate');
+  const submitScreening = document.getElementById('submit-screening');
+  const answeredCount = AppState.userResponses.filter(r => r !== null && r !== undefined).length;
+  if (btnCalculate) {
+    btnCalculate.style.display = (idx === questions.length - 1 || answeredCount >= 5) ? 'inline-flex' : 'none';
+  }
+  if (submitScreening) {
+    submitScreening.style.display = (idx === questions.length - 1 && userChoice !== null && userChoice !== undefined) ? 'inline-flex' : 'none';
   }
 }
 
@@ -442,15 +494,16 @@ function handleAnswer(userChoice) {
   const scoredTrait = (userChoice === key[idx]) ? 1 : 0;
   AppState.answers[idx] = scoredTrait;
 
-  const questions = QuestionBank[cohort];
+  const questions = QuestionBank[cohort] || QuestionBank.adult;
   if (AppState.currentQuestionIndex < questions.length - 1) {
     AppState.currentQuestionIndex++;
     renderQuestion();
   } else {
     // Finished questionnaire
-    AppState.completionDurationSec = Math.max(1, Math.round((Date.now() - AppState.questionnaireStartTime) / 1000));
+    AppState.completionDurationSec = Math.max(1, Math.round((Date.now() - (AppState.questionnaireStartTime || Date.now())) / 1000));
     AppState.hasCompletedAssessment = true;
-    document.querySelector('.tab-btn[data-tab="tab-results"]').click();
+    switchToTab('tab-results');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
 
@@ -579,29 +632,34 @@ function calculateAndRenderResults() {
 
   // Render Gauge
   const pctDisplay = Math.round(rawProb * 100);
-  document.getElementById('risk-gauge-circle').style.setProperty('--gauge-pct', pctDisplay);
-  document.getElementById('risk-gauge-value').textContent = `${pctDisplay}%`;
+  const gaugeCircle = document.getElementById('risk-gauge-circle');
+  if (gaugeCircle) gaugeCircle.style.setProperty('--gauge-pct', pctDisplay);
+  const gaugeVal = document.getElementById('risk-gauge-value');
+  if (gaugeVal) gaugeVal.textContent = `${pctDisplay}%`;
 
   const banner = document.getElementById('conformal-status-banner');
   const bannerText = document.getElementById('txt-conformal-desc');
   const strings = I18N[AppState.language] || I18N.en;
 
-  if (isUncertain) {
-    banner.className = 'conformal-banner conformal-uncertain';
-    bannerText.textContent = strings.uncertainPattern;
-  } else if (rawProb >= 0.5) {
-    banner.className = 'conformal-banner conformal-certain';
-    bannerText.textContent = strings.higherPattern;
-  } else {
-    banner.className = 'conformal-banner conformal-certain';
-    bannerText.textContent = strings.lowerPattern;
+  if (banner && bannerText) {
+    if (isUncertain) {
+      banner.className = 'conformal-banner conformal-uncertain';
+      bannerText.textContent = strings.uncertainPattern;
+    } else if (rawProb >= 0.5) {
+      banner.className = 'conformal-banner conformal-certain';
+      bannerText.textContent = strings.higherPattern;
+    } else {
+      banner.className = 'conformal-banner conformal-certain';
+      bannerText.textContent = strings.lowerPattern;
+    }
   }
 
   // Confidence Interval (widened if quality check triggered)
   const ciMargin = quality.isLowQuality ? 0.12 : 0.06;
   const ciLow = Math.max(2, Math.round((rawProb - ciMargin) * 100));
   const ciHigh = Math.min(99, Math.round((rawProb + ciMargin) * 100));
-  document.getElementById('txt-ci-range').textContent = `[${ciLow}% – ${ciHigh}%]`;
+  const ciRangeElem = document.getElementById('txt-ci-range');
+  if (ciRangeElem) ciRangeElem.textContent = `[${ciLow}% – ${ciHigh}%]`;
 
   // Render Perspective Narrative
   renderPerspectiveNarrative(rawProb, isUncertain);
@@ -630,6 +688,12 @@ function calculateAndRenderResults() {
     };
     saveScreeningRecord(record);
   }
+}
+
+const calculateAndDisplayResults = calculateAndRenderResults;
+if (typeof window !== 'undefined') {
+  window.calculateAndDisplayResults = calculateAndRenderResults;
+  window.calculateAndRenderResults = calculateAndRenderResults;
 }
 
 // Phase 2 Item 1: Audience-Specific Narratives
@@ -827,24 +891,41 @@ function initStrengthsProfile() {
     });
   });
 
-  const checkboxes = document.querySelectorAll('#tab-profile input[type="checkbox"]');
-  checkboxes.forEach(chk => chk.addEventListener('change', renderAboutMeCard));
+  // Attach change and input listeners to all 12 profile checkboxes
+  const profileCheckboxIds = [
+    'chk-sound', 'chk-light', 'chk-texture', 'chk-crowds',
+    'chk-written', 'chk-direct', 'chk-delay', 'chk-routine',
+    'chk-detail', 'chk-focus', 'chk-honesty', 'chk-creative'
+  ];
+  profileCheckboxIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('change', renderAboutMeCard);
+      el.addEventListener('input', renderAboutMeCard);
+    }
+  });
 
-  document.getElementById('btn-download-profile-pdf').addEventListener('click', exportProfilePDF);
-  document.getElementById('btn-copy-profile-text').addEventListener('click', copyProfileText);
+  const btnPdf = document.getElementById('btn-download-profile-pdf');
+  if (btnPdf) btnPdf.addEventListener('click', exportProfilePDF);
+
+  const btnCopy = document.getElementById('btn-copy-profile-text');
+  if (btnCopy) btnCopy.addEventListener('click', copyProfileText);
 
   renderAboutMeCard();
 }
 
 function renderAboutMeCard() {
-  const aud = AppState.activeProfileAudience;
+  const aud = AppState.activeProfileAudience || 'adult';
   const container = document.getElementById('about-me-card-content');
   if (!container) return;
 
-  const headerTitle = aud === 'adult' ? "Adult Accommodation & Strengths Profile" : (aud === 'teen' ? "Student / Teen Support Profile" : "Child Sensory & Communication Profile (Caregiver Completed)");
+  const headerTitle = aud === 'adult' 
+    ? "Adult Accommodation & Strengths Profile" 
+    : (aud === 'teen' ? "Student / Teen Support Profile" : "Child Sensory & Communication Profile (Caregiver Completed)");
 
   const sound = document.getElementById('chk-sound')?.checked;
   const light = document.getElementById('chk-light')?.checked;
+  const texture = document.getElementById('chk-texture')?.checked;
   const crowds = document.getElementById('chk-crowds')?.checked;
   const written = document.getElementById('chk-written')?.checked;
   const direct = document.getElementById('chk-direct')?.checked;
@@ -853,22 +934,64 @@ function renderAboutMeCard() {
   const detail = document.getElementById('chk-detail')?.checked;
   const focus = document.getElementById('chk-focus')?.checked;
   const honesty = document.getElementById('chk-honesty')?.checked;
+  const creative = document.getElementById('chk-creative')?.checked;
 
   let sensoryItems = [];
-  if (sound) sensoryItems.push("Noise-cancelling headphones / quiet workspace beneficial");
-  if (light) sensoryItems.push("Sensitive to harsh fluorescent lighting; prefer natural/dimmer lighting");
-  if (crowds) sensoryItems.push("Need breaks after large meetings, group activities, or crowded settings");
+  if (aud === 'adult') {
+    if (sound) sensoryItems.push("Noise-cancelling headphones and quiet workspace environments beneficial");
+    if (light) sensoryItems.push("Sensitivity to harsh fluorescent lighting; prefer natural or dimmable lighting");
+    if (texture) sensoryItems.push("Tactile sensitivity: discomfort with specific fabrics, seams, or clothing tags");
+    if (crowds) sensoryItems.push("Scheduled recharge breaks after lengthy group meetings, conferences, or crowded events");
+  } else if (aud === 'teen') {
+    if (sound) sensoryItems.push("Quiet study spaces or noise-cancelling headphones beneficial during loud class/hallway periods");
+    if (light) sensoryItems.push("Sensory sensitivity to bright classroom fluorescent lighting; access to natural light");
+    if (texture) sensoryItems.push("Sensory-friendly clothing preferences (seamless socks, tagless apparel, comfortable fabrics)");
+    if (crowds) sensoryItems.push("Support during crowded school transitions, assemblies, or cafeteria lunch hours");
+  } else {
+    // Child
+    if (sound) sensoryItems.push("Protection from sudden loud noises (alarms, shouting, blenders); access to a quiet calm-down corner");
+    if (light) sensoryItems.push("Dimmed or warm indirect lighting options to prevent visual overload");
+    if (texture) sensoryItems.push("Sensory preferences with clothing textures, seams, tags, or food consistencies");
+    if (crowds) sensoryItems.push("Gentle pacing in noisy playgrounds, crowded shopping malls, or large gatherings");
+  }
 
   let commItems = [];
-  if (written) commItems.push("Follow-up written summaries for multi-step instructions");
-  if (direct) commItems.push("Direct, literal communication (avoid ambiguous sarcasm or vague expectations)");
-  if (delay) commItems.push("Brief processing pause before demanding verbal answers in meetings/class");
-  if (routine) commItems.push("Advance notification before changes to schedule, seats, or workflows");
+  if (aud === 'adult') {
+    if (written) commItems.push("Written follow-up summaries or task checklists to confirm action items and expectations");
+    if (direct) commItems.push("Direct, unambiguous communication (avoid sarcastic subtext or implied unwritten rules)");
+    if (delay) commItems.push("Permission to take thinking pauses before responding in high-stakes discussions");
+    if (routine) commItems.push("Advance notification before organizational reorganizations, seat changes, or workflow shifts");
+  } else if (aud === 'teen') {
+    if (written) commItems.push("Written assignment briefs, rubrics, and visual schedules alongside verbal instructions");
+    if (direct) commItems.push("Clear, literal feedback without relying on unstated social expectations");
+    if (delay) commItems.push("Extra processing time allowed before calling for spoken answers in class");
+    if (routine) commItems.push("Advance notice before unexpected schedule, teacher, or classroom changes");
+  } else {
+    // Child
+    if (written) commItems.push("Visual cards, picture cue schedules, and step-by-step visual routines");
+    if (direct) commItems.push("Simple, concrete language (one instruction at a time, clear expectations)");
+    if (delay) commItems.push("Patient waiting time (5–10 seconds) for verbal or gestural responses without rushing");
+    if (routine) commItems.push("Consistent predictable daily structure and gentle transition warnings");
+  }
 
   let strengthItems = [];
-  if (detail) strengthItems.push("High pattern recognition and meticulous attention to detail");
-  if (focus) strengthItems.push("Deep focus and perseverance on technical / specialized tasks");
-  if (honesty) strengthItems.push("Integrity, direct honesty, and commitment to equity");
+  if (aud === 'adult') {
+    if (detail) strengthItems.push("High pattern recognition, systematic rigor, and meticulous attention to detail");
+    if (focus) strengthItems.push("Hyper-focused flow state and deep problem-solving on complex technical topics");
+    if (honesty) strengthItems.push("High ethical integrity, objective fairness, and straightforward honesty");
+    if (creative) strengthItems.push("Out-of-the-box conceptual thinking and innovative problem-solving");
+  } else if (aud === 'teen') {
+    if (detail) strengthItems.push("Strong pattern spotting, technical precision, and analytical depth in study topics");
+    if (focus) strengthItems.push("Passionate focus and dedication to personal interest subjects and STEM projects");
+    if (honesty) strengthItems.push("Authentic, reliable, fair-minded, and honest peer interactions");
+    if (creative) strengthItems.push("Creative, unique perspectives on assignments and collaborative problem-solving");
+  } else {
+    // Child
+    if (detail) strengthItems.push("Notices intricate visual patterns and subtle environmental details others overlook");
+    if (focus) strengthItems.push("Intense, joy-filled concentration on favorite toys, mechanics, puzzles, or topics");
+    if (honesty) strengthItems.push("Genuine, straightforward emotions and spontaneous authenticity");
+    if (creative) strengthItems.push("Inventive play strategies and unique ways of exploring surroundings");
+  }
 
   container.innerHTML = `
     <h3 style="color:#a78bfa; font-size:0.95rem; margin-bottom:0.6rem;">${headerTitle}</h3>
@@ -877,21 +1000,21 @@ function renderAboutMeCard() {
     <div style="margin-bottom:0.75rem;">
       <strong style="color:#38bdf8; font-size:0.82rem;">🔊 Sensory Accommodations:</strong>
       <ul style="padding-left:1.2rem; margin-top:0.25rem;">
-        ${sensoryItems.map(i => `<li>${i}</li>`).join('') || '<li>Standard sensory threshold</li>'}
+        ${sensoryItems.length > 0 ? sensoryItems.map(i => `<li>${i}</li>`).join('') : '<li>Standard sensory threshold</li>'}
       </ul>
     </div>
 
     <div style="margin-bottom:0.75rem;">
       <strong style="color:#c084fc; font-size:0.82rem;">💬 Optimal Communication:</strong>
       <ul style="padding-left:1.2rem; margin-top:0.25rem;">
-        ${commItems.map(i => `<li>${i}</li>`).join('') || '<li>Standard communication</li>'}
+        ${commItems.length > 0 ? commItems.map(i => `<li>${i}</li>`).join('') : '<li>Standard communication</li>'}
       </ul>
     </div>
 
     <div>
       <strong style="color:#34d399; font-size:0.82rem;">⭐ Key Cognitive Strengths:</strong>
       <ul style="padding-left:1.2rem; margin-top:0.25rem;">
-        ${strengthItems.map(i => `<li>${i}</li>`).join('') || '<li>Versatile generalist</li>'}
+        ${strengthItems.length > 0 ? strengthItems.map(i => `<li>${i}</li>`).join('') : '<li>Versatile generalist</li>'}
       </ul>
     </div>
   `;
@@ -900,33 +1023,73 @@ function renderAboutMeCard() {
 function copyProfileText() {
   const card = document.getElementById('about-me-card-content');
   if (!card) return;
-  const text = card.innerText;
-  navigator.clipboard.writeText(text).then(() => {
+  const text = (card.innerText || card.textContent || '').trim();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      alert("Profile card text copied to clipboard!");
+    }).catch(() => {
+      fallbackCopyProfileText(text);
+    });
+  } else {
+    fallbackCopyProfileText(text);
+  }
+}
+
+function fallbackCopyProfileText(text) {
+  const textArea = document.createElement("textarea");
+  textArea.value = text;
+  textArea.style.position = "fixed";
+  textArea.style.left = "-9999px";
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  try {
+    document.execCommand('copy');
     alert("Profile card text copied to clipboard!");
-  });
+  } catch (err) {
+    alert("Please select and copy the profile text manually.");
+  }
+  document.body.removeChild(textArea);
 }
 
 function exportProfilePDF() {
-  if (!window.jspdf) return;
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
+  const content = document.getElementById('about-me-card-content');
+  if (!content) return;
+  const rawText = (content.innerText || content.textContent || '').trim();
 
-  doc.setFontSize(18);
-  doc.setTextColor(30, 41, 59);
-  doc.text("Neurodivergent Strengths & Support Profile", 14, 20);
+  if (window.jspdf && (window.jspdf.jsPDF || typeof window.jspdf === 'function')) {
+    try {
+      const jsPDF = window.jspdf.jsPDF || window.jspdf;
+      const doc = new jsPDF();
+      doc.setFontSize(16);
+      doc.setTextColor(30, 41, 59);
+      doc.text("Neurodivergent Strengths & Support Profile", 14, 20);
 
-  doc.setFontSize(10);
-  doc.setTextColor(100, 116, 139);
-  doc.text(`Generated: ${new Date().toLocaleDateString()} | Non-Diagnostic Accommodation Guide`, 14, 28);
-  doc.line(14, 32, 196, 32);
+      doc.setFontSize(10);
+      doc.setTextColor(100, 116, 139);
+      doc.text(`Generated: ${new Date().toLocaleDateString()} | Non-Diagnostic Accommodation Guide`, 14, 28);
+      doc.line(14, 32, 196, 32);
 
-  doc.setFontSize(10);
-  doc.setTextColor(30, 41, 59);
-  const text = document.getElementById('about-me-card-content').innerText;
-  const lines = doc.splitTextToSize(text, 180);
-  doc.text(lines, 14, 42);
+      doc.setFontSize(10);
+      doc.setTextColor(30, 41, 59);
+      const lines = doc.splitTextToSize(rawText, 180);
+      doc.text(lines, 14, 42);
 
-  doc.save("About_Me_Support_Profile.pdf");
+      doc.save("About_Me_Support_Profile.pdf");
+      return;
+    } catch (e) {
+      console.warn("jsPDF export error, falling back to text file download:", e);
+    }
+  }
+
+  // Graceful fallback: text file download
+  const blob = new Blob([rawText], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = "About_Me_Support_Profile.txt";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }
 
 // Phase 2 Item 6: In-Browser Dataset Leakage Detector

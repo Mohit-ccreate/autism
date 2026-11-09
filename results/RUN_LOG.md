@@ -209,19 +209,24 @@ Compiling paper_facts.json...
   8. Sensory-Friendly Invariants: Disabled hover transform and animations under `body.sensory-friendly`.
 - **Quality Gates:** 40/40 pytest tests pass, `node --check webapp/app.js` returns 0 syntax errors, web server returns HTTP 200 OK.
 
-### 2026-11-08T17:40:00+05:30 — NeuroTriage ML Dynamic Inference & Patient Clinical Summary Card
+### 2026-11-09T10:45:00+05:30 — NEURO-SCREEN AI Client UI Refactor & Results Routing
 - **Status:** SUCCESS
-- **Files Modified:** `webapp/neurotriage.html`, `webapp/neurotriage.js`, `webapp/neurotriage.css`, `CHANGELOG.md`, `PROGRESS.md`
-- **Bug Fix & Enhancements Implemented:**
-  1. Dynamic Inference Bug Fix: Added full client-side parsing for CSV, TXT, JSON, and binary NumPy (`.npy` Float32/Float64) connectome vectors.
-  2. Decision Rules:
-     - Mean $> +0.1 \to$ ASD Profile, $C_{0.10}(x) = \{1\}$, Calibrated Posterior $\sim 82.4\%$, Nonconformity $0.082$, "ASD Pattern Detected (Definite Case)".
-     - Mean $< -0.1 \to$ Control Profile, $C_{0.10}(x) = \{0\}$, Calibrated Posterior $\sim 14.1\%$, Nonconformity $0.065$, "Typical Control Connectome (Definite Case)".
-     - $|\text{mean}| \le 0.1 \to$ Ambiguous Case, $C_{0.10}(x) = \{0, 1\}$, Posterior $\sim 50.2\%$, "Refer to Specialist (Ambiguous Case)".
-  3. Reactive Re-Rendering: Triage output panel and clinical summary card immediately re-evaluate upon file upload and upon clicking any of the 6 classifier architecture buttons without page refresh.
-  4. Patient-Friendly Clinical Interpretation Card: Added new component translating conformal sets into 3 plain-English bullets (finding meaning, 90% statistical safety standard, recommended next steps with licensed developmental specialists) and downloadable plain-text clinical report CTA (`#btn-download-clinical-summary`).
-  5. Anti-Gravity Styling: Updated cards, pill tabs, model buttons, and upload zones to floating dark obsidian glassmorphism aesthetic.
-- **Quality Gates:** 40/40 pytest tests pass, `node --check webapp/neurotriage.js` verified with 0 errors, web server returns HTTP 200 OK.
+- **Files Modified:** `webapp/index.html`, `webapp/style.css`, `webapp/app.js`, `CHANGELOG.md`, `results/RUN_LOG.md`
+- **Fixes Implemented:**
+  1. Sub-Navigation Bar Overflow Fix: `.nav-tabs-container` updated to responsive flexbox with wrapping (`display: flex; flex-wrap: wrap; gap: 0.5rem; overflow-x: hidden; max-width: 100%;`) with native scrollbar suppression.
+  2. Strengths Profile Grid & Sticky Preview: Replaced `.grid-2col` with `.profile-grid` (`display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; align-items: start;`) and made the "About Me" preview card sticky (`position: sticky; top: 1.5rem; align-self: start;`).
+  3. Gating & Results Generation Flow:
+     - Implemented `switchToTab(targetTabId)` ensuring synchronous updating of tab buttons and active panels.
+     - Completion of question 10 or clicking `#btn-calculate`/`#submit-screening` triggers `AppState.hasCompletedAssessment = true;` and routes to `tab-results`.
+     - `#results-empty-state` is hidden and `#results-calculated-container` is displayed with guarded DOM updates.
+     - Added aliases `window.calculateAndDisplayResults` and `window.calculateAndRenderResults`.
+  4. Dynamic Strengths & Support Profile:
+     - Bound event listeners to all 12 checkboxes (`#chk-sound`, `#chk-light`, `#chk-texture`, `#chk-crowds`, `#chk-written`, `#chk-direct`, `#chk-delay`, `#chk-routine`, `#chk-detail`, `#chk-focus`, `#chk-honesty`, `#chk-creative`) and perspective buttons.
+     - Updated `renderAboutMeCard()` to include tactile sensitivity (`#chk-texture`) and creative problem-solving (`#chk-creative`), dynamically tailored to Adult, Teen, and Child audiences.
+     - Enhanced `#btn-copy-profile-text` and `#btn-download-profile-pdf` with robust fallbacks.
+  5. Accessibility: Added high-contrast (`body.high-contrast`) and dyslexia font (`body.dyslexia-font`) styling across `.profile-grid`, `.nav-tabs-container`, and `#about-me-card-content`.
+- **Quality Gates:** 40/40 pytest tests pass (6.23s), `node --check webapp/app.js` confirmed 0 errors, web server returns HTTP 200 OK.
+
 
 
 
