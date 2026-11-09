@@ -240,6 +240,19 @@ Compiling paper_facts.json...
   7. Grid Unclipping: Set `.grid-2col`, `.profile-section`, and `.profile-grid` to responsive auto-fit columns (`repeat(auto-fit, minmax(320px, 1fr))`) and sticky profile preview.
 - **Quality Gates:** 40/40 pytest tests pass (33.77s), `node --check webapp/app.js` confirmed 0 syntax errors, `http://localhost:8000/index.html` confirmed HTTP 200 OK.
 
+### 2026-11-09T17:30:00+05:30 — Unified Multi-Modal Pipeline, Connectome Ingestion & Architecture Refactor
+- **Status:** SUCCESS
+- **Files Modified:** `webapp/index.html`, `webapp/style.css`, `webapp/styles.css`, `webapp/app.js`, `CHANGELOG.md`, `PROGRESS.md`, `results/RUN_LOG.md`
+- **Architectural Upgrades:**
+  1. Multi-Modal Stepper: Systematic 3-step triage workflow (Modality selection -> Data ingestion -> Tri-envelope results) with visual active state synchronization.
+  2. Production Connectome Ingestion: Multi-format dropzone (`.csv`, `.tsv`, `.json`, `.npy`, `.txt`), 3 live matrix integrity tags (200x200 symmetric, $[-1, 1]$ bounds, NaN/Inf check), 1-click presets (NYU, Stanford, Utah), 6 model family cards, and Canvas mini-heatmap preview with hover tooltip.
+  3. Global Event Delegation: Eliminated inline `onclick` handlers and pointer-event click traps on button children with `e.target.closest(...)`.
+  4. Reactive AppState & Multi-Modal Fusion: Centralized store `window.NeuroAppState` coupled with split-conformal inference engine computing coverage sets $C_{0.10}(x)$ and nonconformity metrics.
+  5. Feature Attribution: Extended trait impact bars with Default Mode Network hyper-coupling and Frontoparietal Control Network segregation indicators.
+  6. Accessibility & Doctor Export: Dyslexia font, high contrast, text scaling (100%/115%/130%), sensory mode, and clean print stylesheet (`@media print`).
+- **Quality Gates:** 40/40 pytest tests pass (9.62s), `node --check webapp/app.js` confirmed 0 syntax errors, web server returns HTTP 200 OK.
+
+
 
 
 

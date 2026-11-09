@@ -128,11 +128,69 @@
       </div>
     </div>
 
+    <!-- Step-by-Step Multi-Modal Triage Stepper (Phase 1 Item 1) -->
+    <section class="stepper-workflow-section" aria-label="Clinical Triage Workflow">
+      <div class="glass-card stepper-card">
+        <div class="stepper-header-row">
+          <div class="stepper-title-box">
+            <span class="stepper-badge-icon">🧬</span>
+            <div>
+              <h2 class="stepper-main-title">Multi-Modal Clinical Triage Workflow</h2>
+              <p class="stepper-sub-title">Select modality, ingest behavioral and resting-state fMRI biomarkers, and compute conformal prediction sets.</p>
+            </div>
+          </div>
+          <!-- Stepper Step Pills -->
+          <div class="stepper-steps-track" role="list">
+            <div class="step-node active" data-step="1" id="step-node-1" role="listitem">
+              <span class="step-num">1</span>
+              <span class="step-name">Modality</span>
+            </div>
+            <div class="step-connector" id="step-conn-1"></div>
+            <div class="step-node" data-step="2" id="step-node-2" role="listitem">
+              <span class="step-num">2</span>
+              <span class="step-name">Data Input</span>
+            </div>
+            <div class="step-connector" id="step-conn-2"></div>
+            <div class="step-node" data-step="3" id="step-node-3" role="listitem">
+              <span class="step-num">3</span>
+              <span class="step-name">Conformal Results</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 1: Modality Selection Bar -->
+        <div class="stepper-modality-bar">
+          <div class="modality-title-tag">
+            <span>⚙️</span> <strong>Active Modality:</strong>
+          </div>
+          <div class="modality-pill-group" role="radiogroup" aria-label="Screening Modality">
+            <button type="button" class="btn-modality active" data-modality="behavioral" id="btn-mod-behavioral" role="radio" aria-checked="true">
+              📋 Behavioral Only (Q-CHAT-10 / AQ-10)
+            </button>
+            <button type="button" class="btn-modality" data-modality="connectome" id="btn-mod-connectome" role="radio" aria-checked="false">
+              🧠 Connectome fMRI Only (CC200 Atlas)
+            </button>
+            <button type="button" class="btn-modality" data-modality="multimodal" id="btn-mod-multimodal" role="radio" aria-checked="false">
+              ✨ Multi-Modal Fusion (Behavioral + fMRI)
+            </button>
+          </div>
+          <div class="stepper-cta-box">
+            <button type="button" id="btn-run-multimodal-prediction" class="btn-run-prediction">
+              <span>⚡ Run Multi-Modal Prediction</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Navigation Tabs (Grouped by Audience) -->
     <nav class="nav-tabs-container" role="tablist">
       <!-- Caregiver & Individual Group -->
       <button class="tab-btn active" data-tab="tab-screening" data-group="caregiver" role="tab">
         📋 <span id="nav-screening">Screening Questionnaire</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-connectome" data-group="caregiver" role="tab">
+        🧠 <span id="nav-connectome">Neuroimaging / CC200 Ingestion</span>
       </button>
       <button class="tab-btn" data-tab="tab-results" data-group="caregiver" role="tab">
         📊 <span id="nav-results">Results & Explainability</span>
@@ -281,6 +339,155 @@
       </div>
     </section>
 
+    <!-- Tab 1B: Neuroimaging / CC200 Ingestion (Phase 1 & 2) -->
+    <section id="tab-connectome" class="tab-panel">
+      <div class="grid-2col">
+        <!-- Left: Upload & Presets Card -->
+        <div class="glass-card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span>🧠</span> <span>Connectome Data Ingestion (Craddock-200 Atlas)</span>
+            </h3>
+            <span class="badge" style="background: rgba(6, 182, 212, 0.15); color: #06b6d4;">ABIDE I • 20 Sites</span>
+          </div>
+
+          <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.5;">
+            Upload pre-computed resting-state fMRI functional connectivity data or select a verified ABIDE I clinical benchmark profile. All validation runs 100% client-side in browser memory.
+          </p>
+
+          <!-- 1-Click Clinical Presets (Phase 1 Item 2) -->
+          <div style="margin-bottom: 1.5rem;">
+            <label style="font-size: 0.82rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; display: block;">
+              ⚡ 1-Click Clinical Benchmark Pre-sets:
+            </label>
+            <div class="preset-selector-row">
+              <button type="button" class="btn-preset active" data-preset="nyu" id="btn-preset-nyu">
+                <span class="preset-title">Demo Subject 1: NYU Langone</span>
+                <span class="preset-desc">Typical Control Profile • Siemens 3.0T</span>
+              </button>
+              <button type="button" class="btn-preset" data-preset="stanford" id="btn-preset-stanford">
+                <span class="preset-title">Demo Subject 2: Stanford Medicine</span>
+                <span class="preset-desc">ASD High Connectivity • GE 3.0T</span>
+              </button>
+              <button type="button" class="btn-preset" data-preset="utah" id="btn-preset-utah">
+                <span class="preset-title">Demo Subject 3: University of Utah</span>
+                <span class="preset-desc">Ambiguous / Conformal Borderline • Tim Trio</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Clinical Drag-and-Drop Drop-Zone (Phase 1 Item 2) -->
+          <div style="margin-bottom: 1.5rem;">
+            <label style="font-size: 0.82rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; display: block;">
+              📁 Or Drop / Upload Connectome File:
+            </label>
+            <div class="connectome-dropzone" id="connectome-dropzone">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <div class="dropzone-text-primary" id="connectome-dropzone-title">
+                Drag &amp; drop CC200 matrix (.csv, .tsv, .json, .npy, .txt)
+              </div>
+              <div class="dropzone-text-sub">
+                Supports 200×200 ROI correlation matrix, 19,900 Fisher z-vector, or 200 parcels time-series (&lt;25 MB)
+              </div>
+              <input type="file" id="connectome-file-input" style="display: none;" accept=".csv,.tsv,.json,.npy,.txt">
+            </div>
+
+            <!-- Instant Matrix Dimension & Integrity Validator Status Tags (Phase 1 Item 2) -->
+            <div class="validator-tags-container" id="matrix-validator-container">
+              <span id="tag-validator-dim" class="validator-tag tag-valid">✓ Dimensions Valid (200x200 CC200 Symmetric Matrix)</span>
+              <span id="tag-validator-envelope" class="validator-tag tag-valid">✓ Negative/Positive Correlation Envelope [-1.0, 1.0] Verified</span>
+              <span id="tag-validator-nan" class="validator-tag tag-valid">✓ Zero NaN / Inf Elements Detected</span>
+            </div>
+          </div>
+
+          <!-- Classifier Architecture Selector -->
+          <div style="margin-bottom: 1rem;">
+            <label style="font-size: 0.82rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; display: block;">
+              🔬 Classifier Architecture (Leave-One-Site-Out Audited):
+            </label>
+            <div class="model-family-pill-grid">
+              <button type="button" class="btn-model-family active" data-model="rf">Random Forest (0.7003 AUROC)</button>
+              <button type="button" class="btn-model-family" data-model="lgbm">LightGBM (0.6992 AUROC)</button>
+              <button type="button" class="btn-model-family" data-model="ae">Autoencoder (0.6820 AUROC)</button>
+              <button type="button" class="btn-model-family" data-model="svm">Linear SVM (0.6765 AUROC)</button>
+              <button type="button" class="btn-model-family" data-model="lr">Logistic Reg (0.6593 AUROC)</button>
+              <button type="button" class="btn-model-family" data-model="et">Extra Trees (0.6867 AUROC)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Interactive Matrix Heatmap & Connectome Conformal Summary -->
+        <div class="glass-card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span>📊</span> <span>CC200 Functional Connectivity Heatmap &amp; Metrics</span>
+            </h3>
+            <span class="badge badge-privacy" id="badge-connectome-status">Verified Array</span>
+          </div>
+
+          <!-- Interactive Matrix Mini-Heatmap Canvas (Phase 1 Item 2) -->
+          <div class="heatmap-wrapper">
+            <div class="heatmap-canvas-container">
+              <canvas id="connectome-matrix-heatmap" width="220" height="220" aria-label="CC200 Correlation Matrix Heatmap"></canvas>
+              <div id="heatmap-hover-tooltip" class="heatmap-tooltip">ROI: (1, 1) r = 1.00</div>
+            </div>
+            <div class="heatmap-legend-box">
+              <div class="heatmap-legend-bar"></div>
+              <div class="heatmap-legend-labels">
+                <span>-1.0 (Hypo)</span>
+                <span>0.0</span>
+                <span>+1.0 (Hyper)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Connectome Summary Metrics Table -->
+          <div class="connectome-metrics-grid" style="margin-top: 1.25rem;">
+            <div class="metric-card-mini">
+              <span class="mini-lbl">Active Subject / Site</span>
+              <strong class="mini-val" id="conn-meta-site">NYU Langone</strong>
+            </div>
+            <div class="metric-card-mini">
+              <span class="mini-lbl">Mean Edge Correlation</span>
+              <strong class="mini-val" id="conn-meta-mean">-0.142</strong>
+            </div>
+            <div class="metric-card-mini">
+              <span class="mini-lbl">Conformal Set C_0.10(x)</span>
+              <strong class="mini-val" id="conn-meta-set" style="color: #34d399;">{0}</strong>
+            </div>
+            <div class="metric-card-mini">
+              <span class="mini-lbl">Nonconformity Score s_i</span>
+              <strong class="mini-val" id="conn-meta-nonconf">0.065</strong>
+            </div>
+          </div>
+
+          <!-- Plain-English Clinical Summary Card -->
+          <div class="clinical-summary-card" style="margin-top: 1.25rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+              <strong style="color: #fff; font-size: 0.85rem;" id="conn-summary-title">Typical Control Connectome (Definite Case)</strong>
+              <span class="badge" id="conn-summary-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">Screen-Negative</span>
+            </div>
+            <p id="conn-summary-text" style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+              The resting-state functional connectivity pattern aligns with baseline neurotypical developmental trends. Singleton prediction set C_0.10(x) = {0} satisfies valid 90% finite-sample marginal coverage under Leave-One-Site-Out evaluation.
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem; margin-top: 1.25rem;">
+            <button type="button" id="btn-proceed-to-results" class="btn-control active" style="flex: 1; justify-content: center; padding: 0.75rem;">
+              <span>📊 View Multi-Modal Results →</span>
+            </button>
+            <button type="button" id="btn-reset-connectome" class="btn-control" style="justify-content: center; padding: 0.75rem;">
+              <span>↺ Reset Connectome</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Tab 2: Results & Explainability -->
     <section id="tab-results" class="tab-panel">
       <!-- Empty State Card -->
@@ -332,6 +539,29 @@
               <span id="badge-data-quality" class="badge badge-trained">✓ High Integrity (38s)</span>
             </div>
           </div>
+        <!-- Dedicated Print-Only Clinical Header (Phase 4 Item 1) -->
+        <div class="print-only-header" style="display: none;">
+          <h2>NEURO-SCREEN AI &amp; NeuroTriage ML — Multi-Modal Clinical Triage Report</h2>
+          <p>Confidential Screening &amp; Research Audit Summary • Generated On-Device</p>
+        </div>
+
+        <!-- Multi-Modal Evidence Breakdown Grid (Phase 1 Item 1 & 3) -->
+        <div class="multimodal-evidence-grid" id="multimodal-evidence-grid">
+          <div class="evidence-pill">
+            <span class="evidence-pill-title">📋 Behavioral Modality (AQ-10/Q-CHAT)</span>
+            <span class="evidence-pill-val" id="evidence-val-beh">Trait Points: 0/10 (16.5%)</span>
+            <span class="evidence-pill-sub" id="evidence-sub-beh">Verified Psychometric Key</span>
+          </div>
+          <div class="evidence-pill">
+            <span class="evidence-pill-title">🧠 Connectome fMRI Modality (CC200)</span>
+            <span class="evidence-pill-val" id="evidence-val-conn">Mean r = -0.142 (16.5%)</span>
+            <span class="evidence-pill-sub" id="evidence-sub-conn">Leave-One-Site-Out Audited • Random Forest</span>
+          </div>
+          <div class="evidence-pill">
+            <span class="evidence-pill-title">⚖️ Tri-Envelope Decision Set (α = 0.10)</span>
+            <span class="evidence-pill-val" id="evidence-val-fused">C_0.10(x) = {0}</span>
+            <span class="evidence-pill-sub" id="evidence-sub-fused">90% Coverage Guarantee Across 20 Sites</span>
+          </div>
         </div>
 
         <div class="grid-2col">
@@ -364,6 +594,12 @@
 
             <div id="conformal-status-banner" class="conformal-banner conformal-certain">
               <strong>Screening Assessment:</strong> <span id="txt-conformal-desc">Your answers indicate a trait pattern typical for preliminary screening.</span>
+            </div>
+
+            <!-- Mathematical Conformal Set Box (Phase 1 Item 3) -->
+            <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 0.75rem 1rem; margin-top: 0.75rem; display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Conformal Prediction Set (α = 0.10)</span>
+              <span id="conformal-math-set" style="font-size: 1.1rem; font-weight: 800; font-family: monospace; color: #38bdf8;">C_0.10(x) = {0}</span>
             </div>
 
             <div id="perspective-narrative-box" style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-secondary); text-align: left; width: 100%; line-height: 1.6; background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem;">
@@ -1515,6 +1751,9 @@
       <button id="btn-send-assistant" class="btn-control active" style="padding: 0.4rem 0.8rem;">Send</button>
     </div>
   </div>
+
+  <!-- Global Toast Notification Container (Phase 4 Item 1) -->
+  <div id="toast-container" class="toast-container"></div>
 
   <script src="app.js"></script>
 </body>

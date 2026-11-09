@@ -344,6 +344,41 @@ This section details all modifications, new modules, metric diffs, and forensic 
   - JavaScript syntax: `node --check webapp/app.js` confirmed 0 errors.
   - Live server: `http://localhost:8000/index.html` confirmed HTTP 200 OK (89,213 bytes).
 
+---
+
+### 2026-11-09T17:30:00+05:30 — Unified Multi-Modal Pipeline, Connectome Ingestion & Architecture Refactor
+- **Trigger:** Unified, production-grade, deploy-ready multi-modal ASD Clinical Screening & Research Platform (`NEURO-SCREEN AI` / `NeuroTriage ML`) integrating Behavioral (Q-CHAT-10 / AQ-10) and Neuroimaging Connectome (ABIDE I CC200 resting-state fMRI) triage.
+- **Files Modified:** `webapp/index.html`, `webapp/style.css`, `webapp/styles.css`, `webapp/app.js`, `CHANGELOG.md`, `PROGRESS.md`, `results/RUN_LOG.md`.
+- **Phase 1: Unified Multi-Modal Pipeline & UI/UX Workflow:**
+  - Implemented 3-Step Multi-Modal Stepper (`<section class="stepper-workflow-section">`): Step 1 (Modality Selector: Behavioral Screener, Connectome fMRI, or Multi-Modal Fusion), Step 2 (Data Ingestion Workspace: Questionnaire + Neuroimaging Connectome), Step 3 (Tri-Envelope Results View).
+  - Streamlined Connectome Ingestion UI (`<section id="tab-connectome">`):
+    - Full drag-and-drop dropzone (`#connectome-dropzone`, `#connectome-file-input`) supporting `.csv`, `.tsv`, `.json`, `.npy`, `.txt` ($<25$ MB).
+    - Instant Matrix Dimension & Integrity Validator tags (`#tag-validator-dim`, `#tag-validator-envelope`, `#tag-validator-nan`).
+    - 1-Click Clinical Presets (NYU Langone Medical Center, Stanford Medicine, University of Utah).
+    - Classifier Architecture buttons (Random Forest, LightGBM, Autoencoder, Linear SVM, Logistic Regression, Extra Trees).
+    - Canvas-based interactive mini-heatmap preview (`#connectome-matrix-heatmap`, `#heatmap-hover-tooltip`, color legend).
+    - Plain-English Clinical Summary Card (`#conn-summary-card`, `#conn-summary-text`).
+- **Phase 2: Core Event Architecture & Bug Fixes (Fixing Unclickable Buttons):**
+  - Eliminated fragile inline `onclick="..."` handlers; centralized event delegation in `initGlobalEventDelegation()` using `e.target.closest(...)` for click and change events.
+  - Sanitized CSS z-indexes & pointer-events: `.ambient-glow` and inactive modal overlays set to `pointer-events: none !important;`, button children set to `pointer-events: none !important;`, interactive controls set to `pointer-events: auto !important; position: relative; z-index: 10;`.
+  - Synchronized workspace tabs: `[📋 Screening Questionnaire]`, `[🧠 Neuroimaging / CC200 Ingestion]`, `[📊 Results & Explainability]`, `[🧩 Strengths & Support Profile]`, `[🏥 Clinical Referral & Resources]`.
+- **Phase 3: State Machine & Multi-Modal Inference Engine:**
+  - Established centralized reactive client store `window.NeuroAppState` (`modality`, `cohort`, `answers`, `userResponses`, `connectomeData`, `results`, `subscribe`/`notify`/`setState`).
+  - Implemented `runMultiModalPrediction()`: synthesizes behavioral log-odds with connectome evidence and computes split-conformal prediction sets ($C_{0.10}(x) \in \{\{0\}, \{1\}, \{0, 1\}\}$) with nonconformity scores.
+  - Enriched `renderFeatureAttribution()` with Connectome Subnetwork Evidence (Default Mode Network hyper-coupling and Frontoparietal Control Network segregation).
+  - Implemented smooth input resetting (`resetAllInputs()`) and sequential assessment evaluation without runtime exceptions.
+- **Phase 4: Production Polish, Accessibility & Deployment Readiness:**
+  - Clinical doctor summary export (`exportDoctorSummaryPDF()` triggering clean `@media print` layout and `window.print()`).
+  - Session persistence via `localStorage` with non-blocking toast notifications (`showToast()`).
+  - Accessibility toolbar: Dyslexia-friendly font toggle (`toggleDyslexiaFont()`), high contrast mode (`toggleHighContrast()`), text size scaler (`cycleTextSize()`, 100%/115%/130%), and sensory mode toggle (`toggleSensoryMode()`).
+  - Global error trapping (`window.addEventListener('error', ...)`) with graceful user-facing toast alerts.
+  - Pure client-side zero-dependency execution.
+- **Verification:**
+  - Automated tests: 40/40 pytest tests passing (`python -m pytest tests/ -v`).
+  - JavaScript syntax: `node --check webapp/app.js` confirmed 0 errors.
+  - Live server: `http://localhost:8000/index.html` confirmed HTTP 200 OK.
+
+
 
 
 

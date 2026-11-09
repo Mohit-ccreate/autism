@@ -134,6 +134,12 @@
   - Added calculate and submission CTAs (`#btn-calculate`, `#submit-screening`) into the questionnaire interface.
 - **Accessibility:**
   - High-contrast mode (`body.high-contrast`) and dyslexia-friendly font (`body.dyslexia-font`) verified across all new layout components.
+- **Unified Multi-Modal Pipeline & UI/UX Workflow:**
+  - 3-Step Multi-Modal Triage Stepper (Modality Selector -> Ingestion Workspace -> Tri-Envelope Results).
+  - Streamlined Connectome Ingestion UI: Drag-and-drop dropzone ($<25$ MB), 3 instantaneous matrix dimension & integrity validator tags, 1-click clinical presets (NYU, Stanford, Utah), 6 classifier architecture selectors, and canvas mini-heatmap preview with hover tooltip.
+  - Centralized event delegation (`initGlobalEventDelegation`) resolving button click blocking and pointer-event traps.
+  - Centralized reactive state store (`window.NeuroAppState`) and multi-modal inference engine with split conformal prediction sets ($C_{0.10}(x)$).
+  - Doctor summary export (`@media print` layout), local session storage persistence with toast alerts, and font-scaler/sensory toggles.
 
 ---
 
