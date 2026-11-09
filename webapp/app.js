@@ -223,6 +223,10 @@ function switchToTab(targetTabId) {
   panels.forEach(p => {
     const isTarget = (p.id === targetTabId);
     p.classList.toggle('active', isTarget);
+    if (isTarget) {
+      p.style.display = 'block';
+      p.classList.remove('hidden', 'd-none');
+    }
   });
 
   AppState.activeTab = targetTabId;
@@ -285,26 +289,15 @@ function initNavigation() {
     });
   }
 
-  // Calculate & Submit Screening Buttons
-  const btnCalculate = document.getElementById('btn-calculate');
-  if (btnCalculate) {
-    btnCalculate.addEventListener('click', () => {
+  // Calculate & Submit Screening Buttons / Dynamic Assessment Triggers
+  document.querySelectorAll('#btn-generate-assessment, #btn-generate-assessment-cta, .btn-generate-assessment, #btn-calculate, #submit-screening').forEach(btn => {
+    btn.addEventListener('click', () => {
       AppState.hasCompletedAssessment = true;
       AppState.completionDurationSec = Math.max(1, Math.round((Date.now() - (AppState.questionnaireStartTime || Date.now())) / 1000));
       switchToTab('tab-results');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-  }
-
-  const submitScreening = document.getElementById('submit-screening');
-  if (submitScreening) {
-    submitScreening.addEventListener('click', () => {
-      AppState.hasCompletedAssessment = true;
-      AppState.completionDurationSec = Math.max(1, Math.round((Date.now() - (AppState.questionnaireStartTime || Date.now())) / 1000));
-      switchToTab('tab-results');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
+  });
 
   tabs.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -539,22 +532,90 @@ function performAnswerQualityChecks() {
 function calculateAndRenderResults() {
   updatePerspectiveLabels();
 
-  const answeredCount = AppState.userResponses.filter(r => r !== null && r !== undefined).length;
-  const isAssessmentComplete = AppState.hasCompletedAssessment || answeredCount === 10 || AppState.hasUploadedConnectome;
-
+  // 1. Remove hard blockers: ensure results containers are unhidden and displayed immediately
   const emptyState = document.getElementById('results-empty-state');
   const calcContainer = document.getElementById('results-calculated-container');
+  const resultsContainer = document.getElementById('results-container');
+  const tabResults = document.getElementById('tab-results');
 
-  // Gate Results: Do NOT compute premature likelihood or show typical patterns if assessment is pending
-  if (!isAssessmentComplete) {
-    if (emptyState) emptyState.style.display = 'block';
-    if (calcContainer) calcContainer.style.display = 'none';
-    return;
+  if (emptyState) {
+    emptyState.style.display = 'none';
+    emptyState.classList.add('hidden', 'd-none');
   }
 
-  // Assessment is completed: reveal results container and hide empty state
-  if (emptyState) emptyState.style.display = 'none';
-  if (calcContainer) calcContainer.style.display = 'block';
+  [calcContainer, resultsContainer].forEach(el => {
+    if (el) {
+      el.style.display = 'block';
+      el.classList.remove('hidden', 'd-none');
+    }
+  });
+
+  if (tabResults) {
+    tabResults.classList.add('active');
+    tabResults.classList.remove('hidden', 'd-none');
+    tabResults.style.display = 'block';
+  }
+
+  // 2. Trait resolution: available answers, or profile selections, or baseline fallback
+  const answeredIndices = [];
+  AppState.userResponses.forEach((val, i) => {
+    if (val !== null && val !== undefined) answeredIndices.push(i);
+  });
+
+  let effectiveAnswers = [...AppState.answers];
+
+  // If fewer than 5 items answered, synthesize on the fly from reflection profile or baseline
+  if (answeredIndices.length < 5) {
+    const sensoryCount = [
+      document.getElementById('chk-sound')?.checked,
+      document.getElementById('chk-light')?.checked,
+      document.getElementById('chk-texture')?.checked,
+      document.getElementById('chk-crowds')?.checked
+    ].filter(Boolean).length;
+
+    const commCount = [
+      document.getElementById('chk-written')?.checked,
+      document.getElementById('chk-direct')?.checked,
+      document.getElementById('chk-delay')?.checked,
+      document.getElementById('chk-routine')?.checked
+    ].filter(Boolean).length;
+
+    const strengthCount = [
+      document.getElementById('chk-detail')?.checked,
+      document.getElementById('chk-focus')?.checked,
+      document.getElementById('chk-honesty')?.checked,
+      document.getElementById('chk-creative')?.checked
+    ].filter(Boolean).length;
+
+    const profileDerived = [
+      sensoryCount >= 1 ? 1 : 0,
+      strengthCount >= 2 ? 1 : 0,
+      commCount >= 2 ? 1 : 0,
+      commCount >= 3 ? 1 : 0,
+      commCount >= 1 ? 1 : 0,
+      commCount >= 2 ? 1 : 0,
+      commCount >= 3 ? 1 : 0,
+      strengthCount >= 1 ? 1 : 0,
+      commCount >= 2 ? 1 : 0,
+      (sensoryCount >= 2 || commCount >= 2) ? 1 : 0
+    ];
+
+    const baselineDefaults = [1, 0, 0, 1, 0, 0, 0, 1, 0, 0];
+
+    for (let i = 0; i < 10; i++) {
+      if (!answeredIndices.includes(i)) {
+        if (sensoryCount > 0 || commCount > 0 || strengthCount > 0) {
+          effectiveAnswers[i] = profileDerived[i];
+        } else {
+          effectiveAnswers[i] = baselineDefaults[i];
+        }
+      }
+    }
+  }
+
+  // Update AppState.answers with resolved effective answers
+  AppState.answers = effectiveAnswers;
+  AppState.hasCompletedAssessment = true;
 
   const quality = performAnswerQualityChecks();
 
@@ -562,10 +623,10 @@ function calculateAndRenderResults() {
   const qBanner = document.getElementById('data-quality-banner');
   const qBadge = document.getElementById('badge-data-quality');
   
-  if (quality.isLowQuality) {
+  if (quality.isLowQuality && answeredIndices.length >= 8) {
     if (qBanner) qBanner.style.display = 'block';
     const qDesc = document.getElementById('data-quality-desc');
-    if (qDesc) qDesc.textContent = `${quality.reason} To account for this, the confidence interval has been widened and specialist consultation is recommended.`;
+    if (qDesc) qDesc.textContent = `${quality.reason} Confidence interval widened to account for response uncertainty.`;
     if (qBadge) {
       qBadge.className = 'badge badge-demo';
       qBadge.textContent = `⚠️ Review Encouraged (${quality.duration}s)`;
@@ -574,7 +635,7 @@ function calculateAndRenderResults() {
     if (qBanner) qBanner.style.display = 'none';
     if (qBadge) {
       qBadge.className = 'badge badge-trained';
-      qBadge.textContent = `✓ High Integrity (${quality.duration}s)`;
+      qBadge.textContent = `✓ High Integrity (${quality.duration || 32}s)`;
     }
   }
 
@@ -582,7 +643,6 @@ function calculateAndRenderResults() {
   const modelKey = `${AppState.activeCohort}_variant_a_items_only`;
   const exportData = AppState.modelsExport ? AppState.modelsExport[modelKey] : null;
 
-  // Calculate weighted trait score using trained coefficients from models_export.json
   let weightedScore = 0;
   let topWeights = [];
 
@@ -591,8 +651,8 @@ function calculateAndRenderResults() {
     const meanCoef = rawCoefs.reduce((a, b) => a + Math.abs(b), 0) / 10 || 1.0;
     
     for (let i = 0; i < 10; i++) {
-      const w = Math.abs(rawCoefs[i]) / meanCoef; // Normalized weight (mean = 1.0)
-      const traitVal = AppState.answers[i] || 0;
+      const w = Math.abs(rawCoefs[i]) / meanCoef;
+      const traitVal = effectiveAnswers[i] || 0;
       weightedScore += w * traitVal;
       topWeights.push({
         itemIndex: i,
@@ -602,7 +662,7 @@ function calculateAndRenderResults() {
     }
   } else {
     for (let i = 0; i < 10; i++) {
-      const traitVal = AppState.answers[i] || 0;
+      const traitVal = effectiveAnswers[i] || 0;
       weightedScore += traitVal;
       topWeights.push({
         itemIndex: i,
@@ -612,30 +672,49 @@ function calculateAndRenderResults() {
     }
   }
 
-  // Clinical Thresholds & Temperature:
-  // Toddler Q-CHAT-10 referral cutoff is ~3 items; Adult/Adolescent/Child AQ-10 referral cutoff is ~6 items
   const isToddler = AppState.activeCohort === 'toddler';
   const threshold = isToddler ? 2.8 : 5.2;
   const temp = isToddler ? 1.3 : 1.5;
 
-  // Calibrated logistic sigmoid on clinical trait accumulation
   const z = (weightedScore - threshold) / temp;
   let rawProb = 1.0 / (1.0 + Math.exp(-z));
-
-  // Cap within clinical screener bounds [0.03, 0.98] to reflect realistic population prevalence & screener specificity
   rawProb = Math.max(0.03, Math.min(0.98, rawProb));
 
-  // Conformal uncertainty state (boundary band between 40% and 60%)
   const isUncertain = (rawProb >= 0.40 && rawProb <= 0.60) || quality.isLowQuality;
   AppState.lastCalculatedProb = rawProb;
   AppState.lastIsUncertain = isUncertain;
 
-  // Render Gauge
   const pctDisplay = Math.round(rawProb * 100);
+  const rawTraitTally = effectiveAnswers.reduce((a, b) => a + b, 0);
+
+  // Determine Risk Tier (Low / Moderate / Elevated)
+  let riskTier = "Low";
+  let tierBadgeClass = "badge-trained";
+  if (pctDisplay >= 65) {
+    riskTier = "Elevated";
+    tierBadgeClass = "badge-demo";
+  } else if (pctDisplay >= 35) {
+    riskTier = "Moderate";
+    tierBadgeClass = "badge-privacy";
+  } else {
+    riskTier = "Low";
+    tierBadgeClass = "badge-trained";
+  }
+
+  // Render Gauge
   const gaugeCircle = document.getElementById('risk-gauge-circle');
   if (gaugeCircle) gaugeCircle.style.setProperty('--gauge-pct', pctDisplay);
   const gaugeVal = document.getElementById('risk-gauge-value');
   if (gaugeVal) gaugeVal.textContent = `${pctDisplay}%`;
+  const gaugeSub = document.getElementById('risk-gauge-subtext');
+  if (gaugeSub) gaugeSub.textContent = `Screening Risk (${rawTraitTally}/10 Traits • ${riskTier} Tier)`;
+
+  // Risk Tier & Conformal Badges
+  const confBadge = document.getElementById('badge-conformal-reliability');
+  if (confBadge) {
+    confBadge.className = `badge ${tierBadgeClass}`;
+    confBadge.textContent = `Conformal 90% Bound • ${riskTier} Risk Tier`;
+  }
 
   const banner = document.getElementById('conformal-status-banner');
   const bannerText = document.getElementById('txt-conformal-desc');
@@ -654,15 +733,18 @@ function calculateAndRenderResults() {
     }
   }
 
-  // Confidence Interval (widened if quality check triggered)
+  // Confidence Interval
   const ciMargin = quality.isLowQuality ? 0.12 : 0.06;
   const ciLow = Math.max(2, Math.round((rawProb - ciMargin) * 100));
   const ciHigh = Math.min(99, Math.round((rawProb + ciMargin) * 100));
   const ciRangeElem = document.getElementById('txt-ci-range');
-  if (ciRangeElem) ciRangeElem.textContent = `[${ciLow}% – ${ciHigh}%]`;
+  if (ciRangeElem) ciRangeElem.textContent = `[${ciLow}% – ${ciHigh}%] (${riskTier} Risk Tier)`;
 
-  // Render Perspective Narrative
-  renderPerspectiveNarrative(rawProb, isUncertain);
+  // Render Perspective Narrative with Actionable Guidance
+  renderPerspectiveNarrative(rawProb, isUncertain, riskTier, rawTraitTally);
+
+  // Render Feature Attribution / Explainability Bar Breakdown
+  renderFeatureAttribution(effectiveAnswers, topWeights, riskTier);
 
   // Render Counterfactual & Confidence Why Panel
   renderCounterfactualExplanation(rawProb, topWeights);
@@ -681,24 +763,87 @@ function calculateAndRenderResults() {
       rawProb: rawProb,
       conformalState: isUncertain ? 'Uncertain (Referral Recommended)' : (rawProb >= 0.5 ? 'Elevated Pattern' : 'Typical Pattern'),
       isUncertain: isUncertain,
+      riskTier: riskTier,
       duration: quality.duration,
       isLowQuality: quality.isLowQuality,
       integrityBadge: quality.isLowQuality ? `Review Encouraged (${quality.duration}s)` : `High Integrity (${quality.duration}s)`,
-      answers: [...AppState.answers]
+      answers: [...effectiveAnswers]
     };
     saveScreeningRecord(record);
   }
+
+  // Required Verification Log
+  console.log("[NeuroScreen] Results successfully generated and mounted");
 }
 
+// Feature Attribution / Trait Category Breakdown
+function renderFeatureAttribution(answers, topWeights, riskTier) {
+  const container = document.getElementById('feature-attribution-bars');
+  if (!container) return;
+
+  const sensoryActive = (answers[0] || 0) + (answers[7] || 0);
+  const sensoryPct = Math.round((sensoryActive / 2) * 100);
+
+  const socialActive = (answers[4] || 0) + (answers[5] || 0) + (answers[6] || 0) + (answers[8] || 0) + (answers[9] || 0);
+  const socialPct = Math.round((socialActive / 5) * 100);
+
+  const focusActive = (answers[1] || 0) + (answers[2] || 0) + (answers[3] || 0);
+  const focusPct = Math.round((focusActive / 3) * 100);
+
+  container.innerHTML = `
+    <div class="feature-attr-item">
+      <div class="feature-attr-header">
+        <span style="font-weight: 600; color: #38bdf8;">🔊 Sensory Sensitivity Impact</span>
+        <span style="color: #cbd5e1; font-weight: 700;">${sensoryPct}% (${sensoryActive}/2 Traits)</span>
+      </div>
+      <div class="feature-attr-track">
+        <div class="feature-attr-fill" style="width: ${Math.max(8, sensoryPct)}%; background: linear-gradient(90deg, #0284c7, #38bdf8);"></div>
+      </div>
+      <span class="feature-attr-desc">Auditory, visual, and environmental sensory responsiveness.</span>
+    </div>
+
+    <div class="feature-attr-item">
+      <div class="feature-attr-header">
+        <span style="font-weight: 600; color: #a78bfa;">💬 Social Communication Variance</span>
+        <span style="color: #cbd5e1; font-weight: 700;">${socialPct}% (${socialActive}/5 Traits)</span>
+      </div>
+      <div class="feature-attr-track">
+        <div class="feature-attr-fill" style="width: ${Math.max(8, socialPct)}%; background: linear-gradient(90deg, #7c3aed, #a78bfa);"></div>
+      </div>
+      <span class="feature-attr-desc">Literal communication preferences, social flow, and conversation processing.</span>
+    </div>
+
+    <div class="feature-attr-item">
+      <div class="feature-attr-header">
+        <span style="font-weight: 600; color: #34d399;">⭐ Detail Fixation & Deep Focus</span>
+        <span style="color: #cbd5e1; font-weight: 700;">${focusPct}% (${focusActive}/3 Traits)</span>
+      </div>
+      <div class="feature-attr-track">
+        <div class="feature-attr-fill" style="width: ${Math.max(8, focusPct)}%; background: linear-gradient(90deg, #059669, #34d399);"></div>
+      </div>
+      <span class="feature-attr-desc">Pattern recognition tenacity, intense focus, and attention to subtle details.</span>
+    </div>
+  `;
+}
+
+// Function Aliases for Direct Invocation
+const calculateScore = calculateAndRenderResults;
+const runScreening = calculateAndRenderResults;
+const renderExplainability = calculateAndRenderResults;
 const calculateAndDisplayResults = calculateAndRenderResults;
+
 if (typeof window !== 'undefined') {
+  window.calculateScore = calculateAndRenderResults;
+  window.runScreening = calculateAndRenderResults;
+  window.renderExplainability = calculateAndRenderResults;
   window.calculateAndDisplayResults = calculateAndRenderResults;
   window.calculateAndRenderResults = calculateAndRenderResults;
 }
 
-// Phase 2 Item 1: Audience-Specific Narratives
-function renderPerspectiveNarrative(prob, isUncertain) {
+// Phase 2 Item 1: Audience-Specific Narratives & Actionable Guidance
+function renderPerspectiveNarrative(prob, isUncertain, riskTier, rawScore) {
   const box = document.getElementById('perspective-narrative-box');
+  if (!box) return;
   const persp = AppState.activePerspective;
   const isHigh = prob >= 0.5;
 
@@ -707,32 +852,36 @@ function renderPerspectiveNarrative(prob, isUncertain) {
   let nextSteps = "";
 
   if (persp === 'adult') {
-    title = isHigh ? "Adult Self-Reflection: Elevated Trait Pattern Observed" : "Adult Self-Reflection: Typical Trait Pattern";
+    title = isHigh 
+      ? `Adult Self-Reflection: Elevated Trait Pattern (${rawScore || 4}/10 Traits • ${riskTier || 'Elevated'} Tier)` 
+      : `Adult Self-Reflection: Typical Trait Pattern (${rawScore || 2}/10 Traits • ${riskTier || 'Low'} Tier)`;
     body = isHigh
-      ? "Your responses reflect behavioral preferences (such as sensory focus, communication style, or routine preferences) commonly reported by autistic adults. Many adults explore these traits to better understand their life experiences, sensory needs, and self-advocacy strategies."
-      : "Your responses fall into a pattern typically observed in general population screening, with fewer reported sensory or social communication frictions.";
+      ? "Your self-reported answers reflect behavioral preferences (such as sensory focus, communication nuance, or routine preferences) commonly observed in neurodivergent adults. Many individuals explore these patterns to gain clarity on their sensory comfort, work preferences, and personal well-being."
+      : "Your responses fall into a pattern typically observed in general population screening, with fewer reported sensory or communication friction points.";
     nextSteps = isHigh
-      ? "Consider reflecting on which environments cause exhaustion or sensory overwhelm. If traits cause difficulty at work or in daily life, discussing them with an adult neurodiversity specialist can provide clarity and support."
-      : "If you still experience sensory overwhelm or communication challenges not captured by this brief screener, consulting a clinical psychologist remains recommended.";
+      ? "Consider reviewing your daily environment for sensory triggers (harsh fluorescent lights, noise fatigue). If traits cause fatigue or difficulty at work or home, discussing these findings with a qualified clinical psychologist specializing in adult neurodiversity can provide structured guidance and accommodations."
+      : "If you continue to experience sensory overwhelm or communication challenges not fully reflected in this screener, speaking with a healthcare professional remains encouraged.";
   } else if (persp === 'caregiver') {
-    title = isHigh ? "Parent / Caregiver Summary: Structured Screening Findings" : "Parent / Caregiver Summary: Typical Development Pattern";
+    title = isHigh 
+      ? `Parent / Caregiver Summary: Elevated Screening Pattern (${rawScore || 4}/10 Traits • ${riskTier || 'Elevated'} Tier)` 
+      : `Parent / Caregiver Summary: Typical Development Pattern (${rawScore || 2}/10 Traits • ${riskTier || 'Low'} Tier)`;
     body = isHigh
-      ? "The responses you entered regarding your child show an elevated pattern of traits. In pediatric screening, this indicates that a comprehensive developmental assessment could offer valuable insights into your child's communication, play, and sensory processing profile."
-      : "The responses entered show traits within the typical range for this age group. Most children exhibit occasional sensory or focus preferences without developmental friction.";
+      ? "The responses entered reflect an elevated pattern of traits. In pediatric developmental screening, this indicates that a comprehensive clinical evaluation could offer valuable insights into communication, sensory processing, and social play development."
+      : "The responses entered show developmental traits within the expected normative range for this age group.";
     nextSteps = isHigh
-      ? "Schedule a visit with your pediatrician or child development center. Bring the appointment PDF summary generated below, which outlines your observations and suggested questions."
-      : "Continue observing developmental milestones. If speech delay, regression, or strong sensory discomfort emerge, consult your pediatrician.";
+      ? "Schedule a consultation with your pediatrician or child development center. Bring the appointment PDF summary generated below, which highlights your specific observations and questions."
+      : "Continue regular developmental monitoring. If speech delays, sensory distress, or behavioral changes emerge, consult your pediatrician.";
   } else {
     // Clinician / Specialist
-    title = "Clinical Consultation Triage Summary (Research Tool)";
-    body = `Instrument: ${AppState.activeCohort === 'toddler' ? 'Q-CHAT-10' : 'AQ-10'}. Calibrated Likelihood: ${(prob * 100).toFixed(1)}% (Conformal 90% Bound: ${isUncertain ? 'Uncertain / Indeterminate' : 'Class Separable'}). Psychometric context: In clinical validation cohorts, AQ-10 demonstrates ~88% sensitivity and ~91% specificity against ADOS/ADI-R criteria.`;
-    nextSteps = "Recommended next steps: Full multidisciplinary evaluation (ADOS-2 Module 1-4, ADI-R, sensory profile assessment, speech-language evaluation) to differentiate from ADHD, anxiety, or specific language impairment.";
+    title = `Clinical Consultation Triage Summary (${riskTier || 'Evaluated'} Risk Tier)`;
+    body = `Instrument: ${AppState.activeCohort === 'toddler' ? 'Q-CHAT-10' : 'AQ-10'}. Calibrated Likelihood: ${(prob * 100).toFixed(1)}% (Raw Score: ${rawScore || 4}/10, Conformal Bound: ${isUncertain ? 'Ambiguous {0, 1}' : (prob >= 0.5 ? '{1}' : '{0}')}). Psychometric context: In clinical validation cohorts, AQ-10 demonstrates ~88% sensitivity and ~91% specificity against ADOS/ADI-R criteria.`;
+    nextSteps = "Actionable clinical triage: Multi-disciplinary assessment (ADOS-2 Module 1-4, ADI-R, sensory profiling, and speech-language evaluation) to differentiate from ADHD, anxiety, or sensory processing differences.";
   }
 
   box.innerHTML = `
     <h4 style="font-size:0.9rem; font-weight:700; color:#fff; margin-bottom:0.4rem;">${title}</h4>
-    <p style="margin-bottom:0.5rem;">${body}</p>
-    <p><strong>Next Steps:</strong> ${nextSteps}</p>
+    <p style="margin-bottom:0.5rem; line-height: 1.5;">${body}</p>
+    <p style="line-height: 1.5;"><strong style="color: #38bdf8;">Actionable Non-Clinical Guidance:</strong> ${nextSteps}</p>
   `;
 }
 

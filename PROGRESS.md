@@ -23,6 +23,8 @@
 | **Correction Pass I** | NeuroTriage ML Ultra-Modern Web Application (3D Connectome, Screener, Conformal Triage, Benchmark Charts, 14-Item Checklist) | ✅ DONE | 2026-11-08 |
 | **Correction Pass J** | "Anti-Gravity" Dark Glassmorphism UI/UX Redesign (Killed scrollbar, floating pills, elevation cards, CC200 live badge) | ✅ DONE | 2026-11-08 |
 | **Correction Pass K** | NeuroTriage ML Dynamic Inference (NPY/CSV parser bugfix, model re-eval, clinical summary card, plain-text export) | ✅ DONE | 2026-11-08 |
+| **Correction Pass L** | NEURO-SCREEN AI Scoring, Explainability & UI Clipping Refactor (forced calculation, attribution bars, auto-fit grid) | ✅ DONE | 2026-11-09 |
+
 
 ---
 

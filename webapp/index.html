@@ -283,20 +283,26 @@
 
     <!-- Tab 2: Results & Explainability -->
     <section id="tab-results" class="tab-panel">
-      <!-- Empty State Card (Visible when assessment is pending) -->
-      <div id="results-empty-state" class="results-empty-card">
+      <!-- Empty State Card -->
+      <div id="results-empty-state" class="results-empty-card" style="display: none;">
         <div class="results-empty-icon">📋</div>
-        <h3 class="results-empty-title">No Assessment Recorded Yet</h3>
+        <h3 class="results-empty-title">Screening Assessment Dashboard</h3>
         <p class="results-empty-desc">
-          To view calibrated screening likelihood, personalized strengths insights, and explainability breakdowns, please complete the 10-question screening questionnaire or upload connectome data in research mode.
+          To view calibrated screening likelihood, personalized strengths insights, and explainability breakdowns, complete the questions or generate the assessment on the fly below.
         </p>
-        <button type="button" id="btn-start-screening-cta" class="btn-start-cta">
-          Start 10-Question Screening →
-        </button>
+        <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+          <button type="button" id="btn-start-screening-cta" class="btn-start-cta">
+            Start 10-Question Screening →
+          </button>
+          <button type="button" id="btn-generate-assessment-cta" class="btn-start-cta btn-generate-assessment" style="background: linear-gradient(135deg, #06b6d4, #3b82f6);">
+            ⚡ Generate Assessment On The Fly
+          </button>
+        </div>
       </div>
 
-      <!-- Calculated Results Container (Initially gated until assessment is completed) -->
-      <div id="results-calculated-container" style="display: none;">
+      <!-- Results Container -->
+      <div id="results-container" class="results-container">
+        <div id="results-calculated-container">
         <!-- Answer Quality Warning Banner -->
         <div id="data-quality-banner" style="display: none; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: var(--radius-md); padding: 0.85rem 1.25rem; margin-bottom: 1.5rem;">
           <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -398,6 +404,17 @@
               <span class="badge" id="badge-shap-counterfactual" style="background: rgba(99, 102, 241, 0.2); color: #a5b4fc;">SHAP + Perturbations</span>
             </div>
 
+            <!-- Feature Attribution / Explainability Dimension Breakdown -->
+            <div id="feature-attribution-container" style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                <strong style="color: #fff; font-size: 0.85rem;">📊 Trait Dimension Attribution Breakdown</strong>
+                <span id="badge-attribution-tier" class="badge" style="background: rgba(6, 182, 212, 0.2); color: #38bdf8; font-size: 0.7rem;">Domain Weights</span>
+              </div>
+              <div id="feature-attribution-bars" style="display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.8rem;">
+                <!-- Populated dynamically by renderFeatureAttribution -->
+              </div>
+            </div>
+
             <div id="counterfactual-box" style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: var(--radius-md); padding: 0.9rem; margin-bottom: 1.25rem;">
               <strong style="color: #67e8f9; font-size: 0.85rem;">🔄 Counterfactual Insight ("What Would Change This Result"):</strong>
               <p id="counterfactual-text" style="font-size: 0.8rem; color: #cffafe; margin-top: 0.3rem;">
@@ -438,6 +455,7 @@
             </p>
           </div>
         </details>
+        </div>
       </div>
     </section>
 
@@ -461,7 +479,7 @@
           <button class="btn-control profile-audience-btn" data-paudience="child">Caregiver-Filled (Child)</button>
         </div>
 
-        <div class="profile-grid">
+        <div class="profile-grid profile-section">
           <div style="display: flex; flex-direction: column; gap: 1.25rem;">
             <div class="glass-card" style="background: rgba(15, 23, 42, 0.5);">
               <h4 style="font-size: 0.9rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.75rem;">

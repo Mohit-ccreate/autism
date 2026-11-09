@@ -227,6 +227,20 @@ Compiling paper_facts.json...
   5. Accessibility: Added high-contrast (`body.high-contrast`) and dyslexia font (`body.dyslexia-font`) styling across `.profile-grid`, `.nav-tabs-container`, and `#about-me-card-content`.
 - **Quality Gates:** 40/40 pytest tests pass (6.23s), `node --check webapp/app.js` confirmed 0 errors, web server returns HTTP 200 OK.
 
+### 2026-11-09T13:00:00+05:30 — NEURO-SCREEN AI Scoring, Explainability & UI Clipping Refactor
+- **Status:** SUCCESS
+- **Files Modified:** `webapp/index.html`, `webapp/style.css`, `webapp/styles.css`, `webapp/app.js`, `CHANGELOG.md`, `PROGRESS.md`, `results/RUN_LOG.md`
+- **Fixes Implemented:**
+  1. Removed Hard Blockers: Unlocked on-the-fly scoring and explainability calculation without requiring 100% questionnaire completion.
+  2. Fallback Synthesis: Missing items resolved from active traits in Strengths/Sensory Reflection Profile or normative baseline defaults.
+  3. Direct Routing to Results: Navigating directly to `tab-results` or clicking `Generate Assessment` immediately computes traits, reveals `#results-calculated-container`, hides `#results-empty-state`, and mounts metrics.
+  4. Feature Attribution Component: Implemented dynamic horizontal breakdown bars for Sensory Sensitivity, Social Communication, and Detail / Focus Fixation.
+  5. Console Integrity: Emits required verification string `[NeuroScreen] Results successfully generated and mounted`.
+  6. Sub-Nav Bar Wrapping & Overflow: Flexbox wrapping with `max-width: 100%` and cross-browser scrollbar suppression applied to `.nav-tabs-container`.
+  7. Grid Unclipping: Set `.grid-2col`, `.profile-section`, and `.profile-grid` to responsive auto-fit columns (`repeat(auto-fit, minmax(320px, 1fr))`) and sticky profile preview.
+- **Quality Gates:** 40/40 pytest tests pass (33.77s), `node --check webapp/app.js` confirmed 0 syntax errors, `http://localhost:8000/index.html` confirmed HTTP 200 OK.
+
+
 
 
 

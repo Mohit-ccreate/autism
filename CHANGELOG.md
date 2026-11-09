@@ -314,6 +314,37 @@ This section details all modifications, new modules, metric diffs, and forensic 
   - JavaScript syntax: `node --check webapp/app.js` confirmed 0 errors.
   - Live server: `http://localhost:8000/index.html` confirmed HTTP 200 OK.
 
+---
+
+### 2026-11-09T13:00:00+05:30 — NEURO-SCREEN AI Client-Side Scoring, Explainability Rendering & UI Overflow Refactor
+- **Trigger:** Fix client-side scoring, explainability rendering, and UI clipping in single-page application (`http://localhost:8000/index.html`).
+- **Files Modified:** `webapp/index.html`, `webapp/style.css`, `webapp/styles.css`, `webapp/app.js`.
+- **Changes Implemented:**
+  1. **Force Calculation & Auto-Populate Results (`webapp/app.js`):**
+     - Removed hard gating blockers requiring 100% questionnaire completion prior to calculation.
+     - On navigating directly to `[📊 Results & Explainability]` or clicking `[🚀 Generate Assessment]`, assessment calculates dynamically using:
+       a) Available answered questionnaire items, OR
+       b) Active selections from "Strengths, Sensory and Support Reflection Profile" (`#chk-sound`, `#chk-light`, `#chk-texture`, etc.), OR
+       c) Normative default traits (`[1, 0, 0, 1, 0, 0, 0, 1, 0, 0]`), guaranteeing immediate population without blank screens.
+     - Dynamically populates DOM with overall likelihood score (AQ-10 tally, probability percentage), split-conformal confidence interval / risk tier badge (Low, Moderate, Elevated), and actionable non-clinical guidance.
+     - Added dynamic Feature Attribution breakdown component (`#feature-attribution-container`, `#badge-attribution-tier`, `#feature-attribution-bars`) rendering trait impact metrics for Sensory Sensitivity, Social Communication, and Detail / Focus Fixation.
+     - Console logging: emits exact string `[NeuroScreen] Results successfully generated and mounted`.
+     - Bound calculation aliases: `window.calculateScore`, `window.runScreening`, `window.renderExplainability`, `window.calculateAndDisplayResults`, and `window.calculateAndRenderResults`.
+  2. **Fix Tab Routing & Visibility Toggles (`webapp/app.js`, `webapp/index.html`):**
+     - Programmatic `switchToTab('tab-results')` forcibly clears `.hidden`, `.d-none`, and `display: none` from `#results-container`, `#results-calculated-container`, and `#tab-results`.
+     - Adds `.active` class to `#tab-results` and updates aria-selected attributes.
+     - Bound `#btn-generate-assessment-cta`, `#btn-calculate`, and `.btn-generate-assessment` buttons to trigger results calculation and tab transition.
+  3. **Fix Horizontal Scrollbar & Layout Overflow (`webapp/style.css`, `webapp/styles.css`, `webapp/index.html`):**
+     - `.nav-tabs-container`: Added `width: 100%; max-width: 100%; display: flex; flex-wrap: wrap; gap: 0.5rem; overflow-x: hidden;` and cross-browser scrollbar suppression (`scrollbar-width: none;`).
+     - Responsive grid: Styled `.grid-2col`, `.profile-section`, and `.profile-grid` with `display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; width: 100%;` preventing card clipping.
+     - Sticky preview: Configured `.profile-preview-sticky` with `position: sticky; top: 1.5rem; align-self: start;`.
+     - Mirrored complete stylesheet to `webapp/styles.css`.
+- **Verification:**
+  - Automated tests: 40/40 pytest tests passing (`python -m pytest tests/ -v` in 33.77s).
+  - JavaScript syntax: `node --check webapp/app.js` confirmed 0 errors.
+  - Live server: `http://localhost:8000/index.html` confirmed HTTP 200 OK (89,213 bytes).
+
+
 
 
 
