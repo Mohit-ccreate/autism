@@ -1,5 +1,5 @@
 Cohort,Threshold,N Total,Concordant,Discordant,Concordance (%),Tautology Index (Raw),"Tautology Index (Clipped [0,1])"
-Adult,sum(A_i) >= 7,667,667,0,100.00%,0.818,N/A
-Adolescent,sum(A_i) >= 7,97,97,0,100.00%,1.031,N/A
-Child,sum(A_i) >= 7,262,262,0,100.00%,1.108,N/A
-Toddler,sum(A_i) >= 4,850,850,0,100.00%,0.888,N/A
+Adult,sum(A_i) >= 7,667,667,0,100.00%,0.840,0.840
+Adolescent,sum(A_i) >= 7,97,97,0,100.00%,0.964,0.964
+Child,sum(A_i) >= 7,262,262,0,100.00%,1.105,1.000
+Toddler,sum(A_i) >= 4,850,850,0,100.00%,0.895,0.895

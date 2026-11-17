@@ -257,3 +257,46 @@ Compiling paper_facts.json...
 
 
 
+
+### 2026-11-17T06:30:00+05:30 — Peer Review Revision Pass: Root Cause Audits, Protocols & Figure Pack
+- **Branch:** `paper-revision`
+- **Status:** SUCCESS
+- **Execution Summary:**
+  1. Module 1 (A.1, A.4, C):
+     - Identified participant identifiers: Adult, Adolescent, Child contain zero clinical IDs. Toddler contains `Case_No` (1..1054 serial row index). Purged rows are identical records, not verified duplicate participants.
+     - Dedup counts: Adult $704 \to 667$ (37 removed, 5.26%), Adolescent $104 \to 97$ (7 removed, 6.73%), Child $292 \to 262$ (30 removed, 10.27%), Toddler $1054 \to 850$ (204 removed, 19.35%).
+     - Unified one-run evaluation on clean data:
+       * Adult: Clean AUROC = 0.5801, Items AUROC = 0.9999, Items Acc = 99.55% [99.31, 99.76], Majority = 73.76%, TI Raw = 0.8398 [0.797, 0.884], Clipped = 0.8398, Alt (a) Abs Drop = 0.4199, Alt (b) Rel Acc Drop = 1.0174.
+       * Adolescent: Clean AUROC = 0.5180, Items AUROC = 0.9946, Items Acc = 91.96% [89.48, 94.23] (Repeated $5\times 10$ Acc: 95.55% [84.21, 100.00]), Majority = 57.73%, TI Raw = 0.9637 [0.862, 1.069], Clipped = 0.9637, Alt (a) Abs Drop = 0.4767, Alt (b) Rel Acc Drop = 1.1145.
+       * Child: Clean AUROC = 0.4473, Items AUROC = 1.0000, Items Acc = 99.54% [99.16, 99.85], Majority = 54.58%, TI Raw = 1.1054 [1.044, 1.168], Clipped = 1.0000, Alt (a) Abs Drop = 0.5526, Alt (b) Rel Acc Drop = 1.0424. Instability identified: clean AUROC (0.4473) is below chance (0.50), causing numerator to exceed denominator.
+       * Toddler: Clean AUROC = 0.5527, Items AUROC = 1.0000, Items Acc = 100.00% [100.00, 100.00], Majority = 72.71%, TI Raw = 0.8946 [0.858, 0.932], Clipped = 0.8946, Alt (a) Abs Drop = 0.4473, Alt (b) Rel Acc Drop = 1.0009.
+     - Without deduplication (raw): Adult TI raw 0.7813; Adolescent TI raw 1.0220; Child TI raw 1.0372; Toddler TI raw 0.8621.
+  2. Module 2 (A.2, A.3, D):
+     - Discrepancy between displayed difference (0.0096) and reported paired difference (0.0156) resolved: `meta_df["target"].values` in original dataframe row order was passed to `run_paired_harmonization_tests` while `predictions_map` had predictions sorted site-by-site. Once aligned, direct subtraction and paired bootstrap delta match identically: $\Delta = +0.0096$ [$-0.0071, 0.0260$], Holm $p = 1.0000$.
+     - Within-site permutation test rerun with $B = 10,000$: $p = (1 + 0) / (1 + 10,000) = 0.00010$. Finite resolution limit $1/(1+B)$ respected.
+     - ComBat unseen-site protocol documented in `results/COMBAT_PROTOCOL.md` across 5 arms (none, strictly inductive, transductive, in-fold as implemented, leaky).
+  3. Module 3 (B):
+     - Evaluated all 8 models under LOSO across all 20 sites. Excluded sites: `[]` (all 20 sites contain both classes). Saved `results/per_site_auroc.csv` (160 rows) and `results/per_site_summary.json`.
+     - Site-prevalence oracle baseline: AUROC = 0.5902 (using zero imaging features).
+     - Within-site z-scored ranking preserves ranking performance (e.g. LR: 0.6593 to 0.6663; Linear SVM: 0.6765 to 0.6931; RF: 0.7003 to 0.7222).
+  4. Module 4 (E):
+     - Documented uncertainty allocation protocol in `results/UNCERTAINTY_PROTOCOL.md`.
+     - Version 1 (Shared 2-way): LAC 90% Cov = 87.00%, Set Size = 1.595.
+     - Version 2 (Three strictly DISJOINT subsets): LAC 90% Cov = 89.58%, Set Size = 1.664.
+     - Version 3 (Site-Grouped LOSO): LAC 90% Cov = 89.70%, Set Size = 1.635.
+     - Set-size decomposition identity holds with residual $< 10^{-14}$.
+  5. Module 5 (F):
+     - Controlled site probe: Phenotypic alone (age, sex, FIQ, motion, diagnosis) decodes site with 22.13% (LR) / 27.17% (RF) vs 19.91% majority baseline.
+     - Connectomes after in-fold confound regression decode site with 73.54% accuracy (balanced acc 64.77%). Described as site-associated information, not hardware signatures alone.
+  6. Module 6 (H):
+     - All 28 references in `references.bib` verified with complete author lists (all 36 authors for `maenner2023`, all 42 authors for `di2014`, zero 'others' or 'et al.'). Verified DOIs/URLs. Zero unverified guesses.
+  7. Module 7 (I & J):
+     - Built `docs/lit_verification_worksheet.csv` (23 rows flagged `needs_human_check`).
+     - Added `scripts/recompute_lit_counts.py` with human override support and conservative subset reporting ($n=10$ unflagged full-text papers).
+     - Built `results/prior_comparison.csv` (10 rows comparing audited literature to study results).
+  8. Module 8 (G):
+     - Generated 6 publication figures in `figures/paper_pack/` (PDF + 300-DPI PNG, colorblind-safe) and updated `MANIFEST.csv` and `FIGURE_CHECK.md`.
+  9. Quality Gates (K):
+     - Added 4 new unit tests in `tests/test_audit_extension.py`.
+     - 44/44 pytest tests pass in 5.72s.
+     - Recompiled `results/paper_facts.json`, `results/SUMMARY.md`, and all tables in `results/tables/`.

@@ -1,0 +1,924 @@
+{
+  "metadata": {
+    "description": "Unified revision pass for Tautology Index, De-duplication Sensitivity, and Accuracy",
+    "evaluation_seeds": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "n_folds": 5,
+    "disclaimer": "Research tool only. Not a clinical diagnostic device."
+  },
+  "participant_identifier_audit": {
+    "adult": {
+      "candidate_columns": [],
+      "has_verified_participant_identifier": false,
+      "description": "No participant identifier column exists in the dataset.",
+      "interpretation": "Rows with identical [A1..A10, Age, Sex, Target] are duplicate records, not verified duplicate participants."
+    },
+    "adolescent": {
+      "candidate_columns": [],
+      "has_verified_participant_identifier": false,
+      "description": "No participant identifier column exists in the dataset.",
+      "interpretation": "Rows with identical [A1..A10, Age, Sex, Target] are duplicate records, not verified duplicate participants."
+    },
+    "child": {
+      "candidate_columns": [],
+      "has_verified_participant_identifier": false,
+      "description": "No participant identifier column exists in the dataset.",
+      "interpretation": "Rows with identical [A1..A10, Age, Sex, Target] are duplicate records, not verified duplicate participants."
+    },
+    "toddler": {
+      "candidate_columns": [
+        "Case_No"
+      ],
+      "has_verified_participant_identifier": false,
+      "description": "Contains 'Case_No' which is a sequential integer row index (1..1054) assigned during table compilation, not a clinical/participant identifier.",
+      "interpretation": "Rows with identical [A1..A10, Age, Sex, Target] are duplicate records, not verified duplicate participants."
+    }
+  },
+  "cohort_accounting": {
+    "adult": {
+      "cohort": "adult",
+      "n_raw": 704,
+      "n_removed": 37,
+      "pct_removed": 5.255681818181818,
+      "n_retained": 667,
+      "dedup_key": "[A1..A10, Age, Sex, Target]",
+      "composition_raw": {
+        "n": 704,
+        "asd_count": 189,
+        "ctrl_count": 515,
+        "asd_pct": 26.84659090909091,
+        "age_mean": 29.69034090909091,
+        "age_std": 16.484593191398194,
+        "age_median": 27.0,
+        "age_min": 17.0,
+        "age_max": 383.0,
+        "male_count": 367,
+        "female_count": 337,
+        "male_pct": 52.13068181818182,
+        "female_pct": 47.86931818181818
+      },
+      "composition_clean": {
+        "n": 667,
+        "asd_count": 175,
+        "ctrl_count": 492,
+        "asd_pct": 26.236881559220386,
+        "age_mean": 29.73913043478261,
+        "age_std": 16.809684069666517,
+        "age_median": 27.0,
+        "age_min": 17.0,
+        "age_max": 383.0,
+        "male_count": 347,
+        "female_count": 320,
+        "male_pct": 52.023988005997005,
+        "female_pct": 47.976011994002995
+      }
+    },
+    "adolescent": {
+      "cohort": "adolescent",
+      "n_raw": 104,
+      "n_removed": 7,
+      "pct_removed": 6.730769230769231,
+      "n_retained": 97,
+      "dedup_key": "[A1..A10, Age, Sex, Target]",
+      "composition_raw": {
+        "n": 104,
+        "asd_count": 63,
+        "ctrl_count": 41,
+        "asd_pct": 60.57692307692307,
+        "age_mean": 14.134615384615385,
+        "age_std": 1.5768820920373852,
+        "age_median": 14.0,
+        "age_min": 12.0,
+        "age_max": 16.0,
+        "male_count": 50,
+        "female_count": 54,
+        "male_pct": 48.07692307692308,
+        "female_pct": 51.92307692307693
+      },
+      "composition_clean": {
+        "n": 97,
+        "asd_count": 56,
+        "ctrl_count": 41,
+        "asd_pct": 57.73195876288659,
+        "age_mean": 14.1340206185567,
+        "age_std": 1.552074324220261,
+        "age_median": 14.0,
+        "age_min": 12.0,
+        "age_max": 16.0,
+        "male_count": 46,
+        "female_count": 51,
+        "male_pct": 47.42268041237113,
+        "female_pct": 52.57731958762887
+      }
+    },
+    "child": {
+      "cohort": "child",
+      "n_raw": 292,
+      "n_removed": 30,
+      "pct_removed": 10.273972602739725,
+      "n_retained": 262,
+      "dedup_key": "[A1..A10, Age, Sex, Target]",
+      "composition_raw": {
+        "n": 292,
+        "asd_count": 141,
+        "ctrl_count": 151,
+        "asd_pct": 48.28767123287671,
+        "age_mean": 6.3493150684931505,
+        "age_std": 2.349504490432512,
+        "age_median": 6.0,
+        "age_min": 4.0,
+        "age_max": 11.0,
+        "male_count": 208,
+        "female_count": 84,
+        "male_pct": 71.23287671232876,
+        "female_pct": 28.767123287671232
+      },
+      "composition_clean": {
+        "n": 262,
+        "asd_count": 119,
+        "ctrl_count": 143,
+        "asd_pct": 45.41984732824427,
+        "age_mean": 6.362595419847328,
+        "age_std": 2.3362489461463105,
+        "age_median": 6.0,
+        "age_min": 4.0,
+        "age_max": 11.0,
+        "male_count": 182,
+        "female_count": 80,
+        "male_pct": 69.46564885496184,
+        "female_pct": 30.53435114503817
+      }
+    },
+    "toddler": {
+      "cohort": "toddler",
+      "n_raw": 1054,
+      "n_removed": 204,
+      "pct_removed": 19.35483870967742,
+      "n_retained": 850,
+      "dedup_key": "[A1..A10, Age, Sex, Target]",
+      "composition_raw": {
+        "n": 1054,
+        "asd_count": 728,
+        "ctrl_count": 326,
+        "asd_pct": 69.07020872865274,
+        "age_mean": 2.322264389626819,
+        "age_std": 0.6650294680735789,
+        "age_median": 2.5,
+        "age_min": 1.0,
+        "age_max": 3.0,
+        "male_count": 735,
+        "female_count": 319,
+        "male_pct": 69.73434535104364,
+        "female_pct": 30.265654648956357
+      },
+      "composition_clean": {
+        "n": 850,
+        "asd_count": 618,
+        "ctrl_count": 232,
+        "asd_pct": 72.70588235294117,
+        "age_mean": 2.304901960784314,
+        "age_std": 0.6384965261928146,
+        "age_median": 2.4166666666666665,
+        "age_min": 1.0,
+        "age_max": 3.0,
+        "male_count": 592,
+        "female_count": 258,
+        "male_pct": 69.6470588235294,
+        "female_pct": 30.352941176470587
+      }
+    }
+  },
+  "unified_tautology_clean": {
+    "adult": {
+      "cohort": "adult",
+      "tau": 7,
+      "n_samples": 667,
+      "rule_recovery": {
+        "n_total": 667,
+        "n_concordant": 667,
+        "n_discordant": 0,
+        "concordance_accuracy": 1.0
+      },
+      "auroc_items": 0.9999414634146342,
+      "auroc_items_ci_95": [
+        0.9998677450875283,
+        0.9999918247365901
+      ],
+      "auroc_clean": 0.5800896631823461,
+      "auroc_clean_ci_95": [
+        0.5580513401534395,
+        0.6016555383438306
+      ],
+      "auroc_items_plus_demos": 0.9998164924506387,
+      "auroc_with_score": 0.9999925667828107,
+      "accuracy_items": 0.9955022488755623,
+      "accuracy_items_ci_95": [
+        0.993103448275862,
+        0.9976011994002999
+      ],
+      "accuracy_items_repeated_5x10_mean": 0.9998496240601503,
+      "accuracy_items_repeated_5x10_std": 0.0010526315789473762,
+      "accuracy_items_repeated_5x10_ci_95": [
+        1.0,
+        1.0
+      ],
+      "balanced_accuracy_items": 0.9921649245063879,
+      "accuracy_clean": 0.7331334332833583,
+      "balanced_accuracy_clean": 0.5065238095238095,
+      "majority_class_baseline": 0.7376311844077961,
+      "tautology_index_raw": 0.8398019187379893,
+      "tautology_index_clipped": 0.8398019187379893,
+      "tautology_index_ci_95_raw": [
+        0.7966677476773244,
+        0.8838867519965649
+      ],
+      "tautology_index_ci_95_clipped": [
+        0.7966677476773244,
+        0.8838867519965649
+      ],
+      "alternative_a_absolute_drop": 0.4198518002322881,
+      "alternative_a_ci_95": [
+        0.39829239188735915,
+        0.44190314901161676
+      ],
+      "alternative_b_relative_acc_drop_over_majority": 1.017441860465116,
+      "alternative_b_relative_acc_drop_direct": 0.2635542168674699,
+      "instability_flag": false,
+      "instability_diagnostics": "Stable: Clean AUROC is between 0.50 and items AUROC.",
+      "saved_predictions": {
+        "n_evaluated": 3335,
+        "n_seeds": 5,
+        "seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ]
+      }
+    },
+    "adolescent": {
+      "cohort": "adolescent",
+      "tau": 7,
+      "n_samples": 97,
+      "rule_recovery": {
+        "n_total": 97,
+        "n_concordant": 97,
+        "n_discordant": 0,
+        "concordance_accuracy": 1.0
+      },
+      "auroc_items": 0.9946341463414634,
+      "auroc_items_ci_95": [
+        0.9907558514166213,
+        0.9977491429726971
+      ],
+      "auroc_clean": 0.5179703832752613,
+      "auroc_clean_ci_95": [
+        0.4658198405398432,
+        0.568121389844646
+      ],
+      "auroc_items_plus_demos": 0.9893554006968641,
+      "auroc_with_score": 0.997787456445993,
+      "accuracy_items": 0.9195876288659793,
+      "accuracy_items_ci_95": [
+        0.8948453608247423,
+        0.9422680412371134
+      ],
+      "accuracy_items_repeated_5x10_mean": 0.9462631578947368,
+      "accuracy_items_repeated_5x10_std": 0.055834366247801435,
+      "accuracy_items_repeated_5x10_ci_95": [
+        0.8094736842105263,
+        1.0
+      ],
+      "balanced_accuracy_items": 0.906184668989547,
+      "accuracy_clean": 0.5381443298969072,
+      "balanced_accuracy_clean": 0.48175087108013936,
+      "majority_class_baseline": 0.5773195876288659,
+      "tautology_index_raw": 0.9636693434770357,
+      "tautology_index_clipped": 0.9636693434770357,
+      "tautology_index_ci_95_raw": [
+        0.8620612861109348,
+        1.068788174270919
+      ],
+      "tautology_index_ci_95_clipped": [
+        0.8620612861109348,
+        1.0
+      ],
+      "alternative_a_absolute_drop": 0.47666376306620206,
+      "alternative_a_ci_95": [
+        0.4261456301332309,
+        0.5293100110657287
+      ],
+      "alternative_b_relative_acc_drop_over_majority": 1.114457831325301,
+      "alternative_b_relative_acc_drop_direct": 0.4147982062780269,
+      "instability_flag": false,
+      "instability_diagnostics": "Stable: Clean AUROC is between 0.50 and items AUROC.",
+      "saved_predictions": {
+        "n_evaluated": 485,
+        "n_seeds": 5,
+        "seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ]
+      }
+    },
+    "child": {
+      "cohort": "child",
+      "tau": 7,
+      "n_samples": 262,
+      "rule_recovery": {
+        "n_total": 262,
+        "n_concordant": 262,
+        "n_discordant": 0,
+        "concordance_accuracy": 1.0
+      },
+      "auroc_items": 0.9999553387788682,
+      "auroc_items_ci_95": [
+        0.9998763372059918,
+        0.9999976500667381
+      ],
+      "auroc_clean": 0.4473162131985661,
+      "auroc_clean_ci_95": [
+        0.41609878329646033,
+        0.4781677772353632
+      ],
+      "auroc_items_plus_demos": 0.9998025503907857,
+      "auroc_with_score": 0.9999952988188282,
+      "accuracy_items": 0.9954198473282443,
+      "accuracy_items_ci_95": [
+        0.9916030534351145,
+        0.9984732824427481
+      ],
+      "accuracy_items_repeated_5x10_mean": 0.9965602322206095,
+      "accuracy_items_repeated_5x10_std": 0.0082885167441072,
+      "accuracy_items_repeated_5x10_ci_95": [
+        0.9807692307692307,
+        1.0
+      ],
+      "balanced_accuracy_items": 0.9955221249338897,
+      "accuracy_clean": 0.5267175572519084,
+      "balanced_accuracy_clean": 0.4918258212375859,
+      "majority_class_baseline": 0.5458015267175573,
+      "tautology_index_raw": 1.1053769861326275,
+      "tautology_index_clipped": 1.0,
+      "tautology_index_ci_95_raw": [
+        1.0436691570358996,
+        1.1678187642575693
+      ],
+      "tautology_index_ci_95_clipped": [
+        1.0,
+        1.0
+      ],
+      "alternative_a_absolute_drop": 0.552639125580302,
+      "alternative_a_ci_95": [
+        0.5217782780551816,
+        0.5838525588081265
+      ],
+      "alternative_b_relative_acc_drop_over_majority": 1.042444821731749,
+      "alternative_b_relative_acc_drop_direct": 0.4708588957055215,
+      "instability_flag": true,
+      "instability_diagnostics": "Clean AUROC (0.4473) is below chance (0.50), making numerator (0.5526) exceed denominator (0.5000), yielding raw TI > 1.0 (1.1054).",
+      "saved_predictions": {
+        "n_evaluated": 1310,
+        "n_seeds": 5,
+        "seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ]
+      }
+    },
+    "toddler": {
+      "cohort": "toddler",
+      "tau": 4,
+      "n_samples": 850,
+      "rule_recovery": {
+        "n_total": 850,
+        "n_concordant": 850,
+        "n_discordant": 0,
+        "concordance_accuracy": 1.0
+      },
+      "auroc_items": 1.0,
+      "auroc_items_ci_95": [
+        1.0,
+        1.0
+      ],
+      "auroc_clean": 0.5526957091842428,
+      "auroc_clean_ci_95": [
+        0.5339223218998205,
+        0.5711559720012018
+      ],
+      "auroc_items_plus_demos": 0.9999896774913514,
+      "auroc_with_score": 1.0,
+      "accuracy_items": 1.0,
+      "accuracy_items_ci_95": [
+        1.0,
+        1.0
+      ],
+      "accuracy_items_repeated_5x10_mean": 1.0,
+      "accuracy_items_repeated_5x10_std": 0.0,
+      "accuracy_items_repeated_5x10_ci_95": [
+        1.0,
+        1.0
+      ],
+      "balanced_accuracy_items": 1.0,
+      "accuracy_clean": 0.7268235294117648,
+      "balanced_accuracy_clean": 0.49983818770226535,
+      "majority_class_baseline": 0.7270588235294118,
+      "tautology_index_raw": 0.8946085816315144,
+      "tautology_index_clipped": 0.8946085816315144,
+      "tautology_index_ci_95_raw": [
+        0.8576880559975962,
+        0.932155356200359
+      ],
+      "tautology_index_ci_95_clipped": [
+        0.8576880559975962,
+        0.932155356200359
+      ],
+      "alternative_a_absolute_drop": 0.4473042908157572,
+      "alternative_a_ci_95": [
+        0.4288440279987981,
+        0.4660776781001795
+      ],
+      "alternative_b_relative_acc_drop_over_majority": 1.000862068965517,
+      "alternative_b_relative_acc_drop_direct": 0.27317647058823524,
+      "instability_flag": false,
+      "instability_diagnostics": "Stable: Clean AUROC is between 0.50 and items AUROC.",
+      "saved_predictions": {
+        "n_evaluated": 4250,
+        "n_seeds": 5,
+        "seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ]
+      }
+    }
+  },
+  "unified_tautology_raw": {
+    "adult": {
+      "cohort": "adult",
+      "tau": 7,
+      "n_samples": 704,
+      "rule_recovery": {
+        "n_total": 704,
+        "n_concordant": 704,
+        "n_discordant": 0,
+        "concordance_accuracy": 1.0
+      },
+      "auroc_items": 0.999990548107053,
+      "auroc_items_ci_95": [
+        0.9999697694968144,
+        1.0
+      ],
+      "auroc_clean": 0.6093277854831253,
+      "auroc_clean_ci_95": [
+        0.5888499806032644,
+        0.6310720085640912
+      ],
+      "auroc_items_plus_demos": 0.9998890429958391,
+      "auroc_with_score": 0.9999995890481327,
+      "accuracy_items": 0.9946022727272728,
+      "accuracy_items_ci_95": [
+        0.9920454545454546,
+        0.996875
+      ],
+      "accuracy_items_repeated_5x10_mean": 1.0,
+      "accuracy_items_repeated_5x10_std": 0.0,
+      "accuracy_items_repeated_5x10_ci_95": [
+        1.0,
+        1.0
+      ],
+      "balanced_accuracy_items": 0.9899470899470899,
+      "accuracy_clean": 0.7295454545454545,
+      "balanced_accuracy_clean": 0.513377510659064,
+      "majority_class_baseline": 0.7315340909090908,
+      "tautology_index_raw": 0.7813402955375126,
+      "tautology_index_clipped": 0.7813402955375126,
+      "tautology_index_ci_95_raw": [
+        0.7378505404380962,
+        0.8222994120285366
+      ],
+      "tautology_index_ci_95_clipped": [
+        0.7378505404380962,
+        0.8222994120285366
+      ],
+      "alternative_a_absolute_drop": 0.39066276262392774,
+      "alternative_a_ci_95": [
+        0.3689176112732864,
+        0.41114825320740456
+      ],
+      "alternative_b_relative_acc_drop_over_majority": 1.00755939524838,
+      "alternative_b_relative_acc_drop_direct": 0.2664952870608398,
+      "instability_flag": false,
+      "instability_diagnostics": "Stable: Clean AUROC is between 0.50 and items AUROC.",
+      "saved_predictions": {
+        "n_evaluated": 3520,
+        "n_seeds": 5,
+        "seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ]
+      }
+    },
+    "adolescent": {
+      "cohort": "adolescent",
+      "tau": 7,
+      "n_samples": 104,
+      "rule_recovery": {
+        "n_total": 104,
+        "n_concordant": 104,
+        "n_discordant": 0,
+        "concordance_accuracy": 1.0
+      },
+      "auroc_items": 0.9946728610143244,
+      "auroc_items_ci_95": [
+        0.9907801655891278,
+        0.9975705386217272
+      ],
+      "auroc_clean": 0.4891289198606272,
+      "auroc_clean_ci_95": [
+        0.4406644289575354,
+        0.5390754227550976
+      ],
+      "auroc_items_plus_demos": 0.9887262872628726,
+      "auroc_with_score": 0.9976461478900503,
+      "accuracy_items": 0.9173076923076923,
+      "accuracy_items_ci_95": [
+        0.8923076923076924,
+        0.9403846153846154
+      ],
+      "accuracy_items_repeated_5x10_mean": 0.951,
+      "accuracy_items_repeated_5x10_std": 0.04762164278642648,
+      "accuracy_items_repeated_5x10_ci_95": [
+        0.8516071428571428,
+        1.0
+      ],
+      "balanced_accuracy_items": 0.8976771196283392,
+      "accuracy_clean": 0.5673076923076923,
+      "balanced_accuracy_clean": 0.4750677506775068,
+      "majority_class_baseline": 0.6057692307692307,
+      "tautology_index_raw": 1.0219763019080566,
+      "tautology_index_clipped": 1.0,
+      "tautology_index_ci_95_raw": [
+        0.9207596917001317,
+        1.1194569773759555
+      ],
+      "tautology_index_ci_95_clipped": [
+        0.9207596917001317,
+        1.0
+      ],
+      "alternative_a_absolute_drop": 0.5055439411536973,
+      "alternative_a_ci_95": [
+        0.4552879062675853,
+        0.5548463653871447
+      ],
+      "alternative_b_relative_acc_drop_over_majority": 1.1234567901234567,
+      "alternative_b_relative_acc_drop_direct": 0.38155136268343814,
+      "instability_flag": true,
+      "instability_diagnostics": "Clean AUROC (0.4891) is below chance (0.50), making numerator (0.5055) exceed denominator (0.4947), yielding raw TI > 1.0 (1.0220).",
+      "saved_predictions": {
+        "n_evaluated": 520,
+        "n_seeds": 5,
+        "seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ]
+      }
+    },
+    "child": {
+      "cohort": "child",
+      "tau": 7,
+      "n_samples": 292,
+      "rule_recovery": {
+        "n_total": 292,
+        "n_concordant": 292,
+        "n_discordant": 0,
+        "concordance_accuracy": 1.0
+      },
+      "auroc_items": 0.9999192146916538,
+      "auroc_items_ci_95": [
+        0.9998114986599598,
+        0.9999849516425471
+      ],
+      "auroc_clean": 0.4813865013385938,
+      "auroc_clean_ci_95": [
+        0.4536936854982486,
+        0.5121774267383877
+      ],
+      "auroc_items_plus_demos": 0.9998309144709032,
+      "auroc_with_score": 0.9999887276313936,
+      "accuracy_items": 0.9952054794520548,
+      "accuracy_items_ci_95": [
+        0.9910958904109589,
+        0.9986301369863013
+      ],
+      "accuracy_items_repeated_5x10_mean": 0.9962419637638807,
+      "accuracy_items_repeated_5x10_std": 0.007846494963043914,
+      "accuracy_items_repeated_5x10_ci_95": [
+        0.9827586206896551,
+        1.0
+      ],
+      "balanced_accuracy_items": 0.9953642384105961,
+      "accuracy_clean": 0.5075342465753425,
+      "balanced_accuracy_clean": 0.5034098915034522,
+      "majority_class_baseline": 0.5171232876712328,
+      "tautology_index_raw": 1.0372330130836975,
+      "tautology_index_clipped": 1.0,
+      "tautology_index_ci_95_raw": [
+        0.9756419594725277,
+        1.0926404288172622
+      ],
+      "tautology_index_ci_95_clipped": [
+        0.9756419594725277,
+        1.0
+      ],
+      "alternative_a_absolute_drop": 0.51853271335306,
+      "alternative_a_ci_95": [
+        0.48775714876270193,
+        0.5461630418233797
+      ],
+      "alternative_b_relative_acc_drop_over_majority": 1.0200573065902576,
+      "alternative_b_relative_acc_drop_direct": 0.4900206469373709,
+      "instability_flag": true,
+      "instability_diagnostics": "Clean AUROC (0.4814) is below chance (0.50), making numerator (0.5185) exceed denominator (0.4999), yielding raw TI > 1.0 (1.0372).",
+      "saved_predictions": {
+        "n_evaluated": 1460,
+        "n_seeds": 5,
+        "seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ]
+      }
+    },
+    "toddler": {
+      "cohort": "toddler",
+      "tau": 4,
+      "n_samples": 1054,
+      "rule_recovery": {
+        "n_total": 1054,
+        "n_concordant": 1054,
+        "n_discordant": 0,
+        "concordance_accuracy": 1.0
+      },
+      "auroc_items": 1.0,
+      "auroc_items_ci_95": [
+        1.0,
+        1.0
+      ],
+      "auroc_clean": 0.568933459178858,
+      "auroc_clean_ci_95": [
+        0.5514064637763991,
+        0.5850004124916167
+      ],
+      "auroc_items_plus_demos": 0.9999988201982067,
+      "auroc_with_score": 1.0,
+      "accuracy_items": 1.0,
+      "accuracy_items_ci_95": [
+        1.0,
+        1.0
+      ],
+      "accuracy_items_repeated_5x10_mean": 1.0,
+      "accuracy_items_repeated_5x10_std": 0.0,
+      "accuracy_items_repeated_5x10_ci_95": [
+        1.0,
+        1.0
+      ],
+      "balanced_accuracy_items": 1.0,
+      "accuracy_clean": 0.6905123339658444,
+      "balanced_accuracy_clean": 0.5002014090204274,
+      "majority_class_baseline": 0.6907020872865275,
+      "tautology_index_raw": 0.8621330816422841,
+      "tautology_index_clipped": 0.8621330816422841,
+      "tautology_index_ci_95_raw": [
+        0.8299991750167665,
+        0.8971870724472017
+      ],
+      "tautology_index_ci_95_clipped": [
+        0.8299991750167665,
+        0.8971870724472017
+      ],
+      "alternative_a_absolute_drop": 0.43106654082114204,
+      "alternative_a_ci_95": [
+        0.4149995875083832,
+        0.4485935362236009
+      ],
+      "alternative_b_relative_acc_drop_over_majority": 1.0006134969325151,
+      "alternative_b_relative_acc_drop_direct": 0.30948766603415556,
+      "instability_flag": false,
+      "instability_diagnostics": "Stable: Clean AUROC is between 0.50 and items AUROC.",
+      "saved_predictions": {
+        "n_evaluated": 5270,
+        "n_seeds": 5,
+        "seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ]
+      }
+    }
+  },
+  "conformal_clean": {
+    "adult": {
+      "lac_alpha10": {
+        "alpha": 0.1,
+        "nominal_coverage": 0.9,
+        "empirical_coverage": 0.8995502248875562,
+        "mean_set_size": 1.553223388305847,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.44677661169415295,
+        "fraction_both": 0.553223388305847,
+        "triage_review_burden": 0.553223388305847
+      },
+      "lac_alpha5": {
+        "alpha": 0.05,
+        "nominal_coverage": 0.95,
+        "empirical_coverage": 0.9415292353823088,
+        "mean_set_size": 1.767616191904048,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.23238380809595202,
+        "fraction_both": 0.767616191904048,
+        "triage_review_burden": 0.767616191904048
+      }
+    },
+    "adolescent": {
+      "lac_alpha10": {
+        "alpha": 0.1,
+        "nominal_coverage": 0.9,
+        "empirical_coverage": 0.865979381443299,
+        "mean_set_size": 1.6494845360824741,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.35051546391752575,
+        "fraction_both": 0.6494845360824743,
+        "triage_review_burden": 0.6494845360824743
+      },
+      "lac_alpha5": {
+        "alpha": 0.05,
+        "nominal_coverage": 0.95,
+        "empirical_coverage": 0.9690721649484536,
+        "mean_set_size": 1.9484536082474226,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.05154639175257732,
+        "fraction_both": 0.9484536082474226,
+        "triage_review_burden": 0.9484536082474226
+      }
+    },
+    "child": {
+      "lac_alpha10": {
+        "alpha": 0.1,
+        "nominal_coverage": 0.9,
+        "empirical_coverage": 0.9007633587786259,
+        "mean_set_size": 1.8282442748091603,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.1717557251908397,
+        "fraction_both": 0.8282442748091603,
+        "triage_review_burden": 0.8282442748091603
+      },
+      "lac_alpha5": {
+        "alpha": 0.05,
+        "nominal_coverage": 0.95,
+        "empirical_coverage": 0.9618320610687023,
+        "mean_set_size": 1.9312977099236641,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.06870229007633588,
+        "fraction_both": 0.9312977099236641,
+        "triage_review_burden": 0.9312977099236641
+      }
+    },
+    "toddler": {
+      "lac_alpha10": {
+        "alpha": 0.1,
+        "nominal_coverage": 0.9,
+        "empirical_coverage": 0.9011764705882352,
+        "mean_set_size": 1.62,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.38,
+        "fraction_both": 0.62,
+        "triage_review_burden": 0.62
+      },
+      "lac_alpha5": {
+        "alpha": 0.05,
+        "nominal_coverage": 0.95,
+        "empirical_coverage": 0.9635294117647059,
+        "mean_set_size": 1.8141176470588236,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.18588235294117647,
+        "fraction_both": 0.8141176470588235,
+        "triage_review_burden": 0.8141176470588235
+      }
+    }
+  },
+  "conformal_raw": {
+    "adult": {
+      "lac_alpha10": {
+        "alpha": 0.1,
+        "nominal_coverage": 0.9,
+        "empirical_coverage": 0.8991477272727273,
+        "mean_set_size": 1.5397727272727273,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.4602272727272727,
+        "fraction_both": 0.5397727272727273,
+        "triage_review_burden": 0.5397727272727273
+      },
+      "lac_alpha5": {
+        "alpha": 0.05,
+        "nominal_coverage": 0.95,
+        "empirical_coverage": 0.9446022727272727,
+        "mean_set_size": 1.7059659090909092,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.2940340909090909,
+        "fraction_both": 0.7059659090909091,
+        "triage_review_burden": 0.7059659090909091
+      }
+    },
+    "adolescent": {
+      "lac_alpha10": {
+        "alpha": 0.1,
+        "nominal_coverage": 0.9,
+        "empirical_coverage": 0.8557692307692307,
+        "mean_set_size": 1.7019230769230769,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.2980769230769231,
+        "fraction_both": 0.7019230769230769,
+        "triage_review_burden": 0.7019230769230769
+      },
+      "lac_alpha5": {
+        "alpha": 0.05,
+        "nominal_coverage": 0.95,
+        "empirical_coverage": 0.9903846153846154,
+        "mean_set_size": 1.9903846153846154,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.009615384615384616,
+        "fraction_both": 0.9903846153846154,
+        "triage_review_burden": 0.9903846153846154
+      }
+    },
+    "child": {
+      "lac_alpha10": {
+        "alpha": 0.1,
+        "nominal_coverage": 0.9,
+        "empirical_coverage": 0.9212328767123288,
+        "mean_set_size": 1.8356164383561644,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.1643835616438356,
+        "fraction_both": 0.8356164383561644,
+        "triage_review_burden": 0.8356164383561644
+      },
+      "lac_alpha5": {
+        "alpha": 0.05,
+        "nominal_coverage": 0.95,
+        "empirical_coverage": 0.9623287671232876,
+        "mean_set_size": 1.928082191780822,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.07191780821917808,
+        "fraction_both": 0.928082191780822,
+        "triage_review_burden": 0.928082191780822
+      }
+    },
+    "toddler": {
+      "lac_alpha10": {
+        "alpha": 0.1,
+        "nominal_coverage": 0.9,
+        "empirical_coverage": 0.9165085388994307,
+        "mean_set_size": 1.6888045540796963,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.3111954459203036,
+        "fraction_both": 0.6888045540796964,
+        "triage_review_burden": 0.6888045540796964
+      },
+      "lac_alpha5": {
+        "alpha": 0.05,
+        "nominal_coverage": 0.95,
+        "empirical_coverage": 0.9516129032258065,
+        "mean_set_size": 1.8225806451612903,
+        "fraction_empty": 0.0,
+        "fraction_singleton": 0.1774193548387097,
+        "fraction_both": 0.8225806451612904,
+        "triage_review_burden": 0.8225806451612904
+      }
+    }
+  }
+}

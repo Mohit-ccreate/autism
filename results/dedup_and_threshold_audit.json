@@ -282,5 +282,237 @@
         }
       }
     }
+  },
+  "participant_identifier_audit": {
+    "adult": {
+      "candidate_columns": [],
+      "has_verified_participant_identifier": false,
+      "description": "No participant identifier column exists in the dataset.",
+      "interpretation": "Rows with identical [A1..A10, Age, Sex, Target] are duplicate records, not verified duplicate participants."
+    },
+    "adolescent": {
+      "candidate_columns": [],
+      "has_verified_participant_identifier": false,
+      "description": "No participant identifier column exists in the dataset.",
+      "interpretation": "Rows with identical [A1..A10, Age, Sex, Target] are duplicate records, not verified duplicate participants."
+    },
+    "child": {
+      "candidate_columns": [],
+      "has_verified_participant_identifier": false,
+      "description": "No participant identifier column exists in the dataset.",
+      "interpretation": "Rows with identical [A1..A10, Age, Sex, Target] are duplicate records, not verified duplicate participants."
+    },
+    "toddler": {
+      "candidate_columns": [
+        "Case_No"
+      ],
+      "has_verified_participant_identifier": false,
+      "description": "Contains 'Case_No' which is a sequential integer row index (1..1054) assigned during table compilation, not a clinical/participant identifier.",
+      "interpretation": "Rows with identical [A1..A10, Age, Sex, Target] are duplicate records, not verified duplicate participants."
+    }
+  },
+  "cohort_composition_comparison": {
+    "adult": {
+      "cohort": "adult",
+      "n_raw": 704,
+      "n_removed": 37,
+      "pct_removed": 5.255681818181818,
+      "n_retained": 667,
+      "dedup_key": "[A1..A10, Age, Sex, Target]",
+      "composition_raw": {
+        "n": 704,
+        "asd_count": 189,
+        "ctrl_count": 515,
+        "asd_pct": 26.84659090909091,
+        "age_mean": 29.69034090909091,
+        "age_std": 16.484593191398194,
+        "age_median": 27.0,
+        "age_min": 17.0,
+        "age_max": 383.0,
+        "male_count": 367,
+        "female_count": 337,
+        "male_pct": 52.13068181818182,
+        "female_pct": 47.86931818181818
+      },
+      "composition_clean": {
+        "n": 667,
+        "asd_count": 175,
+        "ctrl_count": 492,
+        "asd_pct": 26.236881559220386,
+        "age_mean": 29.73913043478261,
+        "age_std": 16.809684069666517,
+        "age_median": 27.0,
+        "age_min": 17.0,
+        "age_max": 383.0,
+        "male_count": 347,
+        "female_count": 320,
+        "male_pct": 52.023988005997005,
+        "female_pct": 47.976011994002995
+      }
+    },
+    "adolescent": {
+      "cohort": "adolescent",
+      "n_raw": 104,
+      "n_removed": 7,
+      "pct_removed": 6.730769230769231,
+      "n_retained": 97,
+      "dedup_key": "[A1..A10, Age, Sex, Target]",
+      "composition_raw": {
+        "n": 104,
+        "asd_count": 63,
+        "ctrl_count": 41,
+        "asd_pct": 60.57692307692307,
+        "age_mean": 14.134615384615385,
+        "age_std": 1.5768820920373852,
+        "age_median": 14.0,
+        "age_min": 12.0,
+        "age_max": 16.0,
+        "male_count": 50,
+        "female_count": 54,
+        "male_pct": 48.07692307692308,
+        "female_pct": 51.92307692307693
+      },
+      "composition_clean": {
+        "n": 97,
+        "asd_count": 56,
+        "ctrl_count": 41,
+        "asd_pct": 57.73195876288659,
+        "age_mean": 14.1340206185567,
+        "age_std": 1.552074324220261,
+        "age_median": 14.0,
+        "age_min": 12.0,
+        "age_max": 16.0,
+        "male_count": 46,
+        "female_count": 51,
+        "male_pct": 47.42268041237113,
+        "female_pct": 52.57731958762887
+      }
+    },
+    "child": {
+      "cohort": "child",
+      "n_raw": 292,
+      "n_removed": 30,
+      "pct_removed": 10.273972602739725,
+      "n_retained": 262,
+      "dedup_key": "[A1..A10, Age, Sex, Target]",
+      "composition_raw": {
+        "n": 292,
+        "asd_count": 141,
+        "ctrl_count": 151,
+        "asd_pct": 48.28767123287671,
+        "age_mean": 6.3493150684931505,
+        "age_std": 2.349504490432512,
+        "age_median": 6.0,
+        "age_min": 4.0,
+        "age_max": 11.0,
+        "male_count": 208,
+        "female_count": 84,
+        "male_pct": 71.23287671232876,
+        "female_pct": 28.767123287671232
+      },
+      "composition_clean": {
+        "n": 262,
+        "asd_count": 119,
+        "ctrl_count": 143,
+        "asd_pct": 45.41984732824427,
+        "age_mean": 6.362595419847328,
+        "age_std": 2.3362489461463105,
+        "age_median": 6.0,
+        "age_min": 4.0,
+        "age_max": 11.0,
+        "male_count": 182,
+        "female_count": 80,
+        "male_pct": 69.46564885496184,
+        "female_pct": 30.53435114503817
+      }
+    },
+    "toddler": {
+      "cohort": "toddler",
+      "n_raw": 1054,
+      "n_removed": 204,
+      "pct_removed": 19.35483870967742,
+      "n_retained": 850,
+      "dedup_key": "[A1..A10, Age, Sex, Target]",
+      "composition_raw": {
+        "n": 1054,
+        "asd_count": 728,
+        "ctrl_count": 326,
+        "asd_pct": 69.07020872865274,
+        "age_mean": 2.322264389626819,
+        "age_std": 0.6650294680735789,
+        "age_median": 2.5,
+        "age_min": 1.0,
+        "age_max": 3.0,
+        "male_count": 735,
+        "female_count": 319,
+        "male_pct": 69.73434535104364,
+        "female_pct": 30.265654648956357
+      },
+      "composition_clean": {
+        "n": 850,
+        "asd_count": 618,
+        "ctrl_count": 232,
+        "asd_pct": 72.70588235294117,
+        "age_mean": 2.304901960784314,
+        "age_std": 0.6384965261928146,
+        "age_median": 2.4166666666666665,
+        "age_min": 1.0,
+        "age_max": 3.0,
+        "male_count": 592,
+        "female_count": 258,
+        "male_pct": 69.6470588235294,
+        "female_pct": 30.352941176470587
+      }
+    }
+  },
+  "sensitivity_with_vs_without_dedup": {
+    "adult": {
+      "clean_items_auc": 0.9999414634146342,
+      "clean_demos_auc": 0.5800896631823461,
+      "clean_items_acc": 0.9955022488755623,
+      "clean_ti_raw": 0.8398019187379893,
+      "clean_ti_clipped": 0.8398019187379893,
+      "raw_items_auc": 0.999990548107053,
+      "raw_demos_auc": 0.6093277854831253,
+      "raw_items_acc": 0.9946022727272728,
+      "raw_ti_raw": 0.7813402955375126,
+      "raw_ti_clipped": 0.7813402955375126
+    },
+    "adolescent": {
+      "clean_items_auc": 0.9946341463414634,
+      "clean_demos_auc": 0.5179703832752613,
+      "clean_items_acc": 0.9195876288659793,
+      "clean_ti_raw": 0.9636693434770357,
+      "clean_ti_clipped": 0.9636693434770357,
+      "raw_items_auc": 0.9946728610143244,
+      "raw_demos_auc": 0.4891289198606272,
+      "raw_items_acc": 0.9173076923076923,
+      "raw_ti_raw": 1.0219763019080566,
+      "raw_ti_clipped": 1.0
+    },
+    "child": {
+      "clean_items_auc": 0.9999553387788682,
+      "clean_demos_auc": 0.4473162131985661,
+      "clean_items_acc": 0.9954198473282443,
+      "clean_ti_raw": 1.1053769861326275,
+      "clean_ti_clipped": 1.0,
+      "raw_items_auc": 0.9999192146916538,
+      "raw_demos_auc": 0.4813865013385938,
+      "raw_items_acc": 0.9952054794520548,
+      "raw_ti_raw": 1.0372330130836975,
+      "raw_ti_clipped": 1.0
+    },
+    "toddler": {
+      "clean_items_auc": 1.0,
+      "clean_demos_auc": 0.5526957091842428,
+      "clean_items_acc": 1.0,
+      "clean_ti_raw": 0.8946085816315144,
+      "clean_ti_clipped": 0.8946085816315144,
+      "raw_items_auc": 1.0,
+      "raw_demos_auc": 0.568933459178858,
+      "raw_items_acc": 1.0,
+      "raw_ti_raw": 0.8621330816422841,
+      "raw_ti_clipped": 0.8621330816422841
+    }
   }
 }

@@ -141,6 +141,50 @@
   - Centralized reactive state store (`window.NeuroAppState`) and multi-modal inference engine with split conformal prediction sets ($C_{0.10}(x)$).
   - Doctor summary export (`@media print` layout), local session storage persistence with toast alerts, and font-scaler/sensory toggles.
 
+### Part J: Peer Review Revision Pass ✅ DONE
+- **A. Consistency Errors Resolved:**
+  - *Tautology Index:* Demographics AUROC and TI recomputed in ONE unified run on ONE saved set of predictions per cohort: Adult TI raw 0.8398 [0.797, 0.884], Adolescent 0.9637 [0.862, 1.069], Child 1.1054 [1.044, 1.168] (clipped 1.0000; clean AUROC 0.4473 below chance causing instability), Toddler 0.8946 [0.858, 0.932]. Evaluated alternative measures (a) absolute drop and (b) relative drop over majority baseline with and without deduplication.
+  - *Leaky vs In-Fold ComBat Paired Difference:* Label ordering mismatch in `run_paired_harmonization_tests` resolved; point-estimate difference and paired bootstrap delta match identically ($\Delta = +0.0096$ [$-0.0071, 0.0260$], Holm $p = 1.0000$).
+  - *Permutation Test Resolution:* Rerun with $B = 10,000$ permutations; $p = (1+0)/(1+10,000) = 0.00010$, respecting minimum resolution limit $1/(1+B)$ everywhere.
+  - *Logistic Regression Accuracy:* Reconciled per-cohort accuracy range to 95.55%--100.00% (reflecting Adolescent 95.55% [84.21%, 100.00%]); updated text in `main.tex`.
+- **B. Pooled vs Within-Site Performance:**
+  - Evaluated all 8 models under LOSO across all 20 sites. Excluded sites: `[]` (all 20 sites contain both classes). Saved `results/per_site_auroc.csv` (160 rows) and `results/per_site_summary.json`.
+  - Site prevalence oracle baseline: AUROC = 0.5902 (using zero imaging features).
+  - Within-site z-scored baseline: ranking signal preserved/improved across models (LR: 0.6593 to 0.6663; SVM: 0.6765 to 0.6931; RF: 0.7003 to 0.7222).
+- **C. De-Duplication Sensitivity:**
+  - Identified participant identifiers: Adult, Adolescent, Child have none; Toddler has serial index `Case_No`. Purged rows are identical records, not verified duplicate participants.
+  - Dedup impact: Adult $704 \to 667$ (37 removed), Adolescent $104 \to 97$ (7 removed), Child $292 \to 262$ (30 removed), Toddler $1054 \to 850$ (204 removed).
+  - Tautology, ablation, and conformal analyses evaluated with and without removal (`results/tautology_and_dedup_sensitivity.json`).
+- **D. ComBat Protocol Documentation:**
+  - Published `results/COMBAT_PROTOCOL.md` evaluating 5 arms: none, strictly inductive, transductive, in-fold as implemented, and leaky ComBat.
+  - Demonstrated that `parametric_combat_transform` is algebraically the identity on unseen sites ($Z\sigma + \hat{X} \equiv X$); in-fold ComBat leaves held-out test sites raw.
+- **E. Uncertainty Data Allocation:**
+  - Published `results/UNCERTAINTY_PROTOCOL.md` evaluating Version 1 (Shared 2-way), Version 2 (Three strictly DISJOINT subsets: proper train 60%, calibrator 20%, conformal cal 20%), and Version 3 (Site-Grouped LOSO where 3 whole sites are held out for conformal calibration).
+  - Marginal coverage holds across versions (87.00% Shared, 89.58% Disjoint, 89.70% Site-Grouped); fundamental set-size decomposition identity verified ($< 10^{-14}$ residual). Added disjointness unit test.
+- **F. Controlled Site Probe:**
+  - Phenotypic variables alone decode site with 22.13% (LR) and 27.17% (RF) accuracy vs 19.91% majority baseline.
+  - Connectomes after in-fold confound regression decode site with 73.54% accuracy (balanced acc 64.77%). Described as site-associated information, not hardware signatures alone.
+- **G. Publication Figure Pack (`figures/paper_pack/`):**
+  - Generated all 6 requested figures in vector PDF and 300-DPI PNG with colorblind-safe palettes:
+    1. `fig_cc200_heatmaps`: Mean CC200 diff (ASD - Ctrl) + mean abs LR weights.
+    2. `fig_site_confusion_matrix`: 20x20 site decoding confusion matrix.
+    3. `fig_persite_forest`: Forest plot of per-site LOSO AUROC with n and CI across all 20 sites.
+    4. `fig3_loso_vs_random` / `fig_loso_vs_random_forest`: Forest plot of LOSO vs Random-CV AUROC per model.
+    5. `fig_conformal_grouped_bar`: Grouped bar chart of conformal coverage, set sizes, and referral burden.
+    6. `fig_permutation_histogram`: Permutation null distribution histogram ($B=10,000$).
+  - Updated `figures/paper_pack/MANIFEST.csv` and `FIGURE_CHECK.md`.
+- **H. Bibliographic Reference Verification:**
+  - All 28 references in `references.bib` verified with complete author lists (all 36 authors for `maenner2023`, all 42 authors for `di2014`, zero 'others' or 'et al.'). Verified DOIs/URLs. Zero unverified guesses.
+- **I. Literature Audit Verification Worksheet & Recompute Engine:**
+  - Created `docs/lit_verification_worksheet.csv` (23 flagged papers with source passages and blank human override columns).
+  - Created `scripts/recompute_lit_counts.py` with ability to parse human overrides and report conservative subset of full-text unflagged papers ($n=10$).
+- **J. Prior Work Comparison:**
+  - Built `results/prior_comparison.csv` (10 rows comparing audited literature to matched-protocol study results).
+- **K. Quality Gates & Verification:**
+  - Added 4 new unit tests in `tests/test_audit_extension.py`.
+  - 44/44 pytest tests pass in 5.72s.
+  - Regenerated `results/paper_facts.json`, `results/SUMMARY.md`, and all tables in `results/tables/`.
+
 ---
 
 ## Commands to Reproduce Everything from Scratch

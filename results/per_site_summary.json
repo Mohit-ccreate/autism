@@ -1,0 +1,216 @@
+{
+  "site_prevalence_oracle_baseline_auroc": 0.5901877810103148,
+  "excluded_sites": [],
+  "n_total_sites": 20,
+  "n_included_sites": 20,
+  "models_summary": {
+    "Logistic Regression (L2)": {
+      "model": "Logistic Regression (L2)",
+      "pooled_auroc_raw": 0.6593052984219342,
+      "pooled_auroc_zscored": 0.6663195362778807,
+      "site_prevalence_oracle_auroc": 0.5901877810103148,
+      "between_site_shift_contribution": -0.007014237855946459,
+      "macro_auroc_unweighted": 0.661625,
+      "macro_auroc_unweighted_ci_95": [
+        0.6080255893473271,
+        0.7146687000608022
+      ],
+      "macro_auroc_n_weighted": 0.6716662763466041,
+      "macro_auroc_n_weighted_ci_95": [
+        0.6284297078106066,
+        0.7071569127533023
+      ],
+      "median_auroc": 0.6464000000000001,
+      "min_auroc": 0.3654,
+      "max_auroc": 0.9375,
+      "site_resample_pooled_ci_95": [
+        0.6074980150857089,
+        0.7045368926631915
+      ],
+      "excluded_sites": [],
+      "n_included_sites": 20
+    },
+    "Linear SVM": {
+      "model": "Linear SVM",
+      "pooled_auroc_raw": 0.676474477651415,
+      "pooled_auroc_zscored": 0.6931339813100591,
+      "site_prevalence_oracle_auroc": 0.5901877810103148,
+      "between_site_shift_contribution": -0.016659503658644104,
+      "macro_auroc_unweighted": 0.683125,
+      "macro_auroc_unweighted_ci_95": [
+        0.6305739456606976,
+        0.7352569671978701
+      ],
+      "macro_auroc_n_weighted": 0.6975989461358314,
+      "macro_auroc_n_weighted_ci_95": [
+        0.6515195548298752,
+        0.7342451314604606
+      ],
+      "median_auroc": 0.6819999999999999,
+      "min_auroc": 0.4167,
+      "max_auroc": 0.9375,
+      "site_resample_pooled_ci_95": [
+        0.6226058002712612,
+        0.7240662587214773
+      ],
+      "excluded_sites": [],
+      "n_included_sites": 20
+    },
+    "Random Forest": {
+      "model": "Random Forest",
+      "pooled_auroc_raw": 0.7002942343295424,
+      "pooled_auroc_zscored": 0.7222130388786036,
+      "site_prevalence_oracle_auroc": 0.5901877810103148,
+      "between_site_shift_contribution": -0.021918804549061144,
+      "macro_auroc_unweighted": 0.710255,
+      "macro_auroc_unweighted_ci_95": [
+        0.6600690942627668,
+        0.7521895144483219
+      ],
+      "macro_auroc_n_weighted": 0.724837119437939,
+      "macro_auroc_n_weighted_ci_95": [
+        0.6901307632209341,
+        0.7514309231063242
+      ],
+      "median_auroc": 0.7592,
+      "min_auroc": 0.4074,
+      "max_auroc": 0.8125,
+      "site_resample_pooled_ci_95": [
+        0.6602085587812754,
+        0.7377855033070301
+      ],
+      "excluded_sites": [],
+      "n_included_sites": 20
+    },
+    "Extra Trees": {
+      "model": "Extra Trees",
+      "pooled_auroc_raw": 0.6866845190866614,
+      "pooled_auroc_zscored": 0.7109009962091157,
+      "site_prevalence_oracle_auroc": 0.5901877810103148,
+      "between_site_shift_contribution": -0.02421647712245434,
+      "macro_auroc_unweighted": 0.68238,
+      "macro_auroc_unweighted_ci_95": [
+        0.609583137171844,
+        0.7380503183263998
+      ],
+      "macro_auroc_n_weighted": 0.7131370023419203,
+      "macro_auroc_n_weighted_ci_95": [
+        0.6695642609173265,
+        0.7456279840158525
+      ],
+      "median_auroc": 0.7375499999999999,
+      "min_auroc": 0.1852,
+      "max_auroc": 0.7949,
+      "site_resample_pooled_ci_95": [
+        0.6423862884279274,
+        0.7285184954578048
+      ],
+      "excluded_sites": [],
+      "n_included_sites": 20
+    },
+    "LightGBM": {
+      "model": "LightGBM",
+      "pooled_auroc_raw": 0.6991977431014723,
+      "pooled_auroc_zscored": 0.7160638719915366,
+      "site_prevalence_oracle_auroc": 0.5901877810103148,
+      "between_site_shift_contribution": -0.016866128890064336,
+      "macro_auroc_unweighted": 0.72242,
+      "macro_auroc_unweighted_ci_95": [
+        0.675260645574444,
+        0.7638870210719799
+      ],
+      "macro_auroc_n_weighted": 0.7156699063231851,
+      "macro_auroc_n_weighted_ci_95": [
+        0.6802198316843551,
+        0.7553987023276293
+      ],
+      "median_auroc": 0.7357,
+      "min_auroc": 0.4679,
+      "max_auroc": 0.875,
+      "site_resample_pooled_ci_95": [
+        0.6616133298085706,
+        0.7424235681396566
+      ],
+      "excluded_sites": [],
+      "n_included_sites": 20
+    },
+    "Small MLP": {
+      "model": "Small MLP",
+      "pooled_auroc_raw": 0.667129507185048,
+      "pooled_auroc_zscored": 0.6565778453671868,
+      "site_prevalence_oracle_auroc": 0.5901877810103148,
+      "between_site_shift_contribution": 0.010551661817861269,
+      "macro_auroc_unweighted": 0.66513,
+      "macro_auroc_unweighted_ci_95": [
+        0.6123934443397272,
+        0.7150254833512542
+      ],
+      "macro_auroc_n_weighted": 0.6833399297423887,
+      "macro_auroc_n_weighted_ci_95": [
+        0.6325598317674965,
+        0.7221686817963352
+      ],
+      "median_auroc": 0.6745,
+      "min_auroc": 0.4444,
+      "max_auroc": 0.875,
+      "site_resample_pooled_ci_95": [
+        0.6096557321022383,
+        0.7174172282288879
+      ],
+      "excluded_sites": [],
+      "n_included_sites": 20
+    },
+    "Heinsfeld Autoencoder": {
+      "model": "Heinsfeld Autoencoder",
+      "pooled_auroc_raw": 0.6773726086573217,
+      "pooled_auroc_zscored": 0.6574539363484088,
+      "site_prevalence_oracle_auroc": 0.5901877810103148,
+      "between_site_shift_contribution": 0.019918672308912977,
+      "macro_auroc_unweighted": 0.671305,
+      "macro_auroc_unweighted_ci_95": [
+        0.6115773518982556,
+        0.7282574369401974
+      ],
+      "macro_auroc_n_weighted": 0.6904450819672131,
+      "macro_auroc_n_weighted_ci_95": [
+        0.6385652889227738,
+        0.7257199647675876
+      ],
+      "median_auroc": 0.68755,
+      "min_auroc": 0.4074,
+      "max_auroc": 1.0,
+      "site_resample_pooled_ci_95": [
+        0.6209747843198322,
+        0.7200633799849273
+      ],
+      "excluded_sites": [],
+      "n_included_sites": 20
+    },
+    "Tangent Space Logistic": {
+      "model": "Tangent Space Logistic",
+      "pooled_auroc_raw": 0.6092413823503482,
+      "pooled_auroc_zscored": 0.6076600105792118,
+      "site_prevalence_oracle_auroc": 0.5901877810103148,
+      "between_site_shift_contribution": 0.001581371771136375,
+      "macro_auroc_unweighted": 0.585715,
+      "macro_auroc_unweighted_ci_95": [
+        0.5264465266116967,
+        0.6381187072021698
+      ],
+      "macro_auroc_n_weighted": 0.6133076112412177,
+      "macro_auroc_n_weighted_ci_95": [
+        0.5703039806895729,
+        0.6516138446991179
+      ],
+      "median_auroc": 0.6222,
+      "min_auroc": 0.2222,
+      "max_auroc": 0.7848,
+      "site_resample_pooled_ci_95": [
+        0.5676441124478759,
+        0.6454169508037606
+      ],
+      "excluded_sites": [],
+      "n_included_sites": 20
+    }
+  }
+}

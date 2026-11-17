@@ -1,0 +1,29 @@
+{
+  "feature_names": [
+    "age",
+    "sex",
+    "jaundice",
+    "family_asd"
+  ],
+  "scaler_mean": [
+    29.69034090909091,
+    0.5213068181818182,
+    0.09801136363636363,
+    0.12926136363636365
+  ],
+  "scaler_scale": [
+    16.472881223176227,
+    0.4995458132133297,
+    0.29733001233394535,
+    0.3354889916334535
+  ],
+  "coef": [
+    0.07126467499297941,
+    -0.14020740147616945,
+    0.14818166178896577,
+    0.2963827627548054
+  ],
+  "intercept": -1.0346570616984996,
+  "trained_on": "Adult AQ-10 Demographics Only (N=704)",
+  "description": "Honest demographics-only Logistic Regression (no questionnaire items, no total score)"
+}

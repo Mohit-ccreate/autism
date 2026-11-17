@@ -2275,5 +2275,851 @@
     },
     "audit_status": "LEAKY CONTRAST ONLY",
     "audit_warning": "This run uses features containing the 10 questionnaire items. Because the screening label is a deterministic function of these items, this model exhibits near-perfect separability and artificial calibration metrics. It is included strictly as a labeled contrast to demonstrate how behavioral tautologies distort uncertainty estimation."
+  },
+  "uncertainty_data_allocations": {
+    "tabular_demographics": {
+      "adult": {
+        "n_samples": 667,
+        "version_1_shared": {
+          "temperature": 1.0963217430732712,
+          "uncalibrated_ece": 0.030689301620939972,
+          "calibrated_ece": 0.02781107841909899,
+          "lac_alpha10": {
+            "alpha": 0.1,
+            "nominal_coverage": 0.9,
+            "q_hat": 0.7622576811807592,
+            "n_cal": 530,
+            "n_test": 667,
+            "marginal_coverage": 0.8995502248875562,
+            "mean_set_size": 1.553223388305847,
+            "fraction_empty": 0.0,
+            "fraction_singleton": 0.44677661169415295,
+            "fraction_both": 0.553223388305847,
+            "triage_review_burden": 0.553223388305847,
+            "set_size_identity_verified": true
+          },
+          "lac_alpha05": {
+            "alpha": 0.05,
+            "nominal_coverage": 0.95,
+            "q_hat": 0.7727212529073588,
+            "n_cal": 530,
+            "n_test": 667,
+            "marginal_coverage": 0.9415292353823088,
+            "mean_set_size": 1.767616191904048,
+            "fraction_empty": 0.0,
+            "fraction_singleton": 0.23238380809595202,
+            "fraction_both": 0.767616191904048,
+            "triage_review_burden": 0.767616191904048,
+            "set_size_identity_verified": true
+          }
+        },
+        "version_2_disjoint": {
+          "temperature": 1.1686388624588968,
+          "uncalibrated_ece": 0.052505530966196194,
+          "calibrated_ece": 0.025827654158493994,
+          "lac_alpha10": {
+            "alpha": 0.1,
+            "nominal_coverage": 0.9,
+            "q_hat": 0.7477940457788345,
+            "n_cal": 530,
+            "n_test": 667,
+            "marginal_coverage": 0.9010494752623688,
+            "mean_set_size": 1.608695652173913,
+            "fraction_empty": 0.0,
+            "fraction_singleton": 0.391304347826087,
+            "fraction_both": 0.6086956521739131,
+            "triage_review_burden": 0.6086956521739131,
+            "set_size_identity_verified": true
+          },
+          "lac_alpha05": {
+            "alpha": 0.05,
+            "nominal_coverage": 0.95,
+            "q_hat": 0.773937373624221,
+            "n_cal": 530,
+            "n_test": 667,
+            "marginal_coverage": 0.952023988005997,
+            "mean_set_size": 1.8470764617691156,
+            "fraction_empty": 0.0,
+            "fraction_singleton": 0.15292353823088456,
+            "fraction_both": 0.8470764617691154,
+            "triage_review_burden": 0.8470764617691154,
+            "set_size_identity_verified": true
+          }
+        }
+      },
+      "adolescent": {
+        "n_samples": 97,
+        "version_1_shared": {
+          "temperature": 1.458448036454484,
+          "uncalibrated_ece": 0.07342176310310378,
+          "calibrated_ece": 0.055659597163020096,
+          "lac_alpha10": {
+            "alpha": 0.1,
+            "nominal_coverage": 0.9,
+            "q_hat": 0.57006093952012,
+            "n_cal": 75,
+            "n_test": 97,
+            "marginal_coverage": 0.865979381443299,
+            "mean_set_size": 1.6494845360824741,
+            "fraction_empty": 0.0,
+            "fraction_singleton": 0.35051546391752575,
+            "fraction_both": 0.6494845360824743,
+            "triage_review_burden": 0.6494845360824743,
+            "set_size_identity_verified": true
+          },
+          "lac_alpha05": {
+            "alpha": 0.05,
+            "nominal_coverage": 0.95,
+            "q_hat": 0.6152069151912593,
+            "n_cal": 75,
+            "n_test": 97,
+            "marginal_coverage": 0.9690721649484536,
+            "mean_set_size": 1.9484536082474226,
+            "fraction_empty": 0.0,
+            "fraction_singleton": 0.05154639175257732,
+            "fraction_both": 0.9484536082474226,
+            "triage_review_burden": 0.9484536082474226,
+            "set_size_identity_verified": true
+          }
+        },
+        "version_2_disjoint": {
+          "temperature": 1.106689638862885,
+          "uncalibrated_ece": 0.042020378618657275,
+          "calibrated_ece": 0.034082803550605244,
+          "lac_alpha10": {
+            "alpha": 0.1,
+            "nominal_coverage": 0.9,
+            "q_hat": 0.6266238341020778,
+            "n_cal": 75,
+            "n_test": 97,
+            "marginal_coverage": 0.9690721649484536,
+            "mean_set_size": 1.8762886597938144,
+            "fraction_empty": 0.0,
+            "fraction_singleton": 0.12371134020618557,
+            "fraction_both": 0.8762886597938144,
+            "triage_review_burden": 0.8762886597938144,
+            "set_size_identity_verified": true
+          },
+          "lac_alpha05": {
+            "alpha": 0.05,
+            "nominal_coverage": 0.95,
+            "q_hat": 0.6489235535946999,
+            "n_cal": 75,
+            "n_test": 97,
+            "marginal_coverage": 0.979381443298969,
+            "mean_set_size": 1.9690721649484537,
+            "fraction_empty": 0.0,
+            "fraction_singleton": 0.030927835051546393,
+            "fraction_both": 0.9690721649484536,
+            "triage_review_burden": 0.9690721649484536,
+            "set_size_identity_verified": true
+          }
+        }
+      },
+      "child": {
+        "n_samples": 262,
+        "version_1_shared": {
+          "temperature": 3.6336426321582764,
+          "uncalibrated_ece": 0.06469712375897561,
+          "calibrated_ece": 0.04523924132910312,
+          "lac_alpha10": {
+            "alpha": 0.1,
+            "nominal_coverage": 0.9,
+            "q_hat": 0.5242642026825068,
+            "n_cal": 208,
+            "n_test": 262,
+            "marginal_coverage": 0.9007633587786259,
+            "mean_set_size": 1.8282442748091603,
+            "fraction_empty": 0.0,
+            "fraction_singleton": 0.1717557251908397,
+            "fraction_both": 0.8282442748091603,
+            "triage_review_burden": 0.8282442748091603,
+            "set_size_identity_verified": true
+          },
+          "lac_alpha05": {
+            "alpha": 0.05,
+            "nominal_coverage": 0.95,
+            "q_hat": 0.5299541599737532,
+            "n_cal": 208,
+            "n_test": 262,
+            "marginal_coverage": 0.9618320610687023,
+            "mean_set_size": 1.9312977099236641,
+            "fraction_empty": 0.0,
+            "fraction_singleton": 0.06870229007633588,
+            "fraction_both": 0.9312977099236641,
+            "triage_review_burden": 0.9312977099236641,
+            "set_size_identity_verified": true
+          }
+        },
+        "version_2_disjoint": {
+          "temperature": 9.999996124420733,
+          "uncalibrated_ece": 0.09758337308746333,
+          "calibrated_ece": 0.043217647936568904,
+          "lac_alpha10": {
+            "alpha": 0.1,
+            "nominal_coverage": 0.9,
+            "q_hat": 0.5089235875034505,
+            "n_cal": 208,
+            "n_test": 262,
+            "marginal_coverage": 0.9122137404580153,
+            "mean_set_size": 1.8358778625954197,
+            "fraction_empty": 0.0,
+            "fraction_singleton": 0.16412213740458015,
+            "fraction_both": 0.8358778625954199,
+            "triage_review_burden": 0.8358778625954199,
+            "set_size_identity_verified": true
+          },
+          "lac_alpha05": {
+            "alpha": 0.05,
+            "nominal_coverage": 0.95,
+            "q_hat": 0.5120833201171044,
+            "n_cal": 208,
+            "n_test": 262,
+            "marginal_coverage": 0.9541984732824428,
+            "mean_set_size": 1.9351145038167938,
+            "fraction_empty": 0.0,
+            "fraction_singleton": 0.0648854961832061,
+            "fraction_both": 0.9351145038167938,
+            "triage_review_burden": 0.9351145038167938,
+            "set_size_identity_verified": true
+          }
+        }
+      },
+      "toddler": {
+        "n_samples": 850,
+        "version_1_shared": {
+          "temperature": 1.1217426367482648,
+          "uncalibrated_ece": 0.023881430473557685,
+          "calibrated_ece": 0.02149651551482185,
+          "lac_alpha10": {
+            "alpha": 0.1,
+            "nominal_coverage": 0.9,
+            "q_hat": 0.725183595388398,
+            "n_cal": 680,
+            "n_test": 850,
+            "marginal_coverage": 0.9011764705882352,
+            "mean_set_size": 1.62,
+            "fraction_empty": 0.0,
+            "fraction_singleton": 0.38,
+            "fraction_both": 0.62,
+            "triage_review_burden": 0.62,
+            "set_size_identity_verified": true
+          },
+          "lac_alpha05": {
+            "alpha": 0.05,
+            "nominal_coverage": 0.95,
+            "q_hat": 0.7532400514748439,
+            "n_cal": 680,
+            "n_test": 850,
+            "marginal_coverage": 0.9635294117647059,
+            "mean_set_size": 1.8141176470588236,
+            "fraction_empty": 0.0,
+            "fraction_singleton": 0.18588235294117647,
+            "fraction_both": 0.8141176470588235,
+            "triage_review_burden": 0.8141176470588235,
+            "set_size_identity_verified": true
+          }
+        },
+        "version_2_disjoint": {
+          "temperature": 1.1220780061579403,
+          "uncalibrated_ece": 0.03702249364388817,
+          "calibrated_ece": 0.03096073416708946,
+          "lac_alpha10": {
+            "alpha": 0.1,
+            "nominal_coverage": 0.9,
+            "q_hat": 0.7276744060546474,
+            "n_cal": 680,
+            "n_test": 850,
+            "marginal_coverage": 0.8964705882352941,
+            "mean_set_size": 1.5823529411764705,
+            "fraction_empty": 0.0,
+            "fraction_singleton": 0.4176470588235294,
+            "fraction_both": 0.5823529411764706,
+            "triage_review_burden": 0.5823529411764706,
+            "set_size_identity_verified": true
+          },
+          "lac_alpha05": {
+            "alpha": 0.05,
+            "nominal_coverage": 0.95,
+            "q_hat": 0.7517524626012682,
+            "n_cal": 680,
+            "n_test": 850,
+            "marginal_coverage": 0.9611764705882353,
+            "mean_set_size": 1.8035294117647058,
+            "fraction_empty": 0.0,
+            "fraction_singleton": 0.19647058823529412,
+            "fraction_both": 0.8035294117647059,
+            "triage_review_burden": 0.8035294117647059,
+            "set_size_identity_verified": true
+          }
+        }
+      }
+    },
+    "abide_loso": {
+      "dataset": "ABIDE_I_CC200_FULL",
+      "n_subjects": 854,
+      "n_sites": 20,
+      "version_1_shared": {
+        "description": "Training partition split 80% fit, 20% calibration; 20% slice shared between TS and conformal quantile",
+        "temperature": 3.8873610811597508,
+        "lac_alpha10": {
+          "alpha": 0.1,
+          "nominal_coverage": 0.9,
+          "q_hat": 0.648350405347055,
+          "n_cal": 3238,
+          "n_test": 854,
+          "marginal_coverage": 0.870023419203747,
+          "mean_set_size": 1.594847775175644,
+          "fraction_empty": 0.0,
+          "fraction_singleton": 0.405152224824356,
+          "fraction_both": 0.594847775175644,
+          "triage_review_burden": 0.594847775175644,
+          "set_size_identity_verified": true
+        },
+        "lac_alpha05": {
+          "alpha": 0.05,
+          "nominal_coverage": 0.95,
+          "q_hat": 0.6963722911905291,
+          "n_cal": 3238,
+          "n_test": 854,
+          "marginal_coverage": 0.9238875878220141,
+          "mean_set_size": 1.7330210772833723,
+          "fraction_empty": 0.0,
+          "fraction_singleton": 0.26697892271662765,
+          "fraction_both": 0.7330210772833724,
+          "triage_review_burden": 0.7330210772833724,
+          "set_size_identity_verified": true
+        },
+        "per_site_coverage_alpha10": [
+          {
+            "site": "CALTECH",
+            "n_test": 12,
+            "coverage": 0.8333333333333334,
+            "size": 1.6666666666666667
+          },
+          {
+            "site": "CMU",
+            "n_test": 8,
+            "coverage": 0.75,
+            "size": 1.25
+          },
+          {
+            "site": "KKI",
+            "n_test": 33,
+            "coverage": 0.7575757575757576,
+            "size": 1.5151515151515151
+          },
+          {
+            "site": "LEUVEN_1",
+            "n_test": 28,
+            "coverage": 0.6071428571428571,
+            "size": 1.3214285714285714
+          },
+          {
+            "site": "LEUVEN_2",
+            "n_test": 28,
+            "coverage": 0.9642857142857143,
+            "size": 1.5714285714285714
+          },
+          {
+            "site": "MAX_MUN",
+            "n_test": 46,
+            "coverage": 0.8260869565217391,
+            "size": 1.6956521739130435
+          },
+          {
+            "site": "NYU",
+            "n_test": 170,
+            "coverage": 0.9470588235294117,
+            "size": 1.6941176470588235
+          },
+          {
+            "site": "OHSU",
+            "n_test": 25,
+            "coverage": 0.84,
+            "size": 1.68
+          },
+          {
+            "site": "OLIN",
+            "n_test": 28,
+            "coverage": 0.8928571428571429,
+            "size": 1.6785714285714286
+          },
+          {
+            "site": "PITT",
+            "n_test": 49,
+            "coverage": 0.8163265306122449,
+            "size": 1.489795918367347
+          },
+          {
+            "site": "SBL",
+            "n_test": 25,
+            "coverage": 0.8,
+            "size": 1.52
+          },
+          {
+            "site": "SDSU",
+            "n_test": 24,
+            "coverage": 0.9583333333333334,
+            "size": 1.5
+          },
+          {
+            "site": "STANFORD",
+            "n_test": 25,
+            "coverage": 0.84,
+            "size": 1.64
+          },
+          {
+            "site": "TRINITY",
+            "n_test": 42,
+            "coverage": 0.9047619047619048,
+            "size": 1.7142857142857142
+          },
+          {
+            "site": "UCLA_1",
+            "n_test": 64,
+            "coverage": 0.921875,
+            "size": 1.671875
+          },
+          {
+            "site": "UCLA_2",
+            "n_test": 21,
+            "coverage": 0.8095238095238095,
+            "size": 1.5238095238095237
+          },
+          {
+            "site": "UM_1",
+            "n_test": 84,
+            "coverage": 0.8571428571428571,
+            "size": 1.6785714285714286
+          },
+          {
+            "site": "UM_2",
+            "n_test": 34,
+            "coverage": 0.7941176470588235,
+            "size": 1.6176470588235294
+          },
+          {
+            "site": "USM",
+            "n_test": 67,
+            "coverage": 0.9850746268656716,
+            "size": 1.7611940298507462
+          },
+          {
+            "site": "YALE",
+            "n_test": 41,
+            "coverage": 0.9512195121951219,
+            "size": 1.6341463414634145
+          }
+        ]
+      },
+      "version_2_disjoint": {
+        "description": "Training partition split 60% proper-train, 20% calibrator, 20% conformal-cal; strictly disjoint",
+        "temperature": 4.552807698391285,
+        "lac_alpha10": {
+          "alpha": 0.1,
+          "nominal_coverage": 0.9,
+          "q_hat": 0.664823364411895,
+          "n_cal": 3238,
+          "n_test": 854,
+          "marginal_coverage": 0.8957845433255269,
+          "mean_set_size": 1.6639344262295082,
+          "fraction_empty": 0.0,
+          "fraction_singleton": 0.3360655737704918,
+          "fraction_both": 0.6639344262295082,
+          "triage_review_burden": 0.6639344262295082,
+          "set_size_identity_verified": true
+        },
+        "lac_alpha05": {
+          "alpha": 0.05,
+          "nominal_coverage": 0.95,
+          "q_hat": 0.7202771180546916,
+          "n_cal": 3238,
+          "n_test": 854,
+          "marginal_coverage": 0.9484777517564403,
+          "mean_set_size": 1.7962529274004684,
+          "fraction_empty": 0.0,
+          "fraction_singleton": 0.20374707259953162,
+          "fraction_both": 0.7962529274004684,
+          "triage_review_burden": 0.7962529274004684,
+          "set_size_identity_verified": true
+        },
+        "per_site_coverage_alpha10": [
+          {
+            "site": "CALTECH",
+            "n_test": 12,
+            "coverage": 0.8333333333333334,
+            "size": 1.75
+          },
+          {
+            "site": "CMU",
+            "n_test": 8,
+            "coverage": 1.0,
+            "size": 1.5
+          },
+          {
+            "site": "KKI",
+            "n_test": 33,
+            "coverage": 0.9090909090909091,
+            "size": 1.7575757575757576
+          },
+          {
+            "site": "LEUVEN_1",
+            "n_test": 28,
+            "coverage": 0.7857142857142857,
+            "size": 1.5357142857142858
+          },
+          {
+            "site": "LEUVEN_2",
+            "n_test": 28,
+            "coverage": 1.0,
+            "size": 1.6428571428571428
+          },
+          {
+            "site": "MAX_MUN",
+            "n_test": 46,
+            "coverage": 0.8260869565217391,
+            "size": 1.673913043478261
+          },
+          {
+            "site": "NYU",
+            "n_test": 170,
+            "coverage": 0.9411764705882353,
+            "size": 1.7529411764705882
+          },
+          {
+            "site": "OHSU",
+            "n_test": 25,
+            "coverage": 0.8,
+            "size": 1.52
+          },
+          {
+            "site": "OLIN",
+            "n_test": 28,
+            "coverage": 0.8571428571428571,
+            "size": 1.5714285714285714
+          },
+          {
+            "site": "PITT",
+            "n_test": 49,
+            "coverage": 0.9387755102040817,
+            "size": 1.7142857142857142
+          },
+          {
+            "site": "SBL",
+            "n_test": 25,
+            "coverage": 0.92,
+            "size": 1.56
+          },
+          {
+            "site": "SDSU",
+            "n_test": 24,
+            "coverage": 0.8333333333333334,
+            "size": 1.375
+          },
+          {
+            "site": "STANFORD",
+            "n_test": 25,
+            "coverage": 0.84,
+            "size": 1.72
+          },
+          {
+            "site": "TRINITY",
+            "n_test": 42,
+            "coverage": 0.9047619047619048,
+            "size": 1.7619047619047619
+          },
+          {
+            "site": "UCLA_1",
+            "n_test": 64,
+            "coverage": 0.9375,
+            "size": 1.6875
+          },
+          {
+            "site": "UCLA_2",
+            "n_test": 21,
+            "coverage": 0.8571428571428571,
+            "size": 1.5238095238095237
+          },
+          {
+            "site": "UM_1",
+            "n_test": 84,
+            "coverage": 0.8928571428571429,
+            "size": 1.75
+          },
+          {
+            "site": "UM_2",
+            "n_test": 34,
+            "coverage": 0.8823529411764706,
+            "size": 1.4705882352941178
+          },
+          {
+            "site": "USM",
+            "n_test": 67,
+            "coverage": 0.9701492537313433,
+            "size": 1.8656716417910448
+          },
+          {
+            "site": "YALE",
+            "n_test": 41,
+            "coverage": 0.9024390243902439,
+            "size": 1.6097560975609757
+          }
+        ]
+      },
+      "version_3_site_grouped": {
+        "description": "3 complete clinical sites held out as conformal calibration sites; remaining 16 sites used for proper training",
+        "lac_alpha10": {
+          "alpha": 0.1,
+          "nominal_coverage": 0.9,
+          "q_hat": 0.9372397824729394,
+          "n_cal": 2784,
+          "n_test": 854,
+          "marginal_coverage": 0.8969555035128806,
+          "mean_set_size": 1.6346604215456675,
+          "fraction_empty": 0.0,
+          "fraction_singleton": 0.36533957845433257,
+          "fraction_both": 0.6346604215456675,
+          "triage_review_burden": 0.6346604215456675,
+          "set_size_identity_verified": true
+        },
+        "lac_alpha05": {
+          "alpha": 0.05,
+          "nominal_coverage": 0.95,
+          "q_hat": 0.9751463315799694,
+          "n_cal": 2784,
+          "n_test": 854,
+          "marginal_coverage": 0.9484777517564403,
+          "mean_set_size": 1.8044496487119437,
+          "fraction_empty": 0.0,
+          "fraction_singleton": 0.1955503512880562,
+          "fraction_both": 0.8044496487119438,
+          "triage_review_burden": 0.8044496487119438,
+          "set_size_identity_verified": true
+        },
+        "per_site_coverage_alpha10": [
+          {
+            "site": "CALTECH",
+            "n_test": 12,
+            "cal_sites": [
+              "UM_2",
+              "CMU",
+              "OHSU"
+            ],
+            "coverage": 0.9166666666666666,
+            "size": 1.75
+          },
+          {
+            "site": "CMU",
+            "n_test": 8,
+            "cal_sites": [
+              "UM_1",
+              "UCLA_1",
+              "SDSU"
+            ],
+            "coverage": 0.875,
+            "size": 1.5
+          },
+          {
+            "site": "KKI",
+            "n_test": 33,
+            "cal_sites": [
+              "UM_1",
+              "UCLA_1",
+              "SDSU"
+            ],
+            "coverage": 0.9090909090909091,
+            "size": 1.7575757575757576
+          },
+          {
+            "site": "LEUVEN_1",
+            "n_test": 28,
+            "cal_sites": [
+              "UCLA_1",
+              "UCLA_2",
+              "YALE"
+            ],
+            "coverage": 0.75,
+            "size": 1.3928571428571428
+          },
+          {
+            "site": "LEUVEN_2",
+            "n_test": 28,
+            "cal_sites": [
+              "UCLA_1",
+              "UCLA_2",
+              "YALE"
+            ],
+            "coverage": 0.8571428571428571,
+            "size": 1.3928571428571428
+          },
+          {
+            "site": "MAX_MUN",
+            "n_test": 46,
+            "cal_sites": [
+              "UM_2",
+              "CALTECH",
+              "OHSU"
+            ],
+            "coverage": 0.9782608695652174,
+            "size": 1.891304347826087
+          },
+          {
+            "site": "NYU",
+            "n_test": 170,
+            "cal_sites": [
+              "UM_1",
+              "UCLA_1",
+              "SDSU"
+            ],
+            "coverage": 0.9411764705882353,
+            "size": 1.7588235294117647
+          },
+          {
+            "site": "OHSU",
+            "n_test": 25,
+            "cal_sites": [
+              "LEUVEN_2",
+              "UM_2",
+              "PITT"
+            ],
+            "coverage": 0.88,
+            "size": 1.76
+          },
+          {
+            "site": "OLIN",
+            "n_test": 28,
+            "cal_sites": [
+              "LEUVEN_2",
+              "UM_2",
+              "PITT"
+            ],
+            "coverage": 0.8928571428571429,
+            "size": 1.6071428571428572
+          },
+          {
+            "site": "PITT",
+            "n_test": 49,
+            "cal_sites": [
+              "LEUVEN_2",
+              "UM_2",
+              "OLIN"
+            ],
+            "coverage": 0.9591836734693877,
+            "size": 1.7755102040816326
+          },
+          {
+            "site": "SBL",
+            "n_test": 25,
+            "cal_sites": [
+              "UM_1",
+              "UCLA_1",
+              "SDSU"
+            ],
+            "coverage": 0.96,
+            "size": 1.84
+          },
+          {
+            "site": "SDSU",
+            "n_test": 24,
+            "cal_sites": [
+              "LEUVEN_2",
+              "UM_2",
+              "OLIN"
+            ],
+            "coverage": 0.9166666666666666,
+            "size": 1.4583333333333333
+          },
+          {
+            "site": "STANFORD",
+            "n_test": 25,
+            "cal_sites": [
+              "UCLA_1",
+              "UCLA_2",
+              "YALE"
+            ],
+            "coverage": 0.84,
+            "size": 1.6
+          },
+          {
+            "site": "TRINITY",
+            "n_test": 42,
+            "cal_sites": [
+              "UM_2",
+              "CALTECH",
+              "NYU"
+            ],
+            "coverage": 0.8809523809523809,
+            "size": 1.5952380952380953
+          },
+          {
+            "site": "UCLA_1",
+            "n_test": 64,
+            "cal_sites": [
+              "KKI",
+              "PITT",
+              "NYU"
+            ],
+            "coverage": 0.859375,
+            "size": 1.578125
+          },
+          {
+            "site": "UCLA_2",
+            "n_test": 21,
+            "cal_sites": [
+              "KKI",
+              "PITT",
+              "NYU"
+            ],
+            "coverage": 0.9047619047619048,
+            "size": 1.5714285714285714
+          },
+          {
+            "site": "UM_1",
+            "n_test": 84,
+            "cal_sites": [
+              "LEUVEN_2",
+              "UM_2",
+              "OLIN"
+            ],
+            "coverage": 0.8809523809523809,
+            "size": 1.6666666666666667
+          },
+          {
+            "site": "UM_2",
+            "n_test": 34,
+            "cal_sites": [
+              "LEUVEN_2",
+              "UM_1",
+              "OLIN"
+            ],
+            "coverage": 0.9117647058823529,
+            "size": 1.5588235294117647
+          },
+          {
+            "site": "USM",
+            "n_test": 67,
+            "cal_sites": [
+              "UCLA_2",
+              "TRINITY",
+              "SBL"
+            ],
+            "coverage": 0.9701492537313433,
+            "size": 1.8208955223880596
+          },
+          {
+            "site": "YALE",
+            "n_test": 41,
+            "cal_sites": [
+              "LEUVEN_2",
+              "UM_1",
+              "OLIN"
+            ],
+            "coverage": 1.0,
+            "size": 1.6829268292682926
+          }
+        ]
+      }
+    }
   }
 }

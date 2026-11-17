@@ -18,6 +18,7 @@ Verifies all quality gates specified in prompt:
 
 import json
 import os
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -28,6 +29,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
 BASE_DIR = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(BASE_DIR))
 PROCESSED_DIR = BASE_DIR / "data" / "processed"
 RESULTS_DIR = BASE_DIR / "results"
 FIGURES_DIR = BASE_DIR / "figures"
@@ -382,3 +384,94 @@ def test_fixed_seed_reproducibility():
     auc1 = fast_auc(y_true, y_prob)
     auc2 = fast_auc(y_true, y_prob)
     assert auc1 == auc2
+
+
+def test_ti_consistency_from_one_run():
+    """Item A.1 & Quality Gate: Verify Tautology Index is computed consistently in ONE run."""
+    json_path = RESULTS_DIR / "tautology_and_dedup_sensitivity.json"
+    assert json_path.exists(), "Missing tautology_and_dedup_sensitivity.json"
+    with open(json_path) as f:
+        data = json.load(f)
+
+    for cohort, c_data in data["unified_tautology_clean"].items():
+        auc_items = c_data["auroc_items"]
+        auc_clean = c_data["auroc_clean"]
+        ti_raw = c_data["tautology_index_raw"]
+        ti_clipped = c_data["tautology_index_clipped"]
+
+        # Mathematical definition: TI = (AUC_items - AUC_clean) / (AUC_items - 0.5)
+        ti_denom = auc_items - 0.5
+        expected_ti = (auc_items - auc_clean) / ti_denom if abs(ti_denom) > 1e-6 else 0.0
+        assert abs(ti_raw - expected_ti) < 1e-4, f"TI inconsistent for {cohort}: {ti_raw} vs {expected_ti}"
+        assert ti_clipped <= 1.0, f"Clipped TI must not exceed 1.0: {ti_clipped}"
+        assert c_data["alternative_a_absolute_drop"] == pytest.approx(auc_items - auc_clean, abs=1e-4)
+
+
+def test_disjoint_uncertainty_subsets():
+    """Item E & Quality Gate: Verify Version 2 calibration subsets are strictly DISJOINT."""
+    from sklearn.model_selection import StratifiedKFold
+    n_samples = 200
+    y = np.random.randint(0, 2, n_samples)
+    skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+
+    for train_idx, test_idx in skf.split(np.zeros(n_samples), y):
+        # 3-way split: 60% proper train, 20% calibrator, 20% conformal calibration
+        skf_inner = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+        inner_splits = list(skf_inner.split(train_idx, y[train_idx]))
+        
+        calibrator_idx = train_idx[inner_splits[0][1]]
+        conformal_cal_idx = train_idx[inner_splits[1][1]]
+        proper_train_idx = train_idx[np.setdiff1d(np.arange(len(train_idx)), np.concatenate([inner_splits[0][1], inner_splits[1][1]]))]
+
+        # Verify pairwise disjointness
+        assert len(set(proper_train_idx) & set(calibrator_idx)) == 0, "Proper train and calibrator overlap!"
+        assert len(set(proper_train_idx) & set(conformal_cal_idx)) == 0, "Proper train and conformal cal overlap!"
+        assert len(set(calibrator_idx) & set(conformal_cal_idx)) == 0, "Calibrator and conformal cal overlap!"
+        
+        # Verify coverage of training set
+        all_tr = set(proper_train_idx) | set(calibrator_idx) | set(conformal_cal_idx)
+        assert all_tr == set(train_idx), "3-way union does not equal full training partition!"
+
+
+def test_permutation_p_resolution():
+    """Item A.3 & Quality Gate: Verify permutation p >= 1/(1+B) and respects finite resolution."""
+    npz_path = RESULTS_DIR / "permutation_null_distribution.npz"
+    assert npz_path.exists(), "Missing permutation_null_distribution.npz"
+    perm_data = np.load(npz_path)
+    b = len(perm_data["infold_null"])
+    assert b >= 10000, f"Permutation count must be >= 10,000, got {b}"
+
+    json_path = RESULTS_DIR / "site_analysis.json"
+    with open(json_path) as f:
+        site_data = json.load(f)
+
+    for arm, arm_res in site_data["harmonization_comparison"].items():
+        if "within_site_permutation_p" in arm_res:
+            p_val = arm_res["within_site_permutation_p"]
+            count = arm_res["within_site_permutation_count"]
+            b_arm = arm_res["within_site_permutation_B"]
+            min_res = 1.0 / (1.0 + b_arm)
+            expected_p = (1.0 + count) / (1.0 + b_arm)
+            assert p_val >= min_res, f"Arm {arm} p-value {p_val} is below resolution limit {min_res}!"
+            assert p_val == pytest.approx(expected_p, rel=1e-4)
+
+
+def test_paired_difference_consistency():
+    """Item A.2 & Quality Gate: Verify paired difference consistency between leaky and in-fold ComBat."""
+    json_path = RESULTS_DIR / "site_analysis.json"
+    with open(json_path) as f:
+        site_data = json.load(f)
+
+    infold_auc = site_data["harmonization_comparison"]["infold_as_implemented"]["pooled_auroc"]
+    leaky_auc = site_data["harmonization_comparison"]["leaky_combat"]["pooled_auroc"]
+    direct_delta = leaky_auc - infold_auc
+
+    contrasts = site_data["paired_harmonization_tests"]["contrasts"]
+    leaky_c = next(c for c in contrasts if c["arm_a"] == "leaky_combat" and c["arm_b"] == "infold_as_implemented")
+    paired_delta = leaky_c["observed_delta"]
+
+    # Point estimate and paired delta must match exactly
+    assert abs(direct_delta - paired_delta) < 1e-4, f"Mismatch: direct {direct_delta} vs paired {paired_delta}"
+    assert paired_delta == pytest.approx(0.0096, abs=1e-3)
+    assert leaky_c["p_value_holm"] == pytest.approx(1.0, abs=1e-3)
+

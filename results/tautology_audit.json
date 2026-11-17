@@ -46,15 +46,20 @@
   "feature_ablation": {
     "adult": {
       "varA_items_only": {
-        "auroc": 0.9999433776512999,
+        "auroc": 0.9999414634146342,
         "auroc_ci": [
-          0.9997851252983967,
-          1.0
+          0.9998677450875283,
+          0.9999918247365901
         ],
         "bacc": 0.9912437598008011,
         "sensitivity": 0.983157980052975,
         "specificity": 0.9993295395486271,
-        "n_features": 10
+        "n_features": 10,
+        "accuracy": 0.9955022488755623,
+        "accuracy_ci_95": [
+          0.993103448275862,
+          0.9976011994002999
+        ]
       },
       "varB_items_plus_demos": {
         "auroc": 0.9997832396371841,
@@ -68,10 +73,10 @@
         "n_features": 14
       },
       "varC_demos_only": {
-        "auroc": 0.5909864353582065,
+        "auroc": 0.5800896631823461,
         "auroc_ci": [
-          0.540497535979829,
-          0.6406550761306024
+          0.5580513401534395,
+          0.6016555383438306
         ],
         "bacc": 0.5082879811481107,
         "sensitivity": 0.03226009114365517,
@@ -92,15 +97,20 @@
     },
     "adolescent": {
       "varA_items_only": {
-        "auroc": 0.9938555132765519,
+        "auroc": 0.9946341463414634,
         "auroc_ci": [
-          0.9826290511317302,
-          0.9997076532795403
+          0.9907558514166213,
+          0.9977491429726971
         ],
         "bacc": 0.9039710244743627,
         "sensitivity": 0.9938132133002234,
         "specificity": 0.814128835648502,
-        "n_features": 10
+        "n_features": 10,
+        "accuracy": 0.9195876288659793,
+        "accuracy_ci_95": [
+          0.8948453608247423,
+          0.9422680412371134
+        ]
       },
       "varB_items_plus_demos": {
         "auroc": 0.9893072739608733,
@@ -114,10 +124,10 @@
         "n_features": 14
       },
       "varC_demos_only": {
-        "auroc": 0.48461009054030973,
+        "auroc": 0.5179703832752613,
         "auroc_ci": [
-          0.3678846060770273,
-          0.604014525566666
+          0.4658198405398432,
+          0.568121389844646
         ],
         "bacc": 0.48776853812219145,
         "sensitivity": 0.8204591149466477,
@@ -138,15 +148,20 @@
     },
     "child": {
       "varA_items_only": {
-        "auroc": 0.9999812662253555,
+        "auroc": 0.9999553387788682,
         "auroc_ci": [
-          0.9998827735771644,
-          1.0
+          0.9998763372059918,
+          0.9999976500667381
         ],
         "bacc": 0.9964581338475781,
         "sensitivity": 1.0,
         "specificity": 0.9929162676951563,
-        "n_features": 10
+        "n_features": 10,
+        "accuracy": 0.9954198473282443,
+        "accuracy_ci_95": [
+          0.9916030534351145,
+          0.9984732824427481
+        ]
       },
       "varB_items_plus_demos": {
         "auroc": 0.9996991402300311,
@@ -160,10 +175,10 @@
         "n_features": 14
       },
       "varC_demos_only": {
-        "auroc": 0.44595022153721775,
+        "auroc": 0.4473162131985661,
         "auroc_ci": [
-          0.3790117848449737,
-          0.5181562518822083
+          0.41609878329646033,
+          0.4781677772353632
         ],
         "bacc": 0.502803111264731,
         "sensitivity": 0.15916878083734956,
@@ -192,7 +207,12 @@
         "bacc": 0.9992488622648561,
         "sensitivity": 1.0,
         "specificity": 0.9984977245297122,
-        "n_features": 10
+        "n_features": 10,
+        "accuracy": 1.0,
+        "accuracy_ci_95": [
+          1.0,
+          1.0
+        ]
       },
       "varB_items_plus_demos": {
         "auroc": 0.9999906752796629,
@@ -206,10 +226,10 @@
         "n_features": 14
       },
       "varC_demos_only": {
-        "auroc": 0.5557653671283217,
+        "auroc": 0.5526957091842428,
         "auroc_ci": [
-          0.5114323264047266,
-          0.5996407730205585
+          0.5339223218998205,
+          0.5711559720012018
         ],
         "bacc": 0.5,
         "sensitivity": 1.0,
@@ -361,48 +381,84 @@
   },
   "tautology_indices": {
     "adult": {
-      "tautology_index": 0.818027129283587,
+      "tautology_index": 0.8398019187379893,
+      "tautology_index_raw": 0.8398019187379893,
+      "tautology_index_clipped": 0.8398019187379893,
       "ti_ci_95": [
-        0.7247403805676125,
-        0.9193080828074759
+        0.7966677476773244,
+        0.8838867519965649
       ],
-      "perf_leaky": 1.0,
-      "perf_clean": 0.5909864353582065,
+      "ti_ci_95_clipped": [
+        0.7966677476773244,
+        0.8838867519965649
+      ],
+      "perf_leaky": 0.9999414634146342,
+      "perf_clean": 0.5800896631823461,
       "chance": 0.5,
-      "interpretation": "TI \u2248 1 indicates performance is primarily an artifact of feature leakage."
+      "alternative_a_absolute_drop": 0.4198518002322881,
+      "alternative_b_relative_acc_drop": 1.017441860465116,
+      "instability_flag": false,
+      "instability_diagnostics": "Stable: Clean AUROC is between 0.50 and items AUROC."
     },
     "adolescent": {
-      "tautology_index": 1.0309243247038065,
+      "tautology_index": 0.9636693434770357,
+      "tautology_index_raw": 0.9636693434770357,
+      "tautology_index_clipped": 0.9636693434770357,
       "ti_ci_95": [
-        0.7547952160024338,
-        1.219692542768152
+        0.8620612861109348,
+        1.068788174270919
       ],
-      "perf_leaky": 0.9976635579627042,
-      "perf_clean": 0.48461009054030973,
+      "ti_ci_95_clipped": [
+        0.8620612861109348,
+        1.0
+      ],
+      "perf_leaky": 0.9946341463414634,
+      "perf_clean": 0.5179703832752613,
       "chance": 0.5,
-      "interpretation": "TI \u2248 1 indicates performance is primarily an artifact of feature leakage."
+      "alternative_a_absolute_drop": 0.47666376306620206,
+      "alternative_b_relative_acc_drop": 1.114457831325301,
+      "instability_flag": false,
+      "instability_diagnostics": "Stable: Clean AUROC is between 0.50 and items AUROC."
     },
     "child": {
-      "tautology_index": 1.1080995569255645,
+      "tautology_index": 1.1053769861326275,
+      "tautology_index_raw": 1.1053769861326275,
+      "tautology_index_clipped": 1.0,
       "ti_ci_95": [
-        0.97816277416578,
-        1.25461724898121
+        1.0436691570358996,
+        1.1678187642575693
       ],
-      "perf_leaky": 1.0,
-      "perf_clean": 0.44595022153721775,
+      "ti_ci_95_clipped": [
+        1.0,
+        1.0
+      ],
+      "perf_leaky": 0.9999553387788682,
+      "perf_clean": 0.4473162131985661,
       "chance": 0.5,
-      "interpretation": "TI \u2248 1 indicates performance is primarily an artifact of feature leakage."
+      "alternative_a_absolute_drop": 0.552639125580302,
+      "alternative_b_relative_acc_drop": 1.042444821731749,
+      "instability_flag": true,
+      "instability_diagnostics": "Clean AUROC (0.4473) is below chance (0.50), making numerator (0.5526) exceed denominator (0.5000), yielding raw TI > 1.0 (1.1054)."
     },
     "toddler": {
-      "tautology_index": 0.8884692657433566,
+      "tautology_index": 0.8946085816315144,
+      "tautology_index_raw": 0.8946085816315144,
+      "tautology_index_clipped": 0.8946085816315144,
       "ti_ci_95": [
-        0.808738996045212,
-        0.9844687210125667
+        0.8576880559975962,
+        0.932155356200359
+      ],
+      "ti_ci_95_clipped": [
+        0.8576880559975962,
+        0.932155356200359
       ],
       "perf_leaky": 1.0,
-      "perf_clean": 0.5557653671283217,
+      "perf_clean": 0.5526957091842428,
       "chance": 0.5,
-      "interpretation": "TI \u2248 1 indicates performance is primarily an artifact of feature leakage."
+      "alternative_a_absolute_drop": 0.4473042908157572,
+      "alternative_b_relative_acc_drop": 1.000862068965517,
+      "instability_flag": false,
+      "instability_diagnostics": "Stable: Clean AUROC is between 0.50 and items AUROC."
     }
   },
   "near_duplicate_analysis": {

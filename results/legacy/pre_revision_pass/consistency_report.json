@@ -1,0 +1,76 @@
+{
+  "timestamp": "2026-10-10T14:55:00+05:30",
+  "total_checks": 17,
+  "passed_checks": 17,
+  "failed_checks": 0,
+  "checks": [
+    {
+      "check": "Total questionnaire raw rows reconcile (704, 104, 292, 1054)",
+      "passed": true
+    },
+    {
+      "check": "Deduplicated cohort counts reconcile (667, 97, 262, 850, sum = 1876)",
+      "passed": true
+    },
+    {
+      "check": "Questionnaire concordance is 100.0% at tau=7 (Adult, Adol, Child) and tau=4 (Toddler)",
+      "passed": true
+    },
+    {
+      "check": "ABIDE-I cohort count reconciles (OHSU:25, OLIN:28, PITT:50, SDSU:17, total=120)",
+      "passed": true
+    },
+    {
+      "check": "ABIDE-I 200-ROI CC200 off-diagonal edge count is 19,900",
+      "passed": true
+    },
+    {
+      "check": "LOSO accuracy is 55.0% (66/120) with binomial p = 0.3153",
+      "passed": true
+    },
+    {
+      "check": "Permutation test p-value is 0.2148 (within-site) and 0.1429 (global)",
+      "passed": true
+    },
+    {
+      "check": "Minimum detectable effect size at 80% power is 62.7%",
+      "passed": true
+    },
+    {
+      "check": "Holm-adjusted p-values for per-site testing reconcile (SDSU p_adj = 0.0509 > 0.05)",
+      "passed": true
+    },
+    {
+      "check": "Conformal test set counts reconcile (134 total: 99 controls, 35 ASD)",
+      "passed": true
+    },
+    {
+      "check": "Conformal coverage reconciles (128/134 = 95.52%: 96/99 controls, 32/35 ASD)",
+      "passed": true
+    },
+    {
+      "check": "Conformal set sizes reconcile (128 singleton, 0 pair, 6 empty = 134 total)",
+      "passed": true
+    },
+    {
+      "check": "Conformal empty set item sums verified in {6, 7}",
+      "passed": true
+    },
+    {
+      "check": "Distillation student accuracy reconciles (59.17%, 71/120) with McNemar p = 0.3018",
+      "passed": true
+    },
+    {
+      "check": "All 4 vector figures in figures/ exist and are non-empty",
+      "passed": true
+    },
+    {
+      "check": "LaTeX braces, environments, labels, and citations fully balanced",
+      "passed": true
+    },
+    {
+      "check": "Zero occurrences of banned marketing/LLM tropes",
+      "passed": true
+    }
+  ]
+}

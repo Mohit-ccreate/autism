@@ -1,0 +1,14 @@
+\begin{table}
+\caption{ABIDE I Harmonization Protocol Benchmark across 20 Clinical Sites (N=854)}
+\label{tab:harmonization}
+\begin{tabular}{llllllllll}
+\toprule
+Harmonization Strategy & Protocol & Pooled Accuracy & Balanced Acc & Pooled AUROC & Subject 95% CI & Site Cluster 95% CI & Permutation p & Binomial p & Methodological Flag \\
+\midrule
+None & Leave-One-Site-Out (LOSO) & 0.6265 & 0.6235 & 0.6776 & [0.641, 0.715] & [0.647, 0.709] & 0.0000 & 1.4015e-13 & Valid In-Fold \\
+Site Regression & Leave-One-Site-Out (LOSO) & 0.6159 & 0.6157 & 0.6679 & [0.631, 0.704] & [0.616, 0.712] & 0.0000 & 1.2788e-11 & Valid In-Fold \\
+Combat & Leave-One-Site-Out (LOSO) & 0.6171 & 0.6149 & 0.6593 & [0.621, 0.696] & [0.607, 0.705] & 0.0000 & 7.8975e-12 & Valid In-Fold \\
+Leaky Combat & Leave-One-Site-Out (LOSO) & 0.6148 & 0.6119 & 0.6689 & [0.632, 0.704] & [0.626, 0.703] & 0.0000 & 2.0608e-11 & LEAKY (Deliberate Wrong Arm) \\
+\bottomrule
+\end{tabular}
+\end{table}

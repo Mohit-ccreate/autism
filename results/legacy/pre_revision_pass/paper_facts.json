@@ -1,0 +1,427 @@
+{
+  "_metadata": {
+    "generated_at": "2026-11-06T14:23:22.313139+00:00",
+    "revision": "correction_pass_full_abide_n854",
+    "git_branch": "paper-revision",
+    "rule_1_compliance": "Every number here traces to a code execution recorded in results/*.json"
+  },
+  "theses_verdicts": {
+    "thesis_1_behavioral_tautology": {
+      "verdict": "SUPPORTED",
+      "summary": "Reported ML performance on behavioral questionnaires is inflated by deterministic label leakage from items.",
+      "evidence": {
+        "rule_recovery_concordance": {
+          "adult": 1.0,
+          "adolescent": 1.0,
+          "child": 1.0,
+          "toddler": 1.0
+        },
+        "tautology_index_raw": {
+          "adult": 0.818027129283587,
+          "adolescent": 1.0309243247038065,
+          "child": 1.1080995569255645,
+          "toddler": 0.8884692657433566
+        },
+        "tautology_index_clipped": {
+          "adult": 0.818,
+          "adolescent": 1.0,
+          "child": 1.0,
+          "toddler": 0.889
+        },
+        "auroc_collapse_on_demographics_only": {
+          "adult": 0.5800896631823462,
+          "adolescent": 0.5179703832752613,
+          "child": 0.4473162131985662,
+          "toddler": 0.5526957091842428
+        }
+      }
+    },
+    "thesis_2_scanner_generalization_gap": {
+      "verdict": "SUPPORTED",
+      "summary": "Random cross-validation on multi-center neuroimaging inflates performance due to scanner hardware fingerprint memorization.",
+      "evidence": {
+        "dataset": "ABIDE I CC200 Full Cohort",
+        "n_subjects": 854,
+        "n_sites": 20,
+        "connectome_site_decodability_acc": 0.6487119437939111,
+        "majority_site_base_rate": 0.1990632318501171,
+        "lr_random_cv_auroc": 0.672667063387111,
+        "lr_loso_combat_auroc": 0.6593052984219343,
+        "scanner_gap": 0.013361764965176715
+      }
+    },
+    "thesis_3_leaky_combat_inflation": {
+      "verdict": "NOT SUPPORTED",
+      "summary": "At the full sample size (N=854, 20 sites), deliberately leaky ComBat does not yield a statistically detectable inflation over in-fold ComBat.",
+      "evidence": {
+        "leaky_combat_auroc": 0.6689478092215463,
+        "in_fold_combat_auroc": 0.6593052984219343,
+        "paired_delta": 0.015648417526227643,
+        "ci_95": [
+          -0.0012953474030955813,
+          0.03278581730353049
+        ],
+        "p_value_holm": 0.284,
+        "ci_excludes_zero": false,
+        "formal_finding": "No detectable difference at this sample size: Delta=0.0156 [-0.0013, 0.0328], p_holm=0.2840 (95% CI includes 0)."
+      }
+    },
+    "thesis_4_uncertainty_aware_decision_support": {
+      "verdict": "PARTIALLY SUPPORTED",
+      "summary": "Calibration and split conformal prediction provide valid empirical coverage and meaningful clinical triage, but abstention does not eliminate errors and scanner distribution shift induces site-level coverage variability.",
+      "evidence": {
+        "abide_loso_marginal_coverage": 0.870023419203747,
+        "abide_loso_nominal_coverage": 0.9,
+        "abide_mean_set_size": 1.594847775175644,
+        "abide_set_size_decomposition": {
+          "fraction_empty": 0.0,
+          "fraction_singleton": 0.405152224824356,
+          "fraction_both": 0.594847775175644,
+          "set_size_identity_verified": true
+        },
+        "abide_site_coverage_variations": {
+          "over_covered_sites_count": 4,
+          "under_covered_sites_count": 11,
+          "well_calibrated_sites_count": 5,
+          "note": "Over-coverage under Leave-One-Site-Out is an expected empirical artifact of scanner distribution shift: calibration quantiles fitted on training sites become conservative when transferred to unseen scanners. This confirms distribution non-exchangeability across imaging sites."
+        },
+        "abide_triage_burden": 0.594847775175644,
+        "adult_clean_conformal_coverage": 0.8995502248875562,
+        "adult_triage_burden": 0.553223388305847
+      }
+    }
+  },
+  "statistical_reconciliation": {
+    "n120_legacy_reconciliation": {
+      "pooled_bootstrap_ci_95": [
+        0.505,
+        0.708
+      ],
+      "pooled_bootstrap_note": "Assumes i.i.d. subject instances, ignoring site clustering.",
+      "within_site_permutation_p": 0.2148,
+      "within_site_permutation_note": "Permutes labels strictly within site; respects site structure under H0.",
+      "exact_binomial_p": 0.3153,
+      "exact_binomial_note": "Tests k=66 successes out of n=120 trials vs p=0.50.",
+      "consistent_scientific_conclusion": "On the N=120 4-site subset, accuracy (55.0%) and AUROC (0.6098) were statistically indistinguishable from random guessing."
+    },
+    "n854_full_cohort_resolution": {
+      "in_fold_combat_auroc": 0.6593052984219343,
+      "subject_bootstrap_ci_95": [
+        0.6214721150984601,
+        0.6961892071875025
+      ],
+      "site_cluster_bootstrap_ci_95": [
+        0.6074980150857089,
+        0.7045368926631915
+      ],
+      "within_site_permutation_p": 0.0,
+      "binomial_p_vs_chance": 7.89749364548407e-12,
+      "conclusion": "With full statistical power across 20 sites (N=854), both subject and cluster bootstrap CIs strictly exclude chance (0.50), demonstrating modest but statistically genuine cross-site generalization."
+    }
+  },
+  "deduplication_audit_summary": {
+    "cohorts": {
+      "adult": {
+        "cohort": "adult",
+        "n_raw": 704,
+        "n_removed": 37,
+        "n_clean": 667,
+        "exact_duplicates_purged": 37,
+        "pct_purged": 5.26,
+        "clean_item_near_duplicate_pairs": 24421,
+        "clean_identical_item_patterns_retained": 1184,
+        "cross_label_conflicts_raw": 0,
+        "cross_label_conflicts_clean": 0,
+        "auroc_items_raw": 1.0,
+        "auroc_items_clean": 1.0,
+        "auroc_demos_raw": 0.6085,
+        "auroc_demos_clean": 0.5578
+      },
+      "adolescent": {
+        "cohort": "adolescent",
+        "n_raw": 104,
+        "n_removed": 7,
+        "n_clean": 97,
+        "exact_duplicates_purged": 7,
+        "pct_purged": 6.73,
+        "clean_item_near_duplicate_pairs": 711,
+        "clean_identical_item_patterns_retained": 36,
+        "cross_label_conflicts_raw": 0,
+        "cross_label_conflicts_clean": 0,
+        "auroc_items_raw": 0.9977,
+        "auroc_items_clean": 0.9956,
+        "auroc_demos_raw": 0.5277,
+        "auroc_demos_clean": 0.5634
+      },
+      "child": {
+        "cohort": "child",
+        "n_raw": 292,
+        "n_removed": 30,
+        "n_clean": 262,
+        "exact_duplicates_purged": 30,
+        "pct_purged": 10.27,
+        "clean_item_near_duplicate_pairs": 3767,
+        "clean_identical_item_patterns_retained": 161,
+        "cross_label_conflicts_raw": 0,
+        "cross_label_conflicts_clean": 0,
+        "auroc_items_raw": 1.0,
+        "auroc_items_clean": 0.9998,
+        "auroc_demos_raw": 0.5143,
+        "auroc_demos_clean": 0.4507
+      },
+      "toddler": {
+        "cohort": "toddler",
+        "n_raw": 1054,
+        "n_removed": 204,
+        "n_clean": 850,
+        "exact_duplicates_purged": 204,
+        "pct_purged": 19.35,
+        "clean_item_near_duplicate_pairs": 36776,
+        "clean_identical_item_patterns_retained": 2144,
+        "cross_label_conflicts_raw": 0,
+        "cross_label_conflicts_clean": 0,
+        "auroc_items_raw": 1.0,
+        "auroc_items_clean": 1.0,
+        "auroc_demos_raw": 0.5583,
+        "auroc_demos_clean": 0.5464
+      }
+    }
+  },
+  "threshold_mismatch_audit": {
+    "summary": "Allison et al. (2012) published clinical screening cutoff is >= 6. The UCI datasets use >= 7 for binary classification (tau=4 for toddlers).",
+    "cohorts": {
+      "adult": {
+        "cohort": "adult",
+        "n_eval": 667,
+        "recovered_cutoff": 7,
+        "recovered_accuracy": 1.0,
+        "published_cutoff_allison2012": 6,
+        "accuracy_at_published_cutoff": 0.8966,
+        "cutoff_mismatch_flag": true,
+        "note": "Published AQ-10 cutoff is score >= 6. Empirical dataset labels match score >= 7 with 100.00% concordance.",
+        "threshold_sweep": {
+          "tau_4": {
+            "threshold": 4,
+            "accuracy": 0.5847,
+            "sensitivity": 1.0,
+            "specificity": 0.437,
+            "discordant_cases": 277
+          },
+          "tau_5": {
+            "threshold": 5,
+            "accuracy": 0.7736,
+            "sensitivity": 1.0,
+            "specificity": 0.6931,
+            "discordant_cases": 151
+          },
+          "tau_6": {
+            "threshold": 6,
+            "accuracy": 0.8966,
+            "sensitivity": 1.0,
+            "specificity": 0.8598,
+            "discordant_cases": 69
+          },
+          "tau_7": {
+            "threshold": 7,
+            "accuracy": 1.0,
+            "sensitivity": 1.0,
+            "specificity": 1.0,
+            "discordant_cases": 0
+          },
+          "tau_8": {
+            "threshold": 8,
+            "accuracy": 0.9145,
+            "sensitivity": 0.6743,
+            "specificity": 1.0,
+            "discordant_cases": 57
+          },
+          "tau_9": {
+            "threshold": 9,
+            "accuracy": 0.8351,
+            "sensitivity": 0.3714,
+            "specificity": 1.0,
+            "discordant_cases": 110
+          }
+        }
+      },
+      "adolescent": {
+        "cohort": "adolescent",
+        "n_eval": 97,
+        "recovered_cutoff": 7,
+        "recovered_accuracy": 1.0,
+        "published_cutoff_allison2012": 6,
+        "accuracy_at_published_cutoff": 0.8351,
+        "cutoff_mismatch_flag": true,
+        "note": "Published AQ-10 cutoff is score >= 6. Empirical dataset labels match score >= 7 with 100.00% concordance.",
+        "threshold_sweep": {
+          "tau_4": {
+            "threshold": 4,
+            "accuracy": 0.6804,
+            "sensitivity": 1.0,
+            "specificity": 0.2439,
+            "discordant_cases": 31
+          },
+          "tau_5": {
+            "threshold": 5,
+            "accuracy": 0.7835,
+            "sensitivity": 1.0,
+            "specificity": 0.4878,
+            "discordant_cases": 21
+          },
+          "tau_6": {
+            "threshold": 6,
+            "accuracy": 0.8351,
+            "sensitivity": 1.0,
+            "specificity": 0.6098,
+            "discordant_cases": 16
+          },
+          "tau_7": {
+            "threshold": 7,
+            "accuracy": 1.0,
+            "sensitivity": 1.0,
+            "specificity": 1.0,
+            "discordant_cases": 0
+          },
+          "tau_8": {
+            "threshold": 8,
+            "accuracy": 0.8247,
+            "sensitivity": 0.6964,
+            "specificity": 1.0,
+            "discordant_cases": 17
+          },
+          "tau_9": {
+            "threshold": 9,
+            "accuracy": 0.6392,
+            "sensitivity": 0.375,
+            "specificity": 1.0,
+            "discordant_cases": 35
+          }
+        }
+      },
+      "child": {
+        "cohort": "child",
+        "n_eval": 262,
+        "recovered_cutoff": 7,
+        "recovered_accuracy": 1.0,
+        "published_cutoff_allison2012": 6,
+        "accuracy_at_published_cutoff": 0.855,
+        "cutoff_mismatch_flag": true,
+        "note": "Published AQ-10 cutoff is score >= 6. Empirical dataset labels match score >= 7 with 100.00% concordance.",
+        "threshold_sweep": {
+          "tau_4": {
+            "threshold": 4,
+            "accuracy": 0.5878,
+            "sensitivity": 1.0,
+            "specificity": 0.2448,
+            "discordant_cases": 108
+          },
+          "tau_5": {
+            "threshold": 5,
+            "accuracy": 0.7061,
+            "sensitivity": 1.0,
+            "specificity": 0.4615,
+            "discordant_cases": 77
+          },
+          "tau_6": {
+            "threshold": 6,
+            "accuracy": 0.855,
+            "sensitivity": 1.0,
+            "specificity": 0.7343,
+            "discordant_cases": 38
+          },
+          "tau_7": {
+            "threshold": 7,
+            "accuracy": 1.0,
+            "sensitivity": 1.0,
+            "specificity": 1.0,
+            "discordant_cases": 0
+          },
+          "tau_8": {
+            "threshold": 8,
+            "accuracy": 0.8473,
+            "sensitivity": 0.6639,
+            "specificity": 1.0,
+            "discordant_cases": 40
+          },
+          "tau_9": {
+            "threshold": 9,
+            "accuracy": 0.6832,
+            "sensitivity": 0.3025,
+            "specificity": 1.0,
+            "discordant_cases": 83
+          }
+        }
+      },
+      "toddler": {
+        "cohort": "toddler",
+        "n_eval": 850,
+        "recovered_cutoff": 4,
+        "recovered_accuracy": 1.0,
+        "published_cutoff_allison2012": 4,
+        "accuracy_at_published_cutoff": 1.0,
+        "cutoff_mismatch_flag": false,
+        "note": "Published AQ-10 cutoff is score >= 4. Empirical dataset labels match score >= 4 with 100.00% concordance.",
+        "threshold_sweep": {
+          "tau_4": {
+            "threshold": 4,
+            "accuracy": 1.0,
+            "sensitivity": 1.0,
+            "specificity": 1.0,
+            "discordant_cases": 0
+          },
+          "tau_5": {
+            "threshold": 5,
+            "accuracy": 0.8776,
+            "sensitivity": 0.8317,
+            "specificity": 1.0,
+            "discordant_cases": 104
+          },
+          "tau_6": {
+            "threshold": 6,
+            "accuracy": 0.7435,
+            "sensitivity": 0.6472,
+            "specificity": 1.0,
+            "discordant_cases": 218
+          },
+          "tau_7": {
+            "threshold": 7,
+            "accuracy": 0.6424,
+            "sensitivity": 0.5081,
+            "specificity": 1.0,
+            "discordant_cases": 304
+          },
+          "tau_8": {
+            "threshold": 8,
+            "accuracy": 0.4988,
+            "sensitivity": 0.3107,
+            "specificity": 1.0,
+            "discordant_cases": 426
+          },
+          "tau_9": {
+            "threshold": 9,
+            "accuracy": 0.3988,
+            "sensitivity": 0.1731,
+            "specificity": 1.0,
+            "discordant_cases": 511
+          }
+        }
+      }
+    }
+  },
+  "benchmark_leaderboard_highlights": {
+    "best_abide_loso_model": "Random Forest (AUROC: 0.7003 [0.6648, 0.7346])",
+    "heinsfeld_autoencoder_loso": "AUROC: 0.6820 [0.6453, 0.7181], Acc: 0.6265",
+    "tangent_space_logistic_loso": "AUROC: 0.6092 [0.5698, 0.6475], Acc: 0.5972",
+    "best_tabular_leak_free_adult": "Logistic Regression (L2) (AUROC: 0.5801 [0.5581, 0.6025])"
+  },
+  "external_validation": {
+    "abide_ii_status": "SKIPPED",
+    "abide_ii_reason": "ABIDE II does not provide standardized CPAC/CC200 preprocessed time-series on public S3 comparable to the ABIDE I Preprocessed Connectome Project (PCP). The preprocessed derivatives require manual raw data preprocessing through CPAC/fMRIPrep or authenticated NITRC downloads which cannot be completed non-interactively without credentials."
+  },
+  "limitations": [
+    "ABIDE I sample size is N=854 across 20 sites; certain smaller sites (CMU N=8, CALTECH N=12) have limited per-site sample size.",
+    "ABIDE II external validation could not be executed non-interactively due to lack of preprocessed CPAC derivatives on public S3.",
+    "Cross-sectional behavioral screening data cannot establish longitudinal clinical trajectory.",
+    "Scanner domain shift induces noticeable coverage variability across imaging sites under conformal prediction."
+  ]
+}

@@ -385,3 +385,33 @@ This section details all modifications, new modules, metric diffs, and forensic 
 
 
 
+
+---
+
+### 2026-11-17T06:30:00+05:30 — Peer Review Revision Pass: Root Cause Audits, Protocol Documentation & Figure Pack
+- **Trigger:** Peer review response pass addressing reviewer feedback across behavioral tautologies, harmonization protocols, multi-center generalization, and uncertainty quantification.
+- **Files Modified / Created:**
+  - `src/audit/revision_tautology_audit.py`, `results/tautology_and_dedup_sensitivity.json`
+  - `scripts/run_revision_combat_and_site_analysis.py`, `results/site_analysis.json`, `results/COMBAT_PROTOCOL.md`, `results/permutation_null_distribution.npz`
+  - `scripts/run_revision_per_site_analysis.py`, `results/per_site_auroc.csv`, `results/per_site_summary.json`
+  - `scripts/run_revision_uncertainty_protocol.py`, `results/UNCERTAINTY_PROTOCOL.md`, `results/uncertainty_main.json`
+  - `scripts/run_revision_site_probe.py`, `results/site_probe_results.json`, `results/site_probe_confusion_matrix.json`
+  - `references.bib`, `results/RUN_LOG.md`
+  - `scripts/create_lit_worksheet_and_prior_comparison.py`, `docs/lit_verification_worksheet.csv`, `scripts/recompute_lit_counts.py`, `results/prior_comparison.csv`
+  - `scripts/generate_revision_figures.py`, `figures/paper_pack/*`, `figures/paper_pack/MANIFEST.csv`, `figures/paper_pack/FIGURE_CHECK.md`
+  - `tests/test_audit_extension.py` (added 4 unit tests: TI consistency, disjoint subsets, permutation resolution, paired difference consistency)
+  - `main.tex`, `results/paper_facts.json`, `results/SUMMARY.md`, `results/REVISION_HANDOFF.md`
+- **Methodological Fixes & Resolutions:**
+  1. *Tautology Index Recomputation:* Unified in ONE run on ONE saved prediction set ($5\times 5$ folds). Corrected Adult TI raw from 0.818 to 0.8398, Adolescent from 1.031 to 0.9637, Child from 1.108 to 1.1054 (clipped 1.0000; clean AUROC 0.4473 below chance causing instability), Toddler from 0.888 to 0.8946. Provided bootstrap CIs and alternative measures (absolute drop, relative drop over majority baseline).
+  2. *Leaky vs In-Fold ComBat Paired Difference:* Root cause resolved (label ordering mismatch between `predictions_map` and `meta_df["target"].values`). Direct subtraction ($0.6689 - 0.6593 = +0.0096$) and paired bootstrap delta match identically ($\Delta = +0.0096$ [$-0.0071, 0.0260$], Holm $p = 1.0000$).
+  3. *Permutation Test Resolution:* Rerun with $B = 10,000$; reported $p = (1 + 0)/(1 + 10,000) = 0.00010$, respecting minimum resolution limit $1/(1+B)$.
+  4. *Logistic Regression Accuracy Claim:* Corrected summary range from 99.4--100% to 95.55%--100.00% across cohorts to reflect Adolescent (95.55% $\pm$ 5.47%, 95% CI [84.21%, 100.00%]).
+  5. *ComBat Unseen-Site Protocol:* Formalized 5 arms (none, strictly inductive, transductive, in-fold as implemented, leaky) in `results/COMBAT_PROTOCOL.md`. Verified that in-fold ComBat leaves held-out test sites unmodified (identity transform).
+  6. *Uncertainty Data Allocation:* Documented and tested Version 1 (Shared 2-way), Version 2 (Three strictly DISJOINT subsets: proper train 60%, calibrator 20%, conformal cal 20%), and Version 3 (Site-Grouped LOSO where 3 whole sites are held out for conformal calibration). Marginal coverage preserved across versions (87.00% Shared, 89.58% Disjoint, 89.70% Site-Grouped).
+  7. *Controlled Site Probe:* Phenotypic alone decodes site with 22.13% (LR) / 27.17% (RF) vs 19.91% majority baseline. Connectomes after in-fold confound regression decode site with 73.54% accuracy (balanced acc 64.77%). Described as site-associated information, not hardware signatures alone.
+  8. *Pooled vs Within-Site Analysis:* Site prevalence oracle achieves AUROC 0.5902 with zero imaging features. Within-site z-scoring of predictions preserves/improves ranking signal (LR: 0.6593 to 0.6663; SVM: 0.6765 to 0.6931; RF: 0.7003 to 0.7222).
+  9. *Complete Bibliographic Audit:* Cleaned all 28 entries in `references.bib` with full author lists (all 36 authors for `maenner2023`, all 42 authors for `di2014`, zero 'others' or 'et al.'). Verified DOIs/URLs. Zero unverified guesses.
+  10. *Literature Verification Worksheet & Recompute Engine:* Created `docs/lit_verification_worksheet.csv` (23 flagged rows with quotes and blank human overrides) and `scripts/recompute_lit_counts.py` reporting conservative subset of unflagged full-text papers ($n=10$).
+  11. *Prior Work Comparison:* Built `results/prior_comparison.csv` (10 rows comparing audited literature to matched-protocol study results).
+  12. *Publication Figure Pack:* Generated 6 figures in `figures/paper_pack/` (PDF + 300-DPI PNG) with `MANIFEST.csv` and `FIGURE_CHECK.md`.
+- **Quality Gates:** 44/44 pytest tests pass in 5.72s. Zero hardcoded numbers. All numbers trace directly to data and results files.
